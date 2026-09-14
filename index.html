@@ -2,109 +2,88 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proyecto Rafa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PROYECTO RAFA</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#000;font-family:Arial,sans-serif;overflow:hidden}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+ width:100%;
+ height:100%;
+ background:#000;
+ overflow:hidden;
+ font-family:Arial,sans-serif;
+}
 
 .portada{
-  width:100vw;
-  height:100vh;
-  background:url("Screenshot_20260908-212015.png") no-repeat center top;
-  background-size:100% auto;
-  background-color:#000;
-  position:relative;
+ position:relative;
+ width:100vw;
+ height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ background:#000;
 }
 
-.salas{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  width:95%;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+/* FOTO COMPLETA: NO SE RECORTA */
+.portada img{
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ object-position:center center;
 }
 
-.sala{
-  height:90px;
-  border-radius:12px;
-  overflow:hidden;
-  border:2px solid rgba(255,255,255,.8);
-  text-decoration:none;
-  position:relative;
+/* BOTONES TRANSPARENTES SOBRE LAS 6 MINI FOTOS */
+.boton{
+ position:absolute;
+ display:block;
+ background:transparent;
 }
 
-.sala img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+/* FILA SUPERIOR */
+.relax{left:4%;top:68%;width:28%;height:12%;}
+.infinita{left:36%;top:68%;width:28%;height:12%;}
+.espacial{left:68%;top:68%;width:28%;height:12%;}
 
-.sala span{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  background:rgba(0,0,0,.65);
-  color:#fff;
-  text-align:center;
-  font-size:12px;
-  padding:4px;
-  font-weight:bold;
-}
+/* FILA INFERIOR */
+.acuario{left:4%;top:82%;width:28%;height:12%;}
+.biblioteca{left:36%;top:82%;width:28%;height:12%;}
+.laboratorio{left:68%;top:82%;width:28%;height:12%;}
 </style>
 </head>
 <body>
 
-<audio id="musicaPortada" autoplay loop playsinline>
-  <source src="port.mp3" type="audio/mpeg">
+<!-- MÚSICA DE PORTADA -->
+<audio id="musica" autoplay loop playsinline preload="auto">
+ <source src="Port..mp3" type="audio/mpeg">
 </audio>
 
 <div class="portada">
 
-  <div class="salas">
+ <!-- TU FOTO DE PORTADA -->
+ <img src="Screenshot_20260908-212015.png" alt="Proyecto Rafa">
 
-    <a class="sala" href="Relax.html">
-      <img src="Relax.png">
-      <span>RELAX</span>
-    </a>
+ <!-- ACCESOS A LAS SALAS -->
+ <a class="boton relax" href="Relax.html"></a>
+ <a class="boton infinita" href="Infinita.html"></a>
+ <a class="boton espacial" href="Espacial.html"></a>
+ <a class="boton acuario" href="Acuario.html"></a>
+ <a class="boton biblioteca" href="Biblioteca.html"></a>
+ <a class="boton laboratorio" href="Laboratorio.html"></a>
 
-    <a class="sala" href="Infinita.html">
-      <img src="Infinita.png">
-      <span>INFINITA</span>
-    </a>
-
-    <a class="sala" href="Espacial.html">
-      <img src="Espacial.png">
-      <span>ESPACIAL</span>
-    </a>
-
-    <a class="sala" href="Acuario.html">
-      <img src="Acuario.png">
-      <span>ACUARIO</span>
-    </a>
-
-    <a class="sala" href="Biblioteca.html">
-      <img src="Biblioteca.png">
-      <span>BIBLIOTECA</span>
-    </a>
-
-    <a class="sala" href="Laboratorio.html">
-      <img src="Laboratorio.png">
-      <span>LABORATORIO</span>
-    </a>
-
-  </div>
 </div>
 
 <script>
-const musica=document.getElementById("musicaPortada");
-function sonar(){musica.play().catch(()=>{});}
-window.onload=sonar;
-document.body.addEventListener("touchstart",sonar,{once:true});
-document.body.addEventListener("click",sonar,{once:true});
+const musica = document.getElementById('musica');
+musica.volume = 1;
+
+function iniciarMusica(){
+ musica.play().catch(()=>{});
+}
+
+window.onload = iniciarMusica;
+document.addEventListener('touchstart', iniciarMusica, {once:true});
+document.addEventListener('click', iniciarMusica, {once:true});
 </script>
 
 </body>
