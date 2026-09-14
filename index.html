@@ -3,88 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>PROYECTO RAFA</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 html,body{
- width:100%;
- height:100%;
- background:#000;
- overflow:hidden;
- font-family:Arial,sans-serif;
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
 }
 
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* PORTADA */
 .portada{
- position:relative;
- width:100vw;
- height:100vh;
- display:flex;
- justify-content:center;
- align-items:center;
- background:#000;
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* FOTO COMPLETA: NO SE RECORTA */
+/* FOTO COMPLETA SIN RECORTAR */
 .portada img{
- width:100%;
- height:100%;
- object-fit:contain;
- object-position:center center;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center center;
+    display:block;
 }
 
-/* BOTONES TRANSPARENTES SOBRE LAS 6 MINI FOTOS */
+/* ZONAS INVISIBLES PARA LAS 6 SALAS */
 .boton{
- position:absolute;
- display:block;
- background:transparent;
+    position:absolute;
+    display:block;
+    background:transparent;
+    border:0;
+    text-decoration:none;
+    z-index:10;
 }
 
 /* FILA SUPERIOR */
-.relax{left:4%;top:68%;width:28%;height:12%;}
-.infinita{left:36%;top:68%;width:28%;height:12%;}
-.espacial{left:68%;top:68%;width:28%;height:12%;}
-
-/* FILA INFERIOR */
-.acuario{left:4%;top:82%;width:28%;height:12%;}
-.biblioteca{left:36%;top:82%;width:28%;height:12%;}
-.laboratorio{left:68%;top:82%;width:28%;height:12%;}
-</style>
-</head>
-<body>
-
-<!-- MÚSICA DE PORTADA -->
-<audio id="musica" autoplay loop playsinline preload="auto">
- <source src="Port..mp3" type="audio/mpeg">
-</audio>
-
-<div class="portada">
-
- <!-- TU FOTO DE PORTADA -->
- <img src="Screenshot_20260908-212015.png" alt="Proyecto Rafa">
-
- <!-- ACCESOS A LAS SALAS -->
- <a class="boton relax" href="Relax.html"></a>
- <a class="boton infinita" href="Infinita.html"></a>
- <a class="boton espacial" href="Espacial.html"></a>
- <a class="boton acuario" href="Acuario.html"></a>
- <a class="boton biblioteca" href="Biblioteca.html"></a>
- <a class="boton laboratorio" href="Laboratorio.html"></a>
-
-</div>
-
-<script>
-const musica = document.getElementById('musica');
-musica.volume = 1;
-
-function iniciarMusica(){
- musica.play().catch(()=>{});
+.relax{
+    left:4%;
+    top:68%;
+    width:28%;
+    height:12%;
 }
 
-window.onload = iniciarMusica;
-document.addEventListener('touchstart', iniciarMusica, {once:true});
-document.addEventListener('click', iniciarMusica, {once:true});
+.infinita{
+    left:36%;
+    top:68%;
+    width:28%;
+    height:12%;
+}
+
+.espacial{
+    left:68%;
+    top:68%;
+    width:28%;
+    height:12%;
+}
+
+/* FILA INFERIOR */
+.acuario{
+    left:4%;
+    top:82%;
+    width:28%;
+    height:12%;
+}
+
+.biblioteca{
+    left:36%;
+    top:82%;
+    width:28%;
+    height:12%;
+}
+
+.laboratorio{
+    left:68%;
+    top:82%;
+    width:28%;
+    height:12%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MÚSICA -->
+<script>
+const musica = new Audio("./Port..mp3");
+
+musica.loop = true;
+musica.volume = 1.0;
+musica.preload = "auto";
+
+/* Intento automático */
+window.addEventListener("load", function(){
+    musica.play().catch(function(){
+        console.log("El navegador ha bloqueado el inicio automático.");
+    });
+});
+
+/* Al tocar la pantalla */
+function iniciarMusica(){
+    musica.play().catch(function(error){
+        console.log("No se pudo reproducir Port..mp3:", error);
+    });
+}
+
+document.addEventListener("touchstart", iniciarMusica, {
+    once:true,
+    passive:true
+});
+
+document.addEventListener("click", iniciarMusica, {
+    once:true
+});
 </script>
+
+
+<!-- PORTADA -->
+<div class="portada">
+
+    <img
+        src="Screenshot_20260908-212015.png"
+        alt="Proyecto Rafa"
+    >
+
+    <!-- SALAS -->
+    <a class="boton relax" href="Relax.html"></a>
+
+    <a class="boton infinita" href="Infinita.html"></a>
+
+    <a class="boton espacial" href="Espacial.html"></a>
+
+    <a class="boton acuario" href="Acuario.html"></a>
+
+    <a class="boton biblioteca" href="Biblioteca.html"></a>
+
+    <a class="boton laboratorio" href="Laboratorio.html"></a>
+
+</div>
 
 </body>
 </html>
