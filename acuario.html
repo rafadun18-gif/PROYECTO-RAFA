@@ -6,20 +6,14 @@
 <title>Sala Acuario · Proyecto Rafa</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 html,body{
   width:100%;
   height:100%;
-  background:black;
+  background:#000;
   overflow:hidden;
 }
-
-/* FOTO A PANTALLA COMPLETA */
 
 .fondo{
   width:100vw;
@@ -28,45 +22,39 @@ html,body{
   display:block;
 }
 
-/* BOTÓN INVISIBLE PARA ACTIVAR EL AUDIO EN IPHONE */
-
 #activar{
   position:fixed;
   inset:0;
   background:transparent;
   border:none;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FOTO DEL ACUARIO -->
-<img src="Acuario-1333.png" class="fondo" alt="Sala Acuario">
+<!-- FOTO DEL L333 -->
+<img src="../Acuario-1333.png" class="fondo" alt="Sala Acuario">
 
 <!-- MÚSICA -->
 <audio id="musica" autoplay loop playsinline>
-  <source src="acuario.mp3" type="audio/mpeg">
+  <source src="../acuario.mp3" type="audio/mpeg">
 </audio>
 
-<!-- TOCAR PANTALLA SI SAFARI BLOQUEA EL AUDIO -->
 <button id="activar"></button>
 
 <script>
 const musica = document.getElementById("musica");
 const activar = document.getElementById("activar");
 
-musica.volume = 0.55;
+musica.volume = 0.6;
 
-// Intento automático
 musica.play().then(()=>{
   activar.style.display="none";
 }).catch(()=>{
   activar.style.display="block";
 });
 
-// En iPhone basta tocar una vez la pantalla
 activar.addEventListener("click",()=>{
   musica.play();
   activar.style.display="none";
