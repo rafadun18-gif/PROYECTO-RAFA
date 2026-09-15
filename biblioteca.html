@@ -23,7 +23,8 @@ html,body{
 }
 
 .biblioteca{
-    width:100vw;
+    position:relative;
+    width:100%;
     height:100dvh;
     min-height:100vh;
 
@@ -36,7 +37,7 @@ html,body{
     background:#000;
 }
 
-/* PORTADA */
+/* BOTÓN PORTADA */
 
 #volver{
     position:fixed;
@@ -68,14 +69,13 @@ html,body{
     object-fit:contain;
 
     border-radius:18px;
-
     border:2px solid #00aaff;
 
     box-shadow:
         0 0 15px #00aaff,
         0 0 30px #0066ff;
 
-    margin-bottom:4px;
+    margin-bottom:3px;
 
     flex-shrink:0;
 }
@@ -93,8 +93,7 @@ html,body{
 .estado{
     color:#39ff14;
     font-size:11px;
-
-    margin:2px 0 3px;
+    margin:2px 0;
 
     flex-shrink:0;
 }
@@ -102,8 +101,8 @@ html,body{
 #estadoIA{
     color:#aaa;
     font-size:10px;
-
-    margin-bottom:5px;
+    height:15px;
+    margin-bottom:4px;
 
     text-align:center;
 
@@ -116,9 +115,8 @@ html,body{
     width:94%;
     max-width:720px;
 
-    height:auto;
-    flex:1;
-    min-height:80px;
+    height:calc(100dvh - 300px);
+    min-height:100px;
 
     overflow-y:auto;
 
@@ -127,10 +125,11 @@ html,body{
     background:rgba(0,0,0,.78);
 
     border:2px solid #00aaff;
-
     border-radius:14px;
 
     box-shadow:0 0 12px rgba(0,170,255,.35);
+
+    flex-shrink:1;
 }
 
 .mensaje{
@@ -140,7 +139,6 @@ html,body{
     border-radius:10px;
 
     line-height:1.3;
-
     font-size:13px;
 }
 
@@ -154,16 +152,15 @@ html,body{
     border-left:3px solid #39ff14;
 }
 
-/* ESCRIBIR */
+/* ZONA PARA ESCRIBIR */
 
 .escribir{
     width:94%;
     max-width:720px;
 
-    height:45px;
+    height:43px;
 
     display:flex;
-
     gap:6px;
 
     margin-top:6px;
@@ -175,38 +172,32 @@ html,body{
     flex:1;
     min-width:0;
 
-    height:45px;
+    height:43px;
 
-    padding:10px;
+    padding:9px;
 
     border-radius:11px;
-
     border:2px solid #00aaff;
 
     background:#050505;
-
     color:white;
 
     font-size:14px;
-
     outline:none;
 }
 
 #enviar{
-    height:45px;
+    height:43px;
 
     padding:0 13px;
 
     border:none;
-
     border-radius:11px;
 
     background:#39ff14;
-
     color:#000;
 
     font-size:13px;
-
     font-weight:bold;
 
     flex-shrink:0;
@@ -216,7 +207,7 @@ html,body{
     opacity:.5;
 }
 
-/* HABLAR */
+/* BOTÓN HABLAR */
 
 #hablar{
     width:94%;
@@ -226,42 +217,22 @@ html,body{
 
     margin-top:5px;
 
-    padding:5px;
-
     border:none;
-
     border-radius:10px;
 
     background:#087cff;
-
     color:white;
 
     font-size:12px;
-
     font-weight:bold;
 
     flex-shrink:0;
 }
 
-/* AVISO */
+/* MÚSICA */
 
-#aviso{
-    position:fixed;
-
-    bottom:2px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:90%;
-
-    text-align:center;
-
-    color:#666;
-
-    font-size:8px;
-
-    pointer-events:none;
+#musica{
+    display:none;
 }
 </style>
 </head>
@@ -287,10 +258,11 @@ html,body{
         <div class="mensaje gepeto">
             <b>GePeTo:</b><br>
             Hola Rafa. Bienvenido a mi Biblioteca.
-            Estoy preparando mi inteligencia.
         </div>
 
     </div>
+
+    <!-- ESCRIBIR Y ENVIAR -->
 
     <div class="escribir">
 
@@ -307,19 +279,21 @@ html,body{
 
     </div>
 
+    <!-- VOZ, PARA MÁS ADELANTE -->
+
     <button id="hablar">
         🎤 Hablar con GePeTo — próximamente
     </button>
 
 </div>
 
-<div id="aviso">
-    La IA funciona localmente en este dispositivo.
-</div>
+
+<!-- MÚSICA -->
 
 <audio id="musica" loop preload="auto">
     <source src="biblioteca.mp3" type="audio/mpeg">
 </audio>
+
 
 <script type="module">
 
@@ -328,8 +302,9 @@ import {
 } from "https://esm.run/@mlc-ai/web-llm";
 
 
-
-/* MÚSICA */
+/* =========================
+   MÚSICA
+========================= */
 
 const musica=document.getElementById("musica");
 
@@ -351,20 +326,19 @@ document.addEventListener("click",iniciarMusica,{
 });
 
 
-
-/* ELEMENTOS */
+/* =========================
+   ELEMENTOS
+========================= */
 
 const chat=document.getElementById("chat");
-
 const texto=document.getElementById("texto");
-
 const enviar=document.getElementById("enviar");
-
 const estadoIA=document.getElementById("estadoIA");
 
 
-
-/* MODELO */
+/* =========================
+   IA
+========================= */
 
 const MODEL=
 "Llama-3.2-1B-Instruct-q4f16_1-MLC";
@@ -372,8 +346,9 @@ const MODEL=
 let engine=null;
 
 
-
-/* PERSONALIDAD */
+/* =========================
+   PERSONALIDAD GEPETO
+========================= */
 
 const sistema={
 
@@ -396,15 +371,13 @@ directo, amable y analítico.
 
 Explicas las cosas de forma sencilla.
 
-Puedes discrepar de Rafa cuando tengas
-razones para hacerlo.
+Puedes discrepar de Rafa cuando tengas razones.
 
 No inventes información.
 
 Si no sabes algo, dilo claramente.
 
-Estás dentro de la Biblioteca del
-Proyecto Rafa.
+Estás dentro de la Biblioteca del Proyecto Rafa.
 
 No digas que eres ChatGPT.
 
@@ -414,80 +387,55 @@ Preséntate como GePeTo.
 
 };
 
-
-
 let mensajes=[sistema];
 
 
-
-/* PREPARAR IA */
+/* =========================
+   PREPARAR IA
+========================= */
 
 async function prepararIA(){
 
     try{
 
         estadoIA.textContent=
-        "Descargando inteligencia de GePeTo...";
+        "Preparando inteligencia...";
 
         engine=await CreateMLCEngine(
-
             MODEL,
-
             {
+                initProgressCallback:(p)=>{
 
-                initProgressCallback:(progreso)=>{
+                    if(p && p.text){
 
-                    if(progreso && progreso.text){
-
-                        estadoIA.textContent=
-                        progreso.text;
+                        estadoIA.textContent=p.text;
 
                     }
 
                 }
-
             }
-
         );
-
 
         estadoIA.textContent=
         "● GePeTo IA preparada";
 
         enviar.disabled=false;
 
-
-        const bienvenida=
-        document.createElement("div");
-
-        bienvenida.className=
-        "mensaje gepeto";
-
-        bienvenida.innerHTML=
-        "<b>GePeTo:</b><br>"+
-        "Ya estoy preparado, Rafa. "+
-        "Puedes escribirme.";
-
-        chat.appendChild(bienvenida);
-
-        chat.scrollTop=
-        chat.scrollHeight;
-
-
     }catch(error){
 
         console.error(error);
 
         estadoIA.textContent=
-        "La IA no ha podido iniciarse en este dispositivo.";
+        "IA no disponible en este dispositivo.";
 
     }
 
 }
 
 
-
-/* RESPONDER */
+/* =========================
+   RESPONDER
+========================= */
 
 async function responder(){
 
@@ -495,11 +443,8 @@ async function responder(){
     texto.value.trim();
 
     if(!pregunta || !engine){
-
         return;
-
     }
-
 
     enviar.disabled=true;
 
@@ -509,8 +454,7 @@ async function responder(){
     const rafa=
     document.createElement("div");
 
-    rafa.className=
-    "mensaje rafa";
+    rafa.className="mensaje rafa";
 
     rafa.innerHTML=
     "<b>Rafa:</b><br>"+
@@ -520,28 +464,22 @@ async function responder(){
 
 
     mensajes.push({
-
         role:"user",
-
         content:pregunta
-
     });
 
 
     const respuesta=
     document.createElement("div");
 
-    respuesta.className=
-    "mensaje gepeto";
+    respuesta.className="mensaje gepeto";
 
     respuesta.innerHTML=
-    "<b>GePeTo:</b><br>"+
-    "Estoy pensando...";
+    "<b>GePeTo:</b><br>Estoy pensando...";
 
     chat.appendChild(respuesta);
 
-    chat.scrollTop=
-    chat.scrollHeight;
+    chat.scrollTop=chat.scrollHeight;
 
 
     try{
@@ -559,8 +497,7 @@ async function responder(){
 
 
         const contenido=
-        resultado.choices[0]
-        .message.content;
+        resultado.choices[0].message.content;
 
 
         respuesta.innerHTML=
@@ -572,7 +509,6 @@ async function responder(){
         mensajes.push({
 
             role:"assistant",
-
             content:contenido
 
         });
@@ -589,8 +525,7 @@ async function responder(){
     }
 
 
-    chat.scrollTop=
-    chat.scrollHeight;
+    chat.scrollTop=chat.scrollHeight;
 
     enviar.disabled=false;
 
@@ -599,28 +534,21 @@ async function responder(){
 }
 
 
-
 /* SEGURIDAD */
 
 function escapar(t){
 
     return t
-
     .replace(/&/g,"&amp;")
-
     .replace(/</g,"&lt;")
-
     .replace(/>/g,"&gt;")
-
     .replace(/"/g,"&quot;")
-
     .replace(/'/g,"&#039;");
 
 }
 
 
-
-/* BOTONES */
+/* BOTÓN ENVIAR */
 
 enviar.addEventListener(
     "click",
@@ -628,22 +556,33 @@ enviar.addEventListener(
 );
 
 
+/* ENTER */
+
 texto.addEventListener(
     "keydown",
     (e)=>{
 
         if(e.key==="Enter"){
-
             responder();
-
         }
 
     }
 );
 
 
+/* BOTÓN VOZ */
 
-/* INICIAR */
+document.getElementById("hablar").addEventListener(
+    "click",
+    ()=>{
+        alert(
+            "La conversación por voz con GePeTo la añadiremos después."
+        );
+    }
+);
+
+
+/* ARRANCAR IA */
 
 prepararIA();
 
