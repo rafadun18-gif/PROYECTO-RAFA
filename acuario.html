@@ -18,16 +18,12 @@ html,body{
     height:100%;
     background:#000;
     overflow:hidden;
-    font-family:Arial,sans-serif;
 }
 
 .acuario{
     position:relative;
     width:100vw;
     height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
 }
 
 .acuario img{
@@ -37,30 +33,28 @@ html,body{
     display:block;
 }
 
-/* BOTÓN PORTADA */
-.portada{
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:20;
+/* BOTÓN VOLVER */
+#volver{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:9999;
 
-    padding:12px 22px;
-    border:2px solid #39ff14;
-    border-radius:15px;
+    display:block;
+    padding:14px 20px;
 
-    background:rgba(0,0,0,0.75);
+    background:#000;
     color:#39ff14;
 
+    border:2px solid #39ff14;
+    border-radius:12px;
+
     text-decoration:none;
-    font-size:14px;
+    font-family:Arial,sans-serif;
+    font-size:15px;
     font-weight:bold;
 
-    box-shadow:0 0 12px #39ff14;
-}
-
-.portada:active{
-    transform:translateX(-50%) scale(0.95);
+    box-shadow:0 0 15px #39ff14;
 }
 </style>
 </head>
@@ -71,13 +65,14 @@ html,body{
 
     <img src="Acuario-1333.png" alt="Sala Acuario">
 
-    <a class="portada" href="index.html">
-        ← VOLVER A PORTADA
-    </a>
-
 </div>
 
-<audio id="musica" autoplay loop playsinline preload="auto">
+<!-- BOTÓN SIEMPRE POR ENCIMA DE LA FOTO -->
+<a id="volver" href="index.html">
+    ← PORTADA
+</a>
+
+<audio id="musica" loop preload="auto">
     <source src="acuario.mp3" type="audio/mpeg">
 </audio>
 
@@ -85,23 +80,22 @@ html,body{
 
 const musica = document.getElementById("musica");
 
-/* INTENTO AUTOMÁTICO */
-window.addEventListener("load", function(){
-    musica.play().catch(function(){});
-});
-
-/* SI EL NAVEGADOR BLOQUEA EL AUTOMÁTICO,
-   EL PRIMER TOQUE ARRANCA LA MÚSICA */
-function arrancarMusica(){
+function ponerMusica(){
     musica.play().catch(function(){});
 }
 
-document.addEventListener("touchstart", arrancarMusica, {
+/* INTENTO AUTOMÁTICO */
+window.addEventListener("load", function(){
+    ponerMusica();
+});
+
+/* CUALQUIER TOQUE ARRANCA LA MÚSICA */
+document.addEventListener("touchstart", ponerMusica, {
     once:true,
     passive:true
 });
 
-document.addEventListener("click", arrancarMusica, {
+document.addEventListener("click", ponerMusica, {
     once:true
 });
 
