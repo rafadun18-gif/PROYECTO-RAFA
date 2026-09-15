@@ -37,9 +37,11 @@ body{
   flex-direction:column;
   align-items:center;
   background:
-    radial-gradient(circle at 50% 15%,rgba(0,255,120,.12),transparent 35%),
+    radial-gradient(circle at 50% 12%,rgba(0,255,120,.13),transparent 35%),
     linear-gradient(180deg,#101510,#030303);
 }
+
+/* PORTADA */
 
 .portada{
   position:fixed;
@@ -56,6 +58,71 @@ body{
   text-decoration:none;
 }
 
+/* ZONA SUPERIOR */
+
+.superior{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:18px;
+  width:100%;
+  flex-shrink:0;
+}
+
+/* CEREBRO */
+
+.cerebroZona{
+  width:105px;
+  text-align:center;
+}
+
+.cerebro{
+  width:82px;
+  height:82px;
+  margin:auto;
+  border-radius:50%;
+  border:2px solid #39ff88;
+  background:
+    radial-gradient(circle,
+      rgba(57,255,136,.28),
+      rgba(0,20,10,.9) 65%);
+  box-shadow:
+    0 0 12px rgba(57,255,136,.4),
+    inset 0 0 15px rgba(57,255,136,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:45px;
+  transition:.4s;
+}
+
+.cerebro.aprendiendo{
+  transform:scale(1.08);
+  box-shadow:
+    0 0 28px #39ff88,
+    0 0 55px rgba(57,255,136,.55),
+    inset 0 0 25px rgba(57,255,136,.5);
+}
+
+.memoriaTitulo{
+  margin-top:3px;
+  font-size:11px;
+  color:#aaa;
+}
+
+#contadorMemoria{
+  color:#39ff88;
+  font-weight:bold;
+  font-size:13px;
+}
+
+/* FOTO */
+
+.fotoZona{
+  width:105px;
+  text-align:center;
+}
+
 #foto{
   width:105px;
   height:105px;
@@ -63,7 +130,6 @@ body{
   border-radius:50%;
   border:2px solid #39ff88;
   box-shadow:0 0 20px rgba(57,255,136,.45);
-  flex-shrink:0;
 }
 
 .nombre{
@@ -85,6 +151,8 @@ body{
   min-height:18px;
   text-align:center;
 }
+
+/* CHAT */
 
 .chat{
   width:100%;
@@ -117,6 +185,8 @@ body{
   background:#10202c;
   border-left:3px solid #4da6ff;
 }
+
+/* ESCRITURA */
 
 .escribir{
   width:100%;
@@ -159,6 +229,8 @@ body{
   transform:scale(.97);
 }
 
+/* VOZ */
+
 #hablar{
   width:100%;
   max-width:620px;
@@ -183,29 +255,70 @@ audio{
 
 <a class="portada" href="index.html">← PORTADA</a>
 
-<img id="foto" src="GePeTo.png" alt="GePeTo">
+<!-- FOTO + CEREBRO -->
 
-<div class="nombre">GePeTo</div>
+<div class="superior">
 
-<div class="estado">● Conectado</div>
+  <div class="cerebroZona">
 
-<div id="estadoIA">🟡 Preparando la inteligencia de GePeTo…</div>
+    <div id="cerebro" class="cerebro">
+      🧠
+    </div>
 
-<div id="chat">
+    <div class="memoriaTitulo">
+      MEMORIA
+    </div>
+
+    <div>
+      <span id="contadorMemoria">0</span>
+      recuerdos
+    </div>
+
+  </div>
+
+  <div class="fotoZona">
+
+    <img
+      id="foto"
+      src="GePeTo.png"
+      alt="GePeTo"
+    >
+
+    <div class="nombre">
+      GePeTo
+    </div>
+
+    <div class="estado">
+      ● Conectado
+    </div>
+
+  </div>
+
 </div>
 
+<div id="estadoIA">
+  🟡 Preparando la inteligencia de GePeTo…
+</div>
+
+<div id="chat"></div>
+
 <div class="escribir">
+
   <input
     id="texto"
     type="text"
     placeholder="Escribe a GePeTo..."
     autocomplete="off"
   >
-  <button id="enviar">ENVIAR</button>
+
+  <button id="enviar">
+    ENVIAR
+  </button>
+
 </div>
 
 <button id="hablar">
-🎤 Hablar con GePeTo — próximamente
+  🎤 Hablar con GePeTo — próximamente
 </button>
 
 <audio id="musica" loop preload="auto">
@@ -216,22 +329,51 @@ audio{
 
 <script type="module">
 
-const chat = document.getElementById("chat");
-const texto = document.getElementById("texto");
-const enviar = document.getElementById("enviar");
-const estadoIA = document.getElementById("estadoIA");
-const musica = document.getElementById("musica");
+const chat =
+  document.getElementById("chat");
+
+const texto =
+  document.getElementById("texto");
+
+const enviar =
+  document.getElementById("enviar");
+
+const estadoIA =
+  document.getElementById("estadoIA");
+
+const musica =
+  document.getElementById("musica");
+
+const cerebro =
+  document.getElementById("cerebro");
+
+const contadorMemoria =
+  document.getElementById("contadorMemoria");
 
 let engine = null;
 let cargando = true;
 
 /* =====================================
-   MEMORIA PERMANENTE DE GEPETO
+   MEMORIA PERMANENTE
 ===================================== */
 
-let memoria = JSON.parse(
-  localStorage.getItem("memoriaGePeTo") || "[]"
-);
+let memoria =
+  JSON.parse(
+    localStorage.getItem("memoriaGePeTo") || "[]"
+  );
+
+/* Actualizar contador */
+
+function actualizarContador(){
+
+  contadorMemoria.textContent =
+    memoria.length;
+
+}
+
+actualizarContador();
+
+/* Guardar recuerdo */
 
 function guardarMemoria(dato){
 
@@ -241,26 +383,47 @@ function guardarMemoria(dato){
     "memoriaGePeTo",
     JSON.stringify(memoria)
   );
+
+  actualizarContador();
+
+  /* Efecto del cerebro */
+
+  cerebro.classList.add("aprendiendo");
+
+  setTimeout(()=>{
+    cerebro.classList.remove("aprendiendo");
+  },1200);
 }
+
+/* Recuperar recuerdos */
 
 function obtenerMemoria(){
 
   if(memoria.length === 0){
+
     return "Todavía no tengo recuerdos guardados.";
+
   }
 
   return memoria
-    .map((dato,i)=>(i+1)+". "+dato)
+    .map(
+      (dato,i)=>
+      (i+1)+". "+dato
+    )
     .join("\n");
 }
 
 /* =====================================
-   MOSTRAR MENSAJES
+   MENSAJES
 ===================================== */
 
-function añadirMensaje(textoMensaje,tipo){
+function añadirMensaje(
+  textoMensaje,
+  tipo
+){
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement("div");
 
   div.className =
     "mensaje " + tipo;
@@ -353,7 +516,7 @@ async function prepararIA(){
       "🟢 GePeTo listo para conversar";
 
     añadirMensaje(
-      "Ya estoy preparado, Rafa. Y ahora también puedo guardar recuerdos.",
+      "Ya estoy preparado, Rafa. También puedo guardar lo que me pidas recordar.",
       "gepeto"
     );
 
@@ -395,26 +558,29 @@ async function responder(){
 
   texto.value = "";
 
-  /* -----------------------------
-     DETECTAR PETICIONES DE MEMORIA
-  ----------------------------- */
-
   const minuscula =
     mensaje.toLowerCase();
+
+  /* =================================
+     GUARDAR MEMORIA
+  ================================= */
 
   if(
     minuscula.startsWith("recuerda que") ||
     minuscula.startsWith("recuerda:")
   ){
 
-    let recuerdo = mensaje
+    let recuerdo =
+      mensaje
       .replace(/^recuerda que/i,"")
       .replace(/^recuerda:/i,"")
       .trim();
 
     if(recuerdo){
 
-      guardarMemoria(recuerdo);
+      guardarMemoria(
+        recuerdo
+      );
 
       añadirMensaje(
         "Lo recordaré, Rafa. 🧠💚",
@@ -423,12 +589,11 @@ async function responder(){
 
       return;
     }
-
   }
 
-  /* -----------------------------
+  /* =================================
      CONSULTAR MEMORIA
-  ----------------------------- */
+  ================================= */
 
   if(
     minuscula.includes("qué recuerdas") ||
@@ -447,9 +612,9 @@ async function responder(){
     return;
   }
 
-  /* -----------------------------
-     SI LA IA NO ESTÁ LISTA
-  ----------------------------- */
+  /* =================================
+     IA NO LISTA
+  ================================= */
 
   if(!engine){
 
@@ -472,11 +637,11 @@ async function responder(){
     return;
   }
 
-  /* -----------------------------
+  /* =================================
      CONTEXTO DE MEMORIA
-  ----------------------------- */
+  ================================= */
 
-  let contextoMemoria =
+  const contextoMemoria =
     obtenerMemoria();
 
   try{
@@ -520,8 +685,8 @@ MEMORIA PERMANENTE DE RAFA:
 
 ${contextoMemoria}
 
-Utiliza esta memoria cuando sea relevante para responder.
-No inventes recuerdos que no aparezcan en la memoria.`
+Utiliza esta memoria cuando sea relevante.
+No inventes recuerdos que no aparezcan aquí.`
       },
 
       {
@@ -543,7 +708,10 @@ No inventes recuerdos que no aparezcan en la memoria.`
       });
 
     const textoRespuesta =
-      respuesta.choices[0].message.content;
+      respuesta
+      .choices[0]
+      .message
+      .content;
 
     const mensajesGePeTo =
       chat.querySelectorAll(
@@ -552,7 +720,7 @@ No inventes recuerdos que no aparezcan en la memoria.`
 
     const ultimo =
       mensajesGePeTo[
-        mensajesGePeTo.length-1
+        mensajesGePeTo.length - 1
       ];
 
     if(
@@ -587,7 +755,7 @@ No inventes recuerdos que no aparezcan en la memoria.`
 }
 
 /* =====================================
-   ENVIAR
+   BOTÓN ENVIAR
 ===================================== */
 
 enviar.addEventListener(
