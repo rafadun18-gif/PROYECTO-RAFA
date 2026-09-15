@@ -2,62 +2,76 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ACUARIO · Proyecto Rafa</title>
-<link rel="stylesheet" href="../style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sala Acuario · Proyecto Rafa</title>
 
 <style>
-body{
+*{
   margin:0;
-  background:#050816;
-  color:white;
-  font-family:Arial,sans-serif;
+  padding:0;
+  box-sizing:border-box;
 }
 
-.acuario{
-  min-height:100vh;
-  padding:20px;
-  text-align:center;
-}
-
-.acuario h1{
-  color:#39ff14;
-  margin:10px 0;
-}
-
-.foto-l333{
+html,body{
   width:100%;
-  max-width:900px;
-  display:block;
-  margin:20px auto;
-  border-radius:18px;
-  box-shadow:0 0 25px #39ff14;
+  height:100%;
+  background:black;
+  overflow:hidden;
 }
 
-.volver{
-  display:inline-block;
-  margin-top:15px;
-  padding:12px 20px;
-  border:1px solid #39ff14;
-  border-radius:12px;
-  color:#39ff14;
-  text-decoration:none;
+/* FOTO A PANTALLA COMPLETA */
+
+.fondo{
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  display:block;
+}
+
+/* BOTÓN INVISIBLE PARA ACTIVAR EL AUDIO EN IPHONE */
+
+#activar{
+  position:fixed;
+  inset:0;
+  background:transparent;
+  border:none;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<main class="acuario">
+<!-- FOTO DEL ACUARIO -->
+<img src="Acuario-1333.png" class="fondo" alt="Sala Acuario">
 
-<h1>🐟 ACUARIO</h1>
-<p>Agua y vida · Proyecto Rafa</p>
+<!-- MÚSICA -->
+<audio id="musica" autoplay loop playsinline>
+  <source src="acuario.mp3" type="audio/mpeg">
+</audio>
 
-<img class="foto-l333" src="../Acuario-1333.png" alt="Acuario L333">
+<!-- TOCAR PANTALLA SI SAFARI BLOQUEA EL AUDIO -->
+<button id="activar"></button>
 
-<a class="volver" href="../index.html">← VOLVER A PROYECTO RAFA</a>
+<script>
+const musica = document.getElementById("musica");
+const activar = document.getElementById("activar");
 
-</main>
+musica.volume = 0.55;
+
+// Intento automático
+musica.play().then(()=>{
+  activar.style.display="none";
+}).catch(()=>{
+  activar.style.display="block";
+});
+
+// En iPhone basta tocar una vez la pantalla
+activar.addEventListener("click",()=>{
+  musica.play();
+  activar.style.display="none";
+});
+</script>
 
 </body>
 </html>
