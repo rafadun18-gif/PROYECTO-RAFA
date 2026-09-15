@@ -49,9 +49,11 @@ html,body{
 .sala a{
     display:block;
     width:100%;
-    height:70px;
+    height:100%;
+    min-height:70px;
     background:transparent;
     text-decoration:none;
+    cursor:pointer;
 }
 
 .sala span{
@@ -63,6 +65,7 @@ html,body{
     text-shadow:
         0 0 5px #000,
         0 0 10px #000;
+    pointer-events:none;
 }
 
 /* FILA SUPERIOR */
@@ -132,38 +135,44 @@ document.addEventListener("click", iniciarMusica, {
 
     <!-- RELAX -->
     <div class="sala relax">
-        <a href="Relax.html"></a>
-        <span>RELAX</span>
+        <a href="Relax.html">
+            <span>RELAX</span>
+        </a>
     </div>
 
     <!-- INFINITA -->
     <div class="sala infinita">
-        <a href="Infinita.html"></a>
-        <span>INFINITA</span>
+        <a href="Infinita.html">
+            <span>INFINITA</span>
+        </a>
     </div>
 
     <!-- ESPACIAL -->
     <div class="sala espacial">
-        <a href="Espacial.html"></a>
-        <span>ESPACIAL</span>
+        <a href="Espacial.html">
+            <span>ESPACIAL</span>
+        </a>
     </div>
 
     <!-- ACUARIO -->
     <div class="sala acuario">
-        <a href="acuario.html"></a>
-        <span>ACUARIO</span>
+        <a href="acuario.html">
+            <span>ACUARIO</span>
+        </a>
     </div>
 
     <!-- BIBLIOTECA -->
     <div class="sala biblioteca">
-        <a href="Biblioteca.html"></a>
-        <span>BIBLIOTECA</span>
+        <a href="Biblioteca.html">
+            <span>BIBLIOTECA</span>
+        </a>
     </div>
 
     <!-- LABORATORIO -->
     <div class="sala laboratorio">
-        <a href="Laboratorio.html"></a>
-        <span>LABORATORIO</span>
+        <a href="Laboratorio.html">
+            <span>LABORATORIO</span>
+        </a>
     </div>
 
 </div>
