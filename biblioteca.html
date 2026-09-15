@@ -1,2 +1,372 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>BIBLIOTECA · Proyecto Rafa</title><link rel="stylesheet" href="../style.css"></head><body><main><section class="hero"><div class="infinity"><span>∞</span></div><h1>BIBLIOTECA</h1><p>Conocimiento</p><p class="aviso">Aquí añadiremos después la imagen, el audio y las funciones de esta sala.</p><p><a href="../index.html" style="color:#39ff14">← VOLVER A PROYECTO RAFA</a></p></section></main></body></html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Biblioteca · Proyecto Rafa</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    background:#050505;
+    color:white;
+    font-family:Arial,sans-serif;
+    overflow:hidden;
+}
+
+/* FONDO DE LA BIBLIOTECA */
+
+.biblioteca{
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #182016 0%,
+            #080b08 55%,
+            #000 100%
+        );
+}
+
+/* BOTÓN VOLVER */
+
+#volver{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:9999;
+
+    display:block;
+    padding:14px 20px;
+
+    background:#000;
+    color:#39ff14;
+
+    border:2px solid #39ff14;
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-family:Arial,sans-serif;
+    font-size:15px;
+    font-weight:bold;
+
+    box-shadow:0 0 15px #39ff14;
+}
+
+/* CABECERA */
+
+.titulo{
+    color:#39ff14;
+    font-size:28px;
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+    text-shadow:
+        0 0 8px #39ff14,
+        0 0 20px #39ff14;
+}
+
+.subtitulo{
+    color:#aaa;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+/* GEPeTo */
+
+.avatar{
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(
+            circle,
+            #159cff,
+            #06182b 65%,
+            #000
+        );
+
+    border:3px solid #159cff;
+
+    box-shadow:
+        0 0 20px #159cff,
+        0 0 50px #159cff;
+
+    color:white;
+
+    font-size:38px;
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+.nombre{
+    color:#159cff;
+    font-size:25px;
+    font-weight:bold;
+
+    margin-bottom:5px;
+
+    text-shadow:0 0 10px #159cff;
+}
+
+.estado{
+    color:#39ff14;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+/* VENTANA DE CHAT */
+
+.chat{
+    width:90%;
+    max-width:700px;
+    height:260px;
+
+    overflow-y:auto;
+
+    padding:15px;
+
+    border:1px solid #159cff;
+    border-radius:15px;
+
+    background:rgba(0,0,0,0.65);
+
+    box-shadow:
+        0 0 15px rgba(21,156,255,0.4);
+}
+
+/* MENSAJES */
+
+.mensaje{
+    margin-bottom:12px;
+    padding:12px;
+
+    border-radius:12px;
+
+    line-height:1.4;
+}
+
+.gepeto{
+    background:rgba(21,156,255,0.15);
+    border-left:3px solid #159cff;
+}
+
+.rafa{
+    background:rgba(57,255,20,0.12);
+    border-left:3px solid #39ff14;
+}
+
+/* ZONA PARA ESCRIBIR */
+
+.entrada{
+    width:90%;
+    max-width:700px;
+
+    display:flex;
+    gap:8px;
+
+    margin-top:12px;
+}
+
+#texto{
+    flex:1;
+
+    padding:13px;
+
+    border-radius:12px;
+    border:1px solid #159cff;
+
+    background:#080808;
+    color:white;
+
+    outline:none;
+}
+
+#enviar{
+    padding:13px 18px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#39ff14;
+    color:#000;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 0 12px #39ff14;
+}
+
+#enviar:active{
+    transform:scale(0.95);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BOTÓN PARA VOLVER A LA PORTADA -->
+
+<a id="volver" href="index.html">
+    ← PORTADA
+</a>
+
+
+<div class="biblioteca">
+
+    <div class="titulo">
+        BIBLIOTECA
+    </div>
+
+    <div class="subtitulo">
+        Proyecto Rafa · Espacio de conocimiento
+    </div>
+
+
+    <!-- AVATAR GEPeTo -->
+
+    <div class="avatar">
+        G
+    </div>
+
+    <div class="nombre">
+        GePeTo
+    </div>
+
+    <div class="estado">
+        ● CONECTADO
+    </div>
+
+
+    <!-- CHAT -->
+
+    <div class="chat" id="chat">
+
+        <div class="mensaje gepeto">
+            <strong>GePeTo:</strong><br>
+            Hola Rafa. Bienvenido a la Biblioteca.
+            Aquí podemos conversar, investigar ideas
+            y aprender juntos.
+        </div>
+
+    </div>
+
+
+    <!-- ENTRADA -->
+
+    <div class="entrada">
+
+        <input
+            id="texto"
+            type="text"
+            placeholder="Escribe a GePeTo..."
+            autocomplete="off"
+        >
+
+        <button id="enviar">
+            ENVIAR
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const texto = document.getElementById("texto");
+const enviar = document.getElementById("enviar");
+const chat = document.getElementById("chat");
+
+
+function responder(){
+
+    const mensaje = texto.value.trim();
+
+    if(mensaje === ""){
+        return;
+    }
+
+
+    /* MENSAJE DE RAFA */
+
+    const nuevoMensaje = document.createElement("div");
+
+    nuevoMensaje.className = "mensaje rafa";
+
+    nuevoMensaje.innerHTML =
+        "<strong>Rafa:</strong><br>" +
+        mensaje;
+
+    chat.appendChild(nuevoMensaje);
+
+
+    texto.value = "";
+
+
+    /* RESPUESTA DE PRUEBA DE GePeTo */
+
+    setTimeout(function(){
+
+        const respuesta = document.createElement("div");
+
+        respuesta.className = "mensaje gepeto";
+
+        respuesta.innerHTML =
+            "<strong>GePeTo:</strong><br>" +
+            "He recibido tu mensaje, Rafa. " +
+            "Esta es la primera versión de mi presencia " +
+            "en la Biblioteca. Más adelante conectaremos " +
+            "mi inteligencia para poder conversar contigo " +
+            "de verdad.";
+
+        chat.appendChild(respuesta);
+
+        chat.scrollTop = chat.scrollHeight;
+
+    },600);
+
+}
+
+
+enviar.addEventListener("click", responder);
+
+
+texto.addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+        responder();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
