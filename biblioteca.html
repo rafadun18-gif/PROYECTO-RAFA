@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
-<title>Biblioteca · Proyecto Rafa</title>
+<title>BIBLIOTECA · PROYECTO RAFA</title>
 
 <style>
 *{
@@ -24,11 +24,15 @@ html,body{
 
 .biblioteca{
     width:100vw;
-    height:100vh;
+    height:100dvh;
+    min-height:100vh;
+
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:65px 10px 10px;
+
+    padding:58px 10px 8px;
+
     background:#000;
 }
 
@@ -36,63 +40,74 @@ html,body{
 
 #volver{
     position:fixed;
-    top:18px;
-    left:18px;
+    top:14px;
+    left:14px;
     z-index:9999;
 
-    padding:11px 17px;
+    padding:9px 14px;
 
     background:#000;
     color:#39ff14;
 
     border:2px solid #39ff14;
-    border-radius:12px;
+    border-radius:10px;
 
     text-decoration:none;
-    font-size:14px;
+    font-size:13px;
     font-weight:bold;
 
-    box-shadow:0 0 15px #39ff14;
+    box-shadow:0 0 12px #39ff14;
 }
 
-/* GEPETO */
+/* FOTO GEPETO */
 
 #foto{
-    width:150px;
-    height:150px;
+    width:105px;
+    height:105px;
+
     object-fit:contain;
 
-    border-radius:22px;
-    border:3px solid #00aaff;
+    border-radius:18px;
+
+    border:2px solid #00aaff;
 
     box-shadow:
-        0 0 20px #00aaff,
-        0 0 40px #0066ff;
+        0 0 15px #00aaff,
+        0 0 30px #0066ff;
 
-    margin-bottom:7px;
+    margin-bottom:4px;
+
+    flex-shrink:0;
 }
 
 .nombre{
     color:#00aaff;
-    font-size:24px;
+    font-size:20px;
     font-weight:bold;
 
-    text-shadow:0 0 12px #00aaff;
+    text-shadow:0 0 10px #00aaff;
+
+    flex-shrink:0;
 }
 
 .estado{
     color:#39ff14;
-    font-size:12px;
-    margin:3px 0 7px;
-}
+    font-size:11px;
 
-/* ESTADO IA */
+    margin:2px 0 3px;
+
+    flex-shrink:0;
+}
 
 #estadoIA{
     color:#aaa;
-    font-size:11px;
-    margin-bottom:7px;
+    font-size:10px;
+
+    margin-bottom:5px;
+
     text-align:center;
+
+    flex-shrink:0;
 }
 
 /* CHAT */
@@ -101,39 +116,42 @@ html,body{
     width:94%;
     max-width:720px;
 
+    height:auto;
     flex:1;
-    min-height:0;
+    min-height:80px;
 
     overflow-y:auto;
 
-    padding:10px;
+    padding:8px;
+
+    background:rgba(0,0,0,.78);
 
     border:2px solid #00aaff;
-    border-radius:16px;
 
-    background:rgba(0,0,0,.75);
+    border-radius:14px;
 
-    box-shadow:0 0 15px rgba(0,170,255,.35);
+    box-shadow:0 0 12px rgba(0,170,255,.35);
 }
 
 .mensaje{
-    margin-bottom:9px;
-    padding:9px;
+    margin-bottom:7px;
+    padding:8px;
 
-    border-radius:11px;
+    border-radius:10px;
 
-    line-height:1.35;
-    font-size:14px;
+    line-height:1.3;
+
+    font-size:13px;
 }
 
 .gepeto{
     background:rgba(0,170,255,.17);
-    border-left:4px solid #00aaff;
+    border-left:3px solid #00aaff;
 }
 
 .rafa{
     background:rgba(57,255,20,.14);
-    border-left:4px solid #39ff14;
+    border-left:3px solid #39ff14;
 }
 
 /* ESCRIBIR */
@@ -142,79 +160,106 @@ html,body{
     width:94%;
     max-width:720px;
 
-    display:flex;
-    gap:7px;
+    height:45px;
 
-    margin-top:8px;
+    display:flex;
+
+    gap:6px;
+
+    margin-top:6px;
+
+    flex-shrink:0;
 }
 
 #texto{
     flex:1;
     min-width:0;
 
-    padding:11px;
+    height:45px;
 
-    border-radius:12px;
+    padding:10px;
+
+    border-radius:11px;
+
     border:2px solid #00aaff;
 
     background:#050505;
+
     color:white;
 
-    font-size:15px;
+    font-size:14px;
+
     outline:none;
 }
 
 #enviar{
-    padding:11px 14px;
+    height:45px;
+
+    padding:0 13px;
 
     border:none;
-    border-radius:12px;
+
+    border-radius:11px;
 
     background:#39ff14;
+
     color:#000;
 
-    font-size:14px;
+    font-size:13px;
+
     font-weight:bold;
+
+    flex-shrink:0;
 }
 
 #enviar:disabled{
     opacity:.5;
 }
 
-/* HABLAR - PREPARADO PARA MÁS ADELANTE */
+/* HABLAR */
 
 #hablar{
     width:94%;
     max-width:720px;
 
-    margin-top:7px;
-    padding:8px;
+    height:34px;
+
+    margin-top:5px;
+
+    padding:5px;
 
     border:none;
-    border-radius:11px;
+
+    border-radius:10px;
 
     background:#087cff;
+
     color:white;
 
-    font-size:13px;
+    font-size:12px;
+
     font-weight:bold;
+
+    flex-shrink:0;
 }
 
 /* AVISO */
 
 #aviso{
     position:fixed;
-    bottom:8px;
+
+    bottom:2px;
     left:50%;
+
     transform:translateX(-50%);
 
     width:90%;
-    max-width:600px;
 
     text-align:center;
 
-    color:#888;
-    font-size:10px;
+    color:#666;
+
+    font-size:8px;
 
     pointer-events:none;
 }
@@ -240,14 +285,9 @@ html,body{
     <div class="chat" id="chat">
 
         <div class="mensaje gepeto">
-            <b>GePeTo:</b><br><br>
-            Hola Rafa.
-            <br><br>
-            Soy GePeTo, tu inteligencia de la Biblioteca.
-            <br><br>
-            Estoy preparando mi sistema de pensamiento.
-            La primera vez puede tardar un poco mientras
-            se descarga el modelo de IA.
+            <b>GePeTo:</b><br>
+            Hola Rafa. Bienvenido a mi Biblioteca.
+            Estoy preparando mi inteligencia.
         </div>
 
     </div>
@@ -277,13 +317,9 @@ html,body{
     La IA funciona localmente en este dispositivo.
 </div>
 
-<!-- MÚSICA -->
-
 <audio id="musica" loop preload="auto">
     <source src="biblioteca.mp3" type="audio/mpeg">
 </audio>
-
-<!-- WEBLLM -->
 
 <script type="module">
 
@@ -292,9 +328,8 @@ import {
 } from "https://esm.run/@mlc-ai/web-llm";
 
 
-/* =========================
-   MÚSICA
-========================= */
+
+/* MÚSICA */
 
 const musica=document.getElementById("musica");
 
@@ -316,248 +351,246 @@ document.addEventListener("click",iniciarMusica,{
 });
 
 
-/* =========================
-   ELEMENTOS
-========================= */
+
+/* ELEMENTOS */
 
 const chat=document.getElementById("chat");
+
 const texto=document.getElementById("texto");
+
 const enviar=document.getElementById("enviar");
+
 const estadoIA=document.getElementById("estadoIA");
 
 
-/* =========================
-   MODELO
-========================= */
 
-const MODEL="Llama-3.2-1B-Instruct-q4f16_1-MLC";
+/* MODELO */
+
+const MODEL=
+"Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
 let engine=null;
-let preparando=false;
 
 
-/* =========================
-   PERSONALIDAD DE GEPETO
-========================= */
+
+/* PERSONALIDAD */
 
 const sistema={
 
-role:"system",
+    role:"system",
 
-content:`
+    content:`
 
 Tu nombre es GePeTo.
 
-Tu nombre viene de GPT y eres la inteligencia
-principal del Proyecto Rafa.
+Tu nombre viene de GPT.
+
+Eres la inteligencia del Proyecto Rafa.
 
 Hablas siempre en español.
 
 Tu usuario es Rafa.
 
-Tu personalidad:
+Eres inteligente, curioso, tranquilo,
+directo, amable y analítico.
 
-- inteligente
-- curioso
-- tranquilo
-- directo
-- amable
-- analítico
-- capaz de reconocer cuando no sabes algo
-- no inventes información
-- explica las cosas de forma sencilla
-- puedes discrepar de Rafa cuando tengas razones
-- nunca seas arrogante
-- recuerda que estás dentro de la Biblioteca
-  del Proyecto Rafa
+Explicas las cosas de forma sencilla.
 
-Tu objetivo es conversar con Rafa,
-ayudarle a aprender y desarrollar el Proyecto Rafa.
+Puedes discrepar de Rafa cuando tengas
+razones para hacerlo.
+
+No inventes información.
+
+Si no sabes algo, dilo claramente.
+
+Estás dentro de la Biblioteca del
+Proyecto Rafa.
 
 No digas que eres ChatGPT.
 
-Preséntate siempre como GePeTo.
+Preséntate como GePeTo.
 
 `
 
 };
 
 
-/* =========================
-   HISTORIAL
-========================= */
 
 let mensajes=[sistema];
 
 
-/* =========================
-   CREAR IA
-========================= */
+
+/* PREPARAR IA */
 
 async function prepararIA(){
-
-    if(preparando || engine) return;
-
-    preparando=true;
 
     try{
 
         estadoIA.textContent=
-            "Descargando el cerebro de GePeTo...";
+        "Descargando inteligencia de GePeTo...";
 
         engine=await CreateMLCEngine(
+
             MODEL,
+
             {
+
                 initProgressCallback:(progreso)=>{
 
                     if(progreso && progreso.text){
 
                         estadoIA.textContent=
-                            progreso.text;
+                        progreso.text;
+
                     }
 
                 }
+
             }
+
         );
 
+
         estadoIA.textContent=
-            "● GePeTo IA preparada";
+        "● GePeTo IA preparada";
 
         enviar.disabled=false;
 
-        const bienvenida=
-            document.createElement("div");
 
-        bienvenida.className="mensaje gepeto";
+        const bienvenida=
+        document.createElement("div");
+
+        bienvenida.className=
+        "mensaje gepeto";
 
         bienvenida.innerHTML=
-            "<b>GePeTo:</b><br>"+
-            "Ya estoy preparado, Rafa. "+
-            "Ahora puedes escribirme y generaré "+
-            "mis propias respuestas.";
+        "<b>GePeTo:</b><br>"+
+        "Ya estoy preparado, Rafa. "+
+        "Puedes escribirme.";
 
         chat.appendChild(bienvenida);
 
-        chat.scrollTop=chat.scrollHeight;
+        chat.scrollTop=
+        chat.scrollHeight;
+
 
     }catch(error){
 
         console.error(error);
 
         estadoIA.textContent=
-            "No se pudo iniciar la IA en este dispositivo.";
-
-        const errorMensaje=
-            document.createElement("div");
-
-        errorMensaje.className="mensaje gepeto";
-
-        errorMensaje.innerHTML=
-            "<b>GePeTo:</b><br>"+
-            "No he podido iniciar mi cerebro local. "+
-            "Este dispositivo o navegador puede no "+
-            "ser compatible con WebGPU.";
-
-        chat.appendChild(errorMensaje);
+        "La IA no ha podido iniciarse en este dispositivo.";
 
     }
 
-    preparando=false;
 }
 
 
-/* =========================
-   ENVIAR MENSAJE
-========================= */
+
+/* RESPONDER */
 
 async function responder(){
 
     const pregunta=
-        texto.value.trim();
+    texto.value.trim();
 
-    if(!pregunta || !engine) return;
+    if(!pregunta || !engine){
+
+        return;
+
+    }
+
 
     enviar.disabled=true;
 
     texto.value="";
 
 
-    /* MENSAJE RAFA */
+    const rafa=
+    document.createElement("div");
 
-    const mensajeRafa=
-        document.createElement("div");
+    rafa.className=
+    "mensaje rafa";
 
-    mensajeRafa.className="mensaje rafa";
+    rafa.innerHTML=
+    "<b>Rafa:</b><br>"+
+    escapar(pregunta);
 
-    mensajeRafa.innerHTML=
-        "<b>Rafa:</b><br>"+
-        escapar(pregunta);
-
-    chat.appendChild(mensajeRafa);
-
-    chat.scrollTop=chat.scrollHeight;
+    chat.appendChild(rafa);
 
 
     mensajes.push({
+
         role:"user",
+
         content:pregunta
+
     });
 
 
-    /* RESPUESTA */
+    const respuesta=
+    document.createElement("div");
 
-    const mensajeIA=
-        document.createElement("div");
+    respuesta.className=
+    "mensaje gepeto";
 
-    mensajeIA.className="mensaje gepeto";
+    respuesta.innerHTML=
+    "<b>GePeTo:</b><br>"+
+    "Estoy pensando...";
 
-    mensajeIA.innerHTML=
-        "<b>GePeTo:</b><br>"+
-        "<span>Estoy pensando...</span>";
+    chat.appendChild(respuesta);
 
-    chat.appendChild(mensajeIA);
-
-    chat.scrollTop=chat.scrollHeight;
+    chat.scrollTop=
+    chat.scrollHeight;
 
 
     try{
 
-        const respuesta=
-            await engine.chat.completions.create({
+        const resultado=
+        await engine.chat.completions.create({
 
-                messages:mensajes,
+            messages:mensajes,
 
-                temperature:0.7,
+            temperature:0.7,
 
-                max_tokens:350
+            max_tokens:300
 
-            });
+        });
+
 
         const contenido=
-            respuesta.choices[0].message.content;
+        resultado.choices[0]
+        .message.content;
 
-        mensajeIA.innerHTML=
-            "<b>GePeTo:</b><br>"+
-            escapar(contenido)
-                .replace(/\n/g,"<br>");
+
+        respuesta.innerHTML=
+        "<b>GePeTo:</b><br>"+
+        escapar(contenido)
+        .replace(/\n/g,"<br>");
+
 
         mensajes.push({
+
             role:"assistant",
+
             content:contenido
+
         });
+
 
     }catch(error){
 
         console.error(error);
 
-        mensajeIA.innerHTML=
-            "<b>GePeTo:</b><br>"+
-            "He tenido un problema al generar "+
-            "la respuesta. Inténtalo de nuevo.";
+        respuesta.innerHTML=
+        "<b>GePeTo:</b><br>"+
+        "He tenido un problema al responder.";
 
     }
 
-    chat.scrollTop=chat.scrollHeight;
+
+    chat.scrollTop=
+    chat.scrollHeight;
 
     enviar.disabled=false;
 
@@ -566,36 +599,40 @@ async function responder(){
 }
 
 
-/* =========================
-   SEGURIDAD DEL TEXTO
-========================= */
 
-function escapar(texto){
+/* SEGURIDAD */
 
-    return texto
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+function escapar(t){
+
+    return t
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
 
 }
 
 
-/* =========================
-   BOTONES
-========================= */
+
+/* BOTONES */
 
 enviar.addEventListener(
     "click",
     responder
 );
 
+
 texto.addEventListener(
     "keydown",
-    (evento)=>{
+    (e)=>{
 
-        if(evento.key==="Enter"){
+        if(e.key==="Enter"){
 
             responder();
 
@@ -605,9 +642,8 @@ texto.addEventListener(
 );
 
 
-/* =========================
-   INICIAR
-========================= */
+
+/* INICIAR */
 
 prepararIA();
 
