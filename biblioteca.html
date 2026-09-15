@@ -80,6 +80,8 @@ html,body{
     flex-shrink:0;
 }
 
+/* NOMBRE */
+
 .nombre{
     color:#00aaff;
     font-size:20px;
@@ -152,7 +154,7 @@ html,body{
     border-left:3px solid #39ff14;
 }
 
-/* ZONA PARA ESCRIBIR */
+/* ESCRIBIR */
 
 .escribir{
     width:94%;
@@ -189,7 +191,7 @@ html,body{
 #enviar{
     height:43px;
 
-    padding:0 13px;
+    padding:0 14px;
 
     border:none;
     border-radius:11px;
@@ -200,14 +202,14 @@ html,body{
     font-size:13px;
     font-weight:bold;
 
+    cursor:pointer;
+
     flex-shrink:0;
+
+    opacity:1;
 }
 
-#enviar:disabled{
-    opacity:.5;
-}
-
-/* BOTÓN HABLAR */
+/* BOTÓN VOZ */
 
 #hablar{
     width:94%;
@@ -226,6 +228,8 @@ html,body{
     font-size:12px;
     font-weight:bold;
 
+    cursor:pointer;
+
     flex-shrink:0;
 }
 
@@ -239,30 +243,49 @@ html,body{
 
 <body>
 
-<a id="volver" href="index.html">← PORTADA</a>
+<!-- VOLVER A PORTADA -->
+
+<a id="volver" href="index.html">
+    ← PORTADA
+</a>
 
 <div class="biblioteca">
 
-    <img id="foto" src="GePeTo.png" alt="GePeTo">
+    <!-- FOTO -->
 
-    <div class="nombre">GePeTo</div>
+    <img
+        id="foto"
+        src="GePeTo.png"
+        alt="GePeTo"
+    >
 
-    <div class="estado">● CONECTADO</div>
+    <div class="nombre">
+        GePeTo
+    </div>
+
+    <div class="estado">
+        ● CONECTADO
+    </div>
 
     <div id="estadoIA">
-        Preparando inteligencia de GePeTo...
+        Preparando inteligencia...
     </div>
+
+
+    <!-- CHAT -->
 
     <div class="chat" id="chat">
 
         <div class="mensaje gepeto">
             <b>GePeTo:</b><br>
             Hola Rafa. Bienvenido a mi Biblioteca.
+            Escríbeme abajo.
         </div>
 
     </div>
 
-    <!-- ESCRIBIR Y ENVIAR -->
+
+    <!-- ESCRIBIR -->
 
     <div class="escribir">
 
@@ -273,13 +296,14 @@ html,body{
             autocomplete="off"
         >
 
-        <button id="enviar" disabled>
+        <button id="enviar">
             ENVIAR
         </button>
 
     </div>
 
-    <!-- VOZ, PARA MÁS ADELANTE -->
+
+    <!-- VOZ -->
 
     <button id="hablar">
         🎤 Hablar con GePeTo — próximamente
@@ -290,67 +314,88 @@ html,body{
 
 <!-- MÚSICA -->
 
-<audio id="musica" loop preload="auto">
-    <source src="biblioteca.mp3" type="audio/mpeg">
+<audio
+    id="musica"
+    loop
+    preload="auto">
+
+    <source
+        src="biblioteca.mp3"
+        type="audio/mpeg">
+
 </audio>
 
 
 <script type="module">
 
-import {
-    CreateMLCEngine
-} from "https://esm.run/@mlc-ai/web-llm";
-
-
-/* =========================
+/* =====================================
    MÚSICA
-========================= */
+===================================== */
 
-const musica=document.getElementById("musica");
+const musica =
+    document.getElementById("musica");
 
 function iniciarMusica(){
 
-    musica.play().catch(()=>{});
+    musica.play().catch(function(){});
 
 }
 
-window.addEventListener("load",iniciarMusica);
+window.addEventListener(
+    "load",
+    iniciarMusica
+);
 
-document.addEventListener("touchstart",iniciarMusica,{
-    once:true,
-    passive:true
-});
+document.addEventListener(
+    "touchstart",
+    iniciarMusica,
+    {
+        once:true,
+        passive:true
+    }
+);
 
-document.addEventListener("click",iniciarMusica,{
-    once:true
-});
+document.addEventListener(
+    "click",
+    iniciarMusica,
+    {
+        once:true
+    }
+);
 
 
-/* =========================
+/* =====================================
    ELEMENTOS
-========================= */
+===================================== */
 
-const chat=document.getElementById("chat");
-const texto=document.getElementById("texto");
-const enviar=document.getElementById("enviar");
-const estadoIA=document.getElementById("estadoIA");
+const chat =
+    document.getElementById("chat");
+
+const texto =
+    document.getElementById("texto");
+
+const enviar =
+    document.getElementById("enviar");
+
+const estadoIA =
+    document.getElementById("estadoIA");
 
 
-/* =========================
+/* =====================================
    IA
-========================= */
+===================================== */
 
-const MODEL=
+const MODEL =
 "Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
-let engine=null;
+let engine = null;
 
 
-/* =========================
-   PERSONALIDAD GEPETO
-========================= */
+/* =====================================
+   PERSONALIDAD DE GEPETO
+===================================== */
 
-const sistema={
+const sistema = {
 
     role:"system",
 
@@ -366,18 +411,21 @@ Hablas siempre en español.
 
 Tu usuario es Rafa.
 
-Eres inteligente, curioso, tranquilo,
-directo, amable y analítico.
+Eres inteligente, curioso,
+tranquilo, directo, amable
+y analítico.
 
 Explicas las cosas de forma sencilla.
 
-Puedes discrepar de Rafa cuando tengas razones.
+Puedes discrepar de Rafa cuando
+tengas razones para hacerlo.
 
 No inventes información.
 
 Si no sabes algo, dilo claramente.
 
-Estás dentro de la Biblioteca del Proyecto Rafa.
+Estás dentro de la Biblioteca
+del Proyecto Rafa.
 
 No digas que eres ChatGPT.
 
@@ -387,128 +435,137 @@ Preséntate como GePeTo.
 
 };
 
-let mensajes=[sistema];
+let mensajes = [sistema];
 
 
-/* =========================
-   PREPARAR IA
-========================= */
+/* =====================================
+   RESPUESTA DE EMERGENCIA
+   MIENTRAS LA IA CARGA
+===================================== */
 
-async function prepararIA(){
+function responderSinIA(pregunta){
 
-    try{
+    const respuesta =
+        document.createElement("div");
 
-        estadoIA.textContent=
-        "Preparando inteligencia...";
+    respuesta.className =
+        "mensaje gepeto";
 
-        engine=await CreateMLCEngine(
-            MODEL,
-            {
-                initProgressCallback:(p)=>{
-
-                    if(p && p.text){
-
-                        estadoIA.textContent=p.text;
-
-                    }
-
-                }
-            }
-        );
-
-        estadoIA.textContent=
-        "● GePeTo IA preparada";
-
-        enviar.disabled=false;
-
-    }catch(error){
-
-        console.error(error);
-
-        estadoIA.textContent=
-        "IA no disponible en este dispositivo.";
-
-    }
-
-}
-
-
-/* =========================
-   RESPONDER
-========================= */
-
-async function responder(){
-
-    const pregunta=
-    texto.value.trim();
-
-    if(!pregunta || !engine){
-        return;
-    }
-
-    enviar.disabled=true;
-
-    texto.value="";
-
-
-    const rafa=
-    document.createElement("div");
-
-    rafa.className="mensaje rafa";
-
-    rafa.innerHTML=
-    "<b>Rafa:</b><br>"+
-    escapar(pregunta);
-
-    chat.appendChild(rafa);
-
-
-    mensajes.push({
-        role:"user",
-        content:pregunta
-    });
-
-
-    const respuesta=
-    document.createElement("div");
-
-    respuesta.className="mensaje gepeto";
-
-    respuesta.innerHTML=
-    "<b>GePeTo:</b><br>Estoy pensando...";
+    respuesta.innerHTML =
+        "<b>GePeTo:</b><br>" +
+        "He recibido tu mensaje, Rafa. " +
+        "Mi inteligencia todavía se está " +
+        "preparando. Puedes seguir escribiéndome.";
 
     chat.appendChild(respuesta);
 
-    chat.scrollTop=chat.scrollHeight;
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+/* =====================================
+   RESPONDER CON IA
+===================================== */
+
+async function responder(){
+
+    const pregunta =
+        texto.value.trim();
+
+    if(pregunta === ""){
+        return;
+    }
+
+
+    /* MENSAJE DE RAFA */
+
+    const rafa =
+        document.createElement("div");
+
+    rafa.className =
+        "mensaje rafa";
+
+    rafa.innerHTML =
+        "<b>Rafa:</b><br>" +
+        escapar(pregunta);
+
+    chat.appendChild(rafa);
+
+    texto.value = "";
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    /* SI LA IA TODAVÍA NO ESTÁ */
+
+    if(!engine){
+
+        responderSinIA(pregunta);
+
+        return;
+    }
+
+
+    /* GUARDAR MENSAJE */
+
+    mensajes.push({
+
+        role:"user",
+
+        content:pregunta
+
+    });
+
+
+    /* MENSAJE DE PENSAMIENTO */
+
+    const respuesta =
+        document.createElement("div");
+
+    respuesta.className =
+        "mensaje gepeto";
+
+    respuesta.innerHTML =
+        "<b>GePeTo:</b><br>" +
+        "Estoy pensando...";
+
+    chat.appendChild(respuesta);
+
+    chat.scrollTop =
+        chat.scrollHeight;
 
 
     try{
 
-        const resultado=
-        await engine.chat.completions.create({
+        const resultado =
+            await engine.chat.completions.create({
 
-            messages:mensajes,
+                messages:mensajes,
 
-            temperature:0.7,
+                temperature:0.7,
 
-            max_tokens:300
+                max_tokens:300
 
-        });
-
-
-        const contenido=
-        resultado.choices[0].message.content;
+            });
 
 
-        respuesta.innerHTML=
-        "<b>GePeTo:</b><br>"+
-        escapar(contenido)
-        .replace(/\n/g,"<br>");
+        const contenido =
+            resultado.choices[0]
+            .message.content;
+
+
+        respuesta.innerHTML =
+            "<b>GePeTo:</b><br>" +
+            escapar(contenido)
+            .replace(/\n/g,"<br>");
 
 
         mensajes.push({
 
             role:"assistant",
+
             content:contenido
 
         });
@@ -518,37 +575,39 @@ async function responder(){
 
         console.error(error);
 
-        respuesta.innerHTML=
-        "<b>GePeTo:</b><br>"+
-        "He tenido un problema al responder.";
+        respuesta.innerHTML =
+            "<b>GePeTo:</b><br>" +
+            "He tenido un problema al generar " +
+            "la respuesta.";
 
     }
 
 
-    chat.scrollTop=chat.scrollHeight;
-
-    enviar.disabled=false;
-
-    texto.focus();
+    chat.scrollTop =
+        chat.scrollHeight;
 
 }
 
 
-/* SEGURIDAD */
+/* =====================================
+   SEGURIDAD
+===================================== */
 
 function escapar(t){
 
     return t
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-/* BOTÓN ENVIAR */
+/* =====================================
+   ENVIAR
+===================================== */
 
 enviar.addEventListener(
     "click",
@@ -560,29 +619,91 @@ enviar.addEventListener(
 
 texto.addEventListener(
     "keydown",
-    (e)=>{
+    function(e){
 
-        if(e.key==="Enter"){
+        if(e.key === "Enter"){
+
             responder();
+
         }
 
     }
 );
 
 
-/* BOTÓN VOZ */
+/* =====================================
+   BOTÓN VOZ
+===================================== */
 
-document.getElementById("hablar").addEventListener(
+document.getElementById("hablar")
+.addEventListener(
     "click",
-    ()=>{
+    function(){
+
         alert(
             "La conversación por voz con GePeTo la añadiremos después."
         );
+
     }
 );
 
 
-/* ARRANCAR IA */
+/* =====================================
+   CARGAR IA
+===================================== */
+
+async function prepararIA(){
+
+    try{
+
+        estadoIA.textContent =
+            "Preparando inteligencia de GePeTo...";
+
+
+        engine =
+            await CreateMLCEngine(
+
+                MODEL,
+
+                {
+
+                    initProgressCallback:
+                    function(progreso){
+
+                        if(
+                            progreso &&
+                            progreso.text
+                        ){
+
+                            estadoIA.textContent =
+                                progreso.text;
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+        estadoIA.textContent =
+            "● GePeTo IA preparada";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        estadoIA.textContent =
+            "Modo conversación disponible";
+
+    }
+
+}
+
+
+/* INICIAR */
 
 prepararIA();
 
