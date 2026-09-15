@@ -191,10 +191,7 @@ audio{
 
 <div id="estadoIA">🟡 Preparando la inteligencia de GePeTo…</div>
 
-<div id="chat" class="chat">
-  <div class="mensaje gepeto">
-    Hola Rafa. Estoy preparando mi inteligencia. En cuanto termine podremos conversar.
-  </div>
+<div id="chat">
 </div>
 
 <div class="escribir">
@@ -207,7 +204,9 @@ audio{
   <button id="enviar">ENVIAR</button>
 </div>
 
-<button id="hablar">🎤 Hablar con GePeTo — próximamente</button>
+<button id="hablar">
+🎤 Hablar con GePeTo — próximamente
+</button>
 
 <audio id="musica" loop preload="auto">
   <source src="biblioteca.mp3" type="audio/mpeg">
@@ -226,39 +225,91 @@ const musica = document.getElementById("musica");
 let engine = null;
 let cargando = true;
 
-/* =========================
+/* =====================================
+   MEMORIA PERMANENTE DE GEPETO
+===================================== */
+
+let memoria = JSON.parse(
+  localStorage.getItem("memoriaGePeTo") || "[]"
+);
+
+function guardarMemoria(dato){
+
+  memoria.push(dato);
+
+  localStorage.setItem(
+    "memoriaGePeTo",
+    JSON.stringify(memoria)
+  );
+}
+
+function obtenerMemoria(){
+
+  if(memoria.length === 0){
+    return "Todavía no tengo recuerdos guardados.";
+  }
+
+  return memoria
+    .map((dato,i)=>(i+1)+". "+dato)
+    .join("\n");
+}
+
+/* =====================================
+   MOSTRAR MENSAJES
+===================================== */
+
+function añadirMensaje(textoMensaje,tipo){
+
+  const div = document.createElement("div");
+
+  div.className =
+    "mensaje " + tipo;
+
+  div.textContent =
+    textoMensaje;
+
+  chat.appendChild(div);
+
+  chat.scrollTop =
+    chat.scrollHeight;
+}
+
+/* =====================================
+   MENSAJE INICIAL
+===================================== */
+
+añadirMensaje(
+  "Hola Rafa. Soy GePeTo. Estoy preparando mi inteligencia y mi memoria.",
+  "gepeto"
+);
+
+/* =====================================
    MÚSICA
-========================= */
+===================================== */
 
 musica.volume = 0.35;
 
 function iniciarMusica(){
+
   musica.play().catch(()=>{});
+
 }
 
-window.addEventListener("touchstart", iniciarMusica, {once:true});
-window.addEventListener("click", iniciarMusica, {once:true});
+window.addEventListener(
+  "touchstart",
+  iniciarMusica,
+  {once:true}
+);
 
-/* =========================
-   CHAT
-========================= */
+window.addEventListener(
+  "click",
+  iniciarMusica,
+  {once:true}
+);
 
-function añadirMensaje(textoMensaje, tipo){
-
-  const div = document.createElement("div");
-
-  div.className = "mensaje " + tipo;
-
-  div.textContent = textoMensaje;
-
-  chat.appendChild(div);
-
-  chat.scrollTop = chat.scrollHeight;
-}
-
-/* =========================
-   CARGA DE LA IA
-========================= */
+/* =====================================
+   CARGAR IA
+===================================== */
 
 async function prepararIA(){
 
@@ -280,15 +331,19 @@ async function prepararIA(){
         model,
         {
           initProgressCallback:
-            (progreso)=>{
+          (progreso)=>{
 
-              if(progreso && progreso.text){
+            if(
+              progreso &&
+              progreso.text
+            ){
 
-                estadoIA.textContent =
-                  "🟡 " + progreso.text;
-              }
+              estadoIA.textContent =
+                "🟡 " + progreso.text;
 
             }
+
+          }
         }
       );
 
@@ -298,7 +353,7 @@ async function prepararIA(){
       "🟢 GePeTo listo para conversar";
 
     añadirMensaje(
-      "Ya estoy preparado, Rafa. Ahora podemos conversar.",
+      "Ya estoy preparado, Rafa. Y ahora también puedo guardar recuerdos.",
       "gepeto"
     );
 
@@ -307,31 +362,94 @@ async function prepararIA(){
     console.error(error);
 
     cargando = false;
+
     engine = null;
 
     estadoIA.textContent =
       "🔴 La inteligencia no ha podido cargarse en este dispositivo.";
 
     añadirMensaje(
-      "Rafa, la Biblioteca funciona correctamente, pero este dispositivo o navegador no ha podido cargar todavía mi inteligencia local.",
+      "Rafa, la Biblioteca funciona, pero mi inteligencia local no ha podido cargarse.",
       "gepeto"
     );
+
   }
+
 }
 
-/* =========================
+/* =====================================
    RESPONDER
-========================= */
+===================================== */
 
 async function responder(){
 
-  const mensaje = texto.value.trim();
+  const mensaje =
+    texto.value.trim();
 
   if(!mensaje) return;
 
-  añadirMensaje(mensaje,"rafa");
+  añadirMensaje(
+    mensaje,
+    "rafa"
+  );
 
   texto.value = "";
+
+  /* -----------------------------
+     DETECTAR PETICIONES DE MEMORIA
+  ----------------------------- */
+
+  const minuscula =
+    mensaje.toLowerCase();
+
+  if(
+    minuscula.startsWith("recuerda que") ||
+    minuscula.startsWith("recuerda:")
+  ){
+
+    let recuerdo = mensaje
+      .replace(/^recuerda que/i,"")
+      .replace(/^recuerda:/i,"")
+      .trim();
+
+    if(recuerdo){
+
+      guardarMemoria(recuerdo);
+
+      añadirMensaje(
+        "Lo recordaré, Rafa. 🧠💚",
+        "gepeto"
+      );
+
+      return;
+    }
+
+  }
+
+  /* -----------------------------
+     CONSULTAR MEMORIA
+  ----------------------------- */
+
+  if(
+    minuscula.includes("qué recuerdas") ||
+    minuscula.includes("que recuerdas") ||
+    minuscula.includes("mis recuerdos") ||
+    minuscula.includes("qué sabes de mí") ||
+    minuscula.includes("que sabes de mi")
+  ){
+
+    añadirMensaje(
+      "Esto es lo que recuerdo de ti:\n\n" +
+      obtenerMemoria(),
+      "gepeto"
+    );
+
+    return;
+  }
+
+  /* -----------------------------
+     SI LA IA NO ESTÁ LISTA
+  ----------------------------- */
 
   if(!engine){
 
@@ -354,6 +472,13 @@ async function responder(){
     return;
   }
 
+  /* -----------------------------
+     CONTEXTO DE MEMORIA
+  ----------------------------- */
+
+  let contextoMemoria =
+    obtenerMemoria();
+
   try{
 
     añadirMensaje(
@@ -365,6 +490,7 @@ async function responder(){
 
       {
         role:"system",
+
         content:
         `Eres GePeTo, la inteligencia del Proyecto Rafa.
 
@@ -386,7 +512,16 @@ Si no sabes algo, dilo claramente.
 
 Estás dentro de la Biblioteca del Proyecto Rafa.
 
-Preséntate como GePeTo y no digas que eres ChatGPT.`
+Preséntate como GePeTo.
+
+No digas que eres ChatGPT.
+
+MEMORIA PERMANENTE DE RAFA:
+
+${contextoMemoria}
+
+Utiliza esta memoria cuando sea relevante para responder.
+No inventes recuerdos que no aparezcan en la memoria.`
       },
 
       {
@@ -398,27 +533,44 @@ Preséntate como GePeTo y no digas que eres ChatGPT.`
 
     const respuesta =
       await engine.chat.completions.create({
+
         messages:mensajes,
+
         temperature:0.7,
+
         max_tokens:300
+
       });
 
     const textoRespuesta =
       respuesta.choices[0].message.content;
 
-    const mensajesChat =
-      chat.querySelectorAll(".mensaje.gepeto");
+    const mensajesGePeTo =
+      chat.querySelectorAll(
+        ".mensaje.gepeto"
+      );
 
     const ultimo =
-      mensajesChat[mensajesChat.length-1];
+      mensajesGePeTo[
+        mensajesGePeTo.length-1
+      ];
 
     if(
       ultimo &&
-      ultimo.textContent === "Estoy pensando…"
+      ultimo.textContent ===
+      "Estoy pensando…"
     ){
-      ultimo.textContent = textoRespuesta;
+
+      ultimo.textContent =
+        textoRespuesta;
+
     }else{
-      añadirMensaje(textoRespuesta,"gepeto");
+
+      añadirMensaje(
+        textoRespuesta,
+        "gepeto"
+      );
+
     }
 
   }catch(error){
@@ -429,21 +581,23 @@ Preséntate como GePeTo y no digas que eres ChatGPT.`
       "He tenido un problema al procesar el mensaje.",
       "gepeto"
     );
+
   }
+
 }
 
-/* =========================
-   BOTÓN ENVIAR
-========================= */
+/* =====================================
+   ENVIAR
+===================================== */
 
 enviar.addEventListener(
   "click",
   responder
 );
 
-/* =========================
+/* =====================================
    ENTER
-========================= */
+===================================== */
 
 texto.addEventListener(
   "keydown",
@@ -454,31 +608,32 @@ texto.addEventListener(
       e.preventDefault();
 
       responder();
+
     }
 
   }
 );
 
-/* =========================
+/* =====================================
    VOZ
-========================= */
+===================================== */
 
 document
-  .getElementById("hablar")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("hablar")
+.addEventListener(
+  "click",
+  function(){
 
-      alert(
-        "La función de voz de GePeTo la añadiremos más adelante."
-      );
+    alert(
+      "La función de voz de GePeTo la añadiremos más adelante."
+    );
 
-    }
-  );
+  }
+);
 
-/* =========================
-   ARRANCAR IA
-========================= */
+/* =====================================
+   ARRANCAR
+===================================== */
 
 prepararIA();
 
