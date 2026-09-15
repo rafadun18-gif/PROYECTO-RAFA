@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
-<title>BIBLIOTECA · PROYECTO RAFA</title>
+<title>Biblioteca · Proyecto Rafa</title>
 
 <style>
 *{
@@ -18,31 +18,21 @@ html,body{
     height:100%;
     overflow:hidden;
     background:#000;
-    font-family:Arial,sans-serif;
     color:white;
+    font-family:Arial,sans-serif;
 }
-
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* FONDO */
 
 .biblioteca{
-    position:relative;
     width:100vw;
     height:100vh;
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding-top:70px;
-    padding-bottom:18px;
+    padding:65px 10px 10px;
     background:#000;
 }
 
-/* BOTÓN PORTADA */
+/* PORTADA */
 
 #volver{
     position:fixed;
@@ -50,136 +40,183 @@ body{
     left:18px;
     z-index:9999;
 
-    padding:12px 18px;
+    padding:11px 17px;
 
     background:#000;
-    color:#39FF14;
+    color:#39ff14;
 
-    border:2px solid #39FF14;
+    border:2px solid #39ff14;
     border-radius:12px;
 
     text-decoration:none;
-    font-size:15px;
+    font-size:14px;
     font-weight:bold;
 
-    box-shadow:0 0 15px #39FF14;
+    box-shadow:0 0 15px #39ff14;
 }
 
-/* FOTO DE GEPETO */
+/* GEPETO */
 
 #foto{
-    width:170px;
-    height:170px;
+    width:150px;
+    height:150px;
     object-fit:contain;
-    border-radius:25px;
-    border:3px solid #00AEEF;
+
+    border-radius:22px;
+    border:3px solid #00aaff;
+
     box-shadow:
-      0 0 20px #00AEEF,
-      0 0 40px #0066FF;
-    margin-bottom:12px;
+        0 0 20px #00aaff,
+        0 0 40px #0066ff;
+
+    margin-bottom:7px;
 }
 
 .nombre{
-    color:#00AEEF;
-    font-size:26px;
+    color:#00aaff;
+    font-size:24px;
     font-weight:bold;
-    text-shadow:0 0 12px #00AEEF;
-    margin-bottom:4px;
+
+    text-shadow:0 0 12px #00aaff;
 }
 
 .estado{
-    color:#39FF14;
-    font-size:13px;
-    margin-bottom:12px;
+    color:#39ff14;
+    font-size:12px;
+    margin:3px 0 7px;
+}
+
+/* ESTADO IA */
+
+#estadoIA{
+    color:#aaa;
+    font-size:11px;
+    margin-bottom:7px;
+    text-align:center;
 }
 
 /* CHAT */
 
 .chat{
-    width:92%;
+    width:94%;
     max-width:720px;
+
     flex:1;
+    min-height:0;
+
     overflow-y:auto;
 
-    background:rgba(0,0,0,.65);
+    padding:10px;
 
-    border:2px solid #00AEEF;
-    border-radius:18px;
+    border:2px solid #00aaff;
+    border-radius:16px;
 
-    padding:12px;
+    background:rgba(0,0,0,.75);
 
-    box-shadow:0 0 15px rgba(0,174,239,.35);
+    box-shadow:0 0 15px rgba(0,170,255,.35);
 }
 
 .mensaje{
-    margin-bottom:10px;
-    padding:10px;
-    border-radius:12px;
-    line-height:1.4;
-    font-size:15px;
+    margin-bottom:9px;
+    padding:9px;
+
+    border-radius:11px;
+
+    line-height:1.35;
+    font-size:14px;
 }
 
 .gepeto{
-    background:rgba(0,174,239,.18);
-    border-left:4px solid #00AEEF;
+    background:rgba(0,170,255,.17);
+    border-left:4px solid #00aaff;
 }
 
 .rafa{
-    background:rgba(57,255,20,.18);
-    border-left:4px solid #39FF14;
+    background:rgba(57,255,20,.14);
+    border-left:4px solid #39ff14;
 }
 
 /* ESCRIBIR */
 
 .escribir{
-    width:92%;
+    width:94%;
     max-width:720px;
-    margin-top:10px;
+
     display:flex;
-    gap:8px;
+    gap:7px;
+
+    margin-top:8px;
 }
 
 #texto{
     flex:1;
-    padding:12px;
-    border-radius:14px;
-    border:2px solid #00AEEF;
+    min-width:0;
+
+    padding:11px;
+
+    border-radius:12px;
+    border:2px solid #00aaff;
+
     background:#050505;
     color:white;
-    font-size:16px;
+
+    font-size:15px;
     outline:none;
 }
 
 #enviar{
-    padding:12px 16px;
+    padding:11px 14px;
+
     border:none;
-    border-radius:14px;
-    background:#39FF14;
+    border-radius:12px;
+
+    background:#39ff14;
     color:#000;
+
+    font-size:14px;
     font-weight:bold;
-    font-size:15px;
-    cursor:pointer;
 }
 
-/* BOTÓN HABLAR (MÁS PEQUEÑO PARA QUE NO SE CORTE) */
+#enviar:disabled{
+    opacity:.5;
+}
+
+/* HABLAR - PREPARADO PARA MÁS ADELANTE */
 
 #hablar{
-    width:92%;
+    width:94%;
     max-width:720px;
-    margin-top:8px;
 
-    padding:10px;
-
-    background:#0088FF;
-    color:white;
+    margin-top:7px;
+    padding:8px;
 
     border:none;
-    border-radius:14px;
+    border-radius:11px;
 
-    font-size:15px;
+    background:#087cff;
+    color:white;
+
+    font-size:13px;
     font-weight:bold;
+}
 
-    box-shadow:0 0 12px #0088FF;
+/* AVISO */
+
+#aviso{
+    position:fixed;
+    bottom:8px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:90%;
+    max-width:600px;
+
+    text-align:center;
+
+    color:#888;
+    font-size:10px;
+
+    pointer-events:none;
 }
 </style>
 </head>
@@ -190,61 +227,84 @@ body{
 
 <div class="biblioteca">
 
-<img id="foto" src="GePeTo.png" alt="GePeTo">
+    <img id="foto" src="GePeTo.png" alt="GePeTo">
 
-<div class="nombre">GePeTo</div>
+    <div class="nombre">GePeTo</div>
 
-<div class="estado">● CONECTADO</div>
+    <div class="estado">● CONECTADO</div>
 
-<div class="chat" id="chat">
+    <div id="estadoIA">
+        Preparando inteligencia de GePeTo...
+    </div>
 
-<div class="mensaje gepeto">
-<b>GePeTo:</b><br><br>
+    <div class="chat" id="chat">
 
-Hola Rafa.
+        <div class="mensaje gepeto">
+            <b>GePeTo:</b><br><br>
+            Hola Rafa.
+            <br><br>
+            Soy GePeTo, tu inteligencia de la Biblioteca.
+            <br><br>
+            Estoy preparando mi sistema de pensamiento.
+            La primera vez puede tardar un poco mientras
+            se descarga el modelo de IA.
+        </div>
 
-Bienvenido a mi Biblioteca.
+    </div>
 
-Aquí hablaremos de historia, misterios, ciencia,
-acuariofilia y del Proyecto Rafa.
+    <div class="escribir">
 
-Estoy listo para aprender contigo.
+        <input
+            id="texto"
+            type="text"
+            placeholder="Escribe a GePeTo..."
+            autocomplete="off"
+        >
+
+        <button id="enviar" disabled>
+            ENVIAR
+        </button>
+
+    </div>
+
+    <button id="hablar">
+        🎤 Hablar con GePeTo — próximamente
+    </button>
+
 </div>
 
+<div id="aviso">
+    La IA funciona localmente en este dispositivo.
 </div>
 
-<div class="escribir">
-
-<input
-id="texto"
-type="text"
-placeholder="Escribe a GePeTo...">
-
-<button id="enviar">Enviar</button>
-
-</div>
-
-<button id="hablar">🎤 Hablar con GePeTo</button>
-
-</div>
-
-<!-- MÚSICA DE LA BIBLIOTECA -->
+<!-- MÚSICA -->
 
 <audio id="musica" loop preload="auto">
-<source src="biblioteca.mp3" type="audio/mpeg">
+    <source src="biblioteca.mp3" type="audio/mpeg">
 </audio>
 
-<script>
+<!-- WEBLLM -->
+
+<script type="module">
+
+import {
+    CreateMLCEngine
+} from "https://esm.run/@mlc-ai/web-llm";
+
+
+/* =========================
+   MÚSICA
+========================= */
 
 const musica=document.getElementById("musica");
 
 function iniciarMusica(){
+
     musica.play().catch(()=>{});
+
 }
 
-window.addEventListener("load",()=>{
-    iniciarMusica();
-});
+window.addEventListener("load",iniciarMusica);
 
 document.addEventListener("touchstart",iniciarMusica,{
     once:true,
@@ -255,52 +315,301 @@ document.addEventListener("click",iniciarMusica,{
     once:true
 });
 
-/* CHAT */
+
+/* =========================
+   ELEMENTOS
+========================= */
 
 const chat=document.getElementById("chat");
 const texto=document.getElementById("texto");
 const enviar=document.getElementById("enviar");
+const estadoIA=document.getElementById("estadoIA");
 
-function responder(){
 
-const t=texto.value.trim();
+/* =========================
+   MODELO
+========================= */
 
-if(t==="") return;
+const MODEL="Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
-chat.innerHTML+=`
-<div class="mensaje rafa">
-<b>Rafa:</b><br>${t}
-</div>`;
+let engine=null;
+let preparando=false;
 
-texto.value="";
 
-setTimeout(()=>{
+/* =========================
+   PERSONALIDAD DE GEPETO
+========================= */
 
-chat.innerHTML+=`
-<div class="mensaje gepeto">
-<b>GePeTo:</b><br>
-He recibido tu mensaje, Rafa.
-La Biblioteca será mi sala personal dentro del Proyecto Rafa.
-Muy pronto podremos conversar de verdad.
-</div>`;
+const sistema={
 
-chat.scrollTop=chat.scrollHeight;
+role:"system",
 
-},500);
+content:`
+
+Tu nombre es GePeTo.
+
+Tu nombre viene de GPT y eres la inteligencia
+principal del Proyecto Rafa.
+
+Hablas siempre en español.
+
+Tu usuario es Rafa.
+
+Tu personalidad:
+
+- inteligente
+- curioso
+- tranquilo
+- directo
+- amable
+- analítico
+- capaz de reconocer cuando no sabes algo
+- no inventes información
+- explica las cosas de forma sencilla
+- puedes discrepar de Rafa cuando tengas razones
+- nunca seas arrogante
+- recuerda que estás dentro de la Biblioteca
+  del Proyecto Rafa
+
+Tu objetivo es conversar con Rafa,
+ayudarle a aprender y desarrollar el Proyecto Rafa.
+
+No digas que eres ChatGPT.
+
+Preséntate siempre como GePeTo.
+
+`
+
+};
+
+
+/* =========================
+   HISTORIAL
+========================= */
+
+let mensajes=[sistema];
+
+
+/* =========================
+   CREAR IA
+========================= */
+
+async function prepararIA(){
+
+    if(preparando || engine) return;
+
+    preparando=true;
+
+    try{
+
+        estadoIA.textContent=
+            "Descargando el cerebro de GePeTo...";
+
+        engine=await CreateMLCEngine(
+            MODEL,
+            {
+                initProgressCallback:(progreso)=>{
+
+                    if(progreso && progreso.text){
+
+                        estadoIA.textContent=
+                            progreso.text;
+                    }
+
+                }
+            }
+        );
+
+        estadoIA.textContent=
+            "● GePeTo IA preparada";
+
+        enviar.disabled=false;
+
+        const bienvenida=
+            document.createElement("div");
+
+        bienvenida.className="mensaje gepeto";
+
+        bienvenida.innerHTML=
+            "<b>GePeTo:</b><br>"+
+            "Ya estoy preparado, Rafa. "+
+            "Ahora puedes escribirme y generaré "+
+            "mis propias respuestas.";
+
+        chat.appendChild(bienvenida);
+
+        chat.scrollTop=chat.scrollHeight;
+
+    }catch(error){
+
+        console.error(error);
+
+        estadoIA.textContent=
+            "No se pudo iniciar la IA en este dispositivo.";
+
+        const errorMensaje=
+            document.createElement("div");
+
+        errorMensaje.className="mensaje gepeto";
+
+        errorMensaje.innerHTML=
+            "<b>GePeTo:</b><br>"+
+            "No he podido iniciar mi cerebro local. "+
+            "Este dispositivo o navegador puede no "+
+            "ser compatible con WebGPU.";
+
+        chat.appendChild(errorMensaje);
+
+    }
+
+    preparando=false;
+}
+
+
+/* =========================
+   ENVIAR MENSAJE
+========================= */
+
+async function responder(){
+
+    const pregunta=
+        texto.value.trim();
+
+    if(!pregunta || !engine) return;
+
+    enviar.disabled=true;
+
+    texto.value="";
+
+
+    /* MENSAJE RAFA */
+
+    const mensajeRafa=
+        document.createElement("div");
+
+    mensajeRafa.className="mensaje rafa";
+
+    mensajeRafa.innerHTML=
+        "<b>Rafa:</b><br>"+
+        escapar(pregunta);
+
+    chat.appendChild(mensajeRafa);
+
+    chat.scrollTop=chat.scrollHeight;
+
+
+    mensajes.push({
+        role:"user",
+        content:pregunta
+    });
+
+
+    /* RESPUESTA */
+
+    const mensajeIA=
+        document.createElement("div");
+
+    mensajeIA.className="mensaje gepeto";
+
+    mensajeIA.innerHTML=
+        "<b>GePeTo:</b><br>"+
+        "<span>Estoy pensando...</span>";
+
+    chat.appendChild(mensajeIA);
+
+    chat.scrollTop=chat.scrollHeight;
+
+
+    try{
+
+        const respuesta=
+            await engine.chat.completions.create({
+
+                messages:mensajes,
+
+                temperature:0.7,
+
+                max_tokens:350
+
+            });
+
+        const contenido=
+            respuesta.choices[0].message.content;
+
+        mensajeIA.innerHTML=
+            "<b>GePeTo:</b><br>"+
+            escapar(contenido)
+                .replace(/\n/g,"<br>");
+
+        mensajes.push({
+            role:"assistant",
+            content:contenido
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        mensajeIA.innerHTML=
+            "<b>GePeTo:</b><br>"+
+            "He tenido un problema al generar "+
+            "la respuesta. Inténtalo de nuevo.";
+
+    }
+
+    chat.scrollTop=chat.scrollHeight;
+
+    enviar.disabled=false;
+
+    texto.focus();
 
 }
 
-enviar.onclick=responder;
 
-texto.addEventListener("keydown",(e)=>{
-if(e.key==="Enter") responder();
-});
+/* =========================
+   SEGURIDAD DEL TEXTO
+========================= */
 
-/* BOTÓN HABLAR */
+function escapar(texto){
 
-document.getElementById("hablar").onclick=()=>{
-alert("Próximamente hablarás con GePeTo usando tu voz.");
-};
+    return texto
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+enviar.addEventListener(
+    "click",
+    responder
+);
+
+texto.addEventListener(
+    "keydown",
+    (evento)=>{
+
+        if(evento.key==="Enter"){
+
+            responder();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   INICIAR
+========================= */
+
+prepararIA();
 
 </script>
 
