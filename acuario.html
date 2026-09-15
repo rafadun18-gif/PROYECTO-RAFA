@@ -3,20 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sala Acuario</title>
+<title>ACUARIO · Proyecto Rafa</title>
 
 <style>
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  background:black;
-  overflow:hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
+html,body{
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
 img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
 }
 </style>
 </head>
@@ -26,16 +39,19 @@ img{
 <img src="Acuario-1333.png" alt="Sala Acuario">
 
 <audio id="musica" autoplay loop playsinline>
-  <source src="acuario.mp3" type="audio/mpeg">
+    <source src="acuario.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const audio = document.getElementById("musica");
-audio.volume = 0.6;
+const musica = document.getElementById("musica");
 
-audio.play().catch(() => {
-  document.body.addEventListener("click", () => audio.play(), { once:true });
+window.addEventListener("load", () => {
+    musica.play().catch(() => {});
 });
+
+document.addEventListener("touchstart", () => {
+    musica.play().catch(() => {});
+}, {once:true});
 </script>
 
 </body>
