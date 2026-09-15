@@ -3,61 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sala Acuario · Proyecto Rafa</title>
+<title>Sala Acuario</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
 html,body{
+  margin:0;
   width:100%;
   height:100%;
-  background:#000;
+  background:black;
   overflow:hidden;
 }
-
-.fondo{
-  width:100vw;
-  height:100vh;
+img{
+  width:100%;
+  height:100%;
   object-fit:cover;
-  display:block;
-}
-
-#activar{
-  position:fixed;
-  inset:0;
-  background:transparent;
-  border:none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FOTO DEL L333 -->
-<img src="../Acuario-1333.png" class="fondo" alt="Sala Acuario">
+<img src="Acuario-1333.png" alt="Sala Acuario">
 
-<!-- MÚSICA -->
 <audio id="musica" autoplay loop playsinline>
-  <source src="../acuario.mp3" type="audio/mpeg">
+  <source src="acuario.mp3" type="audio/mpeg">
 </audio>
 
-<button id="activar"></button>
-
 <script>
-const musica = document.getElementById("musica");
-const activar = document.getElementById("activar");
+const audio = document.getElementById("musica");
+audio.volume = 0.6;
 
-musica.volume = 0.6;
-
-musica.play().then(()=>{
-  activar.style.display="none";
-}).catch(()=>{
-  activar.style.display="block";
-});
-
-activar.addEventListener("click",()=>{
-  musica.play();
-  activar.style.display="none";
+audio.play().catch(() => {
+  document.body.addEventListener("click", () => audio.play(), { once:true });
 });
 </script>
 
