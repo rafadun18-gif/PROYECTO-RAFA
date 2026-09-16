@@ -159,6 +159,10 @@ button {
     font-weight: bold;
 }
 
+button:disabled {
+    opacity: 0.5;
+}
+
 #enviar {
     background: #39ff14;
     color: #000;
@@ -199,6 +203,7 @@ button {
 }
 
 @media (max-width:480px) {
+
     header h1 {
         font-size: 22px;
     }
@@ -225,6 +230,7 @@ button {
 <div class="contenedor">
 
     <section class="zona-cerebro">
+
         <div class="cerebro">🧠</div>
 
         <div class="contador">
@@ -236,6 +242,7 @@ button {
         <div class="estado" id="estadoIA">
             Preparando GePeTo...
         </div>
+
     </section>
 
     <main class="chat" id="chat"></main>
@@ -277,6 +284,7 @@ button {
 
 </div>
 
+
 <script type="module">
 
 import * as webllm from
@@ -295,12 +303,32 @@ const MODELO =
 "Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
 
+/* =========================================================
+   CLOUDFLARE D1
+========================================================= */
+
+const URL_CLOUDFLARE =
+"https://gepetto-rafa.rafadun18.workers.dev";
+
+
+let cloudflareDisponible = false;
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
 let engine = null;
 let preparando = false;
 
-let memoria = cargarArray(CLAVE_MEMORIA);
-let historial = cargarArray(CLAVE_HISTORIAL);
-let tareas = cargarArray(CLAVE_TAREAS);
+let memoria =
+    cargarArray(CLAVE_MEMORIA);
+
+let historial =
+    cargarArray(CLAVE_HISTORIAL);
+
+let tareas =
+    cargarArray(CLAVE_TAREAS);
 
 
 /* =========================================================
@@ -333,7 +361,7 @@ document.getElementById("voz");
 
 
 /* =========================================================
-   ALMACENAMIENTO
+   ALMACENAMIENTO LOCAL
 ========================================================= */
 
 function cargarArray(clave) {
@@ -341,14 +369,14 @@ function cargarArray(clave) {
     try {
 
         const guardado =
-        localStorage.getItem(clave);
+            localStorage.getItem(clave);
 
         if (!guardado) {
             return [];
         }
 
         const datos =
-        JSON.parse(guardado);
+            JSON.parse(guardado);
 
         return Array.isArray(datos)
             ? datos
@@ -392,7 +420,7 @@ function guardarArray(clave, datos) {
 
 
 /* =========================================================
-   NORMALIZAR TEXTO
+   NORMALIZAR
 ========================================================= */
 
 function normalizar(texto) {
@@ -434,7 +462,7 @@ function añadirMensaje(
 ) {
 
     const mensaje =
-    document.createElement("div");
+        document.createElement("div");
 
     mensaje.className =
         "mensaje " + tipo;
@@ -481,7 +509,7 @@ function añadirMensaje(
 
 
 /* =========================================================
-   CARGAR HISTORIAL
+   HISTORIAL
 ========================================================= */
 
 function cargarHistorial() {
@@ -543,14 +571,101 @@ function cargarHistorial() {
 
 
 /* =========================================================
-   MEMORIA
+   CARGAR MEMORIA DESDE CLOUDFLARE D1
 ========================================================= */
 
-function guardarMemoria(texto) {
+async function cargarMemoriaCloudflare() {
+
+    try {
+
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE + "/memoria",
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (
+            datos.ok &&
+            Array.isArray(datos.recuerdos)
+        ) {
+
+            memoria =
+                datos.recuerdos
+                    .map(
+                        recuerdo =>
+                            recuerdo.texto
+                    )
+                    .filter(
+                        texto =>
+                            typeof texto === "string" &&
+                            texto.trim() !== ""
+                    );
+
+
+            guardarArray(
+                CLAVE_MEMORIA,
+                memoria
+            );
+
+
+            cloudflareDisponible = true;
+
+            actualizarContadores();
+
+            return true;
+        }
+
+
+        throw new Error(
+            "Respuesta de memoria no válida"
+        );
+
+    } catch(error) {
+
+        console.log(
+            "Cloudflare memoria no disponible:",
+            error
+        );
+
+        cloudflareDisponible = false;
+
+        memoria =
+            cargarArray(
+                CLAVE_MEMORIA
+            );
+
+        actualizarContadores();
+
+        return false;
+    }
+}
+
+
+/* =========================================================
+   GUARDAR MEMORIA EN CLOUDFLARE D1
+========================================================= */
+
+async function guardarMemoriaCloudflare(
+    texto
+) {
 
     const recuerdo =
-        String(texto)
-        .trim();
+        String(texto).trim();
 
 
     if (!recuerdo) {
@@ -562,15 +677,140 @@ function guardarMemoria(texto) {
     }
 
 
-    const normalizado =
-        normalizar(recuerdo);
+    try {
+
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE + "/memoria",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            texto: recuerdo
+                        })
+                }
+            );
+
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (!datos.ok) {
+            throw new Error(
+                datos.error ||
+                "No se pudo guardar"
+            );
+        }
+
+
+        cloudflareDisponible = true;
+
+
+        if (datos.repetido) {
+
+            return {
+                guardado:false,
+                repetido:true
+            };
+        }
+
+
+        if (datos.guardado) {
+
+            if (
+                !memoria.some(
+                    item =>
+                        normalizar(item) ===
+                        normalizar(recuerdo)
+                )
+            ) {
+
+                memoria.push(recuerdo);
+            }
+
+
+            guardarArray(
+                CLAVE_MEMORIA,
+                memoria
+            );
+
+
+            actualizarContadores();
+
+
+            return {
+                guardado:true,
+                repetido:false
+            };
+        }
+
+
+        return {
+            guardado:false,
+            repetido:false
+        };
+
+    } catch(error) {
+
+        console.log(
+            "Error guardando memoria en D1:",
+            error
+        );
+
+
+        /* RESPALDO LOCAL */
+
+        const resultado =
+            guardarMemoriaLocal(
+                recuerdo
+            );
+
+
+        cloudflareDisponible = false;
+
+        return resultado;
+    }
+}
+
+
+/* =========================================================
+   MEMORIA LOCAL DE RESPALDO
+========================================================= */
+
+function guardarMemoriaLocal(texto) {
+
+    const recuerdo =
+        String(texto).trim();
+
+
+    if (!recuerdo) {
+
+        return {
+            guardado:false,
+            repetido:false
+        };
+    }
 
 
     const existe =
         memoria.some(
             item =>
                 normalizar(item) ===
-                normalizado
+                normalizar(recuerdo)
         );
 
 
@@ -598,7 +838,7 @@ function guardarMemoria(texto) {
 
     return {
 
-        guardado:correcto,
+        guardado: correcto,
 
         repetido:false
 
@@ -607,7 +847,84 @@ function guardarMemoria(texto) {
 
 
 /* =========================================================
-   DETECTAR "RECUERDA..."
+   BORRAR TODA LA MEMORIA DE CLOUDFLARE
+========================================================= */
+
+async function borrarMemoriaCloudflare() {
+
+    try {
+
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE + "/memoria",
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (!datos.ok) {
+            throw new Error(
+                datos.error ||
+                "No se pudo borrar"
+            );
+        }
+
+
+        memoria = [];
+
+
+        guardarArray(
+            CLAVE_MEMORIA,
+            memoria
+        );
+
+
+        cloudflareDisponible = true;
+
+        actualizarContadores();
+
+        return true;
+
+    } catch(error) {
+
+        console.log(
+            "Error borrando memoria D1:",
+            error
+        );
+
+
+        memoria = [];
+
+
+        guardarArray(
+            CLAVE_MEMORIA,
+            memoria
+        );
+
+
+        cloudflareDisponible = false;
+
+        actualizarContadores();
+
+        return false;
+    }
+}
+
+
+/* =========================================================
+   DETECTAR RECUERDO
 ========================================================= */
 
 function extraerRecuerdo(texto) {
@@ -652,8 +969,8 @@ function extraerRecuerdo(texto) {
 
             const recuerdo =
                 resultado[1]
-                .trim()
-                .replace(/[.!?]+$/,"");
+                    .trim()
+                    .replace(/[.!?]+$/,"");
 
 
             if (
@@ -671,43 +988,43 @@ function extraerRecuerdo(texto) {
 
 
 /* =========================================================
-   PREGUNTAS SOBRE RECUERDOS
+   PALABRAS IMPORTANTES
 ========================================================= */
 
 function palabrasImportantes(texto) {
 
     const ignoradas =
-    new Set([
+        new Set([
 
-        "el","la","los","las",
+            "el","la","los","las",
 
-        "un","una","unos","unas",
+            "un","una","unos","unas",
 
-        "mi","mis","me","yo",
+            "mi","mis","me","yo",
 
-        "tu","tus","te",
+            "tu","tus","te",
 
-        "es","son","que",
+            "es","son","que",
 
-        "cual","cuales",
+            "cual","cuales",
 
-        "como","donde","cuando",
+            "como","donde","cuando",
 
-        "por","para","con",
+            "por","para","con",
 
-        "de","del",
+            "de","del",
 
-        "y","o","a",
+            "y","o","a",
 
-        "tengo","tiene",
+            "tengo","tiene",
 
-        "favorito","favorita",
+            "favorito","favorita",
 
-        "dime","sabes",
+            "dime","sabes",
 
-        "recuerdas","recuerdo"
+            "recuerdas","recuerdo"
 
-    ]);
+        ]);
 
 
     return normalizar(texto)
@@ -725,6 +1042,10 @@ function palabrasImportantes(texto) {
         );
 }
 
+
+/* =========================================================
+   BUSCAR RECUERDOS
+========================================================= */
 
 function buscarRecuerdosRelacionados(
     pregunta
@@ -762,7 +1083,7 @@ function buscarRecuerdosRelacionados(
 
                         if (
                             palabrasRecuerdo
-                            .includes(palabra)
+                                .includes(palabra)
                         ) {
 
                             puntos++;
@@ -774,9 +1095,10 @@ function buscarRecuerdosRelacionados(
 
                 return {
 
-                    texto:recuerdo,
+                    texto: recuerdo,
 
-                    puntos:puntos
+                    puntos: puntos
+
                 };
 
             }
@@ -792,8 +1114,7 @@ function buscarRecuerdosRelacionados(
 
         .sort(
             (a,b) =>
-                b.puntos -
-                a.puntos
+                b.puntos - a.puntos
         )
 
         .slice(0,5)
@@ -806,7 +1127,7 @@ function buscarRecuerdosRelacionados(
 
 
 /* =========================================================
-   MOSTRAR RECUERDOS
+   PETICIÓN DE RECUERDOS
 ========================================================= */
 
 function esPeticionDeRecuerdos(
@@ -926,7 +1247,7 @@ function responderSobreMemoria(
 
 
 /* =========================================================
-   FUNCIONES DE GEPeTo
+   QUÉ PUEDE HACER
 ========================================================= */
 
 function responderQuePuedeHacer() {
@@ -968,53 +1289,258 @@ function responderQuePuedeHacer() {
         "🎙️ VOZ\n" +
         "Puedes hablarme usando el botón del micrófono.\n\n" +
 
-        "🔔 EJECUCIÓN EN SEGUNDO PLANO\n" +
-        "Las tareas quedan guardadas aunque salgas de la Biblioteca. " +
-        "La ejecución automática con la web cerrada necesita conectarse al sistema de automatizaciones."
+        "☁️ MEMORIA PERMANENTE\n" +
+        "Mis recuerdos y tareas se guardan en Cloudflare D1."
 
     );
 }
 
 
 /* =========================================================
-   TAREAS
+   CARGAR TAREAS DESDE CLOUDFLARE D1
 ========================================================= */
 
-function crearTarea(texto) {
+async function cargarTareasCloudflare() {
 
-    const tarea = {
+    try {
 
-        id:
-            Date.now().toString() +
-            Math.random()
-            .toString(36)
-            .substring(2,8),
-
-        texto:
-            texto.trim(),
-
-        creada:
-            Date.now(),
-
-        activa:
-            true
-
-    };
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE + "/tareas",
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
 
 
-    tareas.push(tarea);
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
 
 
-    guardarArray(
-        CLAVE_TAREAS,
-        tareas
-    );
+        const datos =
+            await respuesta.json();
 
 
-    actualizarContadores();
+        if (
+            datos.ok &&
+            Array.isArray(datos.tareas)
+        ) {
+
+            tareas =
+                datos.tareas.map(
+                    tarea => ({
+
+                        id:
+                            tarea.id,
+
+                        texto:
+                            tarea.texto,
+
+                        creada:
+                            tarea.creada
+                                ? new Date(
+                                    tarea.creada
+                                ).getTime()
+                                : Date.now(),
+
+                        fecha:
+                            tarea.fecha || null,
+
+                        activa:
+                            Number(
+                                tarea.completada
+                            ) === 0
+
+                    })
+                );
 
 
-    return tarea;
+            guardarArray(
+                CLAVE_TAREAS,
+                tareas
+            );
+
+
+            cloudflareDisponible = true;
+
+            actualizarContadores();
+
+            return true;
+        }
+
+
+        throw new Error(
+            "Respuesta de tareas no válida"
+        );
+
+    } catch(error) {
+
+        console.log(
+            "Cloudflare tareas no disponible:",
+            error
+        );
+
+
+        tareas =
+            cargarArray(
+                CLAVE_TAREAS
+            );
+
+
+        actualizarContadores();
+
+        return false;
+    }
+}
+
+
+/* =========================================================
+   CREAR TAREA
+========================================================= */
+
+async function crearTarea(texto) {
+
+    const textoLimpio =
+        texto.trim();
+
+
+    if (!textoLimpio) {
+        return null;
+    }
+
+
+    /* PRIMERO D1 */
+
+    try {
+
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE + "/tarea",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            texto:
+                                textoLimpio
+                        })
+                }
+            );
+
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (
+            datos.ok &&
+            datos.tarea
+        ) {
+
+            const tarea =
+                {
+
+                    id:
+                        datos.tarea.id,
+
+                    texto:
+                        datos.tarea.texto,
+
+                    fecha:
+                        datos.tarea.fecha || null,
+
+                    creada:
+                        Date.now(),
+
+                    activa:
+                        true
+
+                };
+
+
+            tareas.unshift(tarea);
+
+
+            guardarArray(
+                CLAVE_TAREAS,
+                tareas
+            );
+
+
+            cloudflareDisponible = true;
+
+            actualizarContadores();
+
+            return tarea;
+        }
+
+
+        throw new Error(
+            datos.error ||
+            "No se pudo guardar la tarea"
+        );
+
+    } catch(error) {
+
+        console.log(
+            "Error guardando tarea en D1:",
+            error
+        );
+
+
+        /* RESPALDO LOCAL */
+
+        const tarea = {
+
+            id:
+                Date.now().toString() +
+                Math.random()
+                    .toString(36)
+                    .substring(2,8),
+
+            texto:
+                textoLimpio,
+
+            creada:
+                Date.now(),
+
+            activa:
+                true
+
+        };
+
+
+        tareas.push(tarea);
+
+
+        guardarArray(
+            CLAVE_TAREAS,
+            tareas
+        );
+
+
+        cloudflareDisponible = false;
+
+        actualizarContadores();
+
+        return tarea;
+    }
 }
 
 
@@ -1142,7 +1668,7 @@ function responderSobreTareas() {
    BORRAR TAREA
 ========================================================= */
 
-function borrarTareaPorTexto(
+async function borrarTareaPorTexto(
     texto
 ) {
 
@@ -1179,7 +1705,7 @@ function borrarTareaPorTexto(
             palabras.filter(
                 palabra =>
                     palabrasTarea
-                    .includes(palabra)
+                        .includes(palabra)
             ).length;
 
 
@@ -1188,6 +1714,7 @@ function borrarTareaPorTexto(
         ) {
 
             encontrada = i;
+
             break;
         }
     }
@@ -1201,20 +1728,88 @@ function borrarTareaPorTexto(
     }
 
 
-    tareas[encontrada].activa =
-        false;
+    const tarea =
+        tareas[encontrada];
 
 
-    guardarArray(
-        CLAVE_TAREAS,
-        tareas
-    );
+    /* INTENTAR BORRAR DE D1 */
+
+    try {
+
+        const respuesta =
+            await fetch(
+                URL_CLOUDFLARE +
+                "/tarea/" +
+                encodeURIComponent(
+                    tarea.id
+                ),
+                {
+                    method: "DELETE"
+                }
+            );
 
 
-    actualizarContadores();
+        if (!respuesta.ok) {
+            throw new Error(
+                "Error HTTP " + respuesta.status
+            );
+        }
 
 
-    return true;
+        const datos =
+            await respuesta.json();
+
+
+        if (!datos.ok) {
+            throw new Error(
+                datos.error ||
+                "No se pudo eliminar"
+            );
+        }
+
+
+        tareas.splice(
+            encontrada,
+            1
+        );
+
+
+        guardarArray(
+            CLAVE_TAREAS,
+            tareas
+        );
+
+
+        actualizarContadores();
+
+        return true;
+
+    } catch(error) {
+
+        console.log(
+            "Error borrando tarea de D1:",
+            error
+        );
+
+
+        /* RESPALDO LOCAL */
+
+        tareas[encontrada].activa =
+            false;
+
+
+        guardarArray(
+            CLAVE_TAREAS,
+            tareas
+        );
+
+
+        cloudflareDisponible = false;
+
+        actualizarContadores();
+
+        return true;
+    }
 }
 
 
@@ -1267,7 +1862,7 @@ function extraerBorradoTarea(
 
 
 /* =========================================================
-   CONTEXTO PARA LA IA
+   CONTEXTO MEMORIA
 ========================================================= */
 
 function crearContextoMemoria() {
@@ -1290,6 +1885,10 @@ function crearContextoMemoria() {
         .join("\n");
 }
 
+
+/* =========================================================
+   CONTEXTO TAREAS
+========================================================= */
 
 function crearContextoTareas() {
 
@@ -1319,6 +1918,10 @@ function crearContextoTareas() {
 }
 
 
+/* =========================================================
+   CONTEXTO HISTORIAL
+========================================================= */
+
 function crearContextoHistorial() {
 
     return historial
@@ -1328,8 +1931,8 @@ function crearContextoHistorial() {
 
                 const quien =
                     item.tipo === "usuario"
-                    ? "Rafa"
-                    : "GePeTo";
+                        ? "Rafa"
+                        : "GePeTo";
 
 
                 return (
@@ -1360,8 +1963,10 @@ async function prepararIA() {
 
     preparando = true;
 
+
     estadoIA.textContent =
         "Cargando inteligencia artificial...";
+
 
     botonEnviar.disabled =
         true;
@@ -1401,6 +2006,7 @@ async function prepararIA() {
     } catch(error) {
 
         console.error(error);
+
 
         estadoIA.textContent =
             "La IA no se pudo cargar. La memoria y las tareas siguen funcionando.";
@@ -1491,9 +2097,9 @@ ${crearContextoHistorial()}
 
     return (
         respuesta
-        .choices?.[0]
-        ?.message
-        ?.content
+            .choices?.[0]
+            ?.message
+            ?.content
     ) ||
 
     "No he conseguido preparar una respuesta.";
@@ -1570,7 +2176,7 @@ async function procesarMensaje(
     if (recuerdo) {
 
         const resultado =
-            guardarMemoria(
+            await guardarMemoriaCloudflare(
                 recuerdo
             );
 
@@ -1633,9 +2239,20 @@ async function procesarMensaje(
     if (tareaTexto) {
 
         const tarea =
-            crearTarea(
+            await crearTarea(
                 tareaTexto
             );
+
+
+        if (!tarea) {
+
+            añadirMensaje(
+                "No he podido guardar la tarea.",
+                "gepeto"
+            );
+
+            return;
+        }
 
 
         añadirMensaje(
@@ -1673,7 +2290,7 @@ async function procesarMensaje(
     if (borrarTexto) {
 
         const borrada =
-            borrarTareaPorTexto(
+            await borrarTareaPorTexto(
                 borrarTexto
             );
 
@@ -1760,6 +2377,7 @@ async function procesarMensaje(
 
         console.error(error);
 
+
         pensando.remove();
 
 
@@ -1807,7 +2425,15 @@ document
 .getElementById("verRecuerdos")
 .addEventListener(
     "click",
-    () => {
+    async () => {
+
+        /*
+           Actualizamos desde D1 antes de mostrar
+           para asegurarnos de enseñar la memoria real.
+        */
+
+        await cargarMemoriaCloudflare();
+
 
         if (
             memoria.length === 0
@@ -1849,7 +2475,14 @@ document
 .getElementById("verTareas")
 .addEventListener(
     "click",
-    () => {
+    async () => {
+
+        /*
+           Actualizamos desde D1 antes de mostrar.
+        */
+
+        await cargarTareasCloudflare();
+
 
         añadirMensaje(
 
@@ -1869,7 +2502,7 @@ document
 .getElementById("borrarRecuerdos")
 .addEventListener(
     "click",
-    () => {
+    async () => {
 
         const confirmar =
             confirm(
@@ -1882,21 +2515,15 @@ document
         }
 
 
-        memoria = [];
-
-
-        guardarArray(
-            CLAVE_MEMORIA,
-            memoria
-        );
-
-
-        actualizarContadores();
+        const correcto =
+            await borrarMemoriaCloudflare();
 
 
         añadirMensaje(
 
-            "🗑️ He borrado todos mis recuerdos.",
+            correcto
+                ? "🗑️ He borrado todos mis recuerdos de la memoria permanente."
+                : "🗑️ He borrado los recuerdos locales, pero Cloudflare no estaba disponible.",
 
             "gepeto"
         );
@@ -1960,8 +2587,8 @@ botonVoz.addEventListener(
 
                 const texto =
                     event
-                    .results[0][0]
-                    .transcript;
+                        .results[0][0]
+                        .transcript;
 
 
                 entrada.value =
@@ -2002,11 +2629,43 @@ botonVoz.addEventListener(
    INICIO
 ========================================================= */
 
-actualizarContadores();
+async function iniciarBiblioteca() {
 
-cargarHistorial();
+    actualizarContadores();
 
-prepararIA();
+    cargarHistorial();
+
+
+    estadoIA.textContent =
+        "Conectando con la memoria de GePeTo...";
+
+
+    /*
+       Cargamos primero memoria y tareas de D1.
+    */
+
+    await Promise.all([
+
+        cargarMemoriaCloudflare(),
+
+        cargarTareasCloudflare()
+
+    ]);
+
+
+    actualizarContadores();
+
+
+    /*
+       Después iniciamos la IA.
+    */
+
+    prepararIA();
+
+}
+
+
+iniciarBiblioteca();
 
 
 /* =========================================================
@@ -2015,17 +2674,16 @@ prepararIA();
 
 window.addEventListener(
     "pageshow",
-    () => {
+    async () => {
 
-        memoria =
-            cargarArray(
-                CLAVE_MEMORIA
-            );
+        await Promise.all([
 
-        tareas =
-            cargarArray(
-                CLAVE_TAREAS
-            );
+            cargarMemoriaCloudflare(),
+
+            cargarTareasCloudflare()
+
+        ]);
+
 
         actualizarContadores();
 
