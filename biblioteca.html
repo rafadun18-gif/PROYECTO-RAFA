@@ -26,12 +26,17 @@ body {
     flex-direction: column;
 }
 
+/* =========================================================
+   CABECERA
+========================================================= */
+
 header {
     flex: 0 0 auto;
     text-align: center;
-    padding: 10px 8px 7px;
+    padding: 7px 8px 7px;
     background: linear-gradient(180deg,#111,#050505);
     border-bottom: 1px solid #333;
+    position: relative;
 }
 
 header h1 {
@@ -47,6 +52,32 @@ header p {
     font-size: 13px;
 }
 
+/* BOTÓN ATRÁS */
+
+#volver {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    height: 34px;
+    min-width: 40px;
+    padding: 0 10px;
+    border-radius: 18px;
+    border: 1px solid #39ff14;
+    background: #101010;
+    color: #39ff14;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#volver:active {
+    background: #39ff14;
+    color: #000;
+}
+
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+
 .contenedor {
     flex: 1 1 auto;
     min-height: 0;
@@ -54,24 +85,33 @@ header p {
     flex-direction: column;
 }
 
+/* =========================================================
+   CEREBRO
+========================================================= */
+
 .zona-cerebro {
     flex: 0 0 auto;
     text-align: center;
-    padding: 7px 5px;
+    padding: 5px 5px 7px;
     background: #050505;
     border-bottom: 1px solid #222;
 }
 
-.cerebro {
-    font-size: 40px;
-    line-height: 40px;
-    animation: respirar 3s infinite ease-in-out;
-    filter: drop-shadow(0 0 8px #00ff88);
+.foto-gepeto {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #39ff14;
+    box-shadow:
+        0 0 8px #39ff14,
+        0 0 18px #008cff;
+    display: block;
+    margin: 0 auto 3px;
 }
 
-@keyframes respirar {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+.cerebro {
+    display: none;
 }
 
 .contador {
@@ -87,6 +127,10 @@ header p {
     font-size: 12px;
     margin-top: 3px;
 }
+
+/* =========================================================
+   CHAT
+========================================================= */
 
 .chat {
     flex: 1 1 0;
@@ -120,6 +164,10 @@ header p {
     background: #101010;
     border: 1px solid #008cff;
 }
+
+/* =========================================================
+   BARRA DE ESCRIBIR
+========================================================= */
 
 .escribir {
     flex: 0 0 auto;
@@ -176,6 +224,10 @@ button:disabled {
     font-size: 18px;
 }
 
+/* =========================================================
+   ACCIONES
+========================================================= */
+
 #acciones {
     flex: 0 0 auto;
     display: flex;
@@ -202,10 +254,41 @@ button:disabled {
     border-color: #803333;
 }
 
+/* =========================================================
+   MÚSICA
+========================================================= */
+
+#musica {
+    display: none;
+}
+
+#botonMusica {
+    position: fixed;
+    right: 8px;
+    top: 8px;
+    z-index: 20;
+    height: 34px;
+    min-width: 40px;
+    padding: 0 9px;
+    border-radius: 18px;
+    border: 1px solid #008cff;
+    background: #101010;
+    color: #00aaff;
+    font-size: 16px;
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
 @media (max-width:480px) {
 
     header h1 {
         font-size: 22px;
+    }
+
+    header p {
+        font-size: 12px;
     }
 
     .mensaje {
@@ -216,27 +299,77 @@ button:disabled {
     #entrada {
         font-size: 16px;
     }
+
+    .foto-gepeto {
+        width: 58px;
+        height: 58px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =======================================================
+     MÚSICA
+======================================================= -->
+
+<audio
+    id="musica"
+    src="biblioteca.mp3"
+    loop
+    preload="auto">
+</audio>
+
+<button id="botonMusica" type="button" aria-label="Música">
+    🎵
+</button>
+
+
+<!-- =======================================================
+     CABECERA
+======================================================= -->
+
 <header>
+
+    <button id="volver" type="button">
+        ← Volver
+    </button>
+
     <h1>🧠 GePeTo</h1>
+
     <p>Biblioteca inteligente de Rafa</p>
+
 </header>
+
 
 <div class="contenedor">
 
+    <!-- ===================================================
+         CEREBRO
+    ==================================================== -->
+
     <section class="zona-cerebro">
+
+        <img
+            class="foto-gepeto"
+            src="GePeTo.png"
+            alt="GePeTo"
+            onerror="this.style.display='none';"
+        >
 
         <div class="cerebro">🧠</div>
 
         <div class="contador">
-            Recuerdos: <span id="numeroRecuerdos">0</span>
+
+            Recuerdos:
+            <span id="numeroRecuerdos">0</span>
+
             &nbsp; | &nbsp;
-            Tareas: <span id="numeroTareas">0</span>
+
+            Tareas:
+            <span id="numeroTareas">0</span>
+
         </div>
 
         <div class="estado" id="estadoIA">
@@ -245,7 +378,17 @@ button:disabled {
 
     </section>
 
+
+    <!-- ===================================================
+         CHAT
+    ==================================================== -->
+
     <main class="chat" id="chat"></main>
+
+
+    <!-- ===================================================
+         ACCIONES
+    ==================================================== -->
 
     <section id="acciones">
 
@@ -262,6 +405,11 @@ button:disabled {
         </button>
 
     </section>
+
+
+    <!-- ===================================================
+         ESCRIBIR
+    ==================================================== -->
 
     <form class="escribir" id="formulario">
 
@@ -310,7 +458,6 @@ const MODELO =
 const URL_CLOUDFLARE =
 "https://gepetto-rafa.rafadun18.workers.dev";
 
-
 let cloudflareDisponible = false;
 
 
@@ -358,6 +505,151 @@ document.getElementById("enviar");
 
 const botonVoz =
 document.getElementById("voz");
+
+const musica =
+document.getElementById("musica");
+
+const botonMusica =
+document.getElementById("botonMusica");
+
+const botonVolver =
+document.getElementById("volver");
+
+
+/* =========================================================
+   VOLVER
+========================================================= */
+
+botonVolver.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+            "index.html";
+
+    }
+);
+
+
+/* =========================================================
+   MÚSICA
+========================================================= */
+
+let musicaActiva = true;
+
+
+/*
+   Intentar reproducir automáticamente.
+   Algunos navegadores, especialmente iPhone,
+   pueden bloquear el autoplay.
+*/
+
+async function iniciarMusica() {
+
+    try {
+
+        await musica.play();
+
+        musicaActiva = true;
+
+        botonMusica.textContent = "🎵";
+
+    } catch(error) {
+
+        /*
+           iPhone puede bloquear la reproducción automática.
+           Esperamos al primer toque del usuario.
+        */
+
+        musicaActiva = false;
+
+        botonMusica.textContent = "🔇";
+    }
+}
+
+
+async function activarMusicaPorToque() {
+
+    try {
+
+        if (
+            musica.paused
+        ) {
+
+            await musica.play();
+
+            musicaActiva = true;
+
+            botonMusica.textContent =
+                "🎵";
+        }
+
+    } catch(error) {
+
+        console.log(
+            "No se pudo iniciar la música:",
+            error
+        );
+    }
+}
+
+
+botonMusica.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            musica.paused
+        ) {
+
+            try {
+
+                await musica.play();
+
+                musicaActiva = true;
+
+                botonMusica.textContent =
+                    "🎵";
+
+            } catch(error) {
+
+                console.log(error);
+            }
+
+        } else {
+
+            musica.pause();
+
+            musicaActiva = false;
+
+            botonMusica.textContent =
+                "🔇";
+        }
+
+    }
+);
+
+
+/*
+   Primer toque/clic en la página.
+*/
+
+document.addEventListener(
+    "touchstart",
+    activarMusicaPorToque,
+    {
+        once:true,
+        passive:true
+    }
+);
+
+document.addEventListener(
+    "click",
+    activarMusicaPorToque,
+    {
+        once:true
+    }
+);
 
 
 /* =========================================================
@@ -530,9 +822,7 @@ function cargarHistorial() {
             "Puedes preguntarme:\n" +
 
             "• ¿Qué puedes hacer?\n" +
-
             "• ¿Qué recuerdas?\n" +
-
             "• ¿Qué tareas tengo?\n\n" +
 
             "También puedes decirme:\n" +
@@ -571,7 +861,7 @@ function cargarHistorial() {
 
 
 /* =========================================================
-   CARGAR MEMORIA DESDE CLOUDFLARE D1
+   CARGAR MEMORIA DESDE D1
 ========================================================= */
 
 async function cargarMemoriaCloudflare() {
@@ -657,7 +947,7 @@ async function cargarMemoriaCloudflare() {
 
 
 /* =========================================================
-   GUARDAR MEMORIA EN CLOUDFLARE D1
+   GUARDAR MEMORIA EN D1
 ========================================================= */
 
 async function guardarMemoriaCloudflare(
@@ -772,8 +1062,6 @@ async function guardarMemoriaCloudflare(
         );
 
 
-        /* RESPALDO LOCAL */
-
         const resultado =
             guardarMemoriaLocal(
                 recuerdo
@@ -788,7 +1076,7 @@ async function guardarMemoriaCloudflare(
 
 
 /* =========================================================
-   MEMORIA LOCAL DE RESPALDO
+   MEMORIA LOCAL
 ========================================================= */
 
 function guardarMemoriaLocal(texto) {
@@ -847,7 +1135,7 @@ function guardarMemoriaLocal(texto) {
 
 
 /* =========================================================
-   BORRAR TODA LA MEMORIA DE CLOUDFLARE
+   BORRAR MEMORIA D1
 ========================================================= */
 
 async function borrarMemoriaCloudflare() {
@@ -1297,7 +1585,7 @@ function responderQuePuedeHacer() {
 
 
 /* =========================================================
-   CARGAR TAREAS DESDE CLOUDFLARE D1
+   CARGAR TAREAS D1
 ========================================================= */
 
 async function cargarTareasCloudflare() {
@@ -1413,8 +1701,6 @@ async function crearTarea(texto) {
     }
 
 
-    /* PRIMERO D1 */
-
     try {
 
         const respuesta =
@@ -1453,25 +1739,24 @@ async function crearTarea(texto) {
             datos.tarea
         ) {
 
-            const tarea =
-                {
+            const tarea = {
 
-                    id:
-                        datos.tarea.id,
+                id:
+                    datos.tarea.id,
 
-                    texto:
-                        datos.tarea.texto,
+                texto:
+                    datos.tarea.texto,
 
-                    fecha:
-                        datos.tarea.fecha || null,
+                fecha:
+                    datos.tarea.fecha || null,
 
-                    creada:
-                        Date.now(),
+                creada:
+                    Date.now(),
 
-                    activa:
-                        true
+                activa:
+                    true
 
-                };
+            };
 
 
             tareas.unshift(tarea);
@@ -1503,8 +1788,6 @@ async function crearTarea(texto) {
             error
         );
 
-
-        /* RESPALDO LOCAL */
 
         const tarea = {
 
@@ -1556,13 +1839,13 @@ function extraerTarea(texto) {
 
     const patrones = [
 
-        /^\s*recu[eé]rdame\s+(.+)$/i,
-
         /^\s*recu[eé]rdame\s+que\s+(.+)$/i,
 
-        /^\s*crea una tarea\s+(.+)$/i,
+        /^\s*recu[eé]rdame\s+(.+)$/i,
 
         /^\s*crea una tarea para\s+(.+)$/i,
+
+        /^\s*crea una tarea\s+(.+)$/i,
 
         /^\s*anota una tarea\s+(.+)$/i,
 
@@ -1732,8 +2015,6 @@ async function borrarTareaPorTexto(
         tareas[encontrada];
 
 
-    /* INTENTAR BORRAR DE D1 */
-
     try {
 
         const respuesta =
@@ -1791,8 +2072,6 @@ async function borrarTareaPorTexto(
             error
         );
 
-
-        /* RESPALDO LOCAL */
 
         tareas[encontrada].activa =
             false;
@@ -2132,11 +2411,11 @@ async function procesarMensaje(
     entrada.value = "";
 
 
-    /* ---------- QUÉ PUEDE HACER ---------- */
-
     const normal =
         normalizar(pregunta);
 
+
+    /* ---------- QUÉ PUEDE HACER ---------- */
 
     if (
         normal.includes(
@@ -2418,7 +2697,7 @@ formulario.addEventListener(
 
 
 /* =========================================================
-   BOTÓN RECUERDOS
+   RECUERDOS
 ========================================================= */
 
 document
@@ -2426,11 +2705,6 @@ document
 .addEventListener(
     "click",
     async () => {
-
-        /*
-           Actualizamos desde D1 antes de mostrar
-           para asegurarnos de enseñar la memoria real.
-        */
 
         await cargarMemoriaCloudflare();
 
@@ -2468,7 +2742,7 @@ document
 
 
 /* =========================================================
-   BOTÓN TAREAS
+   TAREAS
 ========================================================= */
 
 document
@@ -2476,10 +2750,6 @@ document
 .addEventListener(
     "click",
     async () => {
-
-        /*
-           Actualizamos desde D1 antes de mostrar.
-        */
 
         await cargarTareasCloudflare();
 
@@ -2641,7 +2911,7 @@ async function iniciarBiblioteca() {
 
 
     /*
-       Cargamos primero memoria y tareas de D1.
+       Cargamos D1 primero.
     */
 
     await Promise.all([
@@ -2657,6 +2927,13 @@ async function iniciarBiblioteca() {
 
 
     /*
+       Iniciamos música.
+    */
+
+    iniciarMusica();
+
+
+    /*
        Después iniciamos la IA.
     */
 
@@ -2669,7 +2946,7 @@ iniciarBiblioteca();
 
 
 /* =========================================================
-   RECUPERACIÓN AL VOLVER A LA PÁGINA
+   RECUPERACIÓN AL VOLVER
 ========================================================= */
 
 window.addEventListener(
@@ -2699,7 +2976,7 @@ window.addEventListener(
     }
 );
 
-</script>
+</ script>
 
 </body>
 </html>
