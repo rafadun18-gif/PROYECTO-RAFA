@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -146,6 +147,13 @@ html,body{
     box-shadow:0 0 15px rgba(0,234,255,0.5);
 }
 
+.videoCaja h2{
+    color:#00eaff;
+    font-family:Arial,sans-serif;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
 .videoCaja video{
     width:100%;
     max-height:65vh;
@@ -200,6 +208,10 @@ html,body{
     #salaVideo h1{
         font-size:24px;
     }
+
+    .videoCaja h2{
+        font-size:18px;
+    }
 }
 </style>
 </head>
@@ -241,18 +253,20 @@ html,body{
 
     <div class="videos">
 
-        <!--
-        AQUÍ PONDREMOS LOS VÍDEOS.
-
-        EJEMPLO:
-
+        <!-- VÍDEO 1 -->
         <div class="videoCaja">
-            <video controls playsinline>
-                <source src="video1.mp4" type="video/mp4">
-            </video>
-        </div>
 
-        -->
+            <h2>🐠 Mi Acuario</h2>
+
+            <video controls playsinline preload="metadata">
+
+                <source src="Video1.mp4" type="video/mp4">
+
+                Tu navegador no puede reproducir este vídeo.
+
+            </video>
+
+        </div>
 
     </div>
 
