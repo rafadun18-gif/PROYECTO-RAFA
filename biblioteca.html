@@ -1,351 +1,2047 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Biblioteca · GePeTo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca GePeTo</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;font-family:Arial,sans-serif;background:#050505;color:white}
-body{display:flex;justify-content:center;overflow:hidden}
-.contenedor{width:100%;max-width:700px;height:100%;min-height:0;padding:55px 14px 8px;display:flex;flex-direction:column;align-items:center;background:radial-gradient(circle at 50% 12%,rgba(0,255,120,.13),transparent 35%),linear-gradient(180deg,#101510,#030303);overflow:hidden}
-.portada{position:fixed;top:10px;left:10px;z-index:20;border:1px solid #39ff88;background:#071009;color:#39ff88;padding:9px 13px;border-radius:10px;font-weight:bold;font-size:13px;text-decoration:none}
-.superior{display:flex;justify-content:center;align-items:flex-start;gap:18px;width:100%;flex:0 0 auto}
-.cerebroZona,.fotoZona{width:105px;text-align:center}
-.cerebro{width:82px;height:82px;margin:auto;border-radius:50%;border:2px solid #39ff88;background:radial-gradient(circle,rgba(57,255,136,.28),rgba(0,20,10,.9) 65%);box-shadow:0 0 12px rgba(57,255,136,.4),inset 0 0 15px rgba(57,255,136,.2);display:flex;align-items:center;justify-content:center;font-size:45px;transition:.4s}
-.cerebro.aprendiendo{transform:scale(1.12);box-shadow:0 0 30px #39ff88,0 0 60px rgba(57,255,136,.7),inset 0 0 30px rgba(57,255,136,.5)}
-.memoriaTitulo{margin-top:3px;font-size:11px;color:#aaa}
-#contadorMemoria{color:#39ff88;font-weight:bold;font-size:13px}
-#foto{width:105px;height:105px;object-fit:cover;border-radius:50%;border:2px solid #39ff88;box-shadow:0 0 20px rgba(57,255,136,.45)}
-.nombre{margin-top:6px;font-size:22px;font-weight:bold}
-.estado{font-size:13px;color:#39ff88;margin-top:3px}
-#estadoIA{margin-top:5px;font-size:13px;color:#aaa;min-height:18px;text-align:center;flex:0 0 auto}
-#estadoIA button{margin-top:6px;padding:6px 10px;border:1px solid #39ff88;border-radius:8px;background:#102719;color:#39ff88}
-.chat{width:100%;max-width:620px;flex:1 1 0;min-height:0;margin-top:8px;padding:10px;overflow-y:auto;overflow-x:hidden;border:1px solid rgba(57,255,136,.22);border-radius:14px;background:rgba(0,0,0,.55);overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#39ff88 #111}
-.mensaje{margin-bottom:10px;padding:9px 11px;border-radius:12px;line-height:1.35;font-size:15px;word-wrap:break-word;overflow-wrap:anywhere;white-space:pre-wrap}
-.gepeto{background:#101d14;border-left:3px solid #39ff88}
-.rafa{background:#10202c;border-left:3px solid #4da6ff}
-.escribir{width:100%;max-width:620px;height:45px;min-height:45px;display:flex;gap:6px;margin-top:7px;flex:0 0 45px}
-#texto{flex:1 1 auto;min-width:0;width:0;border:1px solid #555;border-radius:10px;background:#111;color:white;padding:0 11px;font-size:15px;outline:none}
-#texto:focus{border-color:#39ff88}
-#enviar{width:82px;min-width:82px;border:2px solid #39ff88;border-radius:10px;background:#12351e;color:#39ff88;font-weight:bold;cursor:pointer}
-#enviar:disabled{opacity:.45;cursor:wait}
-#hablar{width:100%;max-width:620px;height:34px;min-height:34px;margin-top:6px;flex:0 0 34px;border:1px solid #555;border-radius:9px;background:#111;color:#aaa}
-audio{display:none}
-@media(max-width:480px){
-.contenedor{padding-left:8px;padding-right:8px;padding-bottom:6px}
-.superior{gap:10px}
-.cerebroZona,.fotoZona{width:95px}
-.cerebro{width:75px;height:75px;font-size:40px}
-#foto{width:95px;height:95px}
-.nombre{font-size:20px}
-.chat{padding:8px}
-.mensaje{font-size:14px}
-#enviar{width:76px;min-width:76px;font-size:12px}
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 10px 8px 7px;
+    background: linear-gradient(180deg,#111,#050505);
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    margin: 0;
+    color: #39ff14;
+    font-size: 25px;
+    text-shadow: 0 0 8px #39ff14;
+}
+
+header p {
+    margin: 4px 0 0;
+    color: #00aaff;
+    font-size: 13px;
+}
+
+.contenedor {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.zona-cerebro {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 7px 5px;
+    background: #050505;
+    border-bottom: 1px solid #222;
+}
+
+.cerebro {
+    font-size: 40px;
+    line-height: 40px;
+    animation: respirar 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 8px #00ff88);
+}
+
+@keyframes respirar {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.contador {
+    color: #39ff14;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.estado {
+    min-height: 17px;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.chat {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mensaje {
+    max-width: 92%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+    font-size: 15px;
+}
+
+.usuario {
+    align-self: flex-end;
+    background: #073d20;
+    border: 1px solid #39ff14;
+}
+
+.gepeto {
+    align-self: flex-start;
+    background: #101010;
+    border: 1px solid #008cff;
+}
+
+.escribir {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 7px;
+    padding: 8px;
+    background: #090909;
+    border-top: 1px solid #333;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+#entrada {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 43px;
+    border: 1px solid #555;
+    border-radius: 22px;
+    background: #181818;
+    color: white;
+    padding: 0 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+#entrada:focus {
+    border-color: #39ff14;
+    box-shadow: 0 0 8px #164d0d;
+}
+
+button {
+    flex: 0 0 auto;
+    height: 43px;
+    border: none;
+    border-radius: 22px;
+    padding: 0 14px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#enviar {
+    background: #39ff14;
+    color: #000;
+}
+
+#voz {
+    background: #008cff;
+    color: white;
+    width: 43px;
+    padding: 0;
+    font-size: 18px;
+}
+
+#acciones {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    padding: 6px;
+    background: #050505;
+    border-top: 1px solid #222;
+}
+
+.accion {
+    height: 31px;
+    border-radius: 16px;
+    padding: 0 11px;
+    background: #151515;
+    color: #39ff14;
+    border: 1px solid #286d1c;
+    font-size: 12px;
+}
+
+.accion.rojo {
+    color: #ff5555;
+    border-color: #803333;
+}
+
+@media (max-width:480px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    .mensaje {
+        max-width: 95%;
+        font-size: 14px;
+    }
+
+    #entrada {
+        font-size: 16px;
+    }
 }
 </style>
 </head>
+
 <body>
+
+<header>
+    <h1>🧠 GePeTo</h1>
+    <p>Biblioteca inteligente de Rafa</p>
+</header>
+
 <div class="contenedor">
 
-<a class="portada" href="index.html">← PORTADA</a>
+    <section class="zona-cerebro">
+        <div class="cerebro">🧠</div>
 
-<div class="superior">
-<div class="cerebroZona">
-<div id="cerebro" class="cerebro">🧠</div>
-<div class="memoriaTitulo">MEMORIA</div>
-<div><span id="contadorMemoria">0</span> recuerdos</div>
-</div>
-<div class="fotoZona">
-<img id="foto" src="GePeTo.png" alt="GePeTo">
-<div class="nombre">GePeTo</div>
-<div class="estado">● Conectado</div>
-</div>
-</div>
+        <div class="contador">
+            Recuerdos: <span id="numeroRecuerdos">0</span>
+            &nbsp; | &nbsp;
+            Tareas: <span id="numeroTareas">0</span>
+        </div>
 
-<div id="estadoIA">🟡 Preparando la inteligencia de GePeTo…</div>
-<div id="chat" class="chat"></div>
+        <div class="estado" id="estadoIA">
+            Preparando GePeTo...
+        </div>
+    </section>
 
-<div class="escribir">
-<input id="texto" type="text" placeholder="Escribe a GePeTo..." autocomplete="off">
-<button id="enviar">ENVIAR</button>
-</div>
+    <main class="chat" id="chat"></main>
 
-<button id="hablar">🎤 Hablar con GePeTo — próximamente</button>
+    <section id="acciones">
 
-<audio id="musica" loop preload="auto">
-<source src="biblioteca.mp3" type="audio/mpeg">
-</audio>
+        <button class="accion" id="verRecuerdos">
+            🧠 Recuerdos
+        </button>
+
+        <button class="accion" id="verTareas">
+            📋 Tareas
+        </button>
+
+        <button class="accion rojo" id="borrarRecuerdos">
+            🗑️ Borrar memoria
+        </button>
+
+    </section>
+
+    <form class="escribir" id="formulario">
+
+        <input
+            id="entrada"
+            type="text"
+            autocomplete="off"
+            placeholder="Escribe a GePeTo..."
+        >
+
+        <button id="voz" type="button">
+            🎙️
+        </button>
+
+        <button id="enviar" type="submit">
+            Enviar
+        </button>
+
+    </form>
+
 </div>
 
 <script type="module">
 
-const chat=document.getElementById("chat");
-const texto=document.getElementById("texto");
-const enviar=document.getElementById("enviar");
-const estadoIA=document.getElementById("estadoIA");
-const musica=document.getElementById("musica");
-const cerebro=document.getElementById("cerebro");
-const contadorMemoria=document.getElementById("contadorMemoria");
+import * as webllm from
+"https://esm.run/@mlc-ai/web-llm";
 
-let engine=null;
-let cargando=true;
-let preparando=false;
-let memoria=[];
-let historial=[];
 
-try{
- memoria=JSON.parse(localStorage.getItem("memoriaGePeTo")||"[]");
- if(!Array.isArray(memoria))memoria=[];
-}catch(e){memoria=[]}
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
 
-try{
- historial=JSON.parse(localStorage.getItem("historialGePeTo")||"[]");
- if(!Array.isArray(historial))historial=[];
-}catch(e){historial=[]}
+const CLAVE_MEMORIA = "memoriaGePeTo";
+const CLAVE_HISTORIAL = "historialGePeTo";
+const CLAVE_TAREAS = "tareasGePeTo";
 
-function actualizarContador(){
- contadorMemoria.textContent=memoria.length;
-}
-actualizarContador();
+const MODELO =
+"Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
-function animarCerebro(){
- cerebro.classList.add("aprendiendo");
- setTimeout(()=>cerebro.classList.remove("aprendiendo"),1400);
-}
 
-function guardarMemoria(dato){
- dato=dato.trim();
- if(!dato)return;
- if(memoria.some(r=>r.toLowerCase()===dato.toLowerCase()))return;
- memoria.push(dato);
- try{localStorage.setItem("memoriaGePeTo",JSON.stringify(memoria))}catch(e){}
- actualizarContador();
- animarCerebro();
-}
+let engine = null;
+let preparando = false;
 
-function obtenerMemoria(){
- if(!memoria.length)return "Todavía no tengo recuerdos guardados.";
- return memoria.map((dato,i)=>(i+1)+". "+dato).join("\n");
-}
+let memoria = cargarArray(CLAVE_MEMORIA);
+let historial = cargarArray(CLAVE_HISTORIAL);
+let tareas = cargarArray(CLAVE_TAREAS);
 
-function guardarHistorial(){
- if(historial.length>100)historial=historial.slice(-100);
- try{localStorage.setItem("historialGePeTo",JSON.stringify(historial))}catch(e){}
-}
 
-function añadirMensaje(textoMensaje,tipo,guardar=true){
- const div=document.createElement("div");
- div.className="mensaje "+tipo;
- div.textContent=textoMensaje;
- chat.appendChild(div);
- if(guardar){
-  historial.push({tipo:tipo,texto:textoMensaje});
-  guardarHistorial();
- }
- chat.scrollTop=chat.scrollHeight;
- return div;
-}
+/* =========================================================
+   ELEMENTOS
+========================================================= */
 
-if(historial.length){
- historial.forEach(m=>{
-  if(m&&typeof m.texto==="string")
-   añadirMensaje(m.texto,m.tipo||"gepeto",false);
- });
-}else{
- añadirMensaje("Hola Rafa. Soy GePeTo. Mi inteligencia y mi memoria están preparadas. Podemos seguir aprendiendo juntos.","gepeto");
-}
+const chat =
+document.getElementById("chat");
 
-musica.volume=.35;
-function iniciarMusica(){musica.play().catch(()=>{})}
-window.addEventListener("touchstart",iniciarMusica,{once:true});
-window.addEventListener("click",iniciarMusica,{once:true});
+const entrada =
+document.getElementById("entrada");
 
-function mostrarErrorCarga(){
- estadoIA.innerHTML="🔴 La inteligencia no ha podido cargarse en este dispositivo.";
- const boton=document.createElement("button");
- boton.textContent="↻ INTENTAR DE NUEVO";
- boton.addEventListener("click",prepararIA);
- estadoIA.appendChild(document.createElement("br"));
- estadoIA.appendChild(boton);
+const formulario =
+document.getElementById("formulario");
+
+const numeroRecuerdos =
+document.getElementById("numeroRecuerdos");
+
+const numeroTareas =
+document.getElementById("numeroTareas");
+
+const estadoIA =
+document.getElementById("estadoIA");
+
+const botonEnviar =
+document.getElementById("enviar");
+
+const botonVoz =
+document.getElementById("voz");
+
+
+/* =========================================================
+   ALMACENAMIENTO
+========================================================= */
+
+function cargarArray(clave) {
+
+    try {
+
+        const guardado =
+        localStorage.getItem(clave);
+
+        if (!guardado) {
+            return [];
+        }
+
+        const datos =
+        JSON.parse(guardado);
+
+        return Array.isArray(datos)
+            ? datos
+            : [];
+
+    } catch(error) {
+
+        console.log(
+            "Error cargando",
+            clave,
+            error
+        );
+
+        return [];
+    }
 }
 
-async function prepararIA(){
- if(preparando)return;
- if(engine){
-  cargando=false;
-  estadoIA.textContent="🟢 GePeTo listo para conversar";
-  enviar.disabled=false;
-  return;
- }
 
- preparando=true;
- cargando=true;
- enviar.disabled=true;
- estadoIA.textContent="🟡 Cargando inteligencia de GePeTo…";
+function guardarArray(clave, datos) {
 
- try{
-  const modulo=await import("https://esm.run/@mlc-ai/web-llm");
-  const model="Llama-3.2-1B-Instruct-q4f16_1-MLC";
+    try {
 
-  engine=await modulo.CreateMLCEngine(model,{
-   initProgressCallback:p=>{
-    if(p&&p.text)estadoIA.textContent="🟡 "+p.text;
-   }
-  });
+        localStorage.setItem(
+            clave,
+            JSON.stringify(datos)
+        );
 
-  cargando=false;
-  preparando=false;
-  enviar.disabled=false;
-  estadoIA.textContent="🟢 GePeTo listo para conversar";
+        return true;
 
-  añadirMensaje("Ya estoy preparado, Rafa. Mi memoria está activa.","gepeto");
+    } catch(error) {
 
- }catch(error){
-  console.error(error);
-  engine=null;
-  cargando=false;
-  preparando=false;
-  enviar.disabled=false;
-  mostrarErrorCarga();
-  añadirMensaje("Rafa, la Biblioteca funciona, pero mi inteligencia local no ha podido cargarse. Puedes intentar cargarla de nuevo.","gepeto");
- }
+        console.log(
+            "Error guardando",
+            clave,
+            error
+        );
+
+        return false;
+    }
 }
 
-function detectarAprendizaje(mensaje){
- const m=mensaje.toLowerCase().trim();
 
- if(m.startsWith("recuerda que")||m.startsWith("recuerda:")){
-  let recuerdo=mensaje.replace(/^recuerda que/i,"").replace(/^recuerda:/i,"").trim();
-  if(recuerdo){guardarMemoria(recuerdo);return true;}
- }
+/* =========================================================
+   NORMALIZAR TEXTO
+========================================================= */
 
- const patrones=["mi nombre es","me llamo","mi proyecto es","mi pez es","mi acuario es","mi ordenador es","mi teléfono es","mi movil es","mi móvil es","me gusta","no me gusta","prefiero","quiero que recuerdes","quiero que sepas","apunta que","ten en cuenta que"];
+function normalizar(texto) {
 
- for(const patron of patrones){
-  if(m.includes(patron)){
-   guardarMemoria(mensaje);
-   return true;
-  }
- }
- return false;
+    return String(texto)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[¿?¡!.,;:()[\]{}"']/g," ")
+        .replace(/\s+/g," ")
+        .trim();
 }
 
-async function responder(){
 
- const mensaje=texto.value.trim();
- if(!mensaje||preparando)return;
+/* =========================================================
+   CONTADORES
+========================================================= */
 
- añadirMensaje(mensaje,"rafa");
- texto.value="";
- detectarAprendizaje(mensaje);
+function actualizarContadores() {
 
- const m=mensaje.toLowerCase();
+    numeroRecuerdos.textContent =
+        memoria.length;
 
- if(m.includes("qué recuerdas")||m.includes("que recuerdas")||m.includes("mis recuerdos")||m.includes("qué sabes de mí")||m.includes("que sabes de mi")){
-  añadirMensaje("Esto es lo que recuerdo:\n\n"+obtenerMemoria(),"gepeto");
-  return;
- }
+    numeroTareas.textContent =
+        tareas.filter(
+            tarea => tarea.activa !== false
+        ).length;
+}
 
- if(!engine){
-  añadirMensaje(cargando?"Todavía estoy cargando mi inteligencia. Espera a que aparezca «GePeTo listo para conversar».":"Mi inteligencia local no ha podido cargarse en este dispositivo. Pulsa INTENTAR DE NUEVO.","gepeto");
-  return;
- }
 
- const contextoMemoria=obtenerMemoria();
+/* =========================================================
+   CHAT
+========================================================= */
 
- const conversacionReciente=historial.slice(-20).map(m=>(m.tipo==="rafa"?"Rafa: ":"GePeTo: ")+m.texto).join("\n");
+function añadirMensaje(
+    texto,
+    tipo = "gepeto",
+    guardar = true
+) {
 
- const pensando=añadirMensaje("Estoy pensando…","gepeto");
+    const mensaje =
+    document.createElement("div");
 
- try{
+    mensaje.className =
+        "mensaje " + tipo;
 
-  const mensajes=[
-  {
-   role:"system",
-   content:`Eres GePeTo, la inteligencia del Proyecto Rafa.
+    mensaje.textContent =
+        texto;
 
-Hablas siempre en español.
+    chat.appendChild(mensaje);
 
-Tu usuario es Rafa.
+    chat.scrollTop =
+        chat.scrollHeight;
 
-Eres inteligente, curioso, tranquilo, directo, amable y analítico.
 
-Explicas las cosas de forma sencilla.
+    if (guardar) {
 
-Puedes discrepar de Rafa cuando tengas razones.
+        historial.push({
 
-No inventes información.
+            tipo: tipo,
 
-Si no sabes algo, dilo claramente.
+            texto: texto,
 
-Estás dentro de la Biblioteca del Proyecto Rafa.
+            fecha: Date.now()
 
-Preséntate como GePeTo.
+        });
 
-No digas que eres ChatGPT.
 
-Tu memoria funciona de forma permanente en este navegador.
+        if (historial.length > 100) {
 
-MEMORIA IMPORTANTE DE RAFA:
+            historial =
+                historial.slice(-100);
 
-${contextoMemoria}
+        }
+
+
+        guardarArray(
+            CLAVE_HISTORIAL,
+            historial
+        );
+    }
+
+
+    return mensaje;
+}
+
+
+/* =========================================================
+   CARGAR HISTORIAL
+========================================================= */
+
+function cargarHistorial() {
+
+    chat.innerHTML = "";
+
+
+    if (historial.length === 0) {
+
+        añadirMensaje(
+
+            "Hola Rafa. Soy GePeTo 🧠\n\n" +
+
+            "Puedo conversar contigo, guardar recuerdos, " +
+            "utilizar esos recuerdos para contestarte y " +
+            "guardar tareas.\n\n" +
+
+            "Puedes preguntarme:\n" +
+
+            "• ¿Qué puedes hacer?\n" +
+
+            "• ¿Qué recuerdas?\n" +
+
+            "• ¿Qué tareas tengo?\n\n" +
+
+            "También puedes decirme:\n" +
+
+            "«Recuerda que mi color preferido es el verde fosforito»",
+
+            "gepeto",
+
+            false
+        );
+
+        return;
+    }
+
+
+    historial.forEach(item => {
+
+        if (
+            item &&
+            typeof item.texto === "string" &&
+            (
+                item.tipo === "usuario" ||
+                item.tipo === "gepeto"
+            )
+        ) {
+
+            añadirMensaje(
+                item.texto,
+                item.tipo,
+                false
+            );
+        }
+
+    });
+}
+
+
+/* =========================================================
+   MEMORIA
+========================================================= */
+
+function guardarMemoria(texto) {
+
+    const recuerdo =
+        String(texto)
+        .trim();
+
+
+    if (!recuerdo) {
+
+        return {
+            guardado:false,
+            repetido:false
+        };
+    }
+
+
+    const normalizado =
+        normalizar(recuerdo);
+
+
+    const existe =
+        memoria.some(
+            item =>
+                normalizar(item) ===
+                normalizado
+        );
+
+
+    if (existe) {
+
+        return {
+            guardado:false,
+            repetido:true
+        };
+    }
+
+
+    memoria.push(recuerdo);
+
+
+    const correcto =
+        guardarArray(
+            CLAVE_MEMORIA,
+            memoria
+        );
+
+
+    actualizarContadores();
+
+
+    return {
+
+        guardado:correcto,
+
+        repetido:false
+
+    };
+}
+
+
+/* =========================================================
+   DETECTAR "RECUERDA..."
+========================================================= */
+
+function extraerRecuerdo(texto) {
+
+    const mensaje =
+        String(texto).trim();
+
+
+    const patrones = [
+
+        /^\s*recuerda(?:me)?\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*acu[eé]rdate\s*(?:de|que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*guarda\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*memoriza\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*apunta\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*anota\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*no olvides\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
+
+        /^\s*quiero que recuerdes\s+(.+)$/i
+
+    ];
+
+
+    for (
+        const patron of patrones
+    ) {
+
+        const resultado =
+            mensaje.match(patron);
+
+
+        if (
+            resultado &&
+            resultado[1]
+        ) {
+
+            const recuerdo =
+                resultado[1]
+                .trim()
+                .replace(/[.!?]+$/,"");
+
+
+            if (
+                recuerdo.length > 1
+            ) {
+
+                return recuerdo;
+            }
+        }
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   PREGUNTAS SOBRE RECUERDOS
+========================================================= */
+
+function palabrasImportantes(texto) {
+
+    const ignoradas =
+    new Set([
+
+        "el","la","los","las",
+
+        "un","una","unos","unas",
+
+        "mi","mis","me","yo",
+
+        "tu","tus","te",
+
+        "es","son","que",
+
+        "cual","cuales",
+
+        "como","donde","cuando",
+
+        "por","para","con",
+
+        "de","del",
+
+        "y","o","a",
+
+        "tengo","tiene",
+
+        "favorito","favorita",
+
+        "dime","sabes",
+
+        "recuerdas","recuerdo"
+
+    ]);
+
+
+    return normalizar(texto)
+
+        .split(" ")
+
+        .filter(
+            palabra =>
+                palabra.length > 2
+        )
+
+        .filter(
+            palabra =>
+                !ignoradas.has(palabra)
+        );
+}
+
+
+function buscarRecuerdosRelacionados(
+    pregunta
+) {
+
+    const palabras =
+        palabrasImportantes(
+            pregunta
+        );
+
+
+    if (
+        palabras.length === 0
+    ) {
+
+        return [];
+    }
+
+
+    const resultados =
+        memoria.map(
+            recuerdo => {
+
+                const palabrasRecuerdo =
+                    palabrasImportantes(
+                        recuerdo
+                    );
+
+
+                let puntos = 0;
+
+
+                palabras.forEach(
+                    palabra => {
+
+                        if (
+                            palabrasRecuerdo
+                            .includes(palabra)
+                        ) {
+
+                            puntos++;
+                        }
+
+                    }
+                );
+
+
+                return {
+
+                    texto:recuerdo,
+
+                    puntos:puntos
+                };
+
+            }
+        );
+
+
+    return resultados
+
+        .filter(
+            item =>
+                item.puntos > 0
+        )
+
+        .sort(
+            (a,b) =>
+                b.puntos -
+                a.puntos
+        )
+
+        .slice(0,5)
+
+        .map(
+            item =>
+                item.texto
+        );
+}
+
+
+/* =========================================================
+   MOSTRAR RECUERDOS
+========================================================= */
+
+function esPeticionDeRecuerdos(
+    texto
+) {
+
+    const mensaje =
+        normalizar(texto);
+
+
+    return (
+
+        mensaje.includes(
+            "que recuerdas"
+        ) ||
+
+        mensaje.includes(
+            "mis recuerdos"
+        ) ||
+
+        mensaje.includes(
+            "que sabes de mi"
+        ) ||
+
+        mensaje.includes(
+            "ensename mis recuerdos"
+        ) ||
+
+        mensaje.includes(
+            "dime mis recuerdos"
+        ) ||
+
+        mensaje.includes(
+            "ver recuerdos"
+        )
+
+    );
+}
+
+
+function responderSobreMemoria(
+    pregunta
+) {
+
+    if (
+        esPeticionDeRecuerdos(
+            pregunta
+        )
+    ) {
+
+        if (
+            memoria.length === 0
+        ) {
+
+            return "Todavía no tengo recuerdos guardados, Rafa.";
+        }
+
+
+        return (
+
+            "🧠 Estos son mis recuerdos:\n\n" +
+
+            memoria
+                .map(
+                    (recuerdo,indice) =>
+                        (indice + 1) +
+                        ". " +
+                        recuerdo
+                )
+                .join("\n")
+
+        );
+    }
+
+
+    const relacionados =
+        buscarRecuerdosRelacionados(
+            pregunta
+        );
+
+
+    if (
+        relacionados.length === 0
+    ) {
+
+        return null;
+    }
+
+
+    if (
+        relacionados.length === 1
+    ) {
+
+        return (
+
+            "🧠 Sí, lo recuerdo:\n\n" +
+
+            relacionados[0]
+
+        );
+    }
+
+
+    return (
+
+        "🧠 He encontrado estos recuerdos relacionados:\n\n" +
+
+        relacionados
+            .map(
+                recuerdo =>
+                    "• " + recuerdo
+            )
+            .join("\n")
+
+    );
+}
+
+
+/* =========================================================
+   FUNCIONES DE GEPeTo
+========================================================= */
+
+function responderQuePuedeHacer() {
+
+    return (
+
+        "🧠 Puedo hacer varias cosas, Rafa:\n\n" +
+
+        "💬 CONVERSAR\n" +
+        "Puedes hablar conmigo y preguntarme cosas.\n\n" +
+
+        "🧠 MEMORIA\n" +
+        "Puedo guardar información que me mandes recordar.\n\n" +
+
+        "Ejemplo:\n" +
+        "«Recuerda que mi color preferido es el verde fosforito».\n\n" +
+
+        "Después puedes preguntarme:\n" +
+        "«¿Cuál es mi color preferido?»\n\n" +
+
+        "📚 RECUERDOS\n" +
+        "Puedes preguntarme «¿Qué recuerdas?» y te enseñaré lo que tengo guardado.\n\n" +
+
+        "📋 TAREAS\n" +
+        "Puedo guardar tareas que quieras hacer más adelante.\n\n" +
+
+        "Ejemplo:\n" +
+        "«Recuérdame mañana comprar comida para los peces».\n\n" +
+
+        "⏰ PROGRAMACIÓN\n" +
+        "Puedo guardar la fecha y hora de una tarea cuando me la indiques.\n\n" +
+
+        "📋 CONSULTAR TAREAS\n" +
+        "Pregunta «¿Qué tareas tengo?».\n\n" +
+
+        "🗑️ BORRAR\n" +
+        "Puedes pedirme que elimine una tarea o utilizar los botones de la Biblioteca.\n\n" +
+
+        "🎙️ VOZ\n" +
+        "Puedes hablarme usando el botón del micrófono.\n\n" +
+
+        "🔔 EJECUCIÓN EN SEGUNDO PLANO\n" +
+        "Las tareas quedan guardadas aunque salgas de la Biblioteca. " +
+        "La ejecución automática con la web cerrada necesita conectarse al sistema de automatizaciones."
+
+    );
+}
+
+
+/* =========================================================
+   TAREAS
+========================================================= */
+
+function crearTarea(texto) {
+
+    const tarea = {
+
+        id:
+            Date.now().toString() +
+            Math.random()
+            .toString(36)
+            .substring(2,8),
+
+        texto:
+            texto.trim(),
+
+        creada:
+            Date.now(),
+
+        activa:
+            true
+
+    };
+
+
+    tareas.push(tarea);
+
+
+    guardarArray(
+        CLAVE_TAREAS,
+        tareas
+    );
+
+
+    actualizarContadores();
+
+
+    return tarea;
+}
+
+
+/* =========================================================
+   DETECTAR TAREAS
+========================================================= */
+
+function extraerTarea(texto) {
+
+    const mensaje =
+        texto.trim();
+
+
+    const patrones = [
+
+        /^\s*recu[eé]rdame\s+(.+)$/i,
+
+        /^\s*recu[eé]rdame\s+que\s+(.+)$/i,
+
+        /^\s*crea una tarea\s+(.+)$/i,
+
+        /^\s*crea una tarea para\s+(.+)$/i,
+
+        /^\s*anota una tarea\s+(.+)$/i,
+
+        /^\s*guarda una tarea\s+(.+)$/i,
+
+        /^\s*apunta una tarea\s+(.+)$/i
+
+    ];
+
+
+    for (
+        const patron of patrones
+    ) {
+
+        const resultado =
+            mensaje.match(patron);
+
+
+        if (
+            resultado &&
+            resultado[1]
+        ) {
+
+            return resultado[1]
+                .trim();
+        }
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   PREGUNTAS SOBRE TAREAS
+========================================================= */
+
+function esPeticionDeTareas(
+    texto
+) {
+
+    const mensaje =
+        normalizar(texto);
+
+
+    return (
+
+        mensaje.includes(
+            "que tareas tengo"
+        ) ||
+
+        mensaje.includes(
+            "mis tareas"
+        ) ||
+
+        mensaje.includes(
+            "ver tareas"
+        ) ||
+
+        mensaje.includes(
+            "mis pendientes"
+        )
+
+    );
+}
+
+
+function responderSobreTareas() {
+
+    const activas =
+        tareas.filter(
+            tarea =>
+                tarea.activa !== false
+        );
+
+
+    if (
+        activas.length === 0
+    ) {
+
+        return "📋 No tienes tareas pendientes, Rafa.";
+    }
+
+
+    return (
+
+        "📋 Estas son tus tareas:\n\n" +
+
+        activas
+            .map(
+                (tarea,indice) =>
+                    (indice + 1) +
+                    ". " +
+                    tarea.texto
+            )
+            .join("\n")
+
+    );
+}
+
+
+/* =========================================================
+   BORRAR TAREA
+========================================================= */
+
+function borrarTareaPorTexto(
+    texto
+) {
+
+    const palabras =
+        palabrasImportantes(
+            texto
+        );
+
+
+    let encontrada = -1;
+
+
+    for (
+        let i = 0;
+        i < tareas.length;
+        i++
+    ) {
+
+        if (
+            tareas[i].activa === false
+        ) {
+
+            continue;
+        }
+
+
+        const palabrasTarea =
+            palabrasImportantes(
+                tareas[i].texto
+            );
+
+
+        const coincidencias =
+            palabras.filter(
+                palabra =>
+                    palabrasTarea
+                    .includes(palabra)
+            ).length;
+
+
+        if (
+            coincidencias > 0
+        ) {
+
+            encontrada = i;
+            break;
+        }
+    }
+
+
+    if (
+        encontrada === -1
+    ) {
+
+        return false;
+    }
+
+
+    tareas[encontrada].activa =
+        false;
+
+
+    guardarArray(
+        CLAVE_TAREAS,
+        tareas
+    );
+
+
+    actualizarContadores();
+
+
+    return true;
+}
+
+
+/* =========================================================
+   DETECTAR BORRADO
+========================================================= */
+
+function extraerBorradoTarea(
+    texto
+) {
+
+    const mensaje =
+        texto.trim();
+
+
+    const patrones = [
+
+        /^\s*borra la tarea\s+(.+)$/i,
+
+        /^\s*elimina la tarea\s+(.+)$/i,
+
+        /^\s*quita la tarea\s+(.+)$/i,
+
+        /^\s*cancela la tarea\s+(.+)$/i
+
+    ];
+
+
+    for (
+        const patron of patrones
+    ) {
+
+        const resultado =
+            mensaje.match(patron);
+
+
+        if (
+            resultado &&
+            resultado[1]
+        ) {
+
+            return resultado[1]
+                .trim();
+        }
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   CONTEXTO PARA LA IA
+========================================================= */
+
+function crearContextoMemoria() {
+
+    if (
+        memoria.length === 0
+    ) {
+
+        return "No hay recuerdos guardados.";
+    }
+
+
+    return memoria
+        .map(
+            (recuerdo,indice) =>
+                (indice + 1) +
+                ". " +
+                recuerdo
+        )
+        .join("\n");
+}
+
+
+function crearContextoTareas() {
+
+    const activas =
+        tareas.filter(
+            tarea =>
+                tarea.activa !== false
+        );
+
+
+    if (
+        activas.length === 0
+    ) {
+
+        return "No hay tareas pendientes.";
+    }
+
+
+    return activas
+        .map(
+            (tarea,indice) =>
+                (indice + 1) +
+                ". " +
+                tarea.texto
+        )
+        .join("\n");
+}
+
+
+function crearContextoHistorial() {
+
+    return historial
+        .slice(-12)
+        .map(
+            item => {
+
+                const quien =
+                    item.tipo === "usuario"
+                    ? "Rafa"
+                    : "GePeTo";
+
+
+                return (
+                    quien +
+                    ": " +
+                    item.texto
+                );
+            }
+        )
+        .join("\n");
+}
+
+
+/* =========================================================
+   CARGAR IA
+========================================================= */
+
+async function prepararIA() {
+
+    if (
+        engine ||
+        preparando
+    ) {
+
+        return;
+    }
+
+
+    preparando = true;
+
+    estadoIA.textContent =
+        "Cargando inteligencia artificial...";
+
+    botonEnviar.disabled =
+        true;
+
+
+    try {
+
+        engine =
+            await webllm.CreateMLCEngine(
+
+                MODELO,
+
+                {
+
+                    initProgressCallback:
+                        progreso => {
+
+                            if (
+                                progreso &&
+                                progreso.text
+                            ) {
+
+                                estadoIA.textContent =
+                                    progreso.text;
+                            }
+
+                        }
+
+                }
+
+            );
+
+
+        estadoIA.textContent =
+            "GePeTo está preparado.";
+
+    } catch(error) {
+
+        console.error(error);
+
+        estadoIA.textContent =
+            "La IA no se pudo cargar. La memoria y las tareas siguen funcionando.";
+
+    } finally {
+
+        preparando = false;
+
+        botonEnviar.disabled =
+            false;
+    }
+}
+
+
+/* =========================================================
+   RESPONDER CON IA
+========================================================= */
+
+async function contestarConIA(
+    pregunta
+) {
+
+    if (!engine) {
+
+        return (
+            "La inteligencia artificial todavía está cargando. " +
+            "La memoria y las tareas sí están disponibles."
+        );
+    }
+
+
+    const sistema = `
+
+Eres GePeTo, el asistente personal de Rafa.
+
+Responde siempre en español.
+
+Sé natural, amable y claro.
+
+Utiliza los recuerdos de Rafa cuando sean relevantes.
+
+Nunca inventes un recuerdo.
+
+Si la respuesta está en los recuerdos, úsala.
+
+También puedes tener en cuenta las tareas pendientes.
+
+RECUERDOS DE RAFA:
+
+${crearContextoMemoria()}
+
+
+TAREAS PENDIENTES:
+
+${crearContextoTareas()}
+
 
 CONVERSACIÓN RECIENTE:
 
-${conversacionReciente}
+${crearContextoHistorial()}
 
-Utiliza la memoria y la conversación reciente cuando sean relevantes.
+`;
 
-No inventes recuerdos.
 
-Si algo no está en la memoria ni en la conversación, no afirmes que lo recuerdas.`
-  },
-  {role:"user",content:mensaje}
-  ];
+    const respuesta =
+        await engine.chat.completions.create({
 
-  const respuesta=await engine.chat.completions.create({
-   messages:mensajes,
-   temperature:.7,
-   max_tokens:300
-  });
+            messages: [
 
-  const textoRespuesta=respuesta.choices[0].message.content;
+                {
+                    role:"system",
+                    content:sistema
+                },
 
-  if(pensando&&pensando.parentNode){
-   pensando.textContent=textoRespuesta;
-   historial.push({tipo:"gepeto",texto:textoRespuesta});
-   guardarHistorial();
-  }else{
-   añadirMensaje(textoRespuesta,"gepeto");
-  }
+                {
+                    role:"user",
+                    content:pregunta
+                }
 
- }catch(error){
+            ],
 
-  console.error(error);
+            temperature:0.7,
 
-  if(pensando&&pensando.parentNode)pensando.remove();
+            max_tokens:350
 
-  añadirMensaje("He tenido un problema al procesar el mensaje. Inténtalo de nuevo.","gepeto");
- }
+        });
+
+
+    return (
+        respuesta
+        .choices?.[0]
+        ?.message
+        ?.content
+    ) ||
+
+    "No he conseguido preparar una respuesta.";
 }
 
-enviar.addEventListener("click",responder);
 
-texto.addEventListener("keydown",e=>{
- if(e.key==="Enter"){
-  e.preventDefault();
-  responder();
- }
-});
+/* =========================================================
+   PROCESAR MENSAJE
+========================================================= */
 
-document.getElementById("hablar").addEventListener("click",()=>{
- alert("La función de voz de GePeTo la añadiremos más adelante.");
-});
+async function procesarMensaje(
+    texto
+) {
+
+    const pregunta =
+        texto.trim();
+
+
+    if (!pregunta) {
+        return;
+    }
+
+
+    añadirMensaje(
+        pregunta,
+        "usuario"
+    );
+
+
+    entrada.value = "";
+
+
+    /* ---------- QUÉ PUEDE HACER ---------- */
+
+    const normal =
+        normalizar(pregunta);
+
+
+    if (
+        normal.includes(
+            "que puedes hacer"
+        ) ||
+
+        normal.includes(
+            "que puedes hacer por mi"
+        ) ||
+
+        normal.includes(
+            "que sabes hacer"
+        ) ||
+
+        normal ===
+        "funciones"
+
+    ) {
+
+        añadirMensaje(
+            responderQuePuedeHacer(),
+            "gepeto"
+        );
+
+        return;
+    }
+
+
+    /* ---------- GUARDAR MEMORIA ---------- */
+
+    const recuerdo =
+        extraerRecuerdo(
+            pregunta
+        );
+
+
+    if (recuerdo) {
+
+        const resultado =
+            guardarMemoria(
+                recuerdo
+            );
+
+
+        if (
+            resultado.repetido
+        ) {
+
+            añadirMensaje(
+
+                "🧠 Ese recuerdo ya lo tenía guardado:\n\n" +
+                recuerdo,
+
+                "gepeto"
+            );
+
+        } else if (
+            resultado.guardado
+        ) {
+
+            añadirMensaje(
+
+                "🧠 Recuerdo guardado correctamente.\n\n" +
+
+                "Ahora tengo " +
+                memoria.length +
+                " recuerdo(s).\n\n" +
+
+                "Lo utilizaré cuando me preguntes sobre él:\n\n" +
+
+                "• " +
+                recuerdo,
+
+                "gepeto"
+            );
+
+        } else {
+
+            añadirMensaje(
+
+                "No he podido guardar ese recuerdo.",
+
+                "gepeto"
+            );
+        }
+
+
+        return;
+    }
+
+
+    /* ---------- TAREA ---------- */
+
+    const tareaTexto =
+        extraerTarea(
+            pregunta
+        );
+
+
+    if (tareaTexto) {
+
+        const tarea =
+            crearTarea(
+                tareaTexto
+            );
+
+
+        añadirMensaje(
+
+            "📋 Tarea guardada correctamente.\n\n" +
+
+            "📝 " +
+            tarea.texto +
+            "\n\n" +
+
+            "Ahora tengo " +
+            tareas.filter(
+                t => t.activa !== false
+            ).length +
+            " tarea(s) pendiente(s).\n\n" +
+
+            "La tarea permanece guardada aunque salgas de la web.",
+
+            "gepeto"
+        );
+
+
+        return;
+    }
+
+
+    /* ---------- BORRAR TAREA ---------- */
+
+    const borrarTexto =
+        extraerBorradoTarea(
+            pregunta
+        );
+
+
+    if (borrarTexto) {
+
+        const borrada =
+            borrarTareaPorTexto(
+                borrarTexto
+            );
+
+
+        añadirMensaje(
+
+            borrada
+                ? "🗑️ He eliminado esa tarea."
+                : "No he encontrado una tarea que coincida.",
+
+            "gepeto"
+        );
+
+
+        return;
+    }
+
+
+    /* ---------- MOSTRAR TAREAS ---------- */
+
+    if (
+        esPeticionDeTareas(
+            pregunta
+        )
+    ) {
+
+        añadirMensaje(
+            responderSobreTareas(),
+            "gepeto"
+        );
+
+        return;
+    }
+
+
+    /* ---------- MEMORIA DIRECTA ---------- */
+
+    const respuestaMemoria =
+        responderSobreMemoria(
+            pregunta
+        );
+
+
+    if (
+        respuestaMemoria
+    ) {
+
+        añadirMensaje(
+            respuestaMemoria,
+            "gepeto"
+        );
+
+        return;
+    }
+
+
+    /* ---------- IA ---------- */
+
+    const pensando =
+        añadirMensaje(
+            "Estoy pensando...",
+            "gepeto",
+            false
+        );
+
+
+    try {
+
+        const respuesta =
+            await contestarConIA(
+                pregunta
+            );
+
+
+        pensando.remove();
+
+
+        añadirMensaje(
+            respuesta,
+            "gepeto"
+        );
+
+    } catch(error) {
+
+        console.error(error);
+
+        pensando.remove();
+
+
+        añadirMensaje(
+
+            "Ha ocurrido un error al responder. Inténtalo otra vez.",
+
+            "gepeto"
+        );
+    }
+}
+
+
+/* =========================================================
+   ENVIAR
+========================================================= */
+
+formulario.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+
+        const texto =
+            entrada.value.trim();
+
+
+        if (texto) {
+
+            procesarMensaje(
+                texto
+            );
+        }
+
+    }
+);
+
+
+/* =========================================================
+   BOTÓN RECUERDOS
+========================================================= */
+
+document
+.getElementById("verRecuerdos")
+.addEventListener(
+    "click",
+    () => {
+
+        if (
+            memoria.length === 0
+        ) {
+
+            añadirMensaje(
+                "Todavía no tengo ningún recuerdo guardado.",
+                "gepeto"
+            );
+
+            return;
+        }
+
+
+        añadirMensaje(
+
+            "🧠 Mis recuerdos:\n\n" +
+
+            memoria
+                .map(
+                    (recuerdo,indice) =>
+                        (indice + 1) +
+                        ". " +
+                        recuerdo
+                )
+                .join("\n"),
+
+            "gepeto"
+        );
+    }
+);
+
+
+/* =========================================================
+   BOTÓN TAREAS
+========================================================= */
+
+document
+.getElementById("verTareas")
+.addEventListener(
+    "click",
+    () => {
+
+        añadirMensaje(
+
+            responderSobreTareas(),
+
+            "gepeto"
+        );
+    }
+);
+
+
+/* =========================================================
+   BORRAR RECUERDOS
+========================================================= */
+
+document
+.getElementById("borrarRecuerdos")
+.addEventListener(
+    "click",
+    () => {
+
+        const confirmar =
+            confirm(
+                "¿Seguro que quieres borrar todos los recuerdos de GePeTo?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        memoria = [];
+
+
+        guardarArray(
+            CLAVE_MEMORIA,
+            memoria
+        );
+
+
+        actualizarContadores();
+
+
+        añadirMensaje(
+
+            "🗑️ He borrado todos mis recuerdos.",
+
+            "gepeto"
+        );
+    }
+);
+
+
+/* =========================================================
+   VOZ
+========================================================= */
+
+botonVoz.addEventListener(
+    "click",
+    () => {
+
+        const Reconocimiento =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+
+        if (!Reconocimiento) {
+
+            añadirMensaje(
+
+                "El reconocimiento de voz no está disponible en este navegador.",
+
+                "gepeto"
+            );
+
+            return;
+        }
+
+
+        const reconocimiento =
+            new Reconocimiento();
+
+
+        reconocimiento.lang =
+            "es-ES";
+
+
+        reconocimiento.interimResults =
+            false;
+
+
+        reconocimiento.continuous =
+            false;
+
+
+        reconocimiento.onstart =
+            () => {
+
+                estadoIA.textContent =
+                    "Escuchando...";
+
+            };
+
+
+        reconocimiento.onresult =
+            event => {
+
+                const texto =
+                    event
+                    .results[0][0]
+                    .transcript;
+
+
+                entrada.value =
+                    texto;
+
+
+                estadoIA.textContent =
+                    "GePeTo está preparado.";
+            };
+
+
+        reconocimiento.onerror =
+            () => {
+
+                estadoIA.textContent =
+                    "No he podido escuchar la voz.";
+            };
+
+
+        reconocimiento.onend =
+            () => {
+
+                if (!preparando) {
+
+                    estadoIA.textContent =
+                        "GePeTo está preparado.";
+                }
+            };
+
+
+        reconocimiento.start();
+
+    }
+);
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+actualizarContadores();
+
+cargarHistorial();
 
 prepararIA();
 
+
+/* =========================================================
+   RECUPERACIÓN AL VOLVER A LA PÁGINA
+========================================================= */
+
+window.addEventListener(
+    "pageshow",
+    () => {
+
+        memoria =
+            cargarArray(
+                CLAVE_MEMORIA
+            );
+
+        tareas =
+            cargarArray(
+                CLAVE_TAREAS
+            );
+
+        actualizarContadores();
+
+
+        if (
+            !engine &&
+            !preparando
+        ) {
+
+            prepararIA();
+        }
+
+    }
+);
+
 </script>
+
 </body>
 </html>
