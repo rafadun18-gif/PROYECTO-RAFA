@@ -56,10 +56,159 @@ html,body{
 
     box-shadow:0 0 15px #39ff14;
 }
+
+/* BOTÓN VÍDEO */
+#botonVideo{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9999;
+
+    display:block;
+    padding:14px 20px;
+
+    background:#000;
+    color:#00eaff;
+
+    border:2px solid #00eaff;
+    border-radius:12px;
+
+    text-decoration:none;
+    font-family:Arial,sans-serif;
+    font-size:15px;
+    font-weight:bold;
+
+    box-shadow:0 0 15px #00eaff;
+
+    cursor:pointer;
+}
+
+/* SALA VÍDEO */
+#salaVideo{
+    display:none;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100vw;
+    height:100vh;
+
+    z-index:10000;
+
+    background:
+        radial-gradient(circle at center, #063b50 0%, #02131e 55%, #000 100%);
+
+    color:white;
+
+    overflow-y:auto;
+    text-align:center;
+
+    padding:80px 20px 30px;
+}
+
+#salaVideo h1{
+    color:#00eaff;
+    font-family:Arial,sans-serif;
+    font-size:30px;
+
+    text-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #00eaff;
+
+    margin-bottom:10px;
+}
+
+#salaVideo p{
+    color:#9befff;
+    font-family:Arial,sans-serif;
+    margin-bottom:30px;
+}
+
+/* CONTENEDOR DE VÍDEOS */
+.videos{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* CADA VÍDEO */
+.videoCaja{
+    background:#000;
+    border:2px solid #00eaff;
+    border-radius:15px;
+    padding:10px;
+
+    box-shadow:0 0 15px rgba(0,234,255,0.5);
+}
+
+.videoCaja video{
+    width:100%;
+    max-height:65vh;
+    border-radius:10px;
+    display:block;
+}
+
+/* BOTÓN VOLVER DEL VÍDEO */
+#volverVideo{
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:14px 22px;
+
+    background:#000;
+    color:#39ff14;
+
+    border:2px solid #39ff14;
+    border-radius:12px;
+
+    font-family:Arial,sans-serif;
+    font-size:15px;
+    font-weight:bold;
+
+    box-shadow:0 0 15px #39ff14;
+
+    cursor:pointer;
+}
+
+/* MÓVIL */
+@media (max-width:600px){
+
+    #volver{
+        top:12px;
+        left:12px;
+        padding:11px 14px;
+        font-size:13px;
+    }
+
+    #botonVideo{
+        top:12px;
+        right:12px;
+        padding:11px 14px;
+        font-size:13px;
+    }
+
+    #salaVideo{
+        padding:75px 12px 25px;
+    }
+
+    #salaVideo h1{
+        font-size:24px;
+    }
+}
 </style>
 </head>
 
 <body>
+
+<!-- ========================= -->
+<!-- ACUARIO PRINCIPAL -->
+<!-- ========================= -->
 
 <div class="acuario">
 
@@ -72,10 +221,56 @@ html,body{
     ← PORTADA
 </a>
 
+<!-- BOTÓN PARA ENTRAR EN VÍDEO -->
+<button id="botonVideo" onclick="abrirVideo()">
+    🎬 VÍDEO →
+</button>
+
+
+<!-- ========================= -->
+<!-- SALA DE VÍDEO -->
+<!-- ========================= -->
+
+<section id="salaVideo">
+
+    <h1>🎬 VÍDEO</h1>
+
+    <p>
+        Vídeos del Acuario Rafa
+    </p>
+
+    <div class="videos">
+
+        <!--
+        AQUÍ PONDREMOS LOS VÍDEOS.
+
+        EJEMPLO:
+
+        <div class="videoCaja">
+            <video controls playsinline>
+                <source src="video1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        -->
+
+    </div>
+
+    <button id="volverVideo" onclick="cerrarVideo()">
+        ← VOLVER AL ACUARIO
+    </button>
+
+</section>
+
+
+<!-- ========================= -->
 <!-- MÚSICA DE ACUARIO -->
+<!-- ========================= -->
+
 <audio id="musica" autoplay loop playsinline preload="auto">
     <source src="Acuario.mp3.mp3" type="audio/mpeg">
 </audio>
+
 
 <script>
 
@@ -86,8 +281,10 @@ window.addEventListener("load", function(){
     musica.play().catch(function(){});
 });
 
+
 /* SI EL NAVEGADOR BLOQUEA EL AUTOMÁTICO,
    EL PRIMER TOQUE EN LA PANTALLA ARRANCA LA MÚSICA */
+
 function ponerMusica(){
     musica.play().catch(function(){});
 }
@@ -100,6 +297,28 @@ document.addEventListener("touchstart", ponerMusica, {
 document.addEventListener("click", ponerMusica, {
     once:true
 });
+
+
+/* ========================= */
+/* ABRIR SALA VÍDEO */
+/* ========================= */
+
+function abrirVideo(){
+
+    document.getElementById("salaVideo").style.display = "block";
+
+}
+
+
+/* ========================= */
+/* VOLVER AL ACUARIO */
+/* ========================= */
+
+function cerrarVideo(){
+
+    document.getElementById("salaVideo").style.display = "none";
+
+}
 
 </script>
 
