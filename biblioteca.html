@@ -3,218 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biblioteca GePeTo</title>
+<title>Biblioteca · GePeTo</title>
 
 <style>
 * {
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: #050505;
     color: white;
     font-family: Arial, sans-serif;
-    overflow: hidden;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
 }
 
-header {
-    flex: 0 0 auto;
-    text-align: center;
-    padding: 10px 8px 7px;
-    background: linear-gradient(180deg,#111,#050505);
-    border-bottom: 1px solid #333;
+button,
+input {
+    font: inherit;
 }
 
-header h1 {
-    margin: 0;
-    color: #39ff14;
-    font-size: 25px;
-    text-shadow: 0 0 8px #39ff14;
-}
-
-header p {
-    margin: 4px 0 0;
-    color: #00aaff;
-    font-size: 13px;
+button {
+    cursor: pointer;
 }
 
 .contenedor {
-    flex: 1 1 auto;
-    min-height: 0;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
+    max-width: 1000px;
+    margin: auto;
+    background: #080808;
 }
 
-.zona-cerebro {
-    flex: 0 0 auto;
-    text-align: center;
-    padding: 7px 5px;
-    background: #050505;
+.cabecera {
+    flex-shrink: 0;
+    padding: 10px;
     border-bottom: 1px solid #222;
+    background: #0c0c0c;
 }
 
-.cerebro {
-    font-size: 40px;
-    line-height: 40px;
-    animation: respirar 3s infinite ease-in-out;
-    filter: drop-shadow(0 0 8px #00ff88);
+.fila-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
-@keyframes respirar {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-}
-
-.contador {
-    color: #39ff14;
+.boton-portada,
+.boton-musica {
+    border: 1px solid #00ff66;
+    background: #071b0d;
+    color: #00ff66;
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-decoration: none;
     font-size: 13px;
-    font-weight: bold;
-    margin-top: 3px;
+}
+
+.boton-musica {
+    border-color: #ff2bd6;
+    background: #21051c;
+    color: #ff65e3;
+}
+
+.titulo {
+    margin: 0;
+    color: #00ff66;
+    text-align: center;
+    font-size: 22px;
+    text-shadow: 0 0 10px #00ff66;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin: 5px 0 0;
 }
 
 .estado {
-    min-height: 17px;
-    color: #aaa;
+    text-align: center;
+    color: #00ff66;
     font-size: 12px;
-    margin-top: 3px;
+    margin-top: 5px;
 }
 
-.chat {
-    flex: 1 1 0;
+.zona-chat {
+    flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    -webkit-overflow-scrolling: touch;
+    padding: 12px;
+    scroll-behavior: smooth;
+}
+
+.bienvenida {
+    text-align: center;
+    color: #aaa;
+    padding: 15px 5px;
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    border: 2px solid #00ff66;
+    box-shadow: 0 0 18px #00ff6644;
+}
+
+.avatar-fallback {
+    display: none;
+    font-size: 70px;
+    text-align: center;
 }
 
 .mensaje {
     max-width: 92%;
-    padding: 10px 12px;
-    border-radius: 14px;
+    margin: 10px 0;
+    padding: 11px 13px;
+    border-radius: 12px;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
-    line-height: 1.4;
+    line-height: 1.45;
     font-size: 15px;
 }
 
-.usuario {
-    align-self: flex-end;
-    background: #073d20;
-    border: 1px solid #39ff14;
+.mensaje.usuario {
+    margin-left: auto;
+    background: #12351f;
+    border: 1px solid #00aa44;
+    color: #eaffef;
 }
 
-.gepeto {
-    align-self: flex-start;
-    background: #101010;
-    border: 1px solid #008cff;
+.mensaje.gepeto {
+    margin-right: auto;
+    background: #171717;
+    border: 1px solid #333;
+    color: #eeeeee;
 }
 
-.escribir {
-    flex: 0 0 auto;
-    display: flex;
-    gap: 7px;
+.nombre-mensaje {
+    font-size: 11px;
+    color: #00ff66;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.usuario .nombre-mensaje {
+    color: #80ffb0;
+}
+
+.panel-controles {
+    flex-shrink: 0;
+    border-top: 1px solid #222;
+    background: #0c0c0c;
     padding: 8px;
-    background: #090909;
-    border-top: 1px solid #333;
-    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+.botones-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.boton-accion {
+    border: 1px solid #444;
+    background: #151515;
+    color: #ddd;
+    border-radius: 7px;
+    padding: 7px 9px;
+    font-size: 12px;
+}
+
+.boton-accion:hover {
+    border-color: #00ff66;
+    color: #00ff66;
+}
+
+.contadores {
+    text-align: center;
+    color: #777;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.barra-escritura {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 #entrada {
-    flex: 1 1 auto;
+    flex: 1;
     min-width: 0;
-    height: 43px;
-    border: 1px solid #555;
-    border-radius: 22px;
-    background: #181818;
+    border: 1px solid #444;
+    border-radius: 9px;
+    background: #050505;
     color: white;
-    padding: 0 15px;
-    font-size: 16px;
+    padding: 12px;
     outline: none;
 }
 
 #entrada:focus {
-    border-color: #39ff14;
-    box-shadow: 0 0 8px #164d0d;
+    border-color: #00ff66;
+    box-shadow: 0 0 8px #00ff6633;
 }
 
-button {
-    flex: 0 0 auto;
-    height: 43px;
-    border: none;
-    border-radius: 22px;
-    padding: 0 14px;
-    font-size: 14px;
+.boton-enviar,
+.boton-micro {
+    flex-shrink: 0;
+    border: 1px solid #00ff66;
+    background: #092512;
+    color: #00ff66;
+    border-radius: 9px;
+    padding: 11px 12px;
     font-weight: bold;
 }
 
-button:disabled {
-    opacity: 0.5;
+.boton-micro {
+    border-color: #00aaff;
+    background: #061b2b;
+    color: #44bbff;
 }
 
-#enviar {
-    background: #39ff14;
-    color: #000;
+.boton-enviar:disabled,
+.boton-micro:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
-#voz {
-    background: #008cff;
-    color: white;
-    width: 43px;
-    padding: 0;
-    font-size: 18px;
-}
-
-#acciones {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-    flex-wrap: wrap;
-    padding: 6px;
-    background: #050505;
-    border-top: 1px solid #222;
-}
-
-.accion {
-    height: 31px;
-    border-radius: 16px;
-    padding: 0 11px;
-    background: #151515;
-    color: #39ff14;
-    border: 1px solid #286d1c;
+.cargando {
+    color: #ffcc00;
+    text-align: center;
     font-size: 12px;
+    padding: 5px;
 }
 
-.accion.rojo {
-    color: #ff5555;
-    border-color: #803333;
-}
+@media (max-width: 500px) {
+    .titulo {
+        font-size: 18px;
+    }
 
-@media (max-width:480px) {
-
-    header h1 {
-        font-size: 22px;
+    .boton-portada,
+    .boton-musica {
+        font-size: 11px;
+        padding: 7px;
     }
 
     .mensaje {
-        max-width: 95%;
+        max-width: 96%;
         font-size: 14px;
     }
 
-    #entrada {
-        font-size: 16px;
+    .boton-enviar,
+    .boton-micro {
+        padding: 11px 9px;
     }
 }
 </style>
@@ -222,263 +277,1738 @@ button:disabled {
 
 <body>
 
-<header>
-    <h1>🧠 GePeTo</h1>
-    <p>Biblioteca inteligente de Rafa</p>
-</header>
-
 <div class="contenedor">
 
-    <section class="zona-cerebro">
+    <header class="cabecera">
+        <div class="fila-superior">
+            <a class="boton-portada" href="./index.html">
+                ← PORTADA
+            </a>
 
-        <div class="cerebro">🧠</div>
+            <h1 class="titulo">🧠 GePeTo</h1>
 
-        <div class="contador">
-            Recuerdos: <span id="numeroRecuerdos">0</span>
-            &nbsp; | &nbsp;
-            Tareas: <span id="numeroTareas">0</span>
+            <button class="boton-musica" id="botonMusica">
+                🎵 Música
+            </button>
         </div>
 
-        <div class="estado" id="estadoIA">
-            Preparando GePeTo...
+        <p class="subtitulo">
+            Biblioteca · Memoria · Tareas · Investigaciones
+        </p>
+
+        <div class="estado" id="estado">
+            ● Iniciando GePeTo...
+        </div>
+    </header>
+
+    <main class="zona-chat" id="zonaChat">
+
+        <div class="bienvenida">
+            <img
+                class="avatar"
+                id="avatarGePeTo"
+                src="./GePeTo.png"
+                alt="GePeTo"
+            >
+
+            <div class="avatar-fallback" id="avatarFallback">
+                🧠
+            </div>
+
+            <div>
+                Hola. Soy GePeTo.
+                <br>
+                Puedes pedirme recuerdos, tareas o investigaciones.
+            </div>
         </div>
 
+    </main>
+
+    <section class="panel-controles">
+
+        <div class="botones-acciones">
+            <button class="boton-accion" id="botonRecuerdos">
+                🧠 Recuerdos
+            </button>
+
+            <button class="boton-accion" id="botonTareas">
+                📋 Tareas
+            </button>
+
+            <button class="boton-accion" id="botonInvestigaciones">
+                📚 Investigaciones
+            </button>
+
+            <button class="boton-accion" id="botonBorrarMemoria">
+                🗑️ Borrar memoria
+            </button>
+        </div>
+
+        <div class="contadores">
+            Recuerdos:
+            <span id="numeroRecuerdos">0</span>
+            |
+            Tareas:
+            <span id="numeroTareas">0</span>
+            |
+            Investigaciones:
+            <span id="numeroInvestigaciones">0</span>
+        </div>
+
+        <div class="cargando" id="mensajeCarga"></div>
+
+        <form class="barra-escritura" id="formulario">
+
+            <input
+                id="entrada"
+                type="text"
+                autocomplete="off"
+                placeholder="Escribe a GePeTo..."
+            >
+
+            <button
+                type="button"
+                class="boton-micro"
+                id="botonMicro"
+                title="Usar micrófono"
+            >
+                🎤
+            </button>
+
+            <button
+                type="submit"
+                class="boton-enviar"
+                id="botonEnviar"
+            >
+                ENVIAR
+            </button>
+
+        </form>
+
     </section>
-
-    <main class="chat" id="chat"></main>
-
-    <section id="acciones">
-
-        <button class="accion" id="verRecuerdos">
-            🧠 Recuerdos
-        </button>
-
-        <button class="accion" id="verTareas">
-            📋 Tareas
-        </button>
-
-        <button class="accion rojo" id="borrarRecuerdos">
-            🗑️ Borrar memoria
-        </button>
-
-    </section>
-
-    <form class="escribir" id="formulario">
-
-        <input
-            id="entrada"
-            type="text"
-            autocomplete="off"
-            placeholder="Escribe a GePeTo..."
-        >
-
-        <button id="voz" type="button">
-            🎙️
-        </button>
-
-        <button id="enviar" type="submit">
-            Enviar
-        </button>
-
-    </form>
 
 </div>
 
+<audio id="audioMusica" loop preload="none">
+    <source src="./Portada.mp3" type="audio/mpeg">
+</audio>
+
 <script type="module">
 
-import * as webllm from
-"https://esm.run/@mlc-ai/web-llm";
+import * as webllm from "https://esm.run/@mlc-ai/web-llm";
 
-const CLAVE_MEMORIA = "memoriaGePeTo";
-const CLAVE_HISTORIAL = "historialGePeTo";
-const CLAVE_TAREAS = "tareasGePeTo";
-
-const MODELO =
-"Llama-3.2-1B-Instruct-q4f16_1-MLC";
+/* =========================
+   CONFIGURACIÓN
+========================= */
 
 const URL_CLOUDFLARE =
-"https://gepetto-rafa.rafadun18.workers.dev";
+    "https://gepetto-rafa.rafadun18.workers.dev";
 
-let cloudflareDisponible = false;
+const MODELO =
+    "Llama-3.2-1B-Instruct-q4f16_1-MLC";
+
+const CLAVE_MEMORIA =
+    "memoriaGePeTo";
+
+const CLAVE_HISTORIAL =
+    "historialGePeTo";
+
+const CLAVE_TAREAS =
+    "tareasGePeTo";
+
+const CLAVE_INVESTIGACIONES =
+    "investigacionesGePeTo";
+
+/* =========================
+   VARIABLES
+========================= */
+
+let recuerdos =
+    JSON.parse(localStorage.getItem(CLAVE_MEMORIA) || "[]");
+
+let historial =
+    JSON.parse(localStorage.getItem(CLAVE_HISTORIAL) || "[]");
+
+let tareas =
+    JSON.parse(localStorage.getItem(CLAVE_TAREAS) || "[]");
+
+let investigaciones =
+    JSON.parse(
+        localStorage.getItem(CLAVE_INVESTIGACIONES) || "[]"
+    );
 
 let engine = null;
-let preparando = false;
+let preparandoIA = null;
+let procesando = false;
 
-let memoria = cargarArray(CLAVE_MEMORIA);
-let historial = cargarArray(CLAVE_HISTORIAL);
-let tareas = cargarArray(CLAVE_TAREAS);
+/* =========================
+   ELEMENTOS
+========================= */
 
-const chat = document.getElementById("chat");
-const entrada = document.getElementById("entrada");
-const formulario = document.getElementById("formulario");
-const numeroRecuerdos =
-document.getElementById("numeroRecuerdos");
-const numeroTareas =
-document.getElementById("numeroTareas");
-const estadoIA =
-document.getElementById("estadoIA");
+const zonaChat =
+    document.getElementById("zonaChat");
+
+const entrada =
+    document.getElementById("entrada");
+
+const formulario =
+    document.getElementById("formulario");
+
 const botonEnviar =
-document.getElementById("enviar");
-const botonVoz =
-document.getElementById("voz");
+    document.getElementById("botonEnviar");
 
-function cargarArray(clave) {
+const botonMicro =
+    document.getElementById("botonMicro");
 
-    try {
+const estado =
+    document.getElementById("estado");
 
-        const guardado =
-            localStorage.getItem(clave);
+const mensajeCarga =
+    document.getElementById("mensajeCarga");
 
-        if (!guardado) {
-            return [];
-        }
+const numeroRecuerdos =
+    document.getElementById("numeroRecuerdos");
 
-        const datos =
-            JSON.parse(guardado);
+const numeroTareas =
+    document.getElementById("numeroTareas");
 
-        return Array.isArray(datos)
-            ? datos
-            : [];
+const numeroInvestigaciones =
+    document.getElementById("numeroInvestigaciones");
 
-    } catch(error) {
+const audioMusica =
+    document.getElementById("audioMusica");
 
-        console.log(
-            "Error cargando",
-            clave,
-            error
-        );
+const botonMusica =
+    document.getElementById("botonMusica");
 
-        return [];
+/* =========================
+   UTILIDADES
+========================= */
+
+function normalizar(texto) {
+    return String(texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[¿?¡!.,;:()[\]{}"']/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function guardarLocal() {
+    localStorage.setItem(
+        CLAVE_MEMORIA,
+        JSON.stringify(recuerdos)
+    );
+
+    localStorage.setItem(
+        CLAVE_HISTORIAL,
+        JSON.stringify(historial.slice(-100))
+    );
+
+    localStorage.setItem(
+        CLAVE_TAREAS,
+        JSON.stringify(tareas)
+    );
+
+    localStorage.setItem(
+        CLAVE_INVESTIGACIONES,
+        JSON.stringify(investigaciones)
+    );
+}
+
+function actualizarContadores() {
+    numeroRecuerdos.textContent =
+        recuerdos.length;
+
+    numeroTareas.textContent =
+        tareas.filter(tarea => !tarea.completada).length;
+
+    numeroInvestigaciones.textContent =
+        investigaciones.length;
+}
+
+function bajarChat() {
+    setTimeout(() => {
+        zonaChat.scrollTop =
+            zonaChat.scrollHeight;
+    }, 50);
+}
+
+function añadirMensaje(texto, tipo = "gepeto", guardar = true) {
+
+    const mensaje = document.createElement("div");
+    mensaje.className = "mensaje " + tipo;
+
+    const nombre = document.createElement("div");
+    nombre.className = "nombre-mensaje";
+    nombre.textContent =
+        tipo === "usuario" ? "TÚ" : "GePeTo";
+
+    const contenido = document.createElement("div");
+    contenido.textContent = texto;
+
+    mensaje.appendChild(nombre);
+    mensaje.appendChild(contenido);
+
+    zonaChat.appendChild(mensaje);
+
+    if (guardar) {
+        historial.push({
+            tipo,
+            texto,
+            fecha: new Date().toISOString()
+        });
+
+        historial =
+            historial.slice(-100);
+
+        guardarLocal();
+    }
+
+    bajarChat();
+
+    return mensaje;
+}
+
+function quitarMensaje(elemento) {
+    if (elemento && elemento.parentNode) {
+        elemento.parentNode.removeChild(elemento);
     }
 }
 
-function guardarArray(clave, datos) {
+/* =========================
+   FOTO DE GEPETO
+========================= */
+
+document
+    .getElementById("avatarGePeTo")
+    .addEventListener("error", () => {
+        document
+            .getElementById("avatarGePeTo")
+            .style.display = "none";
+
+        document
+            .getElementById("avatarFallback")
+            .style.display = "block";
+    });
+
+/* =========================
+   MÚSICA
+========================= */
+
+botonMusica.addEventListener("click", async () => {
+
+    if (audioMusica.paused) {
+
+        try {
+            await audioMusica.play();
+            botonMusica.textContent = "🔇 Parar música";
+        } catch (error) {
+            añadirMensaje(
+                "No se ha podido reproducir la música. Comprueba que el archivo Portada.mp3 está subido junto a biblioteca.html.",
+                "gepeto"
+            );
+        }
+
+    } else {
+
+        audioMusica.pause();
+        botonMusica.textContent = "🎵 Música";
+    }
+});
+
+/* =========================
+   CLOUDFLARE - MEMORIA
+========================= */
+
+async function cargarMemoriaCloudflare() {
 
     try {
 
-        localStorage.setItem(
-            clave,
-            JSON.stringify(datos)
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/memoria",
+            { cache: "no-store" }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("Error memoria");
+        }
+
+        const datos = await respuesta.json();
+
+        if (Array.isArray(datos.recuerdos)) {
+            recuerdos = datos.recuerdos.map(item => {
+                return typeof item === "string"
+                    ? item
+                    : item.texto || item.recuerdo || "";
+            }).filter(Boolean);
+
+            guardarLocal();
+        }
+
+    } catch (error) {
+        console.log("Memoria local utilizada");
+    }
+
+    actualizarContadores();
+}
+
+async function guardarRecuerdoCloudflare(texto) {
+
+    try {
+
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/memoria",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    texto
+                })
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("No guardado");
+        }
+
+        return true;
+
+    } catch (error) {
+        return false;
+    }
+}
+
+async function borrarMemoriaCloudflare() {
+
+    try {
+
+        await fetch(
+            URL_CLOUDFLARE + "/memoria",
+            {
+                method: "DELETE"
+            }
         );
 
         return true;
 
-    } catch(error) {
+    } catch (error) {
+        return false;
+    }
+}
 
-        console.log(
-            "Error guardando",
-            clave,
-            error
+/* =========================
+   RECUERDOS
+========================= */
+
+function extraerRecuerdo(texto) {
+
+    const patrones = [
+        /^\s*recuerda que\s+(.+)$/i,
+        /^\s*recuerda:\s*(.+)$/i,
+        /^\s*recuerda\s+que\s+(.+)$/i,
+        /^\s*mi nombre es\s+(.+)$/i,
+        /^\s*me gusta\s+(.+)$/i,
+        /^\s*recuerda\s+mi\s+(.+)$/i
+    ];
+
+    for (const patron of patrones) {
+
+        const coincidencia =
+            texto.match(patron);
+
+        if (coincidencia) {
+            return coincidencia[1].trim();
+        }
+    }
+
+    return null;
+}
+
+function buscarRecuerdoRelacionado(texto) {
+
+    const palabras =
+        normalizar(texto)
+            .split(" ")
+            .filter(palabra => palabra.length > 3);
+
+    const encontrados =
+        recuerdos.filter(recuerdo => {
+
+            const textoRecuerdo =
+                normalizar(recuerdo);
+
+            return palabras.some(palabra =>
+                textoRecuerdo.includes(palabra)
+            );
+        });
+
+    return encontrados;
+}
+
+/* =========================
+   TAREAS
+========================= */
+
+function extraerTarea(texto) {
+
+    const patrones = [
+
+        /^\s*recu[eé]rdame\s+que\s+(.+)$/i,
+
+        /^\s*recu[eé]rdame\s+(.+)$/i,
+
+        /^\s*crea\s+una\s+tarea\s+para\s+(.+)$/i,
+
+        /^\s*crea\s+una\s+tarea\s+(.+)$/i,
+
+        /^\s*anota\s+una\s+tarea\s+para\s+(.+)$/i,
+
+        /^\s*anota\s+una\s+tarea\s+(.+)$/i,
+
+        /^\s*guarda\s+una\s+tarea\s+para\s+(.+)$/i,
+
+        /^\s*guarda\s+una\s+tarea\s+(.+)$/i,
+
+        /^\s*apunta\s+una\s+tarea\s+para\s+(.+)$/i,
+
+        /^\s*apunta\s+una\s+tarea\s+(.+)$/i
+    ];
+
+    for (const patron of patrones) {
+
+        const coincidencia =
+            texto.match(patron);
+
+        if (coincidencia) {
+            return coincidencia[1].trim();
+        }
+    }
+
+    return null;
+}
+
+async function guardarTareaCloudflare(texto) {
+
+    try {
+
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/tarea",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    texto
+                })
+            }
         );
+
+        if (!respuesta.ok) {
+            throw new Error("No guardada");
+        }
+
+        return true;
+
+    } catch (error) {
+        return false;
+    }
+}
+
+async function cargarTareasCloudflare() {
+
+    try {
+
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/tareas",
+            { cache: "no-store" }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("Error tareas");
+        }
+
+        const datos = await respuesta.json();
+
+        if (Array.isArray(datos.tareas)) {
+
+            tareas = datos.tareas.map(tarea => ({
+                id: tarea.id,
+                texto: tarea.texto || tarea.tarea || "",
+                completada: Boolean(
+                    tarea.completada ||
+                    tarea.completed
+                )
+            }));
+
+            guardarLocal();
+        }
+
+    } catch (error) {
+        console.log("Tareas locales utilizadas");
+    }
+
+    actualizarContadores();
+}
+
+function esPeticionDeTareas(texto) {
+
+    const frase =
+        normalizar(texto);
+
+    return (
+        frase.includes("que tareas tengo") ||
+        frase.includes("mis tareas") ||
+        frase.includes("ver tareas") ||
+        frase.includes("mis pendientes") ||
+        frase.includes("que pendientes tengo") ||
+        frase === "tareas"
+    );
+}
+
+function responderSobreTareas() {
+
+    const pendientes =
+        tareas.filter(tarea => !tarea.completada);
+
+    if (!pendientes.length) {
+        return "No tienes tareas pendientes.";
+    }
+
+    return (
+        "Estas son tus tareas pendientes:\n\n" +
+        pendientes
+            .map((tarea, indice) =>
+                `${indice + 1}. ${tarea.texto}`
+            )
+            .join("\n")
+    );
+}
+
+/* =========================
+   INVESTIGACIONES
+========================= */
+
+function extraerInvestigacion(texto) {
+
+    const patrones = [
+
+        /^\s*investiga\s+sobre\s+(.+)$/i,
+
+        /^\s*investiga\s+acerca\s+de\s+(.+)$/i,
+
+        /^\s*investiga\s+(.+)$/i,
+
+        /^\s*investigar\s+sobre\s+(.+)$/i,
+
+        /^\s*investigar\s+acerca\s+de\s+(.+)$/i,
+
+        /^\s*investigar\s+(.+)$/i,
+
+        /^\s*haz\s+una\s+investigaci[oó]n\s+sobre\s+(.+)$/i,
+
+        /^\s*haz\s+una\s+investigaci[oó]n\s+de\s+(.+)$/i,
+
+        /^\s*haz\s+un\s+trabajo\s+sobre\s+(.+)$/i,
+
+        /^\s*prepara\s+un\s+informe\s+sobre\s+(.+)$/i,
+
+        /^\s*busca\s+informaci[oó]n\s+sobre\s+(.+)$/i
+    ];
+
+    for (const patron of patrones) {
+
+        const coincidencia =
+            texto.match(patron);
+
+        if (coincidencia) {
+            return coincidencia[1].trim();
+        }
+    }
+
+    return null;
+}
+
+function extraerPeticionResultados(texto) {
+
+    const patrones = [
+
+        /^\s*dame\s+los\s+resultados\s+de\s+la\s+investigaci[oó]n\s+de\s+(.+)$/i,
+
+        /^\s*dame\s+los\s+resultados\s+de\s+la\s+investigaci[oó]n\s+sobre\s+(.+)$/i,
+
+        /^\s*dame\s+los\s+resultados\s+de\s+la\s+tarea\s+de\s+(.+)$/i,
+
+        /^\s*dame\s+los\s+resultados\s+de\s+la\s+tarea\s+sobre\s+(.+)$/i,
+
+        /^\s*dame\s+los\s+resultados\s+de\s+(.+)$/i,
+
+        /^\s*mu[eé]strame\s+la\s+investigaci[oó]n\s+de\s+(.+)$/i,
+
+        /^\s*mu[eé]strame\s+la\s+investigaci[oó]n\s+sobre\s+(.+)$/i,
+
+        /^\s*ens[eé]ñame\s+la\s+investigaci[oó]n\s+de\s+(.+)$/i,
+
+        /^\s*qu[eé]\s+has\s+encontrado\s+sobre\s+(.+)$/i
+    ];
+
+    for (const patron of patrones) {
+
+        const coincidencia =
+            texto.match(patron);
+
+        if (coincidencia) {
+            return coincidencia[1].trim();
+        }
+    }
+
+    return null;
+}
+
+async function cargarInvestigacionesCloudflare() {
+
+    try {
+
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/investigacion",
+            { cache: "no-store" }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("Error investigaciones");
+        }
+
+        const datos = await respuesta.json();
+
+        if (Array.isArray(datos.investigaciones)) {
+
+            investigaciones =
+                datos.investigaciones.map(item => ({
+                    id: item.id,
+                    tema: item.tema || "",
+                    resultado: item.resultado || "",
+                    creada: item.creada || ""
+                }));
+
+            guardarLocal();
+        }
+
+    } catch (error) {
+        console.log("Investigaciones locales utilizadas");
+    }
+
+    actualizarContadores();
+}
+
+async function guardarInvestigacionCloudflare(
+    tema,
+    resultado
+) {
+
+    const investigacion = {
+        tema,
+        resultado,
+        creada: new Date().toISOString()
+    };
+
+    try {
+
+        const respuesta = await fetch(
+            URL_CLOUDFLARE + "/investigacion",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    tema,
+                    resultado
+                })
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("No guardada");
+        }
+
+        const datos =
+            await respuesta.json();
+
+        if (datos.investigacion) {
+            investigacion.id =
+                datos.investigacion.id;
+        }
+
+        investigaciones.unshift(
+            investigacion
+        );
+
+        guardarLocal();
+        actualizarContadores();
+
+        return true;
+
+    } catch (error) {
+
+        investigaciones.unshift(
+            investigacion
+        );
+
+        guardarLocal();
+        actualizarContadores();
 
         return false;
     }
 }
 
-function normalizar(texto) {
+async function buscarInvestigacionCloudflare(tema) {
 
-    return String(texto)
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/[¿?¡!.,;:()[\]{}"']/g," ")
-        .replace(/\s+/g," ")
-        .trim();
-}
+    try {
 
-function actualizarContadores() {
+        const respuesta = await fetch(
+            URL_CLOUDFLARE +
+            "/investigacion?tema=" +
+            encodeURIComponent(tema),
+            { cache: "no-store" }
+        );
 
-    numeroRecuerdos.textContent =
-        memoria.length;
-
-    numeroTareas.textContent =
-        tareas.filter(
-            tarea => tarea.activa !== false
-        ).length;
-}
-
-function añadirMensaje(
-    texto,
-    tipo = "gepeto",
-    guardar = true
-) {
-
-    const mensaje =
-        document.createElement("div");
-
-    mensaje.className =
-        "mensaje " + tipo;
-
-    mensaje.textContent =
-        texto;
-
-    chat.appendChild(mensaje);
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
-    if (guardar) {
-
-        historial.push({
-
-            tipo: tipo,
-            texto: texto,
-            fecha: Date.now()
-
-        });
-
-        if (historial.length > 100) {
-
-            historial =
-                historial.slice(-100);
-
+        if (!respuesta.ok) {
+            throw new Error("No encontrada");
         }
 
-        guardarArray(
-            CLAVE_HISTORIAL,
-            historial
-        );
+        const datos =
+            await respuesta.json();
+
+        if (Array.isArray(datos.investigaciones)) {
+            return datos.investigaciones;
+        }
+
+    } catch (error) {
+        console.log("Buscando investigación local");
     }
 
-    return mensaje;
+    const buscado =
+        normalizar(tema);
+
+    return investigaciones.filter(item =>
+        normalizar(item.tema).includes(buscado) ||
+        buscado.includes(normalizar(item.tema))
+    );
 }
 
-function cargarHistorial() {
+function responderSobreInvestigaciones() {
 
-    chat.innerHTML = "";
+    if (!investigaciones.length) {
+        return "Todavía no tienes investigaciones guardadas.";
+    }
 
-    if (historial.length === 0) {
+    return (
+        "Estas son tus investigaciones guardadas:\n\n" +
+        investigaciones
+            .map((item, indice) =>
+                `${indice + 1}. ${item.tema}`
+            )
+            .join("\n") +
+        "\n\nPuedes pedirme los resultados de cualquiera de ellas."
+    );
+}
 
-        añadirMensaje(
+/* =========================
+   BÚSQUEDA GRATUITA
+   EN WIKIPEDIA
+========================= */
 
-            "Hola Rafa. Soy GePeTo 🧠\n\n" +
+async function buscarEnWikipedia(tema) {
 
-            "Puedo conversar contigo, guardar recuerdos, " +
-            "utilizar esos recuerdos para contestarte y " +
-            "guardar tareas.\n\n" +
+    const urlBusqueda =
+        "https://es.wikipedia.org/w/api.php" +
+        "?action=query" +
+        "&list=search" +
+        "&srsearch=" +
+        encodeURIComponent(tema) +
+        "&srlimit=3" +
+        "&format=json" +
+        "&origin=*";
 
-            "Puedes preguntarme:\n" +
+    const respuestaBusqueda =
+        await fetch(urlBusqueda);
 
-            "• ¿Qué puedes hacer?\n" +
-            "• ¿Qué recuerdas?\n" +
-            "• ¿Qué tareas tengo?\n\n" +
+    if (!respuestaBusqueda.ok) {
+        throw new Error("Wikipedia no disponible");
+    }
 
-            "También puedes decirme:\n" +
+    const datosBusqueda =
+        await respuestaBusqueda.json();
 
-            "«Recuerda que mi color preferido es el verde fosforito»",
+    const resultados =
+        datosBusqueda.query &&
+        datosBusqueda.query.search
+            ? datosBusqueda.query.search
+            : [];
 
-            "gepeto",
-            false
+    const titulos =
+        resultados
+            .map(item => item.title)
+            .slice(0, 3);
+
+    if (!titulos.length) {
+        return "";
+    }
+
+    const urlArticulos =
+        "https://es.wikipedia.org/w/api.php" +
+        "?action=query" +
+        "&prop=extracts" +
+        "&exintro=1" +
+        "&explaintext=1" +
+        "&redirects=1" +
+        "&titles=" +
+        encodeURIComponent(titulos.join("|")) +
+        "&format=json" +
+        "&origin=*";
+
+    const respuestaArticulos =
+        await fetch(urlArticulos);
+
+    if (!respuestaArticulos.ok) {
+        return "";
+    }
+
+    const datosArticulos =
+        await respuestaArticulos.json();
+
+    const paginas =
+        datosArticulos.query &&
+        datosArticulos.query.pages
+            ? Object.values(datosArticulos.query.pages)
+            : [];
+
+    return paginas
+        .map(pagina => {
+            return (
+                "Fuente: " +
+                pagina.title +
+                "\n" +
+                (pagina.extract || "")
+            );
+        })
+        .filter(texto => texto.length > 20)
+        .join("\n\n")
+        .slice(0, 7000);
+}
+
+/* =========================
+   INTELIGENCIA ARTIFICIAL
+========================= */
+
+async function prepararIA() {
+
+    if (engine) {
+        return true;
+    }
+
+    if (preparandoIA) {
+        return preparandoIA;
+    }
+
+    preparandoIA = (async () => {
+
+        try {
+
+            estado.textContent =
+                "● Preparando GePeTo...";
+
+            mensajeCarga.textContent =
+                "Cargando inteligencia artificial local. Puede tardar la primera vez...";
+
+            engine =
+                await webllm.CreateMLCEngine(
+                    MODELO,
+                    {
+                        initProgressCallback: progreso => {
+
+                            if (
+                                progreso &&
+                                progreso.text
+                            ) {
+                                mensajeCarga.textContent =
+                                    progreso.text;
+                            }
+                        }
+                    }
+                );
+
+            estado.textContent =
+                "● GePeTo preparado";
+
+            mensajeCarga.textContent =
+                "";
+
+            return true;
+
+        } catch (error) {
+
+            console.error(error);
+
+            estado.textContent =
+                "● GePeTo sin IA local";
+
+            mensajeCarga.textContent =
+                "No se pudo cargar la IA local.";
+
+            return false;
+        }
+
+    })();
+
+    const resultado =
+        await preparandoIA;
+
+    preparandoIA = null;
+
+    return resultado;
+}
+
+function crearContexto() {
+
+    let contexto = "";
+
+    if (recuerdos.length) {
+        contexto +=
+            "\nRecuerdos del usuario:\n" +
+            recuerdos.join("\n");
+    }
+
+    const pendientes =
+        tareas.filter(tarea => !tarea.completada);
+
+    if (pendientes.length) {
+        contexto +=
+            "\nTareas pendientes:\n" +
+            pendientes
+                .map(tarea => tarea.texto)
+                .join("\n");
+    }
+
+    return contexto;
+}
+
+async function contestarConIA(
+    pregunta,
+    maxTokens = 400
+) {
+
+    if (!engine) {
+        await prepararIA();
+    }
+
+    if (!engine) {
+        return "";
+    }
+
+    const mensajes = [
+
+        {
+            role: "system",
+            content:
+                "Eres GePeTo, el asistente de Proyecto Rafa. " +
+                "Responde siempre en español claro y sencillo. " +
+                "Usa los recuerdos del usuario cuando sean útiles. " +
+                "No inventes datos personales. " +
+                "Si no sabes algo, dilo claramente." +
+                crearContexto()
+        },
+
+        ...historial
+            .slice(-8)
+            .map(item => ({
+                role:
+                    item.tipo === "usuario"
+                        ? "user"
+                        : "assistant",
+                content: item.texto
+            })),
+
+        {
+            role: "user",
+            content: pregunta
+        }
+    ];
+
+    const respuesta =
+        await engine.chat.completions.create({
+            messages: mensajes,
+            temperature: 0.5,
+            max_tokens: maxTokens
+        });
+
+    return (
+        respuesta.choices &&
+        respuesta.choices[0] &&
+        respuesta.choices[0].message
+            ? respuesta.choices[0].message.content
+            : ""
+    );
+}
+
+/* =========================
+   REALIZAR INVESTIGACIÓN
+========================= */
+
+async function realizarInvestigacion(tema) {
+
+    let fuentes = "";
+
+    try {
+        fuentes =
+            await buscarEnWikipedia(tema);
+    } catch (error) {
+        console.log("No se pudo consultar Wikipedia");
+    }
+
+    let resultado = "";
+
+    if (fuentes) {
+
+        const prompt =
+            "Prepara una investigación breve y clara en español " +
+            "sobre el tema: " +
+            tema +
+            ". Usa solamente la información de las fuentes " +
+            "que aparecen abajo. Organiza la respuesta con " +
+            "título, resumen, puntos importantes y conclusión. " +
+            "No inventes datos ni fuentes.\n\n" +
+            fuentes;
+
+        resultado =
+            await contestarConIA(
+                prompt,
+                750
+            );
+
+    } else {
+
+        resultado =
+            await contestarConIA(
+                "Prepara una investigación breve y clara en español " +
+                "sobre " +
+                tema +
+                ". Indica que se trata de un resumen preparado " +
+                "con el conocimiento disponible y no inventes " +
+                "fuentes ni datos.",
+                750
+            );
+    }
+
+    if (!resultado) {
+
+        if (fuentes) {
+            resultado =
+                "Información encontrada:\n\n" +
+                fuentes;
+        } else {
+            resultado =
+                "No he podido preparar la investigación. " +
+                "La IA local no está disponible y no se ha podido " +
+                "consultar Wikipedia.";
+        }
+    }
+
+    await guardarInvestigacionCloudflare(
+        tema,
+        resultado
+    );
+
+    return resultado;
+}
+
+/* =========================
+   BORRAR TAREAS
+========================= */
+
+function esPeticionBorrarTarea(texto) {
+
+    const frase =
+        normalizar(texto);
+
+    return (
+        frase.includes("borra la tarea") ||
+        frase.includes("elimina la tarea") ||
+        frase.includes("quita la tarea") ||
+        frase.includes("borrar tarea")
+    );
+}
+
+function extraerTextoBorrarTarea(texto) {
+
+    const patrones = [
+        /borra\s+la\s+tarea\s+(.+)/i,
+        /elimina\s+la\s+tarea\s+(.+)/i,
+        /quita\s+la\s+tarea\s+(.+)/i,
+        /borrar\s+tarea\s+(.+)/i
+    ];
+
+    for (const patron of patrones) {
+
+        const coincidencia =
+            texto.match(patron);
+
+        if (coincidencia) {
+            return coincidencia[1].trim();
+        }
+    }
+
+    return "";
+}
+
+async function borrarTareaPorTexto(texto) {
+
+    const buscado =
+        normalizar(texto);
+
+    const tarea =
+        tareas.find(item =>
+            normalizar(item.texto).includes(buscado)
         );
 
+    if (!tarea) {
+        return false;
+    }
+
+    try {
+
+        if (tarea.id) {
+
+            await fetch(
+                URL_CLOUDFLARE +
+                "/tarea/" +
+                encodeURIComponent(tarea.id),
+                {
+                    method: "DELETE"
+                }
+            );
+        }
+
+    } catch (error) {
+        console.log("Borrado local");
+    }
+
+    tareas =
+        tareas.filter(item =>
+            item.id !== tarea.id
+        );
+
+    guardarLocal();
+    actualizarContadores();
+
+    return true;
+}
+
+/* =========================
+   QUÉ PUEDE HACER
+========================= */
+
+function responderQuePuedeHacer() {
+
+    return (
+        "Puedo ayudarte con estas funciones:\n\n" +
+        "🧠 Memoria:\n" +
+        "• Recuerda que me gusta el mar.\n" +
+        "• ¿Qué recuerdas de mí?\n\n" +
+        "📋 Tareas:\n" +
+        "• Recuérdame comprar pan.\n" +
+        "• Crea una tarea para llamar al taller.\n" +
+        "• ¿Qué tareas tengo?\n\n" +
+        "📚 Investigaciones:\n" +
+        "• Investiga la mitología vikinga.\n" +
+        "• Investiga la historia de Egipto.\n" +
+        "• Dame los resultados de los vikingos.\n" +
+        "• Muéstrame la investigación de Egipto.\n\n" +
+        "También puedo conversar, explicar temas y ayudarte " +
+        "a organizar información."
+    );
+}
+
+/* =========================
+   PROCESAR MENSAJE
+========================= */
+
+async function procesarMensaje(pregunta) {
+
+    if (procesando) {
         return;
     }
 
-    historial.forEach(item => {
+    const texto =
+        pregunta.trim();
+
+    if (!texto) {
+        return;
+    }
+
+    procesando = true;
+    botonEnviar.disabled = true;
+    entrada.disabled = true;
+
+    añadirMensaje(
+        texto,
+        "usuario"
+    );
+
+    try {
+
+        const frase =
+            normalizar(texto);
+
+        if (
+            frase.includes("que puedes hacer") ||
+            frase.includes("que sabes hacer") ||
+            frase === "ayuda"
+        ) {
+
+            añadirMensaje(
+                responderQuePuedeHacer()
+            );
+
+            return;
+        }
+
+        const peticionResultados =
+            extraerPeticionResultados(texto);
+
+        if (peticionResultados) {
+
+            const mensajeEspera =
+                añadirMensaje(
+                    "Estoy buscando los resultados guardados de: " +
+                    peticionResultados +
+                    "...",
+                    "gepeto",
+                    false
+                );
+
+            const resultados =
+                await buscarInvestigacionCloudflare(
+                    peticionResultados
+                );
+
+            quitarMensaje(mensajeEspera);
+
+            if (!resultados.length) {
+
+                añadirMensaje(
+                    "No encuentro una investigación guardada sobre " +
+                    peticionResultados +
+                    ".\n\n" +
+                    "Puedes pedirme primero:\n" +
+                    "Investiga " +
+                    peticionResultados
+                );
+
+            } else {
+
+                const investigacion =
+                    resultados[0];
+
+                añadirMensaje(
+                    "📚 RESULTADOS DE LA INVESTIGACIÓN\n\n" +
+                    "Tema: " +
+                    investigacion.tema +
+                    "\n\n" +
+                    investigacion.resultado
+                );
+            }
+
+            return;
+        }
+
+        const temaInvestigacion =
+            extraerInvestigacion(texto);
+
+        if (temaInvestigacion) {
+
+            const mensajeEspera =
+                añadirMensaje(
+                    "📚 Estoy preparando la investigación sobre " +
+                    temaInvestigacion +
+                    ". Espera un momento...",
+                    "gepeto",
+                    false
+                );
+
+            const resultado =
+                await realizarInvestigacion(
+                    temaInvestigacion
+                );
+
+            quitarMensaje(mensajeEspera);
+
+            añadirMensaje(
+                "✅ He preparado y guardado la investigación sobre:\n\n" +
+                temaInvestigacion +
+                "\n\n" +
+                "Cuando quieras los resultados, escribe:\n" +
+                "Dame los resultados de " +
+                temaInvestigacion
+            );
+
+            return;
+        }
+
+        const recuerdo =
+            extraerRecuerdo(texto);
+
+        if (recuerdo) {
+
+            if (
+                !recuerdos.some(item =>
+                    normalizar(item) === normalizar(recuerdo)
+                )
+            ) {
+                recuerdos.push(recuerdo);
+            }
+
+            guardarLocal();
+            actualizarContadores();
+
+            const guardado =
+                await guardarRecuerdoCloudflare(
+                    recuerdo
+                );
+
+            añadirMensaje(
+                "🧠 Lo recordaré:\n\n" +
+                recuerdo +
+                (
+                    guardado
+                        ? "\n\nGuardado también en la memoria de Cloudflare."
+                        : "\n\nGuardado en la memoria local."
+                )
+            );
+
+            return;
+        }
+
+        if (
+            frase.includes("que recuerdas de mi") ||
+            frase.includes("mis recuerdos") ||
+            frase.includes("que recuerdas")
+        ) {
+
+            if (!recuerdos.length) {
+
+                añadirMensaje(
+                    "Todavía no tengo recuerdos guardados."
+                );
+
+            } else {
+
+                añadirMensaje(
+                    "Estos son mis recuerdos:\n\n" +
+                    recuerdos
+                        .map((item, indice) =>
+                            `${indice + 1}. ${item}`
+                        )
+                        .join("\n")
+                );
+            }
+
+            return;
+        }
+
+        const tareaTexto =
+            extraerTarea(texto);
+
+        if (tareaTexto) {
+
+            const nuevaTarea = {
+                id: "local-" + Date.now(),
+                texto: tareaTexto,
+                completada: false
+            };
+
+            tareas.push(nuevaTarea);
+
+            guardarLocal();
+            actualizarContadores();
+
+            const guardada =
+                await guardarTareaCloudflare(
+                    tareaTexto
+                );
+
+            añadirMensaje(
+                "📋 Tarea guardada:\n\n" +
+                tareaTexto +
+                (
+                    guardada
+                        ? "\n\nGuardada también en Cloudflare."
+                        : "\n\nGuardada localmente."
+                )
+            );
+
+            return;
+        }
+
+        if (esPeticionDeTareas(texto)) {
+
+            añadirMensaje(
+                responderSobreTareas()
+            );
+
+            return;
+        }
+
+        if (esPeticionBorrarTarea(texto)) {
+
+            const textoBorrar =
+                extraerTextoBorrarTarea(texto);
+
+            const borrada =
+                await borrarTareaPorTexto(
+                    textoBorrar
+                );
+
+            añadirMensaje(
+                borrada
+                    ? "✅ Tarea borrada."
+                    : "No he encontrado esa tarea."
+            );
+
+            return;
+        }
+
+        const recuerdosRelacionados =
+            buscarRecuerdoRelacionado(texto);
+
+        if (recuerdosRelacionados.length) {
+
+            añadirMensaje(
+                "He encontrado estos recuerdos relacionados:\n\n" +
+                recuerdosRelacionados.join("\n")
+            );
+
+            return;
+        }
+
+        const respuesta =
+            await contestarConIA(
+                texto
+            );
+
+        añadirMensaje(
+            respuesta ||
+            "No he podido preparar una respuesta. Inténtalo de nuevo."
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        añadirMensaje(
+            "Ha ocurrido un error. Comprueba la conexión y vuelve a intentarlo."
+        );
+
+    } finally {
+
+        procesando = false;
+        botonEnviar.disabled = false;
+        entrada.disabled = false;
+        entrada.focus();
+    }
+}
+
+/* =========================
+   EVENTOS
+========================= */
+
+formulario.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        procesarMensaje(
+            entrada.value
+        );
+
+        entrada.value = "";
+    }
+);
+
+entrada.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+            event.preventDefault();
+            formulario.requestSubmit();
+        }
+    }
+);
+
+document
+    .getElementById("botonRecuerdos")
+    .addEventListener("click", () => {
+
+        if (!recuerdos.length) {
+
+            añadirMensaje(
+                "No tengo recuerdos guardados."
+            );
+
+        } else {
+
+            añadirMensaje(
+                "🧠 Recuerdos guardados:\n\n" +
+                recuerdos
+                    .map((item, indice) =>
+                        `${indice + 1}. ${item}`
+                    )
+                    .join("\n")
+            );
+        }
+    });
+
+document
+    .getElementById("botonTareas")
+    .addEventListener("click", () => {
+
+        añadirMensaje(
+            responderSobreTareas()
+        );
+    });
+
+document
+    .getElementById("botonInvestigaciones")
+    .addEventListener("click", () => {
+
+        añadirMensaje(
+            responderSobreInvestigaciones()
+        );
+    });
+
+document
+    .getElementById("botonBorrarMemoria")
+    .addEventListener("click", async () => {
+
+        const confirmar =
+            confirm(
+                "¿Quieres borrar todos los recuerdos de GePeTo?"
+            );
+
+        if (!confirmar) {
+            return;
+        }
+
+        recuerdos = [];
+
+        guardarLocal();
+        actualizarContadores();
+
+        const borrado =
+            await borrarMemoriaCloudflare();
+
+        añadirMensaje(
+            borrado
+                ? "🗑️ Memoria borrada de Cloudflare y del dispositivo."
+                : "🗑️ Memoria local borrada. Cloudflare no respondió."
+        );
+    });
+
+/* =========================
+   MICRÓFONO
+========================= */
+
+const Reconocimiento =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+if (Reconocimiento) {
+
+    const reconocimiento =
+        new Reconocimiento();
+
+    reconocimiento.lang = "es-ES";
+    reconocimiento.interimResults = false;
+    reconocimiento.continuous = false;
+
+    botonMicro.addEventListener(
+        "click",
+        () => {
+
+            if (procesando) {
+                return;
+            }
+
+            try {
+
+                reconocimiento.start();
+                botonMicro.textContent =
+                    "⏺️ Escuchando...";
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    );
+
+    reconocimiento.addEventListener(
+        "result",
+        event => {
+
+            const texto =
+                event.results[0][0].transcript;
+
+            entrada.value =
+                texto;
+
+            botonMicro.textContent =
+                "🎤";
+        }
+    );
+
+    reconocimiento.addEventListener(
+        "end",
+        () => {
+            botonMicro.textContent =
+                "🎤";
+        }
+    );
+
+    reconocimiento.addEventListener(
+        "error",
+        () => {
+            botonMicro.textContent =
+                "🎤";
+        }
+    );
+
+} else {
+
+    botonMicro.disabled = true;
+    botonMicro.title =
+        "El navegador no permite reconocimiento de voz";
+}
+
+/* =========================
+   CARGAR HISTORIAL
+========================= */
+
+function cargarHistorialPantalla() {
+
+    for (const item of historial) {
 
         if (
             item &&
-            typeof item.texto === "string" &&
+            item.texto &&
             (
                 item.tipo === "usuario" ||
                 item.tipo === "gepeto"
@@ -491,1749 +2021,40 @@ function cargarHistorial() {
                 false
             );
         }
-
-    });
-}
-
-async function cargarMemoriaCloudflare() {
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE + "/memoria",
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (
-            datos.ok &&
-            Array.isArray(datos.recuerdos)
-        ) {
-
-            memoria =
-                datos.recuerdos
-                    .map(
-                        recuerdo =>
-                            recuerdo.texto
-                    )
-                    .filter(
-                        texto =>
-                            typeof texto === "string" &&
-                            texto.trim() !== ""
-                    );
-
-            guardarArray(
-                CLAVE_MEMORIA,
-                memoria
-            );
-
-            cloudflareDisponible = true;
-
-            actualizarContadores();
-
-            return true;
-        }
-
-        throw new Error(
-            "Respuesta de memoria no válida"
-        );
-
-    } catch(error) {
-
-        console.log(
-            "Cloudflare memoria no disponible:",
-            error
-        );
-
-        cloudflareDisponible = false;
-
-        memoria =
-            cargarArray(
-                CLAVE_MEMORIA
-            );
-
-        actualizarContadores();
-
-        return false;
     }
 }
 
-async function guardarMemoriaCloudflare(
-    texto
-) {
+/* =========================
+   INICIO
+========================= */
 
-    const recuerdo =
-        String(texto).trim();
+async function iniciar() {
 
-    if (!recuerdo) {
-
-        return {
-            guardado:false,
-            repetido:false
-        };
-    }
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE + "/memoria",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            texto: recuerdo
-                        })
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (!datos.ok) {
-            throw new Error(
-                datos.error ||
-                "No se pudo guardar"
-            );
-        }
-
-        cloudflareDisponible = true;
-
-        if (datos.repetido) {
-
-            return {
-                guardado:false,
-                repetido:true
-            };
-        }
-
-        if (datos.guardado) {
-
-            if (
-                !memoria.some(
-                    item =>
-                        normalizar(item) ===
-                        normalizar(recuerdo)
-                )
-            ) {
-
-                memoria.push(recuerdo);
-            }
-
-            guardarArray(
-                CLAVE_MEMORIA,
-                memoria
-            );
-
-            actualizarContadores();
-
-            return {
-                guardado:true,
-                repetido:false
-            };
-        }
-
-        return {
-            guardado:false,
-            repetido:false
-        };
-
-    } catch(error) {
-
-        console.log(
-            "Error guardando memoria en D1:",
-            error
-        );
-
-        const resultado =
-            guardarMemoriaLocal(
-                recuerdo
-            );
-
-        cloudflareDisponible = false;
-
-        return resultado;
-    }
-}
-
-function guardarMemoriaLocal(texto) {
-
-    const recuerdo =
-        String(texto).trim();
-
-    if (!recuerdo) {
-
-        return {
-            guardado:false,
-            repetido:false
-        };
-    }
-
-    const existe =
-        memoria.some(
-            item =>
-                normalizar(item) ===
-                normalizar(recuerdo)
-        );
-
-    if (existe) {
-
-        return {
-            guardado:false,
-            repetido:true
-        };
-    }
-
-    memoria.push(recuerdo);
-
-    const correcto =
-        guardarArray(
-            CLAVE_MEMORIA,
-            memoria
-        );
+    cargarHistorialPantalla();
 
     actualizarContadores();
 
-    return {
-
-        guardado: correcto,
-        repetido:false
-
-    };
-}
-
-async function borrarMemoriaCloudflare() {
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE + "/memoria",
-                {
-                    method: "DELETE"
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (!datos.ok) {
-            throw new Error(
-                datos.error ||
-                "No se pudo borrar"
-            );
-        }
-
-        memoria = [];
-
-        guardarArray(
-            CLAVE_MEMORIA,
-            memoria
-        );
-
-        cloudflareDisponible = true;
-
-        actualizarContadores();
-
-        return true;
-
-    } catch(error) {
-
-        memoria = [];
-
-        guardarArray(
-            CLAVE_MEMORIA,
-            memoria
-        );
-
-        cloudflareDisponible = false;
-
-        actualizarContadores();
-
-        return false;
-    }
-}
-
-function extraerRecuerdo(texto) {
-
-    const mensaje =
-        String(texto).trim();
-
-    const patrones = [
-
-        /^\s*recuerda(?:me)?\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*acu[eé]rdate\s*(?:de|que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*guarda\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*memoriza\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*apunta\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*anota\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*no olvides\s*(?:que)?\s*[:,-]?\s*(.+)$/i,
-
-        /^\s*quiero que recuerdes\s+(.+)$/i
-
-    ];
-
-    for (
-        const patron of patrones
-    ) {
-
-        const resultado =
-            mensaje.match(patron);
-
-        if (
-            resultado &&
-            resultado[1]
-        ) {
-
-            const recuerdo =
-                resultado[1]
-                    .trim()
-                    .replace(/[.!?]+$/,"");
-
-            if (
-                recuerdo.length > 1
-            ) {
-
-                return recuerdo;
-            }
-        }
-    }
-
-    return null;
-}
-
-function palabrasImportantes(texto) {
-
-    const ignoradas =
-        new Set([
-
-            "el","la","los","las",
-            "un","una","unos","unas",
-            "mi","mis","me","yo",
-            "tu","tus","te",
-            "es","son","que",
-            "cual","cuales",
-            "como","donde","cuando",
-            "por","para","con",
-            "de","del",
-            "y","o","a",
-            "tengo","tiene",
-            "favorito","favorita",
-            "dime","sabes",
-            "recuerdas","recuerdo"
-
-        ]);
-
-    return normalizar(texto)
-        .split(" ")
-        .filter(
-            palabra =>
-                palabra.length > 2
-        )
-        .filter(
-            palabra =>
-                !ignoradas.has(palabra)
-        );
-}
-
-function buscarRecuerdosRelacionados(
-    pregunta
-) {
-
-    const palabras =
-        palabrasImportantes(
-            pregunta
-        );
-
-    if (
-        palabras.length === 0
-    ) {
-
-        return [];
-    }
-
-    const resultados =
-        memoria.map(
-            recuerdo => {
-
-                const palabrasRecuerdo =
-                    palabrasImportantes(
-                        recuerdo
-                    );
-
-                let puntos = 0;
-
-                palabras.forEach(
-                    palabra => {
-
-                        if (
-                            palabrasRecuerdo
-                                .includes(palabra)
-                        ) {
-
-                            puntos++;
-                        }
-
-                    }
-                );
-
-                return {
-
-                    texto: recuerdo,
-                    puntos: puntos
-
-                };
-
-            }
-        );
-
-    return resultados
-        .filter(
-            item =>
-                item.puntos > 0
-        )
-        .sort(
-            (a,b) =>
-                b.puntos - a.puntos
-        )
-        .slice(0,5)
-        .map(
-            item =>
-                item.texto
-        );
-}
-
-function esPeticionDeRecuerdos(
-    texto
-) {
-
-    const mensaje =
-        normalizar(texto);
-
-    return (
-
-        mensaje.includes(
-            "que recuerdas"
-        ) ||
-
-        mensaje.includes(
-            "mis recuerdos"
-        ) ||
-
-        mensaje.includes(
-            "que sabes de mi"
-        ) ||
-
-        mensaje.includes(
-            "ensename mis recuerdos"
-        ) ||
-
-        mensaje.includes(
-            "dime mis recuerdos"
-        ) ||
-
-        mensaje.includes(
-            "ver recuerdos"
-        )
-
-    );
-
-}
-
-function responderSobreMemoria(
-    pregunta
-) {
-
-    if (
-        esPeticionDeRecuerdos(
-            pregunta
-        )
-    ) {
-
-        if (
-            memoria.length === 0
-        ) {
-
-            return "Todavía no tengo recuerdos guardados, Rafa.";
-        }
-
-        return (
-
-            "🧠 Estos son mis recuerdos:\n\n" +
-
-            memoria
-                .map(
-                    (recuerdo,indice) =>
-                        (indice + 1) +
-                        ". " +
-                        recuerdo
-                )
-                .join("\n")
-
-        );
-    }
-
-    const relacionados =
-        buscarRecuerdosRelacionados(
-            pregunta
-        );
-
-    if (
-        relacionados.length === 0
-    ) {
-
-        return null;
-    }
-
-    if (
-        relacionados.length === 1
-    ) {
-
-        return (
-
-            "🧠 Sí, lo recuerdo:\n\n" +
-
-            relacionados[0]
-
-        );
-    }
-
-    return (
-
-        "🧠 He encontrado estos recuerdos relacionados:\n\n" +
-
-        relacionados
-            .map(
-                recuerdo =>
-                    "• " + recuerdo
-            )
-            .join("\n")
-
-    );
-}
-
-function responderQuePuedeHacer() {
-
-    return (
-
-        "🧠 Puedo hacer varias cosas, Rafa:\n\n" +
-
-        "💬 CONVERSAR\n" +
-        "Puedes hablar conmigo y preguntarme cosas.\n\n" +
-
-        "🧠 MEMORIA\n" +
-        "Puedo guardar información que me mandes recordar.\n\n" +
-
-        "Ejemplo:\n" +
-        "«Recuerda que mi color preferido es el verde fosforito».\n\n" +
-
-        "Después puedes preguntarme:\n" +
-        "«¿Cuál es mi color preferido?»\n\n" +
-
-        "📚 RECUERDOS\n" +
-        "Puedes preguntarme «¿Qué recuerdas?» y te enseñaré lo que tengo guardado.\n\n" +
-
-        "📋 TAREAS\n" +
-        "Puedo guardar tareas que quieras hacer más adelante.\n\n" +
-
-        "Ejemplo:\n" +
-        "«Recuérdame mañana comprar comida para los peces».\n\n" +
-
-        "⏰ PROGRAMACIÓN\n" +
-        "Puedo guardar la fecha y hora de una tarea cuando me la indiques.\n\n" +
-
-        "📋 CONSULTAR TAREAS\n" +
-        "Pregunta «¿Qué tareas tengo?».\n\n" +
-
-        "🗑️ BORRAR\n" +
-        "Puedes pedirme que elimine una tarea o utilizar los botones de la Biblioteca.\n\n" +
-
-        "🎙️ VOZ\n" +
-        "Puedes hablarme usando el botón del micrófono.\n\n" +
-
-        "☁️ MEMORIA PERMANENTE\n" +
-        "Mis recuerdos y tareas se guardan en Cloudflare D1."
-
-    );
-}
-
-async function cargarTareasCloudflare() {
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE + "/tareas",
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (
-            datos.ok &&
-            Array.isArray(datos.tareas)
-        ) {
-
-            tareas =
-                datos.tareas.map(
-                    tarea => ({
-
-                        id:
-                            tarea.id,
-
-                        texto:
-                            tarea.texto,
-
-                        creada:
-                            tarea.creada
-                                ? new Date(
-                                    tarea.creada
-                                ).getTime()
-                                : Date.now(),
-
-                        fecha:
-                            tarea.fecha || null,
-
-                        activa:
-                            Number(
-                                tarea.completada
-                            ) === 0
-
-                    })
-                );
-
-            guardarArray(
-                CLAVE_TAREAS,
-                tareas
-            );
-
-            cloudflareDisponible = true;
-
-            actualizarContadores();
-
-            return true;
-        }
-
-        throw new Error(
-            "Respuesta de tareas no válida"
-        );
-
-    } catch(error) {
-
-        console.log(
-            "Cloudflare tareas no disponible:",
-            error
-        );
-
-        tareas =
-            cargarArray(
-                CLAVE_TAREAS
-            );
-
-        actualizarContadores();
-
-        return false;
-    }
-}
-
-async function crearTarea(texto) {
-
-    const textoLimpio =
-        texto.trim();
-
-    if (!textoLimpio) {
-        return null;
-    }
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE + "/tarea",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            texto:
-                                textoLimpio
-                        })
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (
-            datos.ok &&
-            datos.tarea
-        ) {
-
-            const tarea = {
-
-                id:
-                    datos.tarea.id,
-
-                texto:
-                    datos.tarea.texto,
-
-                fecha:
-                    datos.tarea.fecha || null,
-
-                creada:
-                    Date.now(),
-
-                activa:
-                    true
-
-            };
-
-            tareas.unshift(tarea);
-
-            guardarArray(
-                CLAVE_TAREAS,
-                tareas
-            );
-
-            cloudflareDisponible = true;
-
-            actualizarContadores();
-
-            return tarea;
-        }
-
-        throw new Error(
-            datos.error ||
-            "No se pudo guardar la tarea"
-        );
-
-    } catch(error) {
-
-        console.log(
-            "Error guardando tarea en D1:",
-            error
-        );
-
-        const tarea = {
-
-            id:
-                Date.now().toString() +
-                Math.random()
-                    .toString(36)
-                    .substring(2,8),
-
-            texto:
-                textoLimpio,
-
-            creada:
-                Date.now(),
-
-            activa:
-                true
-
-        };
-
-        tareas.push(tarea);
-
-        guardarArray(
-            CLAVE_TAREAS,
-            tareas
-        );
-
-        cloudflareDisponible = false;
-
-        actualizarContadores();
-
-        return tarea;
-    }
-}
-
-function extraerTarea(texto) {
-
-    const mensaje =
-        texto.trim();
-
-    const patrones = [
-
-        /^\s*recu[eé]rdame\s+(.+)$/i,
-
-        /^\s*recu[eé]rdame\s+que\s+(.+)$/i,
-
-        /^\s*crea una tarea\s+(.+)$/i,
-
-        /^\s*crea una tarea para\s+(.+)$/i,
-
-        /^\s*anota una tarea\s+(.+)$/i,
-
-        /^\s*guarda una tarea\s+(.+)$/i,
-
-        /^\s*apunta una tarea\s+(.+)$/i
-
-    ];
-
-    for (
-        const patron of patrones
-    ) {
-
-        const resultado =
-            mensaje.match(patron);
-
-        if (
-            resultado &&
-            resultado[1]
-        ) {
-
-            return resultado[1]
-                .trim();
-        }
-    }
-
-    return null;
-}
-
-function esPeticionDeTareas(
-    texto
-) {
-
-    const mensaje =
-        normalizar(texto);
-
-    return (
-
-        mensaje.includes(
-            "que tareas tengo"
-        ) ||
-
-        mensaje.includes(
-            "mis tareas"
-        ) ||
-
-        mensaje.includes(
-            "ver tareas"
-        ) ||
-
-        mensaje.includes(
-            "mis pendientes"
-        )
-
-    );
-}
-
-function responderSobreTareas() {
-
-    const activas =
-        tareas.filter(
-            tarea =>
-                tarea.activa !== false
-        );
-
-    if (
-        activas.length === 0
-    ) {
-
-        return "📋 No tienes tareas pendientes, Rafa.";
-    }
-
-    return (
-
-        "📋 Estas son tus tareas:\n\n" +
-
-        activas
-            .map(
-                (tarea,indice) =>
-                    (indice + 1) +
-                    ". " +
-                    tarea.texto
-            )
-            .join("\n")
-
-    );
-}
-
-async function borrarTareaPorTexto(
-    texto
-) {
-
-    const palabras =
-        palabrasImportantes(
-            texto
-        );
-
-    let encontrada = -1;
-
-    for (
-        let i = 0;
-        i < tareas.length;
-        i++
-    ) {
-
-        if (
-            tareas[i].activa === false
-        ) {
-
-            continue;
-        }
-
-        const palabrasTarea =
-            palabrasImportantes(
-                tareas[i].texto
-            );
-
-        const coincidencias =
-            palabras.filter(
-                palabra =>
-                    palabrasTarea
-                        .includes(palabra)
-            ).length;
-
-        if (
-            coincidencias > 0
-        ) {
-
-            encontrada = i;
-
-            break;
-        }
-    }
-
-    if (
-        encontrada === -1
-    ) {
-
-        return false;
-    }
-
-    const tarea =
-        tareas[encontrada];
-
-    try {
-
-        const respuesta =
-            await fetch(
-                URL_CLOUDFLARE +
-                "/tarea/" +
-                encodeURIComponent(
-                    tarea.id
-                ),
-                {
-                    method: "DELETE"
-                }
-            );
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "Error HTTP " + respuesta.status
-            );
-        }
-
-        const datos =
-            await respuesta.json();
-
-        if (!datos.ok) {
-            throw new Error(
-                datos.error ||
-                "No se pudo eliminar"
-            );
-        }
-
-        tareas.splice(
-            encontrada,
-            1
-        );
-
-        guardarArray(
-            CLAVE_TAREAS,
-            tareas
-        );
-
-        actualizarContadores();
-
-        return true;
-
-    } catch(error) {
-
-        tareas[encontrada].activa =
-            false;
-
-        guardarArray(
-            CLAVE_TAREAS,
-            tareas
-        );
-
-        cloudflareDisponible = false;
-
-        actualizarContadores();
-
-        return true;
-    }
-}
-
-function extraerBorradoTarea(
-    texto
-) {
-
-    const mensaje =
-        texto.trim();
-
-    const patrones = [
-
-        /^\s*borra la tarea\s+(.+)$/i,
-
-        /^\s*elimina la tarea\s+(.+)$/i,
-
-        /^\s*quita la tarea\s+(.+)$/i,
-
-        /^\s*cancela la tarea\s+(.+)$/i
-
-    ];
-
-    for (
-        const patron of patrones
-    ) {
-
-        const resultado =
-            mensaje.match(patron);
-
-        if (
-            resultado &&
-            resultado[1]
-        ) {
-
-            return resultado[1]
-                .trim();
-        }
-    }
-
-    return null;
-}
-
-function crearContextoMemoria() {
-
-    if (
-        memoria.length === 0
-    ) {
-
-        return "No hay recuerdos guardados.";
-    }
-
-    return memoria
-        .map(
-            (recuerdo,indice) =>
-                (indice + 1) +
-                ". " +
-                recuerdo
-        )
-        .join("\n");
-}
-
-function crearContextoTareas() {
-
-    const activas =
-        tareas.filter(
-            tarea =>
-                tarea.activa !== false
-        );
-
-    if (
-        activas.length === 0
-    ) {
-
-        return "No hay tareas pendientes.";
-    }
-
-    return activas
-        .map(
-            (tarea,indice) =>
-                (indice + 1) +
-                ". " +
-                tarea.texto
-        )
-        .join("\n");
-}
-
-function crearContextoHistorial() {
-
-    return historial
-        .slice(-12)
-        .map(
-            item => {
-
-                const quien =
-                    item.tipo === "usuario"
-                        ? "Rafa"
-                        : "GePeTo";
-
-                return (
-                    quien +
-                    ": " +
-                    item.texto
-                );
-            }
-        )
-        .join("\n");
-}
-
-async function prepararIA() {
-
-    if (
-        engine ||
-        preparando
-    ) {
-
-        return;
-    }
-
-    preparando = true;
-
-    estadoIA.textContent =
-        "Cargando inteligencia artificial...";
-
-    botonEnviar.disabled =
-        true;
-
-    try {
-
-        engine =
-            await webllm.CreateMLCEngine(
-
-                MODELO,
-
-                {
-
-                    initProgressCallback:
-                        progreso => {
-
-                            if (
-                                progreso &&
-                                progreso.text
-                            ) {
-
-                                estadoIA.textContent =
-                                    progreso.text;
-                            }
-
-                        }
-
-                }
-
-            );
-
-        estadoIA.textContent =
-            "GePeTo está preparado.";
-
-    } catch(error) {
-
-        console.error(error);
-
-        estadoIA.textContent =
-            "La IA no se pudo cargar. La memoria y las tareas siguen funcionando.";
-
-    } finally {
-
-        preparando = false;
-
-        botonEnviar.disabled =
-            false;
-    }
-}
-
-async function contestarConIA(
-    pregunta
-) {
-
-    if (!engine) {
-
-        return (
-            "La inteligencia artificial todavía está cargando. " +
-            "La memoria y las tareas sí están disponibles."
-        );
-    }
-
-    const sistema = `
-
-Eres GePeTo, el asistente personal de Rafa.
-
-Responde siempre en español.
-
-Sé natural, amable y claro.
-
-Utiliza los recuerdos de Rafa cuando sean relevantes.
-
-Nunca inventes un recuerdo.
-
-Si la respuesta está en los recuerdos, úsala.
-
-También puedes tener en cuenta las tareas pendientes.
-
-RECUERDOS DE RAFA:
-
-${crearContextoMemoria()}
-
-TAREAS PENDIENTES:
-
-${crearContextoTareas()}
-
-CONVERSACIÓN RECIENTE:
-
-${crearContextoHistorial()}
-
-`;
-
-    const respuesta =
-        await engine.chat.completions.create({
-
-            messages: [
-
-                {
-                    role:"system",
-                    content:sistema
-                },
-
-                {
-                    role:"user",
-                    content:pregunta
-                }
-
-            ],
-
-            temperature:0.7,
-
-            max_tokens:350
-
-        });
-
-    return (
-        respuesta
-            .choices?.[0]
-            ?.message
-            ?.content
-    ) ||
-
-    "No he conseguido preparar una respuesta.";
-}
-
-async function procesarMensaje(
-    texto
-) {
-
-    const pregunta =
-        texto.trim();
-
-    if (!pregunta) {
-        return;
-    }
-
-    añadirMensaje(
-        pregunta,
-        "usuario"
-    );
-
-    entrada.value = "";
-
-    const normal =
-        normalizar(pregunta);
-
-    if (
-        normal.includes(
-            "que puedes hacer"
-        ) ||
-
-        normal.includes(
-            "que puedes hacer por mi"
-        ) ||
-
-        normal.includes(
-            "que sabes hacer"
-        ) ||
-
-        normal ===
-        "funciones"
-
-    ) {
-
-        añadirMensaje(
-            responderQuePuedeHacer(),
-            "gepeto"
-        );
-
-        return;
-    }
-
-    const recuerdo =
-        extraerRecuerdo(
-            pregunta
-        );
-
-    if (recuerdo) {
-
-        const resultado =
-            await guardarMemoriaCloudflare(
-                recuerdo
-            );
-
-        if (
-            resultado.repetido
-        ) {
-
-            añadirMensaje(
-
-                "🧠 Ese recuerdo ya lo tenía guardado:\n\n" +
-                recuerdo,
-
-                "gepeto"
-            );
-
-        } else if (
-            resultado.guardado
-        ) {
-
-            añadirMensaje(
-
-                "🧠 Recuerdo guardado correctamente.\n\n" +
-
-                "Ahora tengo " +
-                memoria.length +
-                " recuerdo(s).\n\n" +
-
-                "Lo utilizaré cuando me preguntes sobre él:\n\n" +
-
-                "• " +
-                recuerdo,
-
-                "gepeto"
-            );
-
-        } else {
-
-            añadirMensaje(
-
-                "No he podido guardar ese recuerdo.",
-
-                "gepeto"
-            );
-        }
-
-        return;
-    }
-
-    const tareaTexto =
-        extraerTarea(
-            pregunta
-        );
-
-    if (tareaTexto) {
-
-        const tarea =
-            await crearTarea(
-                tareaTexto
-            );
-
-        if (!tarea) {
-
-            añadirMensaje(
-                "No he podido guardar la tarea.",
-                "gepeto"
-            );
-
-            return;
-        }
-
-        añadirMensaje(
-
-            "📋 Tarea guardada correctamente.\n\n" +
-
-            "📝 " +
-            tarea.texto +
-            "\n\n" +
-
-            "Ahora tengo " +
-            tareas.filter(
-                t => t.activa !== false
-            ).length +
-            " tarea(s) pendiente(s).\n\n" +
-
-            "La tarea permanece guardada aunque salgas de la web.",
-
-            "gepeto"
-        );
-
-        return;
-    }
-
-    const borrarTexto =
-        extraerBorradoTarea(
-            pregunta
-        );
-
-    if (borrarTexto) {
-
-        const borrada =
-            await borrarTareaPorTexto(
-                borrarTexto
-            );
-
-        añadirMensaje(
-
-            borrada
-                ? "🗑️ He eliminado esa tarea."
-                : "No he encontrado una tarea que coincida.",
-
-            "gepeto"
-        );
-
-        return;
-    }
-
-    if (
-        esPeticionDeTareas(
-            pregunta
-        )
-    ) {
-
-        añadirMensaje(
-            responderSobreTareas(),
-            "gepeto"
-        );
-
-        return;
-    }
-
-    const respuestaMemoria =
-        responderSobreMemoria(
-            pregunta
-        );
-
-    if (
-        respuestaMemoria
-    ) {
-
-        añadirMensaje(
-            respuestaMemoria,
-            "gepeto"
-        );
-
-        return;
-    }
-
-    const pensando =
-        añadirMensaje(
-            "Estoy pensando...",
-            "gepeto",
-            false
-        );
-
-    try {
-
-        const respuesta =
-            await contestarConIA(
-                pregunta
-            );
-
-        pensando.remove();
-
-        añadirMensaje(
-            respuesta,
-            "gepeto"
-        );
-
-    } catch(error) {
-
-        console.error(error);
-
-        pensando.remove();
-
-        añadirMensaje(
-
-            "Ha ocurrido un error al responder. Inténtalo otra vez.",
-
-            "gepeto"
-        );
-    }
-}
-
-formulario.addEventListener(
-    "submit",
-    event => {
-
-        event.preventDefault();
-
-        const texto =
-            entrada.value.trim();
-
-        if (texto) {
-
-            procesarMensaje(
-                texto
-            );
-        }
-
-    }
-);
-
-document
-.getElementById("verRecuerdos")
-.addEventListener(
-    "click",
-    async () => {
-
-        await cargarMemoriaCloudflare();
-
-        if (
-            memoria.length === 0
-        ) {
-
-            añadirMensaje(
-                "Todavía no tengo ningún recuerdo guardado.",
-                "gepeto"
-            );
-
-            return;
-        }
-
-        añadirMensaje(
-
-            "🧠 Mis recuerdos:\n\n" +
-
-            memoria
-                .map(
-                    (recuerdo,indice) =>
-                        (indice + 1) +
-                        ". " +
-                        recuerdo
-                )
-                .join("\n"),
-
-            "gepeto"
-        );
-    }
-);
-
-document
-.getElementById("verTareas")
-.addEventListener(
-    "click",
-    async () => {
-
-        await cargarTareasCloudflare();
-
-        añadirMensaje(
-
-            responderSobreTareas(),
-
-            "gepeto"
-        );
-    }
-);
-
-document
-.getElementById("borrarRecuerdos")
-.addEventListener(
-    "click",
-    async () => {
-
-        const confirmar =
-            confirm(
-                "¿Seguro que quieres borrar todos los recuerdos de GePeTo?"
-            );
-
-        if (!confirmar) {
-            return;
-        }
-
-        const correcto =
-            await borrarMemoriaCloudflare();
-
-        añadirMensaje(
-
-            correcto
-                ? "🗑️ He borrado todos mis recuerdos de la memoria permanente."
-                : "🗑️ He borrado los recuerdos locales, pero Cloudflare no estaba disponible.",
-
-            "gepeto"
-        );
-    }
-);
-
-botonVoz.addEventListener(
-    "click",
-    () => {
-
-        const Reconocimiento =
-            window.SpeechRecognition ||
-            window.webkitSpeechRecognition;
-
-        if (!Reconocimiento) {
-
-            añadirMensaje(
-
-                "El reconocimiento de voz no está disponible en este navegador.",
-
-                "gepeto"
-            );
-
-            return;
-        }
-
-        const reconocimiento =
-            new Reconocimiento();
-
-        reconocimiento.lang =
-            "es-ES";
-
-        reconocimiento.interimResults =
-            false;
-
-        reconocimiento.continuous =
-            false;
-
-        reconocimiento.onstart =
-            () => {
-
-                estadoIA.textContent =
-                    "Escuchando...";
-
-            };
-
-        reconocimiento.onresult =
-            event => {
-
-                const texto =
-                    event
-                        .results[0][0]
-                        .transcript;
-
-                entrada.value =
-                    texto;
-
-                estadoIA.textContent =
-                    "GePeTo está preparado.";
-            };
-
-        reconocimiento.onerror =
-            () => {
-
-                estadoIA.textContent =
-                    "No he podido escuchar la voz.";
-            };
-
-        reconocimiento.onend =
-            () => {
-
-                if (!preparando) {
-
-                    estadoIA.textContent =
-                        "GePeTo está preparado.";
-                }
-            };
-
-        reconocimiento.start();
-
-    }
-);
-
-async function iniciarBiblioteca() {
-
-    actualizarContadores();
-
-    cargarHistorial();
-
-    estadoIA.textContent =
-        "Conectando con la memoria de GePeTo...";
+    estado.textContent =
+        "● Conectando con Cloudflare...";
 
     await Promise.all([
-
         cargarMemoriaCloudflare(),
-
-        cargarTareasCloudflare()
-
+        cargarTareasCloudflare(),
+        cargarInvestigacionesCloudflare()
     ]);
 
-    actualizarContadores();
+    estado.textContent =
+        "● GePeTo conectado";
 
     prepararIA();
 }
 
-iniciarBiblioteca();
+iniciar();
 
 window.addEventListener(
     "pageshow",
-    async () => {
-
-        await Promise.all([
-
-            cargarMemoriaCloudflare(),
-
-            cargarTareasCloudflare()
-
-        ]);
-
+    () => {
         actualizarContadores();
-
-        if (
-            !engine &&
-            !preparando
-        ) {
-
-            prepararIA();
-        }
-
     }
 );
 
