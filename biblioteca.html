@@ -570,7 +570,6 @@ function esPeticionDeTareas(texto) {
   return (
     frase.includes("mis tareas") ||
     frase.includes("que tareas tengo") ||
-    frase.includes("qué tareas tengo") ||
     frase.includes("lista de tareas") ||
     frase.includes("dime las tareas")
   );
@@ -692,6 +691,100 @@ async function buscarInvestigacionCloudflare(tema) {
   }
 }
 
+/* =========================================================
+   ÚNICA CORRECCIÓN:
+   Ahora Wikipedia busca artículos relacionados con el tema
+   en lugar de exigir una página con el nombre exacto.
+   ========================================================= */
+
+async function buscarEnWikipedia(tema) {
+  try {
+
+    const urlBusqueda =
+      "https://es.wikipedia.org/w/api.php" +
+      "?action=query" +
+      "&list=search" +
+      "&srsearch=" +
+      encodeURIComponent(tema) +
+      "&format=json" +
+      "&origin=*" +
+      "&srlimit=5";
+
+    const respuestaBusqueda =
+      await fetch(urlBusqueda);
+
+    if (!respuestaBusqueda.ok) {
+      return null;
+    }
+
+    const datosBusqueda =
+      await respuestaBusqueda.json();
+
+    const resultados =
+      datosBusqueda?.query?.search || [];
+
+    if (resultados.length === 0) {
+      return null;
+    }
+
+    let investigacion = "";
+
+    for (const resultado of resultados.slice(0, 5)) {
+
+      const titulo = resultado.title;
+
+      const urlPagina =
+        "https://es.wikipedia.org/api/rest_v1/page/summary/" +
+        encodeURIComponent(
+          titulo.replace(/\s+/g, "_")
+        );
+
+      try {
+
+        const respuestaPagina =
+          await fetch(urlPagina);
+
+        if (!respuestaPagina.ok) {
+          continue;
+        }
+
+        const pagina =
+          await respuestaPagina.json();
+
+        if (pagina.extract) {
+
+          investigacion +=
+            "\n\n### " +
+            titulo +
+            "\n\n" +
+            pagina.extract;
+        }
+
+      } catch (error) {
+
+        console.log(
+          "No se pudo cargar: " + titulo
+        );
+      }
+    }
+
+    if (!investigacion.trim()) {
+      return null;
+    }
+
+    return investigacion.trim();
+
+  } catch (error) {
+
+    console.log(
+      "Error buscando en Wikipedia:",
+      error
+    );
+
+    return null;
+  }
+}
+
 function responderSobreInvestigaciones() {
   if (investigaciones.length === 0) {
     return "Todavía no tienes investigaciones guardadas.";
@@ -708,35 +801,14 @@ function responderSobreInvestigaciones() {
     }).join("\n");
 }
 
-async function buscarEnWikipedia(tema) {
-  try {
-    const url =
-      "https://es.wikipedia.org/api/rest_v1/page/summary/" +
-      encodeURIComponent(tema.replace(/\s+/g, "_"));
-
-    const respuesta = await fetch(url);
-
-    if (!respuesta.ok) {
-      return null;
-    }
-
-    const datos = await respuesta.json();
-
-    if (!datos.extract) {
-      return null;
-    }
-
-    return datos.extract;
-  } catch (error) {
-    return null;
-  }
-}
-
 async function realizarInvestigacion(tema) {
+
   const temaLimpio = tema.trim();
 
   mensajeCompleto(
-    "Voy a investigar sobre: " + temaLimpio + ". Un momento...",
+    "Voy a investigar sobre: " +
+    temaLimpio +
+    ". Un momento...",
     "sistema"
   );
 
@@ -746,16 +818,19 @@ async function realizarInvestigacion(tema) {
   let contenido = "";
 
   if (resultadoWikipedia) {
+
     contenido =
       "Investigación sobre " +
       temaLimpio +
       "\n\n" +
       resultadoWikipedia;
+
   } else {
+
     contenido =
-      "No he encontrado una página exacta en Wikipedia sobre " +
+      "No he encontrado información suficiente sobre " +
       temaLimpio +
-      ". Puedo preparar una explicación general si lo deseas.";
+      " en Wikipedia.";
   }
 
   investigaciones.push({
@@ -777,6 +852,7 @@ async function realizarInvestigacion(tema) {
 }
 
 function responderQuePuedeHacer() {
+
   return [
     "Puedo hacer varias cosas:",
     "",
@@ -792,6 +868,7 @@ function responderQuePuedeHacer() {
 }
 
 async function prepararIA() {
+
   if (motorIA || cargandoIA) {
     return;
   }
@@ -799,40 +876,57 @@ async function prepararIA() {
   cargandoIA = true;
 
   try {
-    motorIA = await webllm.CreateMLCEngine(
-      MODELO,
-      {
-        initProgressCallback: (progreso) => {
-          console.log(progreso);
+
+    motorIA =
+      await webllm.CreateMLCEngine(
+        MODELO,
+        {
+          initProgressCallback: (progreso) => {
+            console.log(progreso);
+          }
         }
-      }
-    );
+      );
+
   } catch (error) {
-    console.log("La IA local no se pudo cargar");
+
+    console.log(
+      "La IA local no se pudo cargar"
+    );
   }
 
   cargandoIA = false;
 }
 
 function crearContexto() {
+
   let contexto = "";
 
   if (recuerdos.length > 0) {
-    contexto += "\nRecuerdos del usuario:\n";
+
+    contexto +=
+      "\nRecuerdos del usuario:\n";
 
     recuerdos.forEach((recuerdo) => {
-      contexto += "- " +
+
+      contexto +=
+        "- " +
         (recuerdo.texto || recuerdo) +
         "\n";
     });
   }
 
   if (tareas.length > 0) {
-    contexto += "\nTareas guardadas:\n";
+
+    contexto +=
+      "\nTareas guardadas:\n";
 
     tareas.forEach((tarea) => {
-      contexto += "- " +
-        (tarea.texto || tarea.descripcion || tarea) +
+
+      contexto +=
+        "- " +
+        (tarea.texto ||
+         tarea.descripcion ||
+         tarea) +
         "\n";
     });
   }
@@ -841,98 +935,129 @@ function crearContexto() {
 }
 
 async function contestarConIA(texto) {
+
   await prepararIA();
 
   if (!motorIA) {
+
     return "Ahora mismo no puedo cargar la IA local. Puedes seguir usando recuerdos, tareas e investigaciones.";
   }
 
   try {
-    const respuesta = await motorIA.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "Eres GePeTo, el asistente del Proyecto Rafa. " +
-            "Responde en español de forma clara, amable y útil. " +
-            "Usa los recuerdos y datos guardados cuando sean relevantes. " +
-            crearContexto()
-        },
-        {
-          role: "user",
-          content: texto
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 500
-    });
+
+    const respuesta =
+      await motorIA.chat.completions.create({
+
+        messages: [
+
+          {
+            role: "system",
+            content:
+              "Eres GePeTo, el asistente del Proyecto Rafa. " +
+              "Responde en español de forma clara, amable y útil. " +
+              "Usa los recuerdos y datos guardados cuando sean relevantes. " +
+              crearContexto()
+          },
+
+          {
+            role: "user",
+            content: texto
+          }
+        ],
+
+        temperature: 0.7,
+        max_tokens: 500
+      });
 
     return respuesta.choices[0].message.content;
+
   } catch (error) {
+
     return "Ha ocurrido un problema al responder. Inténtalo de nuevo.";
   }
 }
 
 async function procesarMensaje(texto) {
+
   const mensaje = texto.trim();
 
   if (!mensaje) {
     return;
   }
 
-  mensajeCompleto(mensaje, "usuario");
+  mensajeCompleto(
+    mensaje,
+    "usuario"
+  );
+
   entrada.value = "";
   entrada.style.height = "auto";
 
-  const frase = normalizar(mensaje);
+  const frase =
+    normalizar(mensaje);
 
   if (
     frase === "que puedes hacer" ||
-    frase === "qué puedes hacer" ||
     frase === "ayuda" ||
     frase === "funciones"
   ) {
+
     mensajeCompleto(
       responderQuePuedeHacer(),
       "gepeto"
     );
+
     return;
   }
 
-  const recuerdo = extraerRecuerdo(mensaje);
+  const recuerdo =
+    extraerRecuerdo(mensaje);
 
   if (recuerdo) {
+
     recuerdos.push({
       texto: recuerdo,
       fecha: new Date().toISOString()
     });
 
     guardarLocal();
-    await guardarRecuerdoCloudflare(recuerdo);
+
+    await guardarRecuerdoCloudflare(
+      recuerdo
+    );
+
     actualizarContadores();
 
     mensajeCompleto(
-      "He guardado este recuerdo: " + recuerdo,
+      "He guardado este recuerdo: " +
+      recuerdo,
       "gepeto"
     );
 
     return;
   }
 
-  const tarea = extraerTarea(mensaje);
+  const tarea =
+    extraerTarea(mensaje);
 
   if (tarea) {
+
     tareas.push({
       texto: tarea,
       fecha: new Date().toISOString()
     });
 
     guardarLocal();
-    await guardarTareaCloudflare(tarea);
+
+    await guardarTareaCloudflare(
+      tarea
+    );
+
     actualizarContadores();
 
     mensajeCompleto(
-      "He guardado la tarea: " + tarea,
+      "He guardado la tarea: " +
+      tarea,
       "gepeto"
     );
 
@@ -940,10 +1065,12 @@ async function procesarMensaje(texto) {
   }
 
   if (esPeticionDeTareas(mensaje)) {
+
     mensajeCompleto(
       responderSobreTareas(),
       "gepeto"
     );
+
     return;
   }
 
@@ -951,8 +1078,11 @@ async function procesarMensaje(texto) {
     extraerInvestigacion(mensaje);
 
   if (nuevaInvestigacion) {
+
     const resultado =
-      await realizarInvestigacion(nuevaInvestigacion);
+      await realizarInvestigacion(
+        nuevaInvestigacion
+      );
 
     mensajeCompleto(
       resultado,
@@ -963,15 +1093,19 @@ async function procesarMensaje(texto) {
   }
 
   const peticionResultados =
-    extraerPeticionResultados(mensaje);
+    extraerPeticionResultados(
+      mensaje
+    );
 
   if (peticionResultados) {
+
     let investigacion =
       await buscarInvestigacionCloudflare(
         peticionResultados
       );
 
     if (!investigacion) {
+
       investigacion =
         investigaciones.find((item) =>
           normalizar(item.tema).includes(
@@ -981,12 +1115,15 @@ async function procesarMensaje(texto) {
     }
 
     if (investigacion) {
+
       mensajeCompleto(
         investigacion.contenido ||
         JSON.stringify(investigacion),
         "gepeto"
       );
+
     } else {
+
       mensajeCompleto(
         "No encuentro una investigación guardada sobre " +
         peticionResultados +
@@ -1003,13 +1140,14 @@ async function procesarMensaje(texto) {
   if (
     frase === "mis investigaciones" ||
     frase === "lista de investigaciones" ||
-    frase === "que investigaciones tengo" ||
-    frase === "qué investigaciones tengo"
+    frase === "que investigaciones tengo"
   ) {
+
     mensajeCompleto(
       responderSobreInvestigaciones(),
       "gepeto"
     );
+
     return;
   }
 
@@ -1022,145 +1160,222 @@ async function procesarMensaje(texto) {
   );
 }
 
-formulario.addEventListener("submit", async (evento) => {
-  evento.preventDefault();
+formulario.addEventListener(
+  "submit",
+  async (evento) => {
 
-  if (enviar.disabled) {
-    return;
-  }
-
-  enviar.disabled = true;
-  enviar.textContent = "…";
-
-  try {
-    await procesarMensaje(entrada.value);
-  } finally {
-    enviar.disabled = false;
-    enviar.textContent = "ENVIAR";
-    entrada.focus();
-  }
-});
-
-entrada.addEventListener("input", () => {
-  entrada.style.height = "auto";
-  entrada.style.height =
-    Math.min(entrada.scrollHeight, 130) + "px";
-});
-
-entrada.addEventListener("keydown", (evento) => {
-  if (
-    evento.key === "Enter" &&
-    !evento.shiftKey
-  ) {
     evento.preventDefault();
-    formulario.requestSubmit();
-  }
-});
 
-botonMusica.addEventListener("click", async () => {
-  try {
-    if (audioMusica.paused) {
-      await audioMusica.play();
-      botonMusica.textContent = "⏸️ Pausar";
-    } else {
-      audioMusica.pause();
-      botonMusica.textContent = "🎵 Música";
+    if (enviar.disabled) {
+      return;
     }
-  } catch (error) {
-    mensajeCompleto(
-      "Toca otra vez el botón Música para iniciar el audio.",
-      "sistema"
-    );
+
+    enviar.disabled = true;
+    enviar.textContent = "…";
+
+    try {
+
+      await procesarMensaje(
+        entrada.value
+      );
+
+    } finally {
+
+      enviar.disabled = false;
+      enviar.textContent = "ENVIAR";
+      entrada.focus();
+    }
   }
-});
+);
+
+entrada.addEventListener(
+  "input",
+  () => {
+
+    entrada.style.height = "auto";
+
+    entrada.style.height =
+      Math.min(
+        entrada.scrollHeight,
+        130
+      ) + "px";
+  }
+);
+
+entrada.addEventListener(
+  "keydown",
+  (evento) => {
+
+    if (
+      evento.key === "Enter" &&
+      !evento.shiftKey
+    ) {
+
+      evento.preventDefault();
+
+      formulario.requestSubmit();
+    }
+  }
+);
+
+botonMusica.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      if (audioMusica.paused) {
+
+        await audioMusica.play();
+
+        botonMusica.textContent =
+          "⏸️ Pausar";
+
+      } else {
+
+        audioMusica.pause();
+
+        botonMusica.textContent =
+          "🎵 Música";
+      }
+
+    } catch (error) {
+
+      mensajeCompleto(
+        "Toca otra vez el botón Música para iniciar el audio.",
+        "sistema"
+      );
+    }
+  }
+);
 
 document
   .getElementById("verRecuerdos")
-  .addEventListener("click", () => {
-    if (recuerdos.length === 0) {
+  .addEventListener(
+    "click",
+    () => {
+
+      if (recuerdos.length === 0) {
+
+        mensajeCompleto(
+          "No tengo recuerdos guardados.",
+          "gepeto"
+        );
+
+        return;
+      }
+
       mensajeCompleto(
-        "No tengo recuerdos guardados.",
+        "Recuerdos guardados:\n\n" +
+        recuerdos.map(
+          (recuerdo, indice) => {
+
+            return (
+              indice + 1
+            ) +
+            ". " +
+            (recuerdo.texto ||
+             recuerdo);
+          }
+        ).join("\n"),
         "gepeto"
       );
-      return;
     }
-
-    mensajeCompleto(
-      "Recuerdos guardados:\n\n" +
-      recuerdos.map((recuerdo, indice) => {
-        return (indice + 1) + ". " +
-          (recuerdo.texto || recuerdo);
-      }).join("\n"),
-      "gepeto"
-    );
-  });
+  );
 
 document
   .getElementById("verTareas")
-  .addEventListener("click", () => {
-    mensajeCompleto(
-      responderSobreTareas(),
-      "gepeto"
-    );
-  });
+  .addEventListener(
+    "click",
+    () => {
+
+      mensajeCompleto(
+        responderSobreTareas(),
+        "gepeto"
+      );
+    }
+  );
 
 document
   .getElementById("verInvestigaciones")
-  .addEventListener("click", () => {
-    mensajeCompleto(
-      responderSobreInvestigaciones(),
-      "gepeto"
-    );
-  });
+  .addEventListener(
+    "click",
+    () => {
+
+      mensajeCompleto(
+        responderSobreInvestigaciones(),
+        "gepeto"
+      );
+    }
+  );
 
 document
   .getElementById("borrarMemoria")
-  .addEventListener("click", async () => {
-    const confirmar = confirm(
-      "¿Quieres borrar todos los recuerdos?"
-    );
+  .addEventListener(
+    "click",
+    async () => {
 
-    if (!confirmar) {
-      return;
+      const confirmar =
+        confirm(
+          "¿Quieres borrar todos los recuerdos?"
+        );
+
+      if (!confirmar) {
+        return;
+      }
+
+      recuerdos = [];
+
+      guardarLocal();
+
+      await borrarMemoriaCloudflare();
+
+      actualizarContadores();
+
+      mensajeCompleto(
+        "He borrado los recuerdos guardados.",
+        "gepeto"
+      );
     }
-
-    recuerdos = [];
-
-    guardarLocal();
-    await borrarMemoriaCloudflare();
-    actualizarContadores();
-
-    mensajeCompleto(
-      "He borrado los recuerdos guardados.",
-      "gepeto"
-    );
-  });
+  );
 
 document
   .getElementById("avatarGePeTo")
-  .addEventListener("error", () => {
-    document
-      .getElementById("avatarGePeTo")
-      .style.display = "none";
-  });
+  .addEventListener(
+    "error",
+    () => {
+
+      document
+        .getElementById("avatarGePeTo")
+        .style.display = "none";
+    }
+  );
 
 function cargarHistorial() {
-  historial.forEach((mensaje) => {
-    añadirMensaje(
-      mensaje.texto,
-      mensaje.tipo
-    );
-  });
+
+  historial.forEach(
+    (mensaje) => {
+
+      añadirMensaje(
+        mensaje.texto,
+        mensaje.tipo
+      );
+    }
+  );
 }
 
 async function iniciar() {
+
   actualizarContadores();
 
   cargarHistorial();
+
   mostrarBienvenida();
 
   await cargarMemoriaCloudflare();
+
   await cargarTareasCloudflare();
+
   await cargarInvestigacionesCloudflare();
 
   actualizarContadores();
