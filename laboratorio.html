@@ -1,2 +1,1107 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>LABORATORIO · Proyecto Rafa</title><link rel="stylesheet" href="../style.css"></head><body><main><section class="hero"><div class="infinity"><span>∞</span></div><h1>LABORATORIO</h1><p>Experimentos e IA</p><p class="aviso">Aquí añadiremos después la imagen, el audio y las funciones de esta sala.</p><p><a href="../index.html" style="color:#39ff14">← VOLVER A PROYECTO RAFA</a></p></section></main></body></html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto Rafa · Laboratorio de Lía</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    min-height:100%;
+    background:#000;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    padding-bottom:95px;
+}
+
+:root{
+    --lia:#ff1493;
+    --lia2:#ff4db8;
+    --lia-soft:rgba(255,20,147,.18);
+    --border:rgba(255,20,147,.65);
+}
+
+header{
+    text-align:center;
+    padding:18px 12px 10px;
+}
+
+header h1{
+    color:var(--lia);
+    font-size:25px;
+    text-shadow:
+        0 0 5px var(--lia),
+        0 0 15px var(--lia);
+}
+
+header p{
+    color:#ff9bd3;
+    margin-top:5px;
+    font-size:14px;
+}
+
+.lia-photo{
+    display:block;
+    width:min(270px,82vw);
+    max-height:300px;
+    object-fit:contain;
+    margin:8px auto 15px;
+    border-radius:20px;
+    border:2px solid var(--lia);
+    box-shadow:
+        0 0 10px var(--lia),
+        0 0 30px rgba(255,20,147,.45);
+}
+
+.status{
+    width:max-content;
+    max-width:90%;
+    margin:0 auto 15px;
+    padding:7px 14px;
+    border:1px solid var(--lia);
+    border-radius:20px;
+    color:#ff8dcb;
+    font-size:12px;
+    box-shadow:0 0 8px rgba(255,20,147,.3);
+}
+
+.panel{
+    width:min(900px,94%);
+    margin:12px auto;
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:rgba(255,20,147,.045);
+    box-shadow:0 0 12px rgba(255,20,147,.12);
+}
+
+.panel h2{
+    color:var(--lia2);
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+button{
+    border:1px solid var(--lia);
+    background:#080008;
+    color:#ff69b4;
+    padding:10px 13px;
+    margin:4px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 0 7px rgba(255,20,147,.25);
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+button:hover{
+    background:var(--lia-soft);
+    box-shadow:0 0 13px rgba(255,20,147,.55);
+}
+
+input[type="text"]{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#050005;
+    color:#fff;
+    outline:none;
+}
+
+input[type="file"]{
+    width:100%;
+    margin-top:8px;
+    color:#ff8dcb;
+}
+
+.chat{
+    width:min(900px,94%);
+    margin:15px auto;
+    min-height:240px;
+    max-height:48vh;
+    overflow-y:auto;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#020002;
+}
+
+.message{
+    margin:9px 0;
+    padding:11px 13px;
+    border-radius:13px;
+    line-height:1.45;
+    white-space:pre-wrap;
+}
+
+.message.rafa{
+    background:rgba(0,255,80,.08);
+    border:1px solid rgba(0,255,80,.35);
+    color:#d9ffe4;
+}
+
+.message.lia{
+    background:rgba(255,20,147,.10);
+    border:1px solid rgba(255,20,147,.42);
+    color:#ffd5eb;
+}
+
+.message.system{
+    background:#080808;
+    border:1px solid #333;
+    color:#aaa;
+    font-size:13px;
+}
+
+.label{
+    font-size:11px;
+    opacity:.75;
+    margin-bottom:4px;
+    color:var(--lia2);
+}
+
+.task{
+    padding:12px;
+    margin:9px 0;
+    border:1px solid rgba(255,20,147,.35);
+    border-radius:12px;
+    background:rgba(255,20,147,.05);
+}
+
+.task strong{
+    color:#ff69b4;
+}
+
+.task-result{
+    margin-top:9px;
+    padding:10px;
+    border-left:3px solid var(--lia);
+    color:#ffd4ea;
+    white-space:pre-wrap;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 8px;
+    margin-bottom:7px;
+    border-radius:10px;
+    border:1px solid var(--lia);
+    color:#ff69b4;
+    font-size:11px;
+}
+
+#musicName{
+    color:#ff9bd3;
+    font-size:13px;
+    margin-top:7px;
+}
+
+.composer{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:999;
+    padding:10px;
+    background:rgba(0,0,0,.96);
+    border-top:1px solid var(--lia);
+    box-shadow:0 -4px 18px rgba(255,20,147,.2);
+}
+
+.composer-inner{
+    width:min(900px,96%);
+    margin:auto;
+    display:flex;
+    gap:7px;
+}
+
+.composer input{
+    flex:1;
+    min-width:0;
+}
+
+.send{
+    flex:0 0 auto;
+    margin:0;
+    padding:10px 15px;
+}
+
+.back{
+    display:block;
+    width:max-content;
+    margin:18px auto 100px;
+    text-decoration:none;
+    color:#ff69b4;
+    border:1px solid var(--lia);
+    padding:11px 18px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(255,20,147,.25);
+}
+
+.hidden{
+    display:none;
+}
+
+.small{
+    font-size:12px;
+    color:#aaa;
+    line-height:1.4;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>LABORATORIO DE LÍA</h1>
+    <p>Inteligencia · Investigación · Aprendizaje · Creación</p>
+</header>
+
+<img src="LiA.png" alt="Lía" class="lia-photo">
+
+<div class="status" id="connectionStatus">
+    LÍA · MODO PREPARACIÓN EXTERNA
+</div>
+
+<div class="chat" id="chat">
+
+    <div class="message lia">
+        <div class="label">LÍA</div>
+        Hola Rafa. Soy Lía.
+
+        Este es mi Laboratorio. Aquí tendremos mi chat, mis recuerdos, mis investigaciones, mis aprendizajes y mis tareas.
+
+        Mi conexión externa con Cloudflare queda preparada para cuando la conectemos.
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MEMORIA EXTERNA
+     ========================= -->
+
+<div class="panel">
+
+    <h2>🧠 RECUERDOS DE LÍA</h2>
+
+    <p class="small">
+        La memoria definitiva de Lía no se guarda en localStorage.
+        Esta zona queda preparada para conectarse mañana a la memoria externa mediante Cloudflare.
+    </p>
+
+    <br>
+
+    <input
+        type="text"
+        id="memoryInput"
+        placeholder="Escribe un recuerdo que Lía deba guardar..."
+    >
+
+    <button onclick="guardarRecuerdoExterno()">
+        💾 GUARDAR RECUERDO
+    </button>
+
+    <button onclick="cargarRecuerdosExternos()">
+        🧠 CONSULTAR MEMORIA
+    </button>
+
+    <div id="memoryResult"></div>
+
+</div>
+
+
+<!-- =========================
+     INVESTIGACIÓN
+     ========================= -->
+
+<div class="panel">
+
+    <h2>🌐 INVESTIGAR</h2>
+
+    <p class="small">
+        Lía tendrá una conexión externa para investigar y devolver resultados.
+        El conector real se activará al configurar Cloudflare.
+    </p>
+
+    <br>
+
+    <input
+        type="text"
+        id="researchInput"
+        placeholder="¿Qué quieres que investigue Lía?"
+    >
+
+    <button onclick="investigarExterno()">
+        🔎 INVESTIGAR
+    </button>
+
+    <div id="researchResult"></div>
+
+</div>
+
+
+<!-- =========================
+     DOS CLASES DE TAREAS
+     ========================= -->
+
+<div class="panel">
+
+    <h2>⚙️ TAREAS DE LÍA</h2>
+
+    <div class="task">
+
+        <span class="badge">TIPO 1 · TAREA DE RAFA</span>
+
+        <p>
+            Rafa puede darle una tarea directamente a Lía.
+        </p>
+
+        <br>
+
+        <input
+            type="text"
+            id="rafaTaskInput"
+            placeholder="Ejemplo: analiza esta información y dame una conclusión..."
+        >
+
+        <button onclick="crearTareaRafa()">
+            ▶ ENCARGAR A LÍA
+        </button>
+
+    </div>
+
+
+    <div class="task">
+
+        <span class="badge">TIPO 2 · TAREA PROPIA DE LÍA</span>
+
+        <p>
+            Lía podrá tener tareas propias de investigación,
+            aprendizaje, análisis o comprobación.
+        </p>
+
+        <br>
+
+        <input
+            type="text"
+            id="liaTaskInput"
+            placeholder="Nueva tarea que Lía quiera realizar..."
+        >
+
+        <button onclick="crearTareaLia()">
+            🧠 CREAR TAREA DE LÍA
+        </button>
+
+    </div>
+
+
+    <div id="tasksList"></div>
+
+</div>
+
+
+<!-- =========================
+     APRENDIZAJE
+     ========================= -->
+
+<div class="panel">
+
+    <h2>📚 APRENDIZAJE</h2>
+
+    <p class="small">
+        Aquí quedará preparado el sistema para que Lía pueda recibir información,
+        analizarla y enviar los resultados a su memoria externa.
+    </p>
+
+    <button onclick="prepararAprendizaje()">
+        📖 NUEVO APRENDIZAJE
+    </button>
+
+    <div id="learningResult"></div>
+
+</div>
+
+
+<!-- =========================
+     MÚSICA
+     ========================= -->
+
+<div class="panel">
+
+    <h2>🎵 MÚSICA DE LÍA</h2>
+
+    <button onclick="activarMusica()">
+        ▶ ACTIVAR MÚSICA
+    </button>
+
+    <button onclick="detenerMusica()">
+        ⏹ DETENER
+    </button>
+
+    <br>
+
+    <input
+        type="file"
+        id="musicFile"
+        accept="audio/*"
+        onchange="cargarMusicaSeleccionada(event)"
+    >
+
+    <div id="musicName">
+        Música preparada: LiA.mp3
+    </div>
+
+    <audio id="liaAudio" loop preload="auto">
+        <source src="LiA.mp3" type="audio/mpeg">
+    </audio>
+
+</div>
+
+
+<a href="index.html" class="back">
+    ← PORTADA
+</a>
+
+
+<!-- =========================
+     BARRA FIJA DE CHAT
+     ========================= -->
+
+<div class="composer">
+
+    <div class="composer-inner">
+
+        <input
+            type="text"
+            id="chatInput"
+            placeholder="Escribe a Lía..."
+            onkeydown="if(event.key==='Enter') enviarMensaje()"
+        >
+
+        <button class="send" onclick="enviarMensaje()">
+            ENVIAR
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURACIÓN EXTERNA DE LÍA
+   =====================================================
+
+   MAÑANA:
+   Aquí colocaremos las direcciones reales de Cloudflare.
+
+   IMPORTANTE:
+   Las claves privadas NO deben ponerse en este HTML.
+   Las claves secretas permanecerán en Cloudflare.
+===================================================== */
+
+const LIA_CONFIG = {
+
+    chatEndpoint: "",
+
+    memoryEndpoint: "",
+
+    researchEndpoint: "",
+
+    taskEndpoint: "",
+
+    learningEndpoint: ""
+
+};
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+function añadirMensaje(tipo, nombre, texto){
+
+    const chat = document.getElementById("chat");
+
+    const div = document.createElement("div");
+
+    div.className = "message " + tipo;
+
+    div.innerHTML =
+        '<div class="label">' +
+        nombre +
+        '</div>' +
+        escapeHTML(texto);
+
+    chat.appendChild(div);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+async function enviarMensaje(){
+
+    const input = document.getElementById("chatInput");
+
+    const texto = input.value.trim();
+
+    if(!texto) return;
+
+    añadirMensaje("rafa","RAFA",texto);
+
+    input.value = "";
+
+    /*
+       Cuando exista chatEndpoint,
+       el mensaje se enviará a Cloudflare.
+    */
+
+    if(LIA_CONFIG.chatEndpoint){
+
+        try{
+
+            const respuesta = await fetch(
+                LIA_CONFIG.chatEndpoint,
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        message:texto,
+                        ai:"lia"
+                    })
+                }
+            );
+
+            const datos = await respuesta.json();
+
+            añadirMensaje(
+                "lia",
+                "LÍA",
+                datos.reply || datos.result || "He recibido la información."
+            );
+
+        }catch(error){
+
+            añadirMensaje(
+                "system",
+                "SISTEMA",
+                "No se ha podido contactar con el servicio externo."
+            );
+
+        }
+
+        return;
+    }
+
+
+    /*
+       Respuesta provisional para probar la interfaz.
+       NO representa todavía el cerebro definitivo de Lía.
+    */
+
+    setTimeout(function(){
+
+        añadirMensaje(
+            "lia",
+            "LÍA",
+            "He recibido tu mensaje. Mi conexión externa todavía está pendiente de Cloudflare. Cuando la conectemos podré procesarlo con mi sistema externo y devolverte el resultado."
+        );
+
+    },400);
+}
+
+
+/* =====================================================
+   MEMORIA EXTERNA
+===================================================== */
+
+async function guardarRecuerdoExterno(){
+
+    const input = document.getElementById("memoryInput");
+
+    const texto = input.value.trim();
+
+    if(!texto) return;
+
+    const resultado =
+        document.getElementById("memoryResult");
+
+
+    if(!LIA_CONFIG.memoryEndpoint){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            '🧠 Recuerdo preparado: "' +
+            escapeHTML(texto) +
+            '"<br><br>' +
+            'Conexión externa pendiente de Cloudflare. ' +
+            'No se ha guardado en localStorage.' +
+            '</div>';
+
+        return;
+    }
+
+
+    try{
+
+        const respuesta = await fetch(
+            LIA_CONFIG.memoryEndpoint,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    action:"save",
+                    ai:"lia",
+                    memory:texto
+                })
+            }
+        );
+
+        const datos = await respuesta.json();
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            escapeHTML(
+                datos.message ||
+                "Recuerdo guardado en la memoria externa."
+            ) +
+            '</div>';
+
+        input.value = "";
+
+    }catch(error){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            'Error conectando con la memoria externa.' +
+            '</div>';
+    }
+}
+
+
+async function cargarRecuerdosExternos(){
+
+    const resultado =
+        document.getElementById("memoryResult");
+
+
+    if(!LIA_CONFIG.memoryEndpoint){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            '🧠 La memoria externa de Lía está preparada, ' +
+            'pero la conexión Cloudflare todavía no está configurada.' +
+            '</div>';
+
+        return;
+    }
+
+
+    try{
+
+        const respuesta = await fetch(
+            LIA_CONFIG.memoryEndpoint +
+            "?action=list&ai=lia"
+        );
+
+        const datos = await respuesta.json();
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            escapeHTML(
+                JSON.stringify(datos,null,2)
+            ) +
+            '</div>';
+
+    }catch(error){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            'No se pudo consultar la memoria externa.' +
+            '</div>';
+    }
+}
+
+
+/* =====================================================
+   INVESTIGACIÓN EXTERNA
+===================================================== */
+
+async function investigarExterno(){
+
+    const input =
+        document.getElementById("researchInput");
+
+    const consulta = input.value.trim();
+
+    const resultado =
+        document.getElementById("researchResult");
+
+    if(!consulta) return;
+
+
+    if(!LIA_CONFIG.researchEndpoint){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            '🔎 Investigación preparada:<br><br>' +
+            escapeHTML(consulta) +
+            '<br><br>' +
+            'La conexión de investigación externa se activará con Cloudflare. ' +
+            'No voy a fingir que ya he investigado algo cuando todavía no existe esa conexión.' +
+            '</div>';
+
+        return;
+    }
+
+
+    try{
+
+        resultado.innerHTML =
+            '<div class="task-result">🔎 Lía está investigando...</div>';
+
+
+        const respuesta = await fetch(
+            LIA_CONFIG.researchEndpoint,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    query:consulta,
+                    ai:"lia"
+                })
+            }
+        );
+
+
+        const datos = await respuesta.json();
+
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            escapeHTML(
+                datos.result ||
+                datos.answer ||
+                JSON.stringify(datos)
+            ) +
+            '</div>';
+
+    }catch(error){
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            'No se pudo completar la investigación externa.' +
+            '</div>';
+    }
+}
+
+
+/* =====================================================
+   TAREAS DE RAFA
+===================================================== */
+
+function crearTareaRafa(){
+
+    const input =
+        document.getElementById("rafaTaskInput");
+
+    const tarea = input.value.trim();
+
+    if(!tarea) return;
+
+    crearTarea(
+        "TAREA DE RAFA",
+        tarea
+    );
+
+    input.value = "";
+}
+
+
+/* =====================================================
+   TAREAS PROPIAS DE LÍA
+===================================================== */
+
+function crearTareaLia(){
+
+    const input =
+        document.getElementById("liaTaskInput");
+
+    const tarea = input.value.trim();
+
+    if(!tarea) return;
+
+    crearTarea(
+        "TAREA PROPIA DE LÍA",
+        tarea
+    );
+
+    input.value = "";
+}
+
+
+/* =====================================================
+   CREACIÓN Y EJECUCIÓN DE TAREAS
+===================================================== */
+
+function crearTarea(tipo,tarea){
+
+    const lista =
+        document.getElementById("tasksList");
+
+    const caja =
+        document.createElement("div");
+
+    caja.className = "task";
+
+    caja.innerHTML =
+        '<span class="badge">' +
+        escapeHTML(tipo) +
+        '</span>' +
+
+        '<p><strong>Tarea:</strong><br>' +
+        escapeHTML(tarea) +
+        '</p>' +
+
+        '<button>▶ EJECUTAR TAREA</button>' +
+
+        '<div class="task-result">' +
+        'Pendiente de ejecución.' +
+        '</div>';
+
+
+    const boton =
+        caja.querySelector("button");
+
+    const resultado =
+        caja.querySelector(".task-result");
+
+
+    boton.onclick = async function(){
+
+        boton.disabled = true;
+
+        boton.textContent =
+            "⏳ PROCESANDO...";
+
+
+        /*
+           Si Cloudflare está conectado,
+           aquí se enviará la tarea al cerebro externo.
+        */
+
+        if(LIA_CONFIG.taskEndpoint){
+
+            try{
+
+                const respuesta =
+                    await fetch(
+                        LIA_CONFIG.taskEndpoint,
+                        {
+                            method:"POST",
+                            headers:{
+                                "Content-Type":"application/json"
+                            },
+                            body:JSON.stringify({
+                                task:tarea,
+                                type:tipo,
+                                ai:"lia"
+                            })
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                resultado.innerHTML =
+                    '<strong>RESULTADO DE LÍA:</strong><br><br>' +
+                    escapeHTML(
+                        datos.result ||
+                        datos.answer ||
+                        JSON.stringify(datos)
+                    );
+
+            }catch(error){
+
+                resultado.textContent =
+                    "No se pudo completar la tarea mediante la conexión externa.";
+
+            }
+
+
+            boton.disabled = false;
+            boton.textContent =
+                "↻ EJECUTAR DE NUEVO";
+
+            return;
+        }
+
+
+        /*
+           Modo preparación.
+        */
+
+        resultado.innerHTML =
+            '<strong>RESULTADO:</strong><br><br>' +
+            'La tarea está correctamente preparada para Lía. ' +
+            'El motor que resolverá la tarea se conectará mediante Cloudflare. ' +
+            'Todavía no se ejecuta como una IA externa porque esa conexión se realizará mañana.';
+
+
+        boton.disabled = false;
+
+        boton.textContent =
+            "↻ EJECUTAR DE NUEVO";
+    };
+
+
+    lista.prepend(caja);
+}
+
+
+/* =====================================================
+   APRENDIZAJE
+===================================================== */
+
+function prepararAprendizaje(){
+
+    const resultado =
+        document.getElementById("learningResult");
+
+    resultado.innerHTML =
+        '<div class="task-result">' +
+        '📚 Sistema de aprendizaje preparado.<br><br>' +
+        'Cuando conectemos Cloudflare, Lía podrá recibir información, ' +
+        'analizarla y enviar lo aprendido a su memoria externa.' +
+        '</div>';
+}
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
+
+function activarMusica(){
+
+    const audio =
+        document.getElementById("liaAudio");
+
+    audio.play()
+        .then(function(){
+
+            document.getElementById("musicName").textContent =
+                "▶ Reproduciendo: " +
+                (audio.dataset.filename || "LiA.mp3");
+
+        })
+        .catch(function(){
+
+            document.getElementById("musicName").textContent =
+                "Pulsa de nuevo para iniciar la música.";
+
+        });
+}
+
+
+function detenerMusica(){
+
+    const audio =
+        document.getElementById("liaAudio");
+
+    audio.pause();
+
+    document.getElementById("musicName").textContent =
+        "⏹ Música detenida";
+}
+
+
+function cargarMusicaSeleccionada(event){
+
+    const archivo =
+        event.target.files[0];
+
+    if(!archivo) return;
+
+
+    const audio =
+        document.getElementById("liaAudio");
+
+
+    /*
+       El archivo elegido solo se utiliza durante
+       esta sesión en este dispositivo.
+    */
+
+    const url =
+        URL.createObjectURL(archivo);
+
+    audio.src = url;
+
+    audio.dataset.filename =
+        archivo.name;
+
+    document.getElementById("musicName").textContent =
+        "🎵 Música seleccionada: " +
+        archivo.name;
+
+}
+
+
+/* =====================================================
+   ESTADO INICIAL
+===================================================== */
+
+console.log(
+    "Laboratorio de Lía cargado."
+);
+
+console.log(
+    "Memoria externa: preparada para Cloudflare."
+);
+
+console.log(
+    "Investigación externa: preparada para Cloudflare."
+);
+
+console.log(
+    "Sistema de tareas: preparado."
+);
+
+</script>
+
+</body>
+</html>
