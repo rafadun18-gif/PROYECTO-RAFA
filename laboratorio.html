@@ -3,16 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Proyecto Rafa · Laboratorio de Lía</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
-html,body{
+html,
+body{
     min-height:100%;
     background:#000;
     color:#fff;
@@ -20,7 +23,7 @@ html,body{
 }
 
 body{
-    padding-bottom:95px;
+    padding-bottom:100px;
 }
 
 :root{
@@ -28,6 +31,7 @@ body{
     --lia2:#ff4db8;
     --lia-soft:rgba(255,20,147,.18);
     --border:rgba(255,20,147,.65);
+    --green:#00ff66;
 }
 
 header{
@@ -64,14 +68,25 @@ header p{
 
 .status{
     width:max-content;
-    max-width:90%;
+    max-width:94%;
     margin:0 auto 15px;
-    padding:7px 14px;
+    padding:8px 15px;
     border:1px solid var(--lia);
     border-radius:20px;
     color:#ff8dcb;
     font-size:12px;
     box-shadow:0 0 8px rgba(255,20,147,.3);
+}
+
+.status.ok{
+    color:#00ff66;
+    border-color:#00ff66;
+    box-shadow:0 0 10px rgba(0,255,102,.35);
+}
+
+.status.error{
+    color:#ff5555;
+    border-color:#ff5555;
 }
 
 .panel{
@@ -112,7 +127,7 @@ button:hover{
 }
 
 button:disabled{
-    opacity:.55;
+    opacity:.5;
     cursor:wait;
 }
 
@@ -124,6 +139,11 @@ input[type="text"]{
     background:#050005;
     color:#fff;
     outline:none;
+}
+
+input[type="text"]:focus{
+    border-color:#ff69b4;
+    box-shadow:0 0 8px rgba(255,20,147,.25);
 }
 
 input[type="file"]{
@@ -196,6 +216,7 @@ input[type="file"]{
     border-left:3px solid var(--lia);
     color:#ffd4ea;
     white-space:pre-wrap;
+    line-height:1.45;
 }
 
 .badge{
@@ -206,6 +227,20 @@ input[type="file"]{
     border:1px solid var(--lia);
     color:#ff69b4;
     font-size:11px;
+}
+
+.small{
+    font-size:12px;
+    color:#aaa;
+    line-height:1.4;
+}
+
+.success{
+    color:#00ff66;
+}
+
+.error-text{
+    color:#ff5555;
 }
 
 #musicName{
@@ -256,278 +291,356 @@ input[type="file"]{
     box-shadow:0 0 10px rgba(255,20,147,.25);
 }
 
-.hidden{
-    display:none;
+.back:hover{
+    background:var(--lia-soft);
 }
 
-.small{
-    font-size:12px;
-    color:#aaa;
-    line-height:1.4;
-}
 </style>
 </head>
+
 
 <body>
 
 <header>
-    <h1>LABORATORIO DE LÍA</h1>
-    <p>Inteligencia · Investigación · Aprendizaje · Creación</p>
+
+<h1>LABORATORIO DE LÍA</h1>
+
+<p>
+Inteligencia · Investigación · Aprendizaje · Creación
+</p>
+
 </header>
 
-<img src="LiA .png" alt="Lía" class="lia-photo">
 
-<div class="status" id="connectionStatus">
-    LÍA · CONECTANDO...
-</div>
+<img
+    src="LiA .png"
+    alt="Lía"
+    class="lia-photo"
+>
 
-<div class="chat" id="chat">
 
-    <div class="message lia">
-        <div class="label">LÍA</div>
-        Hola Rafa. Soy Lía.
-
-        Este es mi Laboratorio. Aquí tendremos mi chat, mis recuerdos, mis investigaciones, mis aprendizajes y mis tareas.
-
-        Mi memoria externa está conectada a Cloudflare.
-    </div>
-
+<div
+    class="status"
+    id="connectionStatus"
+>
+    LÍA · COMPROBANDO CONEXIÓN...
 </div>
 
 
-<!-- =========================
-     MEMORIA EXTERNA
-     ========================= -->
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<div
+    class="chat"
+    id="chat"
+>
+
+<div class="message lia">
+
+<div class="label">
+LÍA
+</div>
+
+Hola Rafa. Soy Lía.
+
+Este es mi Laboratorio.
+
+Aquí puedo conversar contigo, consultar mi memoria, investigar información, aprender y trabajar con tareas.
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MEMORIA
+===================================================== -->
 
 <div class="panel">
 
-    <h2>🧠 RECUERDOS DE LÍA</h2>
+<h2>
+🧠 RECUERDOS DE LÍA
+</h2>
 
-    <p class="small">
-        Los recuerdos se guardan en la memoria externa de Lía mediante Cloudflare D1.
-    </p>
+<p class="small">
 
-    <br>
+Los recuerdos se guardan en la memoria externa de Lía.
 
-    <input
-        type="text"
-        id="memoryInput"
-        placeholder="Escribe un recuerdo que Lía deba guardar..."
-    >
+</p>
 
-    <button onclick="guardarRecuerdoExterno()">
-        💾 GUARDAR RECUERDO
-    </button>
+<br>
 
-    <button onclick="cargarRecuerdosExternos()">
-        🧠 CONSULTAR MEMORIA
-    </button>
+<input
+    type="text"
+    id="memoryInput"
+    placeholder="Escribe un recuerdo que Lía deba guardar..."
+>
 
-    <div id="memoryResult"></div>
+<button onclick="guardarRecuerdoExterno()">
+💾 GUARDAR RECUERDO
+</button>
+
+<button onclick="cargarRecuerdosExternos()">
+🧠 CONSULTAR MEMORIA
+</button>
+
+<div id="memoryResult"></div>
 
 </div>
 
 
-<!-- =========================
+
+<!-- =====================================================
      INVESTIGACIÓN
-     ========================= -->
+===================================================== -->
 
 <div class="panel">
 
-    <h2>🌐 INVESTIGAR</h2>
+<h2>
+🌐 INVESTIGACIÓN
+</h2>
 
-    <p class="small">
-        Lía puede investigar información utilizando sus fuentes externas y guardar el conocimiento obtenido en su memoria.
-    </p>
+<p class="small">
 
-    <br>
+Escribe un tema y Lía intentará investigarlo mediante el Worker.
 
-    <input
-        type="text"
-        id="researchInput"
-        placeholder="¿Qué quieres que investigue Lía?"
-    >
+</p>
 
-    <button onclick="investigarExterno()">
-        🔎 INVESTIGAR
-    </button>
+<br>
 
-    <div id="researchResult"></div>
+<input
+    type="text"
+    id="researchInput"
+    placeholder="¿Qué quieres que investigue Lía?"
+>
+
+<button onclick="investigarExterno()">
+🔎 INVESTIGAR
+</button>
+
+<div id="researchResult"></div>
 
 </div>
 
 
-<!-- =========================
-     DOS CLASES DE TAREAS
-     ========================= -->
+
+<!-- =====================================================
+     TAREAS
+===================================================== -->
 
 <div class="panel">
 
-    <h2>⚙️ TAREAS DE LÍA</h2>
+<h2>
+⚙️ TAREAS DE LÍA
+</h2>
 
-    <div class="task">
+<div class="task">
 
-        <span class="badge">TIPO 1 · TAREA DE RAFA</span>
+<span class="badge">
+TAREA DE RAFA
+</span>
 
-        <p>
-            Rafa puede darle una tarea directamente a Lía.
-        </p>
+<p class="small">
 
-        <br>
+Dile a Lía qué quieres que haga.
 
-        <input
-            type="text"
-            id="rafaTaskInput"
-            placeholder="Ejemplo: investiga este tema y guarda lo importante..."
-        >
+</p>
 
-        <button onclick="crearTareaRafa()">
-            ▶ ENCARGAR A LÍA
-        </button>
+<br>
 
-    </div>
+<input
+    type="text"
+    id="rafaTaskInput"
+    placeholder="Ejemplo: investiga los peces L333 y dime lo importante..."
+>
 
-
-    <div class="task">
-
-        <span class="badge">TIPO 2 · TAREA PROPIA DE LÍA</span>
-
-        <p>
-            Lía podrá tener tareas propias de investigación,
-            aprendizaje, análisis o comprobación.
-        </p>
-
-        <br>
-
-        <input
-            type="text"
-            id="liaTaskInput"
-            placeholder="Nueva tarea que Lía quiera realizar..."
-        >
-
-        <button onclick="crearTareaLia()">
-            🧠 CREAR TAREA DE LÍA
-        </button>
-
-    </div>
-
-
-    <div id="tasksList"></div>
+<button onclick="crearTareaRafa()">
+▶ ENCARGAR A LÍA
+</button>
 
 </div>
 
 
-<!-- =========================
+<div class="task">
+
+<span class="badge">
+TAREA PROPIA DE LÍA
+</span>
+
+<p class="small">
+
+Aquí puedes indicarle una tarea que quieras que Lía realice.
+
+</p>
+
+<br>
+
+<input
+    type="text"
+    id="liaTaskInput"
+    placeholder="Nueva tarea para Lía..."
+>
+
+<button onclick="crearTareaLia()">
+🧠 CREAR TAREA
+</button>
+
+</div>
+
+
+<button onclick="cargarTareasPendientes()">
+🔄 ACTUALIZAR TAREAS
+</button>
+
+
+<div id="tasksList"></div>
+
+</div>
+
+
+
+<!-- =====================================================
      APRENDIZAJE
-     ========================= -->
+===================================================== -->
 
 <div class="panel">
 
-    <h2>📚 APRENDIZAJE</h2>
+<h2>
+📚 APRENDIZAJE
+</h2>
 
-    <p class="small">
-        Lía puede convertir nueva información en recuerdos de su memoria externa.
-    </p>
+<p class="small">
 
-    <button onclick="prepararAprendizaje()">
-        📖 NUEVO APRENDIZAJE
-    </button>
+Puedes darle información para que Lía la guarde como conocimiento.
 
-    <div id="learningResult"></div>
+</p>
+
+<button onclick="prepararAprendizaje()">
+📖 NUEVO APRENDIZAJE
+</button>
+
+<div id="learningResult"></div>
 
 </div>
 
 
-<!-- =========================
+
+<!-- =====================================================
      MÚSICA
-     ========================= -->
+===================================================== -->
 
 <div class="panel">
 
-    <h2>🎵 MÚSICA DE LÍA</h2>
+<h2>
+🎵 MÚSICA DE LÍA
+</h2>
 
-    <button onclick="activarMusica()">
-        ▶ ACTIVAR MÚSICA
-    </button>
+<button onclick="activarMusica()">
+▶ ACTIVAR MÚSICA
+</button>
 
-    <button onclick="detenerMusica()">
-        ⏹ DETENER
-    </button>
+<button onclick="detenerMusica()">
+⏹ DETENER
+</button>
 
-    <br>
+<br>
 
-    <input
-        type="file"
-        id="musicFile"
-        accept="audio/*"
-        onchange="cargarMusicaSeleccionada(event)"
-    >
+<input
+    type="file"
+    id="musicFile"
+    accept="audio/*"
+    onchange="cargarMusicaSeleccionada(event)"
+>
 
-    <div id="musicName">
-        Música preparada: LiA.mp3
-    </div>
+<div id="musicName">
+Música preparada: LiA.mp3
+</div>
 
-    <audio id="liaAudio" loop preload="auto">
-        <source src="LiA.mp3" type="audio/mpeg">
-    </audio>
+<audio
+    id="liaAudio"
+    loop
+    preload="auto"
+>
+
+<source
+    src="LiA.mp3"
+    type="audio/mpeg"
+>
+
+</audio>
 
 </div>
 
 
-<a href="index.html" class="back">
-    ← PORTADA
+
+<a
+    href="index.html"
+    class="back"
+>
+← PORTADA
 </a>
 
 
-<!-- =========================
-     BARRA FIJA DE CHAT
-     ========================= -->
+
+<!-- =====================================================
+     CHAT FIJO
+===================================================== -->
 
 <div class="composer">
 
-    <div class="composer-inner">
+<div class="composer-inner">
 
-        <input
-            type="text"
-            id="chatInput"
-            placeholder="Escribe a Lía..."
-            onkeydown="if(event.key==='Enter') enviarMensaje()"
-        >
+<input
+    type="text"
+    id="chatInput"
+    placeholder="Escribe a Lía..."
+>
 
-        <button class="send" onclick="enviarMensaje()">
-            ENVIAR
-        </button>
-
-    </div>
+<button
+    class="send"
+    id="sendButton"
+    onclick="enviarMensaje()"
+>
+ENVIAR
+</button>
 
 </div>
+
+</div>
+
 
 
 <script>
 
 /* =====================================================
-   CONEXIÓN REAL CON LÍA
+   CONFIGURACIÓN
 ===================================================== */
 
 const LIA_URL =
-    "https://lia-rafa.rafadun18.workers.dev";
+"https://lia-rafa.rafadun18.workers.dev";
 
 
 const LIA_CONFIG = {
 
-    chatEndpoint:
+    chat:
         LIA_URL + "/preguntar",
 
-    memoryEndpoint:
+    memory:
         LIA_URL + "/memoria",
 
-    researchEndpoint:
+    research:
         LIA_URL + "/investigar",
 
-    stateEndpoint:
-        LIA_URL + "/estado"
+    state:
+        LIA_URL + "/estado",
+
+    pending:
+        LIA_URL + "/pendientes"
 
 };
+
 
 
 /* =====================================================
@@ -536,16 +649,22 @@ const LIA_CONFIG = {
 
 function escapeHTML(text){
 
-    return String(text)
+    return String(text ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
-function añadirMensaje(tipo,nombre,texto){
+
+function añadirMensaje(
+    tipo,
+    nombre,
+    texto
+){
 
     const chat =
         document.getElementById("chat");
@@ -566,11 +685,79 @@ function añadirMensaje(tipo,nombre,texto){
 
     chat.scrollTop =
         chat.scrollHeight;
+
 }
 
 
+
+function mostrarResultado(
+    elemento,
+    texto,
+    clase=""
+){
+
+    elemento.innerHTML =
+        '<div class="task-result ' +
+        clase +
+        '">' +
+        escapeHTML(texto) +
+        '</div>';
+
+}
+
+
+
 /* =====================================================
-   CHAT REAL CON LA MEMORIA DE LÍA
+   EXTRAER RESPUESTA DE LÍA
+===================================================== */
+
+function extraerRespuesta(datos){
+
+    if(!datos){
+        return "Lía no ha enviado ninguna respuesta.";
+    }
+
+    if(typeof datos === "string"){
+        return datos;
+    }
+
+    if(datos.respuesta){
+        return String(datos.respuesta);
+    }
+
+    if(datos.mensaje){
+        return String(datos.mensaje);
+    }
+
+    if(datos.resultado){
+
+        if(typeof datos.resultado === "string"){
+            return datos.resultado;
+        }
+
+        return JSON.stringify(
+            datos.resultado,
+            null,
+            2
+        );
+    }
+
+    if(datos.answer){
+        return String(datos.answer);
+    }
+
+    return JSON.stringify(
+        datos,
+        null,
+        2
+    );
+
+}
+
+
+
+/* =====================================================
+   CHAT CON LÍA
 ===================================================== */
 
 async function enviarMensaje(){
@@ -578,10 +765,16 @@ async function enviarMensaje(){
     const input =
         document.getElementById("chatInput");
 
+    const boton =
+        document.getElementById("sendButton");
+
     const texto =
         input.value.trim();
 
-    if(!texto) return;
+    if(!texto){
+        return;
+    }
+
 
     añadirMensaje(
         "rafa",
@@ -589,61 +782,67 @@ async function enviarMensaje(){
         texto
     );
 
-    input.value = "";
 
+    input.value = "";
     input.disabled = true;
+    boton.disabled = true;
+    boton.textContent = "⏳";
+
 
 
     try{
 
+        const url =
+            LIA_CONFIG.chat +
+            "?q=" +
+            encodeURIComponent(texto);
+
+
         const respuesta =
             await fetch(
-                LIA_CONFIG.chatEndpoint +
-                "?q=" +
-                encodeURIComponent(texto)
+                url,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+
+        try{
+
+            datos =
+                JSON.parse(cuerpo);
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
+
 
         if(!respuesta.ok){
 
             throw new Error(
-                "HTTP " + respuesta.status
+                "HTTP " +
+                respuesta.status +
+                " · " +
+                extraerRespuesta(datos)
             );
+
         }
 
 
-        const datos =
-            await respuesta.json();
-
-
-        let respuestaLia = "";
-
-
-        if(datos.respuesta){
-
-            respuestaLia =
-                datos.respuesta;
-
-        }else if(datos.resultado){
-
-            respuestaLia =
-                typeof datos.resultado === "string"
-                ? datos.resultado
-                : JSON.stringify(
-                    datos.resultado,
-                    null,
-                    2
-                );
-
-        }else if(datos.mensaje){
-
-            respuestaLia =
-                datos.mensaje;
-
-        }else{
-
-            respuestaLia =
-                "He recibido tu pregunta, Rafa.";
-        }
+        const respuestaLia =
+            extraerRespuesta(datos);
 
 
         añadirMensaje(
@@ -655,25 +854,56 @@ async function enviarMensaje(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Error de Lía:",
+            error
+        );
+
 
         añadirMensaje(
             "system",
             "SISTEMA",
-            "No he podido conectar con la memoria de Lía."
+            "Lía no ha podido responder.\n\n" +
+            error.message
         );
 
     }finally{
 
         input.disabled = false;
+        boton.disabled = false;
+        boton.textContent = "ENVIAR";
 
         input.focus();
+
     }
+
 }
 
 
+
+/* ENTER */
+
+document
+.getElementById("chatInput")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            enviarMensaje();
+
+        }
+
+    }
+);
+
+
+
 /* =====================================================
-   GUARDAR RECUERDO REAL EN D1
+   MEMORIA · GUARDAR
 ===================================================== */
 
 async function guardarRecuerdoExterno(){
@@ -681,25 +911,28 @@ async function guardarRecuerdoExterno(){
     const input =
         document.getElementById("memoryInput");
 
-    const texto =
-        input.value.trim();
-
     const resultado =
         document.getElementById("memoryResult");
 
+    const texto =
+        input.value.trim();
 
-    if(!texto) return;
+    if(!texto){
+        return;
+    }
 
 
-    resultado.innerHTML =
-        '<div class="task-result">💾 Guardando recuerdo...</div>';
+    mostrarResultado(
+        resultado,
+        "💾 Guardando recuerdo..."
+    );
 
 
     try{
 
         const respuesta =
             await fetch(
-                LIA_CONFIG.memoryEndpoint,
+                LIA_CONFIG.memory,
                 {
                     method:"POST",
 
@@ -715,30 +948,46 @@ async function guardarRecuerdoExterno(){
                         contenido:texto
 
                     })
+
                 }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+            datos =
+                JSON.parse(cuerpo);
+        }catch{
+            datos = {
+                mensaje:cuerpo
+            };
+        }
 
 
         if(!respuesta.ok){
 
             throw new Error(
-                "HTTP " + respuesta.status
+                "HTTP " +
+                respuesta.status
             );
+
         }
 
 
-        const datos =
-            await respuesta.json();
-
-
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '💗 ' +
-            escapeHTML(
+        mostrarResultado(
+            resultado,
+            "💗 " +
+            (
                 datos.mensaje ||
                 "Recuerdo guardado en la memoria de Lía."
-            ) +
-            '</div>';
+            ),
+            "success"
+        );
 
 
         input.value = "";
@@ -748,16 +997,21 @@ async function guardarRecuerdoExterno(){
 
         console.error(error);
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '❌ No se pudo guardar el recuerdo.' +
-            '</div>';
+        mostrarResultado(
+            resultado,
+            "❌ No se pudo guardar el recuerdo.\n" +
+            error.message,
+            "error-text"
+        );
+
     }
+
 }
 
 
+
 /* =====================================================
-   CONSULTAR MEMORIA REAL
+   MEMORIA · CONSULTAR
 ===================================================== */
 
 async function cargarRecuerdosExternos(){
@@ -766,28 +1020,53 @@ async function cargarRecuerdosExternos(){
         document.getElementById("memoryResult");
 
 
-    resultado.innerHTML =
-        '<div class="task-result">🧠 Consultando memoria...</div>';
+    mostrarResultado(
+        resultado,
+        "🧠 Consultando memoria..."
+    );
 
 
     try{
 
         const respuesta =
             await fetch(
-                LIA_CONFIG.memoryEndpoint
+                LIA_CONFIG.memory +
+                "?_=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(cuerpo);
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
 
 
         if(!respuesta.ok){
 
             throw new Error(
-                "HTTP " + respuesta.status
+                "HTTP " +
+                respuesta.status
             );
+
         }
-
-
-        const datos =
-            await respuesta.json();
 
 
         if(
@@ -797,58 +1076,69 @@ async function cargarRecuerdosExternos(){
 
             if(datos.memoria.length === 0){
 
-                resultado.innerHTML =
-                    '<div class="task-result">' +
-                    'La memoria de Lía está vacía.' +
-                    '</div>';
+                mostrarResultado(
+                    resultado,
+                    "La memoria de Lía está vacía."
+                );
 
                 return;
             }
 
 
-            let html = "";
-
-            datos.memoria.forEach(function(item){
-
-                html +=
-                    '<div class="task-result">' +
-
-                    '<strong>' +
-                    escapeHTML(
-                        item.tipo || "memoria"
-                    ) +
-                    '</strong><br>' +
-
-                    escapeHTML(
-                        item.contenido || ""
-                    ) +
-
-                    '<br><small>' +
-
-                    escapeHTML(
-                        item.fecha || ""
-                    ) +
-
-                    '</small>' +
-
-                    '</div>';
-            });
+            resultado.innerHTML =
+                "";
 
 
-            resultado.innerHTML = html;
+            datos.memoria.forEach(
+                function(item){
+
+                    const caja =
+                        document.createElement(
+                            "div"
+                        );
+
+                    caja.className =
+                        "task-result";
+
+
+                    caja.innerHTML =
+                        "<strong>" +
+                        escapeHTML(
+                            item.tipo ||
+                            "memoria"
+                        ) +
+                        "</strong><br>" +
+                        escapeHTML(
+                            item.contenido ||
+                            ""
+                        ) +
+                        "<br><small>" +
+                        escapeHTML(
+                            item.fecha ||
+                            ""
+                        ) +
+                        "</small>";
+
+
+                    resultado.appendChild(
+                        caja
+                    );
+
+                }
+            );
+
 
         }else{
 
-            resultado.innerHTML =
-                '<div class="task-result">' +
-                escapeHTML(
-                    JSON.stringify(
-                        datos,
-                        null,
-                        2
-                    )
-                ) +
-                '</div>';
+            mostrarResultado(
+                resultado,
+                JSON.stringify(
+                    datos,
+                    null,
+                    2
+                )
+            );
+
         }
 
 
@@ -856,279 +1146,669 @@ async function cargarRecuerdosExternos(){
 
         console.error(error);
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '❌ No se pudo consultar la memoria de Lía.' +
-            '</div>';
+        mostrarResultado(
+            resultado,
+            "❌ No se pudo consultar la memoria.\n" +
+            error.message,
+            "error-text"
+        );
+
     }
+
 }
 
 
+
 /* =====================================================
-   INVESTIGACIÓN REAL
+   INVESTIGACIÓN
 ===================================================== */
 
 async function investigarExterno(){
 
     const input =
-        document.getElementById("researchInput");
+        document.getElementById(
+            "researchInput"
+        );
+
+    const resultado =
+        document.getElementById(
+            "researchResult"
+        );
 
     const consulta =
         input.value.trim();
 
-    const resultado =
-        document.getElementById("researchResult");
+
+    if(!consulta){
+        return;
+    }
 
 
-    if(!consulta) return;
-
-
-    resultado.innerHTML =
-        '<div class="task-result">' +
-        '🔎 Lía está investigando...' +
-        '</div>';
+    mostrarResultado(
+        resultado,
+        "🔎 Lía está investigando..."
+    );
 
 
     try{
 
         const respuesta =
             await fetch(
-                LIA_CONFIG.researchEndpoint +
+                LIA_CONFIG.research +
                 "?q=" +
-                encodeURIComponent(consulta)
+                encodeURIComponent(
+                    consulta
+                ),
+                {
+                    cache:"no-store"
+                }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(cuerpo);
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
 
 
         if(!respuesta.ok){
 
             throw new Error(
-                "HTTP " + respuesta.status
+                "HTTP " +
+                respuesta.status
             );
+
         }
 
 
-        const datos =
-            await respuesta.json();
+        const texto =
+            extraerRespuesta(datos);
 
 
-        let texto = "";
-
-
-        if(datos.resultado){
-
-            texto =
-                JSON.stringify(
-                    datos.resultado,
-                    null,
-                    2
-                );
-
-        }else if(datos.mensaje){
-
-            texto =
-                datos.mensaje;
-
-        }else{
-
-            texto =
-                JSON.stringify(
-                    datos,
-                    null,
-                    2
-                );
-        }
-
-
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            escapeHTML(texto) +
-            '</div>';
+        mostrarResultado(
+            resultado,
+            texto,
+            "success"
+        );
 
 
     }catch(error){
 
         console.error(error);
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '❌ No se pudo completar la investigación.' +
-            '</div>';
+        mostrarResultado(
+            resultado,
+            "❌ Investigación no completada.\n" +
+            error.message,
+            "error-text"
+        );
+
     }
+
 }
 
 
+
 /* =====================================================
-   TAREAS DE RAFA
+   CREAR TAREA DE RAFA
 ===================================================== */
 
 function crearTareaRafa(){
 
     const input =
-        document.getElementById("rafaTaskInput");
+        document.getElementById(
+            "rafaTaskInput"
+        );
 
     const tarea =
         input.value.trim();
 
-    if(!tarea) return;
+
+    if(!tarea){
+        return;
+    }
 
 
-    crearTarea(
+    crearTareaVisual(
         "TAREA DE RAFA",
         tarea
     );
 
+
     input.value = "";
+
 }
 
 
+
 /* =====================================================
-   TAREAS PROPIAS DE LÍA
+   CREAR TAREA DE LÍA
 ===================================================== */
 
 function crearTareaLia(){
 
     const input =
-        document.getElementById("liaTaskInput");
+        document.getElementById(
+            "liaTaskInput"
+        );
 
     const tarea =
         input.value.trim();
 
-    if(!tarea) return;
+
+    if(!tarea){
+        return;
+    }
 
 
-    crearTarea(
+    crearTareaVisual(
         "TAREA PROPIA DE LÍA",
         tarea
     );
 
+
     input.value = "";
+
 }
 
 
+
 /* =====================================================
-   CREACIÓN DE TAREAS
+   CREAR TAREA VISUAL
 ===================================================== */
 
-function crearTarea(tipo,tarea){
+function crearTareaVisual(
+    tipo,
+    tarea
+){
 
     const lista =
-        document.getElementById("tasksList");
+        document.getElementById(
+            "tasksList"
+        );
 
 
     const caja =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     caja.className =
         "task";
 
 
     caja.innerHTML =
+
         '<span class="badge">' +
         escapeHTML(tipo) +
         '</span>' +
 
-        '<p><strong>Tarea:</strong><br>' +
+        '<p>' +
+        '<strong>Tarea:</strong><br>' +
         escapeHTML(tarea) +
         '</p>' +
 
-        '<button>🔎 INVESTIGAR TAREA</button>' +
+        '<button class="ejecutar">' +
+        '▶ EJECUTAR TAREA' +
+        '</button>' +
 
         '<div class="task-result">' +
-        'Pendiente de ejecución.' +
+        'Tarea preparada.' +
         '</div>';
 
 
     const boton =
-        caja.querySelector("button");
+        caja.querySelector(
+            ".ejecutar"
+        );
 
 
     const resultado =
-        caja.querySelector(".task-result");
+        caja.querySelector(
+            ".task-result"
+        );
 
 
     boton.onclick =
-        async function(){
+        function(){
 
-            boton.disabled = true;
+            ejecutarTarea(
+                tarea,
+                boton,
+                resultado
+            );
 
-            boton.textContent =
-                "⏳ INVESTIGANDO...";
-
-
-            try{
-
-                const respuesta =
-                    await fetch(
-                        LIA_CONFIG.researchEndpoint +
-                        "?q=" +
-                        encodeURIComponent(tarea)
-                    );
-
-
-                if(!respuesta.ok){
-
-                    throw new Error(
-                        "HTTP " +
-                        respuesta.status
-                    );
-                }
-
-
-                const datos =
-                    await respuesta.json();
-
-
-                let texto = "";
-
-
-                if(datos.resultado){
-
-                    texto =
-                        JSON.stringify(
-                            datos.resultado,
-                            null,
-                            2
-                        );
-
-                }else if(datos.mensaje){
-
-                    texto =
-                        datos.mensaje;
-
-                }else{
-
-                    texto =
-                        JSON.stringify(
-                            datos,
-                            null,
-                            2
-                        );
-                }
-
-
-                resultado.innerHTML =
-                    '<strong>RESULTADO DE LÍA:</strong><br><br>' +
-                    escapeHTML(texto);
-
-
-            }catch(error){
-
-                console.error(error);
-
-                resultado.textContent =
-                    "❌ No se pudo completar la tarea.";
-            }
-
-
-            boton.disabled = false;
-
-            boton.textContent =
-                "↻ INVESTIGAR DE NUEVO";
         };
 
 
-    lista.prepend(caja);
+    lista.prepend(
+        caja
+    );
+
 }
+
+
+
+/* =====================================================
+   EJECUTAR TAREA
+===================================================== */
+
+async function ejecutarTarea(
+    tarea,
+    boton,
+    resultado
+){
+
+    boton.disabled = true;
+
+    boton.textContent =
+        "⏳ LÍA TRABAJANDO...";
+
+
+    resultado.textContent =
+        "Lía está trabajando en esta tarea...";
+
+
+    try{
+
+        /*
+         Primero intentamos investigación.
+         Si el Worker devuelve resultado,
+         lo mostramos.
+        */
+
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.research +
+                "?q=" +
+                encodeURIComponent(
+                    tarea
+                ),
+                {
+                    cache:"no-store"
+                }
+            );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(cuerpo);
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
+
+
+        if(!respuesta.ok){
+
+            /*
+             Si investigación no funciona,
+             probamos el chat de Lía.
+            */
+
+            const respuestaChat =
+                await fetch(
+                    LIA_CONFIG.chat +
+                    "?q=" +
+                    encodeURIComponent(
+                        "Realiza esta tarea para Rafa: " +
+                        tarea
+                    )
+                );
+
+
+            const cuerpoChat =
+                await respuestaChat.text();
+
+
+            let datosChat;
+
+            try{
+
+                datosChat =
+                    JSON.parse(
+                        cuerpoChat
+                    );
+
+                }catch{
+
+                datosChat = {
+                    mensaje:cuerpoChat
+                };
+
+            }
+
+
+            if(!respuestaChat.ok){
+
+                throw new Error(
+                    "La tarea no pudo ejecutarse."
+                );
+
+            }
+
+
+            datos =
+                datosChat;
+
+        }
+
+
+        const texto =
+            extraerRespuesta(
+                datos
+            );
+
+
+        resultado.innerHTML =
+            "<strong>RESULTADO DE LÍA:</strong><br><br>" +
+            escapeHTML(
+                texto
+            );
+
+
+        /*
+         Guardamos automáticamente el resultado
+         como aprendizaje de Lía.
+        */
+
+        await guardarResultadoComoMemoria(
+            tarea,
+            texto
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        resultado.textContent =
+            "❌ Lía no pudo completar la tarea.\n\n" +
+            error.message;
+
+    }finally{
+
+        boton.disabled = false;
+
+        boton.textContent =
+            "↻ EJECUTAR DE NUEVO";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GUARDAR RESULTADO DE TAREA
+===================================================== */
+
+async function guardarResultadoComoMemoria(
+    tarea,
+    resultado
+){
+
+    try{
+
+        await fetch(
+            LIA_CONFIG.memory,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    tipo:"aprendizaje",
+
+                    contenido:
+                        "Tarea realizada: " +
+                        tarea +
+                        "\n\nResultado:\n" +
+                        resultado
+
+                })
+
+            }
+        );
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo guardar el resultado:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARGAR TAREAS PENDIENTES DEL WORKER
+===================================================== */
+
+async function cargarTareasPendientes(){
+
+    const lista =
+        document.getElementById(
+            "tasksList"
+        );
+
+
+    const aviso =
+        document.createElement(
+            "div"
+        );
+
+    aviso.className =
+        "task-result";
+
+    aviso.textContent =
+        "🔄 Consultando las tareas de Lía...";
+
+
+    lista.prepend(
+        aviso
+    );
+
+
+    try{
+
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.pending +
+                "?_=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
+            );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(
+                    cuerpo
+                );
+
+        }catch{
+
+            datos = {
+                datos:cuerpo
+            };
+
+        }
+
+
+        aviso.remove();
+
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+
+        }
+
+
+        let tareas = [];
+
+
+        if(
+            Array.isArray(datos)
+        ){
+
+            tareas =
+                datos;
+
+        }else if(
+            Array.isArray(
+                datos.pendientes
+            )
+        ){
+
+            tareas =
+                datos.pendientes;
+
+        }else if(
+            Array.isArray(
+                datos.tareas
+            )
+        ){
+
+            tareas =
+                datos.tareas;
+
+        }else if(
+            Array.isArray(
+                datos.resultado
+            )
+        ){
+
+            tareas =
+                datos.resultado;
+
+        }
+
+
+        if(
+            tareas.length === 0
+        ){
+
+            const vacio =
+                document.createElement(
+                    "div"
+                );
+
+            vacio.className =
+                "task-result";
+
+            vacio.textContent =
+                "No hay tareas pendientes disponibles.";
+
+            lista.prepend(
+                vacio
+            );
+
+            return;
+
+        }
+
+
+        tareas.forEach(
+            function(tarea){
+
+                const texto =
+                    typeof tarea === "string"
+                    ? tarea
+                    : (
+                        tarea.contenido ||
+                        tarea.tarea ||
+                        tarea.descripcion ||
+                        tarea.texto ||
+                        tarea.nombre ||
+                        JSON.stringify(
+                            tarea,
+                            null,
+                            2
+                        )
+                    );
+
+
+                crearTareaVisual(
+                    "TAREA PENDIENTE DE LÍA",
+                    texto
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        aviso.remove();
+
+
+        const errorBox =
+            document.createElement(
+                "div"
+            );
+
+        errorBox.className =
+            "task-result error-text";
+
+        errorBox.textContent =
+            "⚠️ No se pudieron cargar las tareas pendientes.\n" +
+            error.message;
+
+
+        lista.prepend(
+            errorBox
+        );
+
+    }
+
+}
+
 
 
 /* =====================================================
@@ -1138,37 +1818,40 @@ function crearTarea(tipo,tarea){
 async function prepararAprendizaje(){
 
     const resultado =
-        document.getElementById("learningResult");
+        document.getElementById(
+            "learningResult"
+        );
 
 
-    resultado.innerHTML =
-        '<div class="task-result">' +
-        '📚 Preparando aprendizaje...' +
-        '</div>';
+    const texto =
+        prompt(
+            "¿Qué quieres que Lía aprenda y guarde en su memoria?"
+        );
+
+
+    if(!texto){
+
+        mostrarResultado(
+            resultado,
+            "Aprendizaje cancelado."
+        );
+
+        return;
+
+    }
+
+
+    mostrarResultado(
+        resultado,
+        "📚 Guardando nuevo aprendizaje..."
+    );
 
 
     try{
 
-        const texto =
-            prompt(
-                "¿Qué quieres que Lía aprenda y guarde en su memoria?"
-            );
-
-
-        if(!texto){
-
-            resultado.innerHTML =
-                '<div class="task-result">' +
-                'Aprendizaje cancelado.' +
-                '</div>';
-
-            return;
-        }
-
-
         const respuesta =
             await fetch(
-                LIA_CONFIG.memoryEndpoint,
+                LIA_CONFIG.memory,
                 {
                     method:"POST",
 
@@ -1184,42 +1867,69 @@ async function prepararAprendizaje(){
                         contenido:texto
 
                     })
+
                 }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(
+                    cuerpo
+                );
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
 
 
         if(!respuesta.ok){
 
             throw new Error(
-                "HTTP " + respuesta.status
+                "HTTP " +
+                respuesta.status
             );
+
         }
 
 
-        const datos =
-            await respuesta.json();
-
-
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '📚 <strong>Aprendizaje guardado.</strong><br><br>' +
-            escapeHTML(
+        mostrarResultado(
+            resultado,
+            "📚 Aprendizaje guardado.\n\n" +
+            (
                 datos.mensaje ||
                 "Lía ha guardado el nuevo conocimiento."
-            ) +
-            '</div>';
+            ),
+            "success"
+        );
 
 
     }catch(error){
 
         console.error(error);
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '❌ No se pudo guardar el aprendizaje.' +
-            '</div>';
+        mostrarResultado(
+            resultado,
+            "❌ No se pudo guardar el aprendizaje.\n" +
+            error.message,
+            "error-text"
+        );
+
     }
+
 }
+
 
 
 /* =====================================================
@@ -1229,74 +1939,116 @@ async function prepararAprendizaje(){
 function activarMusica(){
 
     const audio =
-        document.getElementById("liaAudio");
+        document.getElementById(
+            "liaAudio"
+        );
 
 
     audio.play()
-        .then(function(){
 
-            document.getElementById("musicName").textContent =
+    .then(
+        function(){
+
+            document
+            .getElementById(
+                "musicName"
+            )
+            .textContent =
                 "▶ Reproduciendo: " +
                 (
                     audio.dataset.filename ||
                     "LiA.mp3"
                 );
 
-        })
-        .catch(function(){
+        }
+    )
 
-            document.getElementById("musicName").textContent =
+    .catch(
+        function(){
+
+            document
+            .getElementById(
+                "musicName"
+            )
+            .textContent =
                 "Pulsa de nuevo para iniciar la música.";
 
-        });
+        }
+    );
+
 }
+
 
 
 function detenerMusica(){
 
     const audio =
-        document.getElementById("liaAudio");
+        document.getElementById(
+            "liaAudio"
+        );
 
 
     audio.pause();
 
 
-    document.getElementById("musicName").textContent =
+    document
+    .getElementById(
+        "musicName"
+    )
+    .textContent =
         "⏹ Música detenida";
+
 }
 
 
-function cargarMusicaSeleccionada(event){
+
+function cargarMusicaSeleccionada(
+    event
+){
 
     const archivo =
         event.target.files[0];
 
-    if(!archivo) return;
+
+    if(!archivo){
+        return;
+    }
 
 
     const audio =
-        document.getElementById("liaAudio");
+        document.getElementById(
+            "liaAudio"
+        );
 
 
     const url =
-        URL.createObjectURL(archivo);
+        URL.createObjectURL(
+            archivo
+        );
 
 
-    audio.src = url;
+    audio.src =
+        url;
 
 
     audio.dataset.filename =
         archivo.name;
 
 
-    document.getElementById("musicName").textContent =
+    document
+    .getElementById(
+        "musicName"
+    )
+    .textContent =
         "🎵 Música seleccionada: " +
         archivo.name;
+
 }
 
 
+
 /* =====================================================
-   COMPROBAR CONEXIÓN CON LÍA AL ABRIR LABORATORIO
+   COMPROBAR ESTADO REAL
 ===================================================== */
 
 async function comprobarConexion(){
@@ -1307,12 +2059,47 @@ async function comprobarConexion(){
         );
 
 
+    estado.className =
+        "status";
+
+
+    estado.textContent =
+        "LÍA · COMPROBANDO...";
+
+
     try{
 
         const respuesta =
             await fetch(
-                LIA_CONFIG.stateEndpoint
+                LIA_CONFIG.state +
+                "?_=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
             );
+
+
+        const cuerpo =
+            await respuesta.text();
+
+
+        let datos;
+
+        try{
+
+            datos =
+                JSON.parse(
+                    cuerpo
+                );
+
+        }catch{
+
+            datos = {
+                mensaje:cuerpo
+            };
+
+        }
 
 
         if(!respuesta.ok){
@@ -1321,11 +2108,12 @@ async function comprobarConexion(){
                 "HTTP " +
                 respuesta.status
             );
+
         }
 
 
-        const datos =
-            await respuesta.json();
+        estado.className =
+            "status ok";
 
 
         estado.textContent =
@@ -1338,25 +2126,54 @@ async function comprobarConexion(){
         );
 
 
+        /*
+         Una vez conectada,
+         cargamos las tareas pendientes.
+        */
+
+        cargarTareasPendientes();
+
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Error conectando con Lía:",
+            error
+        );
+
+
+        estado.className =
+            "status error";
 
 
         estado.textContent =
             "⚠️ LÍA · SIN CONEXIÓN";
+
+
+        añadirMensaje(
+            "system",
+            "SISTEMA",
+            "No se ha podido conectar con el Worker de Lía.\n\n" +
+            error.message
+        );
+
     }
+
 }
+
 
 
 /* =====================================================
    INICIO
 ===================================================== */
 
-comprobarConexion();
+window.addEventListener(
+    "load",
+    function(){
 
-console.log(
-    "Laboratorio de Lía conectado a Cloudflare."
+        comprobarConexion();
+
+    }
 );
 
 </script>
