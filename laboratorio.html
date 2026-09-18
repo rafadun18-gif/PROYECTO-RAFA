@@ -111,6 +111,11 @@ button:hover{
     box-shadow:0 0 13px rgba(255,20,147,.55);
 }
 
+button:disabled{
+    opacity:.55;
+    cursor:wait;
+}
+
 input[type="text"]{
     width:100%;
     padding:12px;
@@ -273,7 +278,7 @@ input[type="file"]{
 <img src="LiA .png" alt="Lía" class="lia-photo">
 
 <div class="status" id="connectionStatus">
-    LÍA · MODO PREPARACIÓN EXTERNA
+    LÍA · CONECTANDO...
 </div>
 
 <div class="chat" id="chat">
@@ -284,7 +289,7 @@ input[type="file"]{
 
         Este es mi Laboratorio. Aquí tendremos mi chat, mis recuerdos, mis investigaciones, mis aprendizajes y mis tareas.
 
-        Mi conexión externa con Cloudflare queda preparada para cuando la conectemos.
+        Mi memoria externa está conectada a Cloudflare.
     </div>
 
 </div>
@@ -299,8 +304,7 @@ input[type="file"]{
     <h2>🧠 RECUERDOS DE LÍA</h2>
 
     <p class="small">
-        La memoria definitiva de Lía no se guarda en localStorage.
-        Esta zona queda preparada para conectarse mañana a la memoria externa mediante Cloudflare.
+        Los recuerdos se guardan en la memoria externa de Lía mediante Cloudflare D1.
     </p>
 
     <br>
@@ -333,8 +337,7 @@ input[type="file"]{
     <h2>🌐 INVESTIGAR</h2>
 
     <p class="small">
-        Lía tendrá una conexión externa para investigar y devolver resultados.
-        El conector real se activará al configurar Cloudflare.
+        Lía puede investigar información utilizando sus fuentes externas y guardar el conocimiento obtenido en su memoria.
     </p>
 
     <br>
@@ -375,7 +378,7 @@ input[type="file"]{
         <input
             type="text"
             id="rafaTaskInput"
-            placeholder="Ejemplo: analiza esta información y dame una conclusión..."
+            placeholder="Ejemplo: investiga este tema y guarda lo importante..."
         >
 
         <button onclick="crearTareaRafa()">
@@ -423,8 +426,7 @@ input[type="file"]{
     <h2>📚 APRENDIZAJE</h2>
 
     <p class="small">
-        Aquí quedará preparado el sistema para que Lía pueda recibir información,
-        analizarla y enviar los resultados a su memoria externa.
+        Lía puede convertir nueva información en recuerdos de su memoria externa.
     </p>
 
     <button onclick="prepararAprendizaje()">
@@ -504,55 +506,33 @@ input[type="file"]{
 <script>
 
 /* =====================================================
-   CONFIGURACIÓN EXTERNA DE LÍA
-   =====================================================
-
-   MAÑANA:
-   Aquí colocaremos las direcciones reales de Cloudflare.
-
-   IMPORTANTE:
-   Las claves privadas NO deben ponerse en este HTML.
-   Las claves secretas permanecerán en Cloudflare.
+   CONEXIÓN REAL CON LÍA
 ===================================================== */
+
+const LIA_URL =
+    "https://lia-rafa.rafadun18.workers.dev";
+
 
 const LIA_CONFIG = {
 
-    chatEndpoint: "",
+    chatEndpoint:
+        LIA_URL + "/preguntar",
 
-    memoryEndpoint: "",
+    memoryEndpoint:
+        LIA_URL + "/memoria",
 
-    researchEndpoint: "",
+    researchEndpoint:
+        LIA_URL + "/investigar",
 
-    taskEndpoint: "",
-
-    learningEndpoint: ""
+    stateEndpoint:
+        LIA_URL + "/estado"
 
 };
 
 
 /* =====================================================
-   CHAT
+   UTILIDADES
 ===================================================== */
-
-function añadirMensaje(tipo, nombre, texto){
-
-    const chat = document.getElementById("chat");
-
-    const div = document.createElement("div");
-
-    div.className = "message " + tipo;
-
-    div.innerHTML =
-        '<div class="label">' +
-        nombre +
-        '</div>' +
-        escapeHTML(texto);
-
-    chat.appendChild(div);
-
-    chat.scrollTop = chat.scrollHeight;
-}
-
 
 function escapeHTML(text){
 
@@ -565,149 +545,220 @@ function escapeHTML(text){
 }
 
 
-async function enviarMensaje(){
+function añadirMensaje(tipo,nombre,texto){
 
-    const input = document.getElementById("chatInput");
+    const chat =
+        document.getElementById("chat");
 
-    const texto = input.value.trim();
+    const div =
+        document.createElement("div");
 
-    if(!texto) return;
+    div.className =
+        "message " + tipo;
 
-    añadirMensaje("rafa","RAFA",texto);
+    div.innerHTML =
+        '<div class="label">' +
+        escapeHTML(nombre) +
+        '</div>' +
+        escapeHTML(texto);
 
-    input.value = "";
+    chat.appendChild(div);
 
-    /*
-       Cuando exista chatEndpoint,
-       el mensaje se enviará a Cloudflare.
-    */
-
-    if(LIA_CONFIG.chatEndpoint){
-
-        try{
-
-            const respuesta = await fetch(
-                LIA_CONFIG.chatEndpoint,
-                {
-                    method:"POST",
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
-                    body:JSON.stringify({
-                        message:texto,
-                        ai:"lia"
-                    })
-                }
-            );
-
-            const datos = await respuesta.json();
-
-            añadirMensaje(
-                "lia",
-                "LÍA",
-                datos.reply || datos.result || "He recibido la información."
-            );
-
-        }catch(error){
-
-            añadirMensaje(
-                "system",
-                "SISTEMA",
-                "No se ha podido contactar con el servicio externo."
-            );
-
-        }
-
-        return;
-    }
-
-
-    /*
-       Respuesta provisional para probar la interfaz.
-       NO representa todavía el cerebro definitivo de Lía.
-    */
-
-    setTimeout(function(){
-
-        añadirMensaje(
-            "lia",
-            "LÍA",
-            "He recibido tu mensaje. Mi conexión externa todavía está pendiente de Cloudflare. Cuando la conectemos podré procesarlo con mi sistema externo y devolverte el resultado."
-        );
-
-    },400);
+    chat.scrollTop =
+        chat.scrollHeight;
 }
 
 
 /* =====================================================
-   MEMORIA EXTERNA
+   CHAT REAL CON LA MEMORIA DE LÍA
+===================================================== */
+
+async function enviarMensaje(){
+
+    const input =
+        document.getElementById("chatInput");
+
+    const texto =
+        input.value.trim();
+
+    if(!texto) return;
+
+    añadirMensaje(
+        "rafa",
+        "RAFA",
+        texto
+    );
+
+    input.value = "";
+
+    input.disabled = true;
+
+
+    try{
+
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.chatEndpoint +
+                "?q=" +
+                encodeURIComponent(texto)
+            );
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        let respuestaLia = "";
+
+
+        if(datos.respuesta){
+
+            respuestaLia =
+                datos.respuesta;
+
+        }else if(datos.resultado){
+
+            respuestaLia =
+                typeof datos.resultado === "string"
+                ? datos.resultado
+                : JSON.stringify(
+                    datos.resultado,
+                    null,
+                    2
+                );
+
+        }else if(datos.mensaje){
+
+            respuestaLia =
+                datos.mensaje;
+
+        }else{
+
+            respuestaLia =
+                "He recibido tu pregunta, Rafa.";
+        }
+
+
+        añadirMensaje(
+            "lia",
+            "LÍA",
+            respuestaLia
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        añadirMensaje(
+            "system",
+            "SISTEMA",
+            "No he podido conectar con la memoria de Lía."
+        );
+
+    }finally{
+
+        input.disabled = false;
+
+        input.focus();
+    }
+}
+
+
+/* =====================================================
+   GUARDAR RECUERDO REAL EN D1
 ===================================================== */
 
 async function guardarRecuerdoExterno(){
 
-    const input = document.getElementById("memoryInput");
+    const input =
+        document.getElementById("memoryInput");
 
-    const texto = input.value.trim();
-
-    if(!texto) return;
+    const texto =
+        input.value.trim();
 
     const resultado =
         document.getElementById("memoryResult");
 
 
-    if(!LIA_CONFIG.memoryEndpoint){
+    if(!texto) return;
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '🧠 Recuerdo preparado: "' +
-            escapeHTML(texto) +
-            '"<br><br>' +
-            'Conexión externa pendiente de Cloudflare. ' +
-            'No se ha guardado en localStorage.' +
-            '</div>';
 
-        return;
-    }
+    resultado.innerHTML =
+        '<div class="task-result">💾 Guardando recuerdo...</div>';
 
 
     try{
 
-        const respuesta = await fetch(
-            LIA_CONFIG.memoryEndpoint,
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    action:"save",
-                    ai:"lia",
-                    memory:texto
-                })
-            }
-        );
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.memoryEndpoint,
+                {
+                    method:"POST",
 
-        const datos = await respuesta.json();
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        tipo:"recuerdo",
+
+                        contenido:texto
+
+                    })
+                }
+            );
+
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
 
         resultado.innerHTML =
             '<div class="task-result">' +
+            '💗 ' +
             escapeHTML(
-                datos.message ||
-                "Recuerdo guardado en la memoria externa."
+                datos.mensaje ||
+                "Recuerdo guardado en la memoria de Lía."
             ) +
             '</div>';
 
+
         input.value = "";
+
 
     }catch(error){
 
+        console.error(error);
+
         resultado.innerHTML =
             '<div class="task-result">' +
-            'Error conectando con la memoria externa.' +
+            '❌ No se pudo guardar el recuerdo.' +
             '</div>';
     }
 }
 
+
+/* =====================================================
+   CONSULTAR MEMORIA REAL
+===================================================== */
 
 async function cargarRecuerdosExternos(){
 
@@ -715,46 +766,106 @@ async function cargarRecuerdosExternos(){
         document.getElementById("memoryResult");
 
 
-    if(!LIA_CONFIG.memoryEndpoint){
-
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '🧠 La memoria externa de Lía está preparada, ' +
-            'pero la conexión Cloudflare todavía no está configurada.' +
-            '</div>';
-
-        return;
-    }
+    resultado.innerHTML =
+        '<div class="task-result">🧠 Consultando memoria...</div>';
 
 
     try{
 
-        const respuesta = await fetch(
-            LIA_CONFIG.memoryEndpoint +
-            "?action=list&ai=lia"
-        );
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.memoryEndpoint
+            );
 
-        const datos = await respuesta.json();
 
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            escapeHTML(
-                JSON.stringify(datos,null,2)
-            ) +
-            '</div>';
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if(
+            datos.memoria &&
+            Array.isArray(datos.memoria)
+        ){
+
+            if(datos.memoria.length === 0){
+
+                resultado.innerHTML =
+                    '<div class="task-result">' +
+                    'La memoria de Lía está vacía.' +
+                    '</div>';
+
+                return;
+            }
+
+
+            let html = "";
+
+            datos.memoria.forEach(function(item){
+
+                html +=
+                    '<div class="task-result">' +
+
+                    '<strong>' +
+                    escapeHTML(
+                        item.tipo || "memoria"
+                    ) +
+                    '</strong><br>' +
+
+                    escapeHTML(
+                        item.contenido || ""
+                    ) +
+
+                    '<br><small>' +
+
+                    escapeHTML(
+                        item.fecha || ""
+                    ) +
+
+                    '</small>' +
+
+                    '</div>';
+            });
+
+
+            resultado.innerHTML = html;
+
+        }else{
+
+            resultado.innerHTML =
+                '<div class="task-result">' +
+                escapeHTML(
+                    JSON.stringify(
+                        datos,
+                        null,
+                        2
+                    )
+                ) +
+                '</div>';
+        }
+
 
     }catch(error){
 
+        console.error(error);
+
         resultado.innerHTML =
             '<div class="task-result">' +
-            'No se pudo consultar la memoria externa.' +
+            '❌ No se pudo consultar la memoria de Lía.' +
             '</div>';
     }
 }
 
 
 /* =====================================================
-   INVESTIGACIÓN EXTERNA
+   INVESTIGACIÓN REAL
 ===================================================== */
 
 async function investigarExterno(){
@@ -762,67 +873,85 @@ async function investigarExterno(){
     const input =
         document.getElementById("researchInput");
 
-    const consulta = input.value.trim();
+    const consulta =
+        input.value.trim();
 
     const resultado =
         document.getElementById("researchResult");
 
+
     if(!consulta) return;
 
 
-    if(!LIA_CONFIG.researchEndpoint){
-
-        resultado.innerHTML =
-            '<div class="task-result">' +
-            '🔎 Investigación preparada:<br><br>' +
-            escapeHTML(consulta) +
-            '<br><br>' +
-            'La conexión de investigación externa se activará con Cloudflare. ' +
-            'No voy a fingir que ya he investigado algo cuando todavía no existe esa conexión.' +
-            '</div>';
-
-        return;
-    }
+    resultado.innerHTML =
+        '<div class="task-result">' +
+        '🔎 Lía está investigando...' +
+        '</div>';
 
 
     try{
 
-        resultado.innerHTML =
-            '<div class="task-result">🔎 Lía está investigando...</div>';
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.researchEndpoint +
+                "?q=" +
+                encodeURIComponent(consulta)
+            );
 
 
-        const respuesta = await fetch(
-            LIA_CONFIG.researchEndpoint,
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    query:consulta,
-                    ai:"lia"
-                })
-            }
-        );
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
 
 
-        const datos = await respuesta.json();
+        const datos =
+            await respuesta.json();
+
+
+        let texto = "";
+
+
+        if(datos.resultado){
+
+            texto =
+                JSON.stringify(
+                    datos.resultado,
+                    null,
+                    2
+                );
+
+        }else if(datos.mensaje){
+
+            texto =
+                datos.mensaje;
+
+        }else{
+
+            texto =
+                JSON.stringify(
+                    datos,
+                    null,
+                    2
+                );
+        }
 
 
         resultado.innerHTML =
             '<div class="task-result">' +
-            escapeHTML(
-                datos.result ||
-                datos.answer ||
-                JSON.stringify(datos)
-            ) +
+            escapeHTML(texto) +
             '</div>';
+
 
     }catch(error){
 
+        console.error(error);
+
         resultado.innerHTML =
             '<div class="task-result">' +
-            'No se pudo completar la investigación externa.' +
+            '❌ No se pudo completar la investigación.' +
             '</div>';
     }
 }
@@ -837,9 +966,11 @@ function crearTareaRafa(){
     const input =
         document.getElementById("rafaTaskInput");
 
-    const tarea = input.value.trim();
+    const tarea =
+        input.value.trim();
 
     if(!tarea) return;
+
 
     crearTarea(
         "TAREA DE RAFA",
@@ -859,9 +990,11 @@ function crearTareaLia(){
     const input =
         document.getElementById("liaTaskInput");
 
-    const tarea = input.value.trim();
+    const tarea =
+        input.value.trim();
 
     if(!tarea) return;
+
 
     crearTarea(
         "TAREA PROPIA DE LÍA",
@@ -873,7 +1006,7 @@ function crearTareaLia(){
 
 
 /* =====================================================
-   CREACIÓN Y EJECUCIÓN DE TAREAS
+   CREACIÓN DE TAREAS
 ===================================================== */
 
 function crearTarea(tipo,tarea){
@@ -881,10 +1014,13 @@ function crearTarea(tipo,tarea){
     const lista =
         document.getElementById("tasksList");
 
+
     const caja =
         document.createElement("div");
 
-    caja.className = "task";
+    caja.className =
+        "task";
+
 
     caja.innerHTML =
         '<span class="badge">' +
@@ -895,7 +1031,7 @@ function crearTarea(tipo,tarea){
         escapeHTML(tarea) +
         '</p>' +
 
-        '<button>▶ EJECUTAR TAREA</button>' +
+        '<button>🔎 INVESTIGAR TAREA</button>' +
 
         '<div class="task-result">' +
         'Pendiente de ejecución.' +
@@ -905,88 +1041,90 @@ function crearTarea(tipo,tarea){
     const boton =
         caja.querySelector("button");
 
+
     const resultado =
         caja.querySelector(".task-result");
 
 
-    boton.onclick = async function(){
+    boton.onclick =
+        async function(){
 
-        boton.disabled = true;
+            boton.disabled = true;
 
-        boton.textContent =
-            "⏳ PROCESANDO...";
+            boton.textContent =
+                "⏳ INVESTIGANDO...";
 
-
-        /*
-           Si Cloudflare está conectado,
-           aquí se enviará la tarea al cerebro externo.
-        */
-
-        if(LIA_CONFIG.taskEndpoint){
 
             try{
 
                 const respuesta =
                     await fetch(
-                        LIA_CONFIG.taskEndpoint,
-                        {
-                            method:"POST",
-                            headers:{
-                                "Content-Type":"application/json"
-                            },
-                            body:JSON.stringify({
-                                task:tarea,
-                                type:tipo,
-                                ai:"lia"
-                            })
-                        }
+                        LIA_CONFIG.researchEndpoint +
+                        "?q=" +
+                        encodeURIComponent(tarea)
                     );
+
+
+                if(!respuesta.ok){
+
+                    throw new Error(
+                        "HTTP " +
+                        respuesta.status
+                    );
+                }
 
 
                 const datos =
                     await respuesta.json();
 
 
+                let texto = "";
+
+
+                if(datos.resultado){
+
+                    texto =
+                        JSON.stringify(
+                            datos.resultado,
+                            null,
+                            2
+                        );
+
+                }else if(datos.mensaje){
+
+                    texto =
+                        datos.mensaje;
+
+                }else{
+
+                    texto =
+                        JSON.stringify(
+                            datos,
+                            null,
+                            2
+                        );
+                }
+
+
                 resultado.innerHTML =
                     '<strong>RESULTADO DE LÍA:</strong><br><br>' +
-                    escapeHTML(
-                        datos.result ||
-                        datos.answer ||
-                        JSON.stringify(datos)
-                    );
+                    escapeHTML(texto);
+
 
             }catch(error){
 
-                resultado.textContent =
-                    "No se pudo completar la tarea mediante la conexión externa.";
+                console.error(error);
 
+                resultado.textContent =
+                    "❌ No se pudo completar la tarea.";
             }
 
 
             boton.disabled = false;
+
             boton.textContent =
-                "↻ EJECUTAR DE NUEVO";
-
-            return;
-        }
-
-
-        /*
-           Modo preparación.
-        */
-
-        resultado.innerHTML =
-            '<strong>RESULTADO:</strong><br><br>' +
-            'La tarea está correctamente preparada para Lía. ' +
-            'El motor que resolverá la tarea se conectará mediante Cloudflare. ' +
-            'Todavía no se ejecuta como una IA externa porque esa conexión se realizará mañana.';
-
-
-        boton.disabled = false;
-
-        boton.textContent =
-            "↻ EJECUTAR DE NUEVO";
-    };
+                "↻ INVESTIGAR DE NUEVO";
+        };
 
 
     lista.prepend(caja);
@@ -997,17 +1135,90 @@ function crearTarea(tipo,tarea){
    APRENDIZAJE
 ===================================================== */
 
-function prepararAprendizaje(){
+async function prepararAprendizaje(){
 
     const resultado =
         document.getElementById("learningResult");
 
+
     resultado.innerHTML =
         '<div class="task-result">' +
-        '📚 Sistema de aprendizaje preparado.<br><br>' +
-        'Cuando conectemos Cloudflare, Lía podrá recibir información, ' +
-        'analizarla y enviar lo aprendido a su memoria externa.' +
+        '📚 Preparando aprendizaje...' +
         '</div>';
+
+
+    try{
+
+        const texto =
+            prompt(
+                "¿Qué quieres que Lía aprenda y guarde en su memoria?"
+            );
+
+
+        if(!texto){
+
+            resultado.innerHTML =
+                '<div class="task-result">' +
+                'Aprendizaje cancelado.' +
+                '</div>';
+
+            return;
+        }
+
+
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.memoryEndpoint,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        tipo:"aprendizaje",
+
+                        contenido:texto
+
+                    })
+                }
+            );
+
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            '📚 <strong>Aprendizaje guardado.</strong><br><br>' +
+            escapeHTML(
+                datos.mensaje ||
+                "Lía ha guardado el nuevo conocimiento."
+            ) +
+            '</div>';
+
+
+    }catch(error){
+
+        console.error(error);
+
+        resultado.innerHTML =
+            '<div class="task-result">' +
+            '❌ No se pudo guardar el aprendizaje.' +
+            '</div>';
+    }
 }
 
 
@@ -1020,12 +1231,16 @@ function activarMusica(){
     const audio =
         document.getElementById("liaAudio");
 
+
     audio.play()
         .then(function(){
 
             document.getElementById("musicName").textContent =
                 "▶ Reproduciendo: " +
-                (audio.dataset.filename || "LiA.mp3");
+                (
+                    audio.dataset.filename ||
+                    "LiA.mp3"
+                );
 
         })
         .catch(function(){
@@ -1042,7 +1257,9 @@ function detenerMusica(){
     const audio =
         document.getElementById("liaAudio");
 
+
     audio.pause();
+
 
     document.getElementById("musicName").textContent =
         "⏹ Música detenida";
@@ -1061,44 +1278,85 @@ function cargarMusicaSeleccionada(event){
         document.getElementById("liaAudio");
 
 
-    /*
-       El archivo elegido solo se utiliza durante
-       esta sesión en este dispositivo.
-    */
-
     const url =
         URL.createObjectURL(archivo);
 
+
     audio.src = url;
+
 
     audio.dataset.filename =
         archivo.name;
 
+
     document.getElementById("musicName").textContent =
         "🎵 Música seleccionada: " +
         archivo.name;
-
 }
 
 
 /* =====================================================
-   ESTADO INICIAL
+   COMPROBAR CONEXIÓN CON LÍA AL ABRIR LABORATORIO
 ===================================================== */
 
-console.log(
-    "Laboratorio de Lía cargado."
-);
+async function comprobarConexion(){
+
+    const estado =
+        document.getElementById(
+            "connectionStatus"
+        );
+
+
+    try{
+
+        const respuesta =
+            await fetch(
+                LIA_CONFIG.stateEndpoint
+            );
+
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+        }
+
+
+        const datos =
+            await respuesta.json();
+
+
+        estado.textContent =
+            "💗 LÍA · CONECTADA · MEMORIA ACTIVA";
+
+
+        console.log(
+            "Estado de Lía:",
+            datos
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        estado.textContent =
+            "⚠️ LÍA · SIN CONEXIÓN";
+    }
+}
+
+
+/* =====================================================
+   INICIO
+===================================================== */
+
+comprobarConexion();
 
 console.log(
-    "Memoria externa: preparada para Cloudflare."
-);
-
-console.log(
-    "Investigación externa: preparada para Cloudflare."
-);
-
-console.log(
-    "Sistema de tareas: preparado."
+    "Laboratorio de Lía conectado a Cloudflare."
 );
 
 </script>
