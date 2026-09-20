@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Biblioteca · GePeTo</title>
 
 <style>
@@ -14,7 +15,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  width: 100%;
   min-height: 100%;
   background: #050505;
   color: white;
@@ -22,228 +22,404 @@ body {
 }
 
 body {
-  display: flex;
-  justify-content: center;
+  padding-bottom: 35px;
 }
 
-.contenedor {
-  width: 100%;
-  max-width: 900px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
 
-.cabecera {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding-bottom: 10px;
+
+  padding: 12px;
+
+  background: #090909;
+  border-bottom: 1px solid #252525;
 }
 
-.boton {
-  border: 1px solid #00ff66;
-  border-radius: 12px;
-  padding: 10px 13px;
-  color: #00ff66;
-  background: #101010;
+header a,
+header button {
+  background: #111;
+  color: white;
+
+  border: 1px solid #333;
+  border-radius: 10px;
+
+  padding: 10px 12px;
+
   text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 14px;
 }
 
-.boton:hover {
-  background: #003b1b;
-}
-
-.boton-musica {
-  border-color: #ff00cc;
-  color: #ff00cc;
-}
-
-.titulo {
+header h1 {
   margin: 0;
-  color: #00ff66;
-  text-align: center;
-  font-size: 25px;
-  text-shadow: 0 0 12px #00ff66;
+  font-size: 19px;
 }
 
-.presentacion {
-  text-align: center;
-  padding: 10px 0;
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  padding: 15px;
 }
+
+/* GE-PETO */
 
 .avatar {
-  width: 105px;
-  height: 105px;
+  display: block;
+
+  width: 150px;
+  height: 150px;
+
   object-fit: cover;
+
+  margin: 12px auto;
+
   border-radius: 50%;
-  border: 3px solid #00ff66;
-  box-shadow: 0 0 18px #00ff66;
+
+  border: 3px solid #008cff;
+
+  box-shadow:
+    0 0 12px #008cff,
+    0 0 30px rgba(0,140,255,.35);
 }
 
 .estado {
-  color: #00ff66;
-  font-size: 14px;
-  margin-top: 7px;
-}
-
-.controles {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 10px 0;
-}
-
-.controles button {
-  border: 1px solid #008cff;
-  background: #101010;
-  color: #00aaff;
-  border-radius: 10px;
-  padding: 8px 10px;
-  cursor: pointer;
-}
-
-.contadores {
   text-align: center;
-  color: #cccccc;
-  font-size: 13px;
-  margin-bottom: 8px;
+
+  margin: 10px 0 18px;
+
+  font-size: 14px;
+
+  color: #00ff66;
 }
 
-.chat {
-  flex: 1;
-  min-height: 300px;
-  max-height: calc(100vh - 390px);
-  overflow-y: auto;
+/* PANELES */
+
+.panel {
+  background: #0b0b0b;
+
   border: 1px solid #222;
+
   border-radius: 15px;
-  padding: 12px;
-  background: #090909;
-  scroll-behavior: smooth;
+
+  padding: 13px;
+
+  margin-bottom: 15px;
+}
+
+.panel-titulo {
+  font-size: 16px;
+
+  margin-bottom: 10px;
+
+  color: #00ff66;
+}
+
+/* BOTONES */
+
+.botones {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+}
+
+.botones button {
+  background: #151515;
+
+  color: white;
+
+  border: 1px solid #333;
+
+  border-radius: 10px;
+
+  padding: 11px 5px;
+
+  font-size: 13px;
+}
+
+.botones button:active {
+  transform: scale(.97);
+}
+
+/* CHAT */
+
+#chat {
+  height: 430px;
+
+  overflow-y: auto;
+
+  padding: 10px;
+
+  background: #030303;
+
+  border: 1px solid #222;
+
+  border-radius: 15px;
 }
 
 .mensaje {
-  max-width: 90%;
+  margin: 10px 0;
+
   padding: 11px 13px;
+
   border-radius: 14px;
-  margin: 8px 0;
+
+  line-height: 1.45;
+
   white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  line-height: 1.4;
+
+  word-wrap: break-word;
 }
 
 .usuario {
-  margin-left: auto;
-  background: #003d20;
+  background: #12351f;
+
   border: 1px solid #00ff66;
-  color: #ffffff;
+
+  margin-left: 12%;
 }
 
 .gepeto {
-  margin-right: auto;
-  background: #151515;
+  background: #071d2c;
+
   border: 1px solid #008cff;
-  color: #eeeeee;
+
+  margin-right: 12%;
 }
 
-.sistema {
-  margin: 8px auto;
-  background: #222;
-  border: 1px solid #555;
-  color: #cccccc;
-  text-align: center;
-  font-size: 13px;
+.etiqueta {
+  font-size: 11px;
+
+  opacity: .7;
+
+  margin-bottom: 5px;
 }
 
-.entrada-fija {
-  position: sticky;
-  bottom: 0;
-  background: #050505;
-  padding-top: 10px;
+/* ESCRIBIR */
+
+form {
+  margin-top: 12px;
 }
 
-.formulario {
-  display: flex;
-  gap: 8px;
-  align-items: stretch;
-}
+textarea {
+  width: 100%;
 
-#entrada {
-  flex: 1;
-  min-width: 0;
-  resize: none;
-  min-height: 48px;
-  max-height: 130px;
-  border: 1px solid #00ff66;
-  border-radius: 12px;
+  min-height: 80px;
+
+  resize: vertical;
+
   background: #101010;
+
   color: white;
-  padding: 13px;
+
+  border: 1px solid #333;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
   font-size: 16px;
+
   outline: none;
 }
 
-#entrada:focus {
-  box-shadow: 0 0 10px #00ff66;
+textarea:focus {
+  border-color: #008cff;
+}
+
+.form-botones {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 8px;
+}
+
+.form-botones button {
+  flex: 1;
+
+  padding: 13px 8px;
+
+  border-radius: 12px;
+
+  border: 1px solid #333;
+
+  background: #151515;
+
+  color: white;
+
+  font-size: 15px;
 }
 
 #enviar {
+  background: #063d25;
+
+  border-color: #00ff66;
+}
+
+/* INFORMACIÓN */
+
+#resultadoPanel {
+  margin-top: 12px;
+
+  white-space: pre-wrap;
+
+  line-height: 1.5;
+
+  font-size: 14px;
+}
+
+.oculto {
+  display: none;
+}
+
+/* ============================================================
+   REPRODUCTOR
+   ============================================================ */
+
+.reproductor {
+  background: #070707;
+
+  border: 1px solid #222;
+
+  border-radius: 15px;
+
+  padding: 13px;
+
+  margin-top: 15px;
+}
+
+.reproductor-titulo {
+  color: #00ff66;
+
+  font-size: 17px;
+
+  margin-bottom: 10px;
+}
+
+.reproductor audio {
+  width: 100%;
+
+  margin: 5px 0 12px;
+}
+
+.subir-musica {
+  width: 100%;
+
+  display: block;
+
+  background: #111;
+
+  color: white;
+
   border: 1px solid #00ff66;
-  border-radius: 12px;
-  background: #00ff66;
-  color: #000;
-  font-weight: bold;
-  padding: 0 15px;
-  cursor: pointer;
-}
 
-#microfono {
-  border: 1px solid #ff00cc;
-  border-radius: 12px;
-  background: #20001b;
-  color: #ff00cc;
-  padding: 0 13px;
-  cursor: pointer;
-}
+  border-radius: 11px;
 
-.aviso {
+  padding: 12px;
+
   text-align: center;
-  color: #777;
-  font-size: 12px;
-  padding: 8px 0;
+
+  font-size: 15px;
+
+  cursor: pointer;
 }
 
-@media (max-width: 600px) {
-  .contenedor {
-    padding: 8px;
+.subir-musica:active {
+  transform: scale(.98);
+}
+
+#listaCanciones {
+  margin-top: 12px;
+}
+
+.cancion {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px;
+
+  margin-bottom: 6px;
+
+  background: #111;
+
+  border: 1px solid #252525;
+
+  border-radius: 10px;
+}
+
+.cancion button {
+  background: #151515;
+
+  color: white;
+
+  border: 1px solid #333;
+
+  border-radius: 8px;
+
+  padding: 7px 9px;
+}
+
+.nombreCancion {
+  flex: 1;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+
+  font-size: 13px;
+}
+
+.vacio {
+  opacity: .6;
+
+  font-size: 13px;
+
+  text-align: center;
+
+  padding: 8px;
+}
+
+/* PIE */
+
+.pequeno {
+  text-align: center;
+
+  margin-top: 18px;
+
+  font-size: 12px;
+
+  opacity: .6;
+}
+
+/* MÓVIL */
+
+@media (max-width: 500px) {
+
+  .botones {
+    grid-template-columns:
+      1fr 1fr;
   }
 
-  .titulo {
-    font-size: 20px;
+  #chat {
+    height: 400px;
   }
 
-  .boton {
-    padding: 8px 9px;
-    font-size: 12px;
-  }
-
-  .chat {
-    max-height: calc(100vh - 365px);
-  }
-
-  .formulario {
-    gap: 5px;
-  }
-
-  #enviar,
-  #microfono {
-    padding: 0 10px;
+  .avatar {
+    width: 125px;
+    height: 125px;
   }
 }
 </style>
@@ -251,1137 +427,1361 @@ body {
 
 <body>
 
-<div class="contenedor">
+<header>
 
-  <header class="cabecera">
-    <a class="boton" href="./index.html">← PORTADA</a>
+  <a href="./index.html">
+    ← PORTADA
+  </a>
 
-    <h1 class="titulo">🧠 GePeTo</h1>
+  <h1>🧠 GePeTo</h1>
 
-    <button class="boton boton-musica" id="botonMusica">
-      🎵 Música
+  <button
+    id="musicaBtn"
+    type="button">
+    🎵 Música
+  </button>
+
+</header>
+
+
+<main>
+
+<!-- ============================================================
+     GE-PETO
+     ============================================================ -->
+
+<img
+  class="avatar"
+  src="./GePeTo.png"
+  alt="GePeTo"
+  onerror="this.style.display='none'"
+>
+
+<div
+  id="estado"
+  class="estado">
+  ● Conectando con GePeTo...
+</div>
+
+
+<!-- ============================================================
+     MEMORIA / TAREAS / INVESTIGACIONES
+     ============================================================ -->
+
+<div class="panel">
+
+  <div class="panel-titulo">
+    🧠 Sistema GePeTo
+  </div>
+
+  <div class="botones">
+
+    <button
+      id="recuerdosBtn"
+      type="button">
+      🧠 Recuerdos
     </button>
-  </header>
 
-  <section class="presentacion">
-    <img
-      class="avatar"
-      id="avatarGePeTo"
-      src="./GePeTo.png"
-      alt="GePeTo"
-    >
+    <button
+      id="tareasBtn"
+      type="button">
+      📋 Tareas
+    </button>
 
-    <div class="estado">
-      ● Conectado · Memoria y tareas activas
-    </div>
-  </section>
+    <button
+      id="investigacionesBtn"
+      type="button">
+      🔎 Investigaciones
+    </button>
 
-  <div class="controles">
-    <button id="verRecuerdos">🧠 Recuerdos</button>
-    <button id="verTareas">📋 Tareas</button>
-    <button id="verInvestigaciones">🔎 Investigaciones</button>
-    <button id="borrarMemoria">🗑️ Borrar memoria</button>
   </div>
 
-  <div class="contadores" id="contadores">
-    Recuerdos: 0 · Tareas: 0 · Investigaciones: 0
-  </div>
-
-  <main class="chat" id="chat"></main>
-
-  <div class="entrada-fija">
-    <form class="formulario" id="formulario">
-
-      <textarea
-        id="entrada"
-        placeholder="Escribe a GePeTo..."
-        autocomplete="off"
-        rows="1"
-      ></textarea>
-
-      <button id="microfono" type="button">🎤</button>
-
-      <button id="enviar" type="submit">ENVIAR</button>
-
-    </form>
-
-    <div class="aviso">
-      GePeTo puede guardar recuerdos, tareas e investigaciones.
-    </div>
+  <div
+    id="resultadoPanel"
+    class="oculto">
   </div>
 
 </div>
 
-<audio id="audioMusica" loop preload="none">
-  <source src="./biblioteca.mp3" type="audio/mpeg">
-</audio>
 
-<script type="module">
+<!-- ============================================================
+     CHAT
+     ============================================================ -->
 
-import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+<div id="chat"></div>
+
+
+<form id="formulario">
+
+  <textarea
+    id="entrada"
+    placeholder="Habla con GePeTo..."
+    autocomplete="off"></textarea>
+
+  <div class="form-botones">
+
+    <button
+      id="microfono"
+      type="button">
+      🎤
+    </button>
+
+    <button
+      id="enviar"
+      type="submit">
+      ENVIAR
+    </button>
+
+  </div>
+
+</form>
+
+
+<!-- ============================================================
+     REPRODUCTOR DE MÚSICA
+     ============================================================ -->
+
+<div class="reproductor">
+
+  <div class="reproductor-titulo">
+    🎵 Música de la Biblioteca
+  </div>
+
+  <!-- Música que esté subida en GitHub -->
+  <audio
+    id="audioPrincipal"
+    controls
+    preload="none">
+
+    <source
+      src="./biblioteca.mp3"
+      type="audio/mpeg">
+
+    Tu navegador no puede reproducir este audio.
+
+  </audio>
+
+
+  <!-- Selector del dispositivo -->
+
+  <label
+    class="subir-musica"
+    for="selectorMusica">
+
+    📱 SUBIR CANCIONES DESDE ESTE DISPOSITIVO
+
+  </label>
+
+  <input
+    id="selectorMusica"
+    type="file"
+    accept="audio/*"
+    multiple
+    style="display:none"
+  >
+
+
+  <!-- Lista -->
+
+  <div id="listaCanciones">
+
+    <div class="vacio">
+      Todavía no has seleccionado canciones.
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="pequeno">
+  Proyecto Rafa · GePeTo · Memoria activa
+</div>
+
+</main>
+
+
+<script>
+
+/* ============================================================
+   WORKER DE GE-PETO
+   ============================================================ */
 
 const URL_CLOUDFLARE =
   "https://gepetto-rafa.rafadun18.workers.dev";
 
-const MODELO =
-  "Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
-const CLAVE_MEMORIA = "memoriaGePeTo";
-const CLAVE_HISTORIAL = "historialGePeTo";
-const CLAVE_TAREAS = "tareasGePeTo";
-const CLAVE_INVESTIGACIONES = "investigacionesGePeTo";
+/* ============================================================
+   ELEMENTOS
+   ============================================================ */
 
-const chat = document.getElementById("chat");
-const formulario = document.getElementById("formulario");
-const entrada = document.getElementById("entrada");
-const enviar = document.getElementById("enviar");
-const botonMusica = document.getElementById("botonMusica");
-const audioMusica = document.getElementById("audioMusica");
-const contadores = document.getElementById("contadores");
+const chat =
+  document.getElementById("chat");
 
-let recuerdos = JSON.parse(
-  localStorage.getItem(CLAVE_MEMORIA) || "[]"
-);
+const entrada =
+  document.getElementById("entrada");
 
-let historial = JSON.parse(
-  localStorage.getItem(CLAVE_HISTORIAL) || "[]"
-);
+const formulario =
+  document.getElementById("formulario");
 
-let tareas = JSON.parse(
-  localStorage.getItem(CLAVE_TAREAS) || "[]"
-);
+const estado =
+  document.getElementById("estado");
 
-let investigaciones = JSON.parse(
-  localStorage.getItem(CLAVE_INVESTIGACIONES) || "[]"
-);
-
-let motorIA = null;
-let cargandoIA = false;
-
-function normalizar(texto) {
-  return String(texto || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
-}
-
-function guardarLocal() {
-  localStorage.setItem(
-    CLAVE_MEMORIA,
-    JSON.stringify(recuerdos)
+const resultadoPanel =
+  document.getElementById(
+    "resultadoPanel"
   );
 
-  localStorage.setItem(
-    CLAVE_HISTORIAL,
-    JSON.stringify(historial.slice(-100))
+const recuerdosBtn =
+  document.getElementById(
+    "recuerdosBtn"
   );
 
-  localStorage.setItem(
-    CLAVE_TAREAS,
-    JSON.stringify(tareas)
+const tareasBtn =
+  document.getElementById(
+    "tareasBtn"
   );
 
-  localStorage.setItem(
-    CLAVE_INVESTIGACIONES,
-    JSON.stringify(investigaciones)
+const investigacionesBtn =
+  document.getElementById(
+    "investigacionesBtn"
   );
-}
 
-function actualizarContadores() {
-  contadores.textContent =
-    "Recuerdos: " + recuerdos.length +
-    " · Tareas: " + tareas.length +
-    " · Investigaciones: " + investigaciones.length;
-}
-
-function bajarChat() {
-  setTimeout(() => {
-    chat.scrollTop = chat.scrollHeight;
-  }, 50);
-}
-
-function añadirMensaje(texto, tipo = "gepeto") {
-  const mensaje = document.createElement("div");
-
-  mensaje.className = "mensaje " + tipo;
-  mensaje.textContent = texto;
-
-  chat.appendChild(mensaje);
-  bajarChat();
-
-  return mensaje;
-}
-
-function guardarHistorial(texto, tipo) {
-  historial.push({
-    texto,
-    tipo,
-    fecha: new Date().toISOString()
-  });
-
-  historial = historial.slice(-100);
-  guardarLocal();
-}
-
-function mensajeCompleto(texto, tipo) {
-  añadirMensaje(texto, tipo);
-  guardarHistorial(texto, tipo);
-}
-
-function mostrarBienvenida() {
-  if (chat.children.length > 0) {
-    return;
-  }
-
-  mensajeCompleto(
-    "Hola. Soy GePeTo. Puedo guardar recuerdos, crear tareas y preparar investigaciones. ¿Qué hacemos?",
-    "gepeto"
+const microfonoBtn =
+  document.getElementById(
+    "microfono"
   );
-}
 
-async function cargarMemoriaCloudflare() {
-  try {
-    const respuesta = await fetch(
-      URL_CLOUDFLARE + "/recuerdos"
-    );
-
-    if (!respuesta.ok) return;
-
-    const datos = await respuesta.json();
-
-    if (Array.isArray(datos.recuerdos)) {
-      recuerdos = datos.recuerdos;
-      guardarLocal();
-      actualizarContadores();
-    }
-  } catch (error) {
-    console.log("No se pudo cargar la memoria Cloudflare");
-  }
-}
-
-async function guardarRecuerdoCloudflare(texto) {
-  try {
-    await fetch(URL_CLOUDFLARE + "/recuerdos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        texto
-      })
-    });
-  } catch (error) {
-    console.log("No se pudo guardar el recuerdo online");
-  }
-}
-
-async function borrarMemoriaCloudflare() {
-  try {
-    await fetch(URL_CLOUDFLARE + "/recuerdos", {
-      method: "DELETE"
-    });
-  } catch (error) {
-    console.log("No se pudo borrar la memoria online");
-  }
-}
-
-function extraerRecuerdo(texto) {
-  const patrones = [
-    /^\s*recuerda que\s+(.+)$/i,
-    /^\s*recuerda:\s*(.+)$/i,
-    /^\s*mi nombre es\s+(.+)$/i,
-    /^\s*me gusta\s+(.+)$/i,
-    /^\s*recuerda\s+que\s+(.+)$/i
-  ];
-
-  for (const patron of patrones) {
-    const resultado = texto.match(patron);
-
-    if (resultado && resultado[1]) {
-      return resultado[1].trim();
-    }
-  }
-
-  return null;
-}
-
-function extraerTarea(texto) {
-  const patrones = [
-    /^\s*recu[eé]rdame\s+que\s+(.+)$/i,
-    /^\s*recu[eé]rdame\s+(.+)$/i,
-    /^\s*crea\s+una\s+tarea\s+para\s+(.+)$/i,
-    /^\s*crea\s+una\s+tarea\s+(.+)$/i,
-    /^\s*crear\s+una\s+tarea\s+para\s+(.+)$/i,
-    /^\s*apunta\s+que\s+(.+)$/i,
-    /^\s*anota\s+que\s+(.+)$/i
-  ];
-
-  for (const patron of patrones) {
-    const resultado = texto.match(patron);
-
-    if (resultado && resultado[1]) {
-      return resultado[1].trim();
-    }
-  }
-
-  return null;
-}
-
-async function guardarTareaCloudflare(texto) {
-  try {
-    await fetch(URL_CLOUDFLARE + "/tareas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        texto
-      })
-    });
-  } catch (error) {
-    console.log("No se pudo guardar la tarea online");
-  }
-}
-
-async function cargarTareasCloudflare() {
-  try {
-    const respuesta = await fetch(
-      URL_CLOUDFLARE + "/tareas"
-    );
-
-    if (!respuesta.ok) return;
-
-    const datos = await respuesta.json();
-
-    if (Array.isArray(datos.tareas)) {
-      tareas = datos.tareas;
-      guardarLocal();
-      actualizarContadores();
-    }
-  } catch (error) {
-    console.log("No se pudieron cargar las tareas");
-  }
-}
-
-function esPeticionDeTareas(texto) {
-  const frase = normalizar(texto);
-
-  return (
-    frase.includes("mis tareas") ||
-    frase.includes("que tareas tengo") ||
-    frase.includes("lista de tareas") ||
-    frase.includes("dime las tareas")
+const musicaBtn =
+  document.getElementById(
+    "musicaBtn"
   );
+
+const audioPrincipal =
+  document.getElementById(
+    "audioPrincipal"
+  );
+
+const selectorMusica =
+  document.getElementById(
+    "selectorMusica"
+  );
+
+const listaCanciones =
+  document.getElementById(
+    "listaCanciones"
+  );
+
+
+/* ============================================================
+   HISTORIAL
+   ============================================================ */
+
+const CLAVE_HISTORIAL =
+  "historialGePeTo";
+
+let historial = [];
+
+try {
+
+  historial =
+    JSON.parse(
+      localStorage.getItem(
+        CLAVE_HISTORIAL
+      )
+    ) || [];
+
+} catch (error) {
+
+  historial = [];
+
 }
 
-function responderSobreTareas() {
-  if (tareas.length === 0) {
-    return "No tienes tareas guardadas.";
-  }
 
-  return "Estas son tus tareas:\n\n" +
-    tareas.map((tarea, indice) => {
-      const texto =
-        tarea.texto ||
-        tarea.descripcion ||
-        JSON.stringify(tarea);
+/* ============================================================
+   MOSTRAR MENSAJES
+   ============================================================ */
 
-      return (indice + 1) + ". " + texto;
-    }).join("\n");
-}
-
-function extraerInvestigacion(texto) {
-  const patrones = [
-    /^\s*investiga\s+(.+)$/i,
-    /^\s*haz\s+una\s+investigaci[oó]n\s+de\s+(.+)$/i,
-    /^\s*prepara\s+una\s+investigaci[oó]n\s+de\s+(.+)$/i,
-    /^\s*investigaci[oó]n\s+sobre\s+(.+)$/i
-  ];
-
-  for (const patron of patrones) {
-    const resultado = texto.match(patron);
-
-    if (resultado && resultado[1]) {
-      return resultado[1].trim();
-    }
-  }
-
-  return null;
-}
-
-function extraerPeticionResultados(texto) {
-  const patrones = [
-    /^\s*dame\s+los\s+resultados\s+de\s+la\s+investigaci[oó]n\s+de\s+(.+)$/i,
-    /^\s*mu[eé]strame\s+la\s+investigaci[oó]n\s+de\s+(.+)$/i,
-    /^\s*dame\s+los\s+resultados\s+de\s+(.+)$/i,
-    /^\s*resultados\s+de\s+(.+)$/i
-  ];
-
-  for (const patron of patrones) {
-    const resultado = texto.match(patron);
-
-    if (resultado && resultado[1]) {
-      return resultado[1].trim();
-    }
-  }
-
-  return null;
-}
-
-async function cargarInvestigacionesCloudflare() {
-  try {
-    const respuesta = await fetch(
-      URL_CLOUDFLARE + "/investigaciones"
-    );
-
-    if (!respuesta.ok) return;
-
-    const datos = await respuesta.json();
-
-    if (Array.isArray(datos.investigaciones)) {
-      investigaciones = datos.investigaciones;
-      guardarLocal();
-      actualizarContadores();
-    }
-  } catch (error) {
-    console.log("No se pudieron cargar investigaciones");
-  }
-}
-
-async function guardarInvestigacionCloudflare(
-  tema,
-  contenido
+function mostrarMensaje(
+  tipo,
+  texto
 ) {
-  try {
-    await fetch(URL_CLOUDFLARE + "/investigaciones", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        tema,
-        contenido
-      })
-    });
-  } catch (error) {
-    console.log("No se pudo guardar la investigación online");
-  }
-}
 
-async function buscarInvestigacionCloudflare(tema) {
-  try {
-    const respuesta = await fetch(
-      URL_CLOUDFLARE +
-      "/investigaciones?tema=" +
-      encodeURIComponent(tema)
+  const div =
+    document.createElement(
+      "div"
     );
 
-    if (!respuesta.ok) return null;
-
-    const datos = await respuesta.json();
-
-    if (datos.investigacion) {
-      return datos.investigacion;
-    }
-
-    return null;
-  } catch (error) {
-    return null;
-  }
-}
-
-/* =========================================================
-   ÚNICA CORRECCIÓN:
-   Ahora Wikipedia busca artículos relacionados con el tema
-   en lugar de exigir una página con el nombre exacto.
-   ========================================================= */
-
-async function buscarEnWikipedia(tema) {
-  try {
-
-    const urlBusqueda =
-      "https://es.wikipedia.org/w/api.php" +
-      "?action=query" +
-      "&list=search" +
-      "&srsearch=" +
-      encodeURIComponent(tema) +
-      "&format=json" +
-      "&origin=*" +
-      "&srlimit=5";
-
-    const respuestaBusqueda =
-      await fetch(urlBusqueda);
-
-    if (!respuestaBusqueda.ok) {
-      return null;
-    }
-
-    const datosBusqueda =
-      await respuestaBusqueda.json();
-
-    const resultados =
-      datosBusqueda?.query?.search || [];
-
-    if (resultados.length === 0) {
-      return null;
-    }
-
-    let investigacion = "";
-
-    for (const resultado of resultados.slice(0, 5)) {
-
-      const titulo = resultado.title;
-
-      const urlPagina =
-        "https://es.wikipedia.org/api/rest_v1/page/summary/" +
-        encodeURIComponent(
-          titulo.replace(/\s+/g, "_")
-        );
-
-      try {
-
-        const respuestaPagina =
-          await fetch(urlPagina);
-
-        if (!respuestaPagina.ok) {
-          continue;
-        }
-
-        const pagina =
-          await respuestaPagina.json();
-
-        if (pagina.extract) {
-
-          investigacion +=
-            "\n\n### " +
-            titulo +
-            "\n\n" +
-            pagina.extract;
-        }
-
-      } catch (error) {
-
-        console.log(
-          "No se pudo cargar: " + titulo
-        );
-      }
-    }
-
-    if (!investigacion.trim()) {
-      return null;
-    }
-
-    return investigacion.trim();
-
-  } catch (error) {
-
-    console.log(
-      "Error buscando en Wikipedia:",
-      error
+  div.className =
+    "mensaje " +
+    (
+      tipo === "usuario"
+        ? "usuario"
+        : "gepeto"
     );
 
-    return null;
-  }
-}
+  const etiqueta =
+    document.createElement(
+      "div"
+    );
 
-function responderSobreInvestigaciones() {
-  if (investigaciones.length === 0) {
-    return "Todavía no tienes investigaciones guardadas.";
-  }
+  etiqueta.className =
+    "etiqueta";
 
-  return "Estas son tus investigaciones:\n\n" +
-    investigaciones.map((investigacion, indice) => {
-      const tema =
-        investigacion.tema ||
-        investigacion.titulo ||
-        "Sin título";
+  etiqueta.textContent =
+    tipo === "usuario"
+      ? "Rafa"
+      : "GePeTo";
 
-      return (indice + 1) + ". " + tema;
-    }).join("\n");
-}
+  const contenido =
+    document.createElement(
+      "div"
+    );
 
-async function realizarInvestigacion(tema) {
+  contenido.textContent =
+    texto;
 
-  const temaLimpio = tema.trim();
-
-  mensajeCompleto(
-    "Voy a investigar sobre: " +
-    temaLimpio +
-    ". Un momento...",
-    "sistema"
+  div.appendChild(
+    etiqueta
   );
 
-  const resultadoWikipedia =
-    await buscarEnWikipedia(temaLimpio);
-
-  let contenido = "";
-
-  if (resultadoWikipedia) {
-
-    contenido =
-      "Investigación sobre " +
-      temaLimpio +
-      "\n\n" +
-      resultadoWikipedia;
-
-  } else {
-
-    contenido =
-      "No he encontrado información suficiente sobre " +
-      temaLimpio +
-      " en Wikipedia.";
-  }
-
-  investigaciones.push({
-    tema: temaLimpio,
-    contenido,
-    fecha: new Date().toISOString()
-  });
-
-  guardarLocal();
-
-  await guardarInvestigacionCloudflare(
-    temaLimpio,
+  div.appendChild(
     contenido
   );
 
-  actualizarContadores();
+  chat.appendChild(
+    div
+  );
 
-  return contenido;
+  chat.scrollTop =
+    chat.scrollHeight;
 }
 
-function responderQuePuedeHacer() {
 
-  return [
-    "Puedo hacer varias cosas:",
-    "",
-    "• Guardar recuerdos: «Recuerda que me gusta el cine».",
-    "• Crear tareas: «Recuérdame llamar al médico».",
-    "• Mostrar tareas: «Dime mis tareas».",
-    "• Investigar: «Investiga la mitología vikinga».",
-    "• Mostrar investigaciones: «Dame los resultados de los vikingos».",
-    "• Mantener una conversación contigo.",
-    "",
-    "Las investigaciones se guardan en la memoria del proyecto."
-  ].join("\n");
-}
+/* ============================================================
+   GUARDAR HISTORIAL
+   ============================================================ */
 
-async function prepararIA() {
-
-  if (motorIA || cargandoIA) {
-    return;
-  }
-
-  cargandoIA = true;
+function guardarHistorial() {
 
   try {
 
-    motorIA =
-      await webllm.CreateMLCEngine(
-        MODELO,
-        {
-          initProgressCallback: (progreso) => {
-            console.log(progreso);
-          }
-        }
-      );
+    localStorage.setItem(
+      CLAVE_HISTORIAL,
+      JSON.stringify(
+        historial
+      )
+    );
 
   } catch (error) {
 
     console.log(
-      "La IA local no se pudo cargar"
+      "No se pudo guardar historial."
     );
-  }
 
-  cargandoIA = false;
+  }
 }
 
-function crearContexto() {
 
-  let contexto = "";
+/* ============================================================
+   CARGAR HISTORIAL
+   ============================================================ */
 
-  if (recuerdos.length > 0) {
+function cargarHistorial() {
 
-    contexto +=
-      "\nRecuerdos del usuario:\n";
+  chat.innerHTML = "";
 
-    recuerdos.forEach((recuerdo) => {
+  if (
+    !historial.length
+  ) {
 
-      contexto +=
-        "- " +
-        (recuerdo.texto || recuerdo) +
-        "\n";
-    });
+    mostrarMensaje(
+      "gepeto",
+      "Hola Rafa. Soy GePeTo. Estoy conectado al Proyecto Rafa."
+    );
+
+    return;
   }
 
-  if (tareas.length > 0) {
+  for (
+    const mensaje
+    of historial
+  ) {
 
-    contexto +=
-      "\nTareas guardadas:\n";
+    mostrarMensaje(
+      mensaje.tipo,
+      mensaje.texto
+    );
 
-    tareas.forEach((tarea) => {
-
-      contexto +=
-        "- " +
-        (tarea.texto ||
-         tarea.descripcion ||
-         tarea) +
-        "\n";
-    });
   }
 
-  return contexto;
 }
 
-async function contestarConIA(texto) {
 
-  await prepararIA();
+/* ============================================================
+   COMPROBAR CONEXIÓN
+   ============================================================ */
 
-  if (!motorIA) {
-
-    return "Ahora mismo no puedo cargar la IA local. Puedes seguir usando recuerdos, tareas e investigaciones.";
-  }
+async function comprobarEstado() {
 
   try {
 
     const respuesta =
-      await motorIA.chat.completions.create({
-
-        messages: [
-
-          {
-            role: "system",
-            content:
-              "Eres GePeTo, el asistente del Proyecto Rafa. " +
-              "Responde en español de forma clara, amable y útil. " +
-              "Usa los recuerdos y datos guardados cuando sean relevantes. " +
-              crearContexto()
-          },
-
-          {
-            role: "user",
-            content: texto
-          }
-        ],
-
-        temperature: 0.7,
-        max_tokens: 500
-      });
-
-    return respuesta.choices[0].message.content;
-
-  } catch (error) {
-
-    return "Ha ocurrido un problema al responder. Inténtalo de nuevo.";
-  }
-}
-
-async function procesarMensaje(texto) {
-
-  const mensaje = texto.trim();
-
-  if (!mensaje) {
-    return;
-  }
-
-  mensajeCompleto(
-    mensaje,
-    "usuario"
-  );
-
-  entrada.value = "";
-  entrada.style.height = "auto";
-
-  const frase =
-    normalizar(mensaje);
-
-  if (
-    frase === "que puedes hacer" ||
-    frase === "ayuda" ||
-    frase === "funciones"
-  ) {
-
-    mensajeCompleto(
-      responderQuePuedeHacer(),
-      "gepeto"
-    );
-
-    return;
-  }
-
-  const recuerdo =
-    extraerRecuerdo(mensaje);
-
-  if (recuerdo) {
-
-    recuerdos.push({
-      texto: recuerdo,
-      fecha: new Date().toISOString()
-    });
-
-    guardarLocal();
-
-    await guardarRecuerdoCloudflare(
-      recuerdo
-    );
-
-    actualizarContadores();
-
-    mensajeCompleto(
-      "He guardado este recuerdo: " +
-      recuerdo,
-      "gepeto"
-    );
-
-    return;
-  }
-
-  const tarea =
-    extraerTarea(mensaje);
-
-  if (tarea) {
-
-    tareas.push({
-      texto: tarea,
-      fecha: new Date().toISOString()
-    });
-
-    guardarLocal();
-
-    await guardarTareaCloudflare(
-      tarea
-    );
-
-    actualizarContadores();
-
-    mensajeCompleto(
-      "He guardado la tarea: " +
-      tarea,
-      "gepeto"
-    );
-
-    return;
-  }
-
-  if (esPeticionDeTareas(mensaje)) {
-
-    mensajeCompleto(
-      responderSobreTareas(),
-      "gepeto"
-    );
-
-    return;
-  }
-
-  const nuevaInvestigacion =
-    extraerInvestigacion(mensaje);
-
-  if (nuevaInvestigacion) {
-
-    const resultado =
-      await realizarInvestigacion(
-        nuevaInvestigacion
+      await fetch(
+        URL_CLOUDFLARE +
+        "/estado",
+        {
+          method: "GET",
+          cache: "no-store"
+        }
       );
 
-    mensajeCompleto(
-      resultado,
-      "gepeto"
-    );
+    if (
+      !respuesta.ok
+    ) {
 
-    return;
-  }
-
-  const peticionResultados =
-    extraerPeticionResultados(
-      mensaje
-    );
-
-  if (peticionResultados) {
-
-    let investigacion =
-      await buscarInvestigacionCloudflare(
-        peticionResultados
+      throw new Error(
+        "HTTP " +
+        respuesta.status
       );
 
-    if (!investigacion) {
-
-      investigacion =
-        investigaciones.find((item) =>
-          normalizar(item.tema).includes(
-            normalizar(peticionResultados)
-          )
-        );
     }
 
-    if (investigacion) {
+    const datos =
+      await respuesta.json();
 
-      mensajeCompleto(
-        investigacion.contenido ||
-        JSON.stringify(investigacion),
-        "gepeto"
-      );
+    if (
+      datos.ok === true &&
+      datos.workers_ai === true
+    ) {
+
+      estado.textContent =
+        "● GePeTo conectado · IA activa · Memoria activa";
+
+      estado.style.color =
+        "#00ff66";
 
     } else {
 
-      mensajeCompleto(
-        "No encuentro una investigación guardada sobre " +
-        peticionResultados +
-        ". Escribe «Investiga " +
-        peticionResultados +
-        "» para prepararla.",
-        "gepeto"
-      );
+      estado.textContent =
+        "● Worker conectado · revisando IA";
+
+      estado.style.color =
+        "#ffff00";
     }
 
-    return;
-  }
+  } catch (error) {
 
-  if (
-    frase === "mis investigaciones" ||
-    frase === "lista de investigaciones" ||
-    frase === "que investigaciones tengo"
-  ) {
-
-    mensajeCompleto(
-      responderSobreInvestigaciones(),
-      "gepeto"
+    console.error(
+      error
     );
 
+    estado.textContent =
+      "● Error conectando con GePeTo";
+
+    estado.style.color =
+      "#ff5555";
+  }
+
+}
+
+
+/* ============================================================
+   PREGUNTAR A GE-PETO
+   ============================================================ */
+
+async function preguntarGePeTo(
+  pregunta
+) {
+
+  const respuesta =
+    await fetch(
+      URL_CLOUDFLARE +
+      "/preguntar",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body:
+          JSON.stringify({
+            pregunta:
+              pregunta
+          })
+      }
+    );
+
+
+  let datos;
+
+  try {
+
+    datos =
+      await respuesta.json();
+
+  } catch (error) {
+
+    throw new Error(
+      "El Worker no devolvió JSON."
+    );
+
+  }
+
+
+  if (
+    !respuesta.ok ||
+    datos.ok === false
+  ) {
+
+    throw new Error(
+      datos.error ||
+      datos.mensaje ||
+      (
+        "Error HTTP " +
+        respuesta.status
+      )
+    );
+
+  }
+
+
+  const texto =
+    datos.gepeto ||
+    datos.respuesta ||
+    datos.response;
+
+
+  if (!texto) {
+
+    throw new Error(
+      "GePeTo no devolvió ninguna respuesta."
+    );
+
+  }
+
+
+  return texto;
+}
+
+
+/* ============================================================
+   PROCESAR MENSAJE
+   ============================================================ */
+
+async function procesarMensaje() {
+
+  const pregunta =
+    entrada.value.trim();
+
+  if (!pregunta) {
     return;
   }
 
-  const respuesta =
-    await contestarConIA(mensaje);
 
-  mensajeCompleto(
-    respuesta,
-    "gepeto"
+  entrada.value = "";
+
+
+  historial.push({
+    tipo: "usuario",
+    texto: pregunta
+  });
+
+
+  mostrarMensaje(
+    "usuario",
+    pregunta
   );
+
+
+  guardarHistorial();
+
+
+  const pensando =
+    document.createElement(
+      "div"
+    );
+
+  pensando.className =
+    "mensaje gepeto";
+
+  pensando.id =
+    "pensando";
+
+  pensando.innerHTML =
+    '<div class="etiqueta">GePeTo</div>' +
+    '<div>🧠 GePeTo está pensando...</div>';
+
+
+  chat.appendChild(
+    pensando
+  );
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+
+  try {
+
+    const respuesta =
+      await preguntarGePeTo(
+        pregunta
+      );
+
+
+    const elementoPensando =
+      document.getElementById(
+        "pensando"
+      );
+
+    if (
+      elementoPensando
+    ) {
+
+      elementoPensando.remove();
+
+    }
+
+
+    mostrarMensaje(
+      "gepeto",
+      respuesta
+    );
+
+
+    historial.push({
+      tipo: "gepeto",
+      texto: respuesta
+    });
+
+
+    guardarHistorial();
+
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    const elementoPensando =
+      document.getElementById(
+        "pensando"
+      );
+
+    if (
+      elementoPensando
+    ) {
+
+      elementoPensando.remove();
+
+    }
+
+
+    const mensajeError =
+      "⚠️ Error de GePeTo:\n" +
+      error.message;
+
+
+    mostrarMensaje(
+      "gepeto",
+      mensajeError
+    );
+
+
+    historial.push({
+      tipo: "gepeto",
+      texto: mensajeError
+    });
+
+
+    guardarHistorial();
+
+  }
+
 }
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
 
 formulario.addEventListener(
   "submit",
-  async (evento) => {
+  function(event) {
 
-    evento.preventDefault();
+    event.preventDefault();
 
-    if (enviar.disabled) {
-      return;
-    }
+    procesarMensaje();
 
-    enviar.disabled = true;
-    enviar.textContent = "…";
-
-    try {
-
-      await procesarMensaje(
-        entrada.value
-      );
-
-    } finally {
-
-      enviar.disabled = false;
-      enviar.textContent = "ENVIAR";
-      entrada.focus();
-    }
   }
 );
 
-entrada.addEventListener(
-  "input",
-  () => {
 
-    entrada.style.height = "auto";
-
-    entrada.style.height =
-      Math.min(
-        entrada.scrollHeight,
-        130
-      ) + "px";
-  }
-);
+/* ============================================================
+   ENTER
+   ============================================================ */
 
 entrada.addEventListener(
   "keydown",
-  (evento) => {
+  function(event) {
 
     if (
-      evento.key === "Enter" &&
-      !evento.shiftKey
+      event.key === "Enter" &&
+      !event.shiftKey
     ) {
 
-      evento.preventDefault();
+      event.preventDefault();
 
-      formulario.requestSubmit();
+      procesarMensaje();
+
     }
+
   }
 );
 
-botonMusica.addEventListener(
+
+/* ============================================================
+   MEMORIA
+   ============================================================ */
+
+async function cargarMemoria() {
+
+  try {
+
+    const respuesta =
+      await fetch(
+        URL_CLOUDFLARE +
+        "/memoria",
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+
+    if (
+      datos.memoria &&
+      Array.isArray(
+        datos.memoria
+      )
+    ) {
+
+      if (
+        datos.memoria.length === 0
+      ) {
+
+        resultadoPanel.textContent =
+          "🧠 La memoria está vacía.";
+
+        return;
+      }
+
+
+      resultadoPanel.textContent =
+        "🧠 RECUERDOS DE GE-PETO\n\n" +
+
+        datos.memoria
+          .map(
+            item =>
+              item.contenido ||
+              JSON.stringify(
+                item
+              )
+          )
+          .join("\n\n");
+
+    } else {
+
+      resultadoPanel.textContent =
+        JSON.stringify(
+          datos,
+          null,
+          2
+        );
+
+    }
+
+  } catch (error) {
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+    resultadoPanel.textContent =
+      "Error cargando memoria: " +
+      error.message;
+
+  }
+
+}
+
+
+/* ============================================================
+   TAREAS
+   ============================================================ */
+
+async function cargarTareas() {
+
+  try {
+
+    const respuesta =
+      await fetch(
+        URL_CLOUDFLARE +
+        "/tareas",
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+
+    if (
+      datos.tareas &&
+      Array.isArray(
+        datos.tareas
+      )
+    ) {
+
+      if (
+        datos.tareas.length === 0
+      ) {
+
+        resultadoPanel.textContent =
+          "📋 No hay tareas guardadas.";
+
+        return;
+      }
+
+
+      resultadoPanel.textContent =
+        "📋 TAREAS\n\n" +
+
+        datos.tareas
+          .map(
+            item =>
+              item.contenido ||
+              JSON.stringify(
+                item
+              )
+          )
+          .join("\n\n");
+
+    } else {
+
+      resultadoPanel.textContent =
+        JSON.stringify(
+          datos,
+          null,
+          2
+        );
+
+    }
+
+  } catch (error) {
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+    resultadoPanel.textContent =
+      "Error cargando tareas: " +
+      error.message;
+
+  }
+
+}
+
+
+/* ============================================================
+   INVESTIGACIONES
+   ============================================================ */
+
+async function cargarInvestigaciones() {
+
+  try {
+
+    const respuesta =
+      await fetch(
+        URL_CLOUDFLARE +
+        "/investigaciones",
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+
+    if (
+      datos.investigaciones &&
+      Array.isArray(
+        datos.investigaciones
+      )
+    ) {
+
+      if (
+        datos.investigaciones.length === 0
+      ) {
+
+        resultadoPanel.textContent =
+          "🔎 No hay investigaciones.";
+
+        return;
+      }
+
+
+      resultadoPanel.textContent =
+        "🔎 INVESTIGACIONES\n\n" +
+
+        datos.investigaciones
+          .map(
+            item =>
+              item.contenido ||
+              JSON.stringify(
+                item
+              )
+          )
+          .join("\n\n");
+
+    } else {
+
+      resultadoPanel.textContent =
+        JSON.stringify(
+          datos,
+          null,
+          2
+        );
+
+    }
+
+  } catch (error) {
+
+    resultadoPanel.classList.remove(
+      "oculto"
+    );
+
+    resultadoPanel.textContent =
+      "Error cargando investigaciones: " +
+      error.message;
+
+  }
+
+}
+
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+recuerdosBtn.addEventListener(
   "click",
-  async () => {
+  cargarMemoria
+);
 
-    try {
+tareasBtn.addEventListener(
+  "click",
+  cargarTareas
+);
 
-      if (audioMusica.paused) {
+investigacionesBtn.addEventListener(
+  "click",
+  cargarInvestigaciones
+);
 
-        await audioMusica.play();
 
-        botonMusica.textContent =
-          "⏸️ Pausar";
+/* ============================================================
+   REPRODUCTOR
+   ============================================================ */
 
-      } else {
+musicaBtn.addEventListener(
+  "click",
+  function() {
 
-        audioMusica.pause();
+    if (
+      audioPrincipal.paused
+    ) {
 
-        botonMusica.textContent =
-          "🎵 Música";
-      }
+      audioPrincipal
+        .play()
+        .catch(
+          function() {}
+        );
 
-    } catch (error) {
+      musicaBtn.textContent =
+        "⏸️ Música";
 
-      mensajeCompleto(
-        "Toca otra vez el botón Música para iniciar el audio.",
-        "sistema"
-      );
+    } else {
+
+      audioPrincipal.pause();
+
+      musicaBtn.textContent =
+        "🎵 Música";
+
     }
+
   }
 );
 
-document
-  .getElementById("verRecuerdos")
-  .addEventListener(
-    "click",
-    () => {
 
-      if (recuerdos.length === 0) {
+audioPrincipal.addEventListener(
+  "play",
+  function() {
 
-        mensajeCompleto(
-          "No tengo recuerdos guardados.",
-          "gepeto"
-        );
+    musicaBtn.textContent =
+      "⏸️ Música";
 
-        return;
+  }
+);
+
+
+audioPrincipal.addEventListener(
+  "pause",
+  function() {
+
+    musicaBtn.textContent =
+      "🎵 Música";
+
+  }
+);
+
+
+/* ============================================================
+   SUBIR CANCIONES DESDE EL DISPOSITIVO
+   ============================================================ */
+
+let cancionesLocales = [];
+
+
+selectorMusica.addEventListener(
+  "change",
+  function(event) {
+
+    const archivos =
+      Array.from(
+        event.target.files
+      );
+
+
+    if (
+      archivos.length === 0
+    ) {
+      return;
+    }
+
+
+    for (
+      const archivo
+      of archivos
+    ) {
+
+      if (
+        !archivo.type.startsWith(
+          "audio/"
+        )
+      ) {
+        continue;
       }
 
-      mensajeCompleto(
-        "Recuerdos guardados:\n\n" +
-        recuerdos.map(
-          (recuerdo, indice) => {
 
-            return (
-              indice + 1
-            ) +
-            ". " +
-            (recuerdo.texto ||
-             recuerdo);
-          }
-        ).join("\n"),
-        "gepeto"
-      );
-    }
-  );
-
-document
-  .getElementById("verTareas")
-  .addEventListener(
-    "click",
-    () => {
-
-      mensajeCompleto(
-        responderSobreTareas(),
-        "gepeto"
-      );
-    }
-  );
-
-document
-  .getElementById("verInvestigaciones")
-  .addEventListener(
-    "click",
-    () => {
-
-      mensajeCompleto(
-        responderSobreInvestigaciones(),
-        "gepeto"
-      );
-    }
-  );
-
-document
-  .getElementById("borrarMemoria")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const confirmar =
-        confirm(
-          "¿Quieres borrar todos los recuerdos?"
+      const url =
+        URL.createObjectURL(
+          archivo
         );
 
-      if (!confirmar) {
-        return;
+
+      cancionesLocales.push({
+        nombre:
+          archivo.name,
+
+        url:
+          url
+      });
+
+    }
+
+
+    mostrarListaCanciones();
+
+
+    /*
+     * Permitimos volver a seleccionar
+     * el mismo archivo posteriormente.
+     */
+
+    selectorMusica.value = "";
+
+  }
+);
+
+
+/* ============================================================
+   MOSTRAR LISTA DE CANCIONES
+   ============================================================ */
+
+function mostrarListaCanciones() {
+
+  listaCanciones.innerHTML = "";
+
+
+  if (
+    cancionesLocales.length === 0
+  ) {
+
+    listaCanciones.innerHTML =
+      '<div class="vacio">' +
+      'Todavía no has seleccionado canciones.' +
+      '</div>';
+
+    return;
+  }
+
+
+  cancionesLocales.forEach(
+    function(cancion, indice) {
+
+      const fila =
+        document.createElement(
+          "div"
+        );
+
+      fila.className =
+        "cancion";
+
+
+      const boton =
+        document.createElement(
+          "button"
+        );
+
+      boton.textContent =
+        "▶️";
+
+
+      boton.type =
+        "button";
+
+
+      boton.addEventListener(
+        "click",
+        function() {
+
+          reproducirCancion(
+            indice
+          );
+
+        }
+      );
+
+
+      const nombre =
+        document.createElement(
+          "div"
+        );
+
+      nombre.className =
+        "nombreCancion";
+
+      nombre.textContent =
+        cancion.nombre;
+
+
+      fila.appendChild(
+        boton
+      );
+
+      fila.appendChild(
+        nombre
+      );
+
+
+      listaCanciones.appendChild(
+        fila
+      );
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   REPRODUCIR CANCIÓN LOCAL
+   ============================================================ */
+
+function reproducirCancion(
+  indice
+) {
+
+  const cancion =
+    cancionesLocales[indice];
+
+
+  if (!cancion) {
+    return;
+  }
+
+
+  audioPrincipal.src =
+    cancion.url;
+
+
+  audioPrincipal
+    .play()
+    .catch(
+      function(error) {
+
+        console.log(
+          "No se pudo reproducir:",
+          error
+        );
+
+      }
+    );
+
+}
+
+
+/* ============================================================
+   MICRÓFONO
+   ============================================================ */
+
+let reconocimiento = null;
+
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+
+if (
+  SpeechRecognition
+) {
+
+  reconocimiento =
+    new SpeechRecognition();
+
+
+  reconocimiento.lang =
+    "es-ES";
+
+
+  reconocimiento.continuous =
+    false;
+
+
+  reconocimiento.interimResults =
+    false;
+
+
+  reconocimiento.onstart =
+    function() {
+
+      microfonoBtn.textContent =
+        "🔴";
+
+    };
+
+
+  reconocimiento.onend =
+    function() {
+
+      microfonoBtn.textContent =
+        "🎤";
+
+    };
+
+
+  reconocimiento.onerror =
+    function() {
+
+      microfonoBtn.textContent =
+        "🎤";
+
+    };
+
+
+  reconocimiento.onresult =
+    function(event) {
+
+      const texto =
+        event.results[0][0]
+          .transcript;
+
+
+      entrada.value =
+        texto;
+
+
+      entrada.focus();
+
+    };
+
+
+  microfonoBtn.addEventListener(
+    "click",
+    function() {
+
+      try {
+
+        reconocimiento.start();
+
+      } catch (error) {
+
+        console.log(
+          error
+        );
+
       }
 
-      recuerdos = [];
-
-      guardarLocal();
-
-      await borrarMemoriaCloudflare();
-
-      actualizarContadores();
-
-      mensajeCompleto(
-        "He borrado los recuerdos guardados.",
-        "gepeto"
-      );
     }
   );
 
-document
-  .getElementById("avatarGePeTo")
-  .addEventListener(
-    "error",
-    () => {
 
-      document
-        .getElementById("avatarGePeTo")
-        .style.display = "none";
-    }
-  );
+} else {
 
-function cargarHistorial() {
+  microfonoBtn.disabled =
+    true;
 
-  historial.forEach(
-    (mensaje) => {
+  microfonoBtn.title =
+    "Este navegador no admite reconocimiento de voz.";
 
-      añadirMensaje(
-        mensaje.texto,
-        mensaje.tipo
-      );
-    }
-  );
 }
 
-async function iniciar() {
 
-  actualizarContadores();
+/* ============================================================
+   INICIO
+   ============================================================ */
 
-  cargarHistorial();
+cargarHistorial();
 
-  mostrarBienvenida();
-
-  await cargarMemoriaCloudflare();
-
-  await cargarTareasCloudflare();
-
-  await cargarInvestigacionesCloudflare();
-
-  actualizarContadores();
-}
-
-iniciar();
+comprobarEstado();
 
 </script>
 
