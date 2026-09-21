@@ -66,7 +66,9 @@ main {
   padding: 15px;
 }
 
-/* GE-PETO */
+/* ============================================================
+   GE-PETO
+   ============================================================ */
 
 .avatar {
   display: block;
@@ -97,7 +99,9 @@ main {
   color: #00ff66;
 }
 
-/* PANELES */
+/* ============================================================
+   PANELES
+   ============================================================ */
 
 .panel {
   background: #0b0b0b;
@@ -119,7 +123,9 @@ main {
   color: #00ff66;
 }
 
-/* BOTONES */
+/* ============================================================
+   BOTONES
+   ============================================================ */
 
 .botones {
   display: grid;
@@ -148,7 +154,9 @@ main {
   transform: scale(.97);
 }
 
-/* CHAT */
+/* ============================================================
+   CHAT
+   ============================================================ */
 
 #chat {
   height: 430px;
@@ -176,6 +184,8 @@ main {
   white-space: pre-wrap;
 
   word-wrap: break-word;
+
+  overflow-wrap: anywhere;
 }
 
 .usuario {
@@ -202,7 +212,9 @@ main {
   margin-bottom: 5px;
 }
 
-/* ESCRIBIR */
+/* ============================================================
+   ESCRIBIR
+   ============================================================ */
 
 form {
   margin-top: 12px;
@@ -264,7 +276,14 @@ textarea:focus {
   border-color: #00ff66;
 }
 
-/* INFORMACIÓN */
+#enviar:disabled,
+#microfono:disabled {
+  opacity: .45;
+}
+
+/* ============================================================
+   INFORMACIÓN
+   ============================================================ */
 
 #resultadoPanel {
   margin-top: 12px;
@@ -274,6 +293,8 @@ textarea:focus {
   line-height: 1.5;
 
   font-size: 14px;
+
+  overflow-wrap: anywhere;
 }
 
 .oculto {
@@ -392,7 +413,56 @@ textarea:focus {
   padding: 8px;
 }
 
-/* PIE */
+/* ============================================================
+   VIDEOCONFERENCIA
+   ============================================================ */
+
+.videoconferencia {
+  margin-top: 15px;
+
+  padding: 13px;
+
+  background: #070707;
+
+  border: 1px solid #222;
+
+  border-radius: 15px;
+}
+
+.boton-videoconferencia {
+  display: block;
+
+  width: 100%;
+
+  padding: 14px;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  background: #111;
+
+  color: white;
+
+  border: 1px solid #008cff;
+
+  border-radius: 11px;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  box-shadow:
+    0 0 10px rgba(0,140,255,.25);
+}
+
+.boton-videoconferencia:active {
+  transform: scale(.98);
+}
+
+/* ============================================================
+   PIE
+   ============================================================ */
 
 .pequeno {
   text-align: center;
@@ -404,7 +474,9 @@ textarea:focus {
   opacity: .6;
 }
 
-/* MÓVIL */
+/* ============================================================
+   MÓVIL
+   ============================================================ */
 
 @media (max-width: 500px) {
 
@@ -420,6 +492,16 @@ textarea:focus {
   .avatar {
     width: 125px;
     height: 125px;
+  }
+
+  header h1 {
+    font-size: 17px;
+  }
+
+  header a,
+  header button {
+    padding: 9px 10px;
+    font-size: 13px;
   }
 }
 </style>
@@ -547,7 +629,6 @@ textarea:focus {
     🎵 Música de la Biblioteca
   </div>
 
-  <!-- Música que esté subida en GitHub -->
   <audio
     id="audioPrincipal"
     controls
@@ -561,8 +642,6 @@ textarea:focus {
 
   </audio>
 
-
-  <!-- Selector del dispositivo -->
 
   <label
     class="subir-musica"
@@ -581,8 +660,6 @@ textarea:focus {
   >
 
 
-  <!-- Lista -->
-
   <div id="listaCanciones">
 
     <div class="vacio">
@@ -590,6 +667,23 @@ textarea:focus {
     </div>
 
   </div>
+
+</div>
+
+
+<!-- ============================================================
+     ACCESO A VIDEOCONFERENCIA
+     ============================================================ -->
+
+<div class="videoconferencia">
+
+  <a
+    class="boton-videoconferencia"
+    href="./videoconferencia.html">
+
+    🎥 VIDEOCONFERENCIA CON GE-PETO
+
+  </a>
 
 </div>
 
@@ -672,6 +766,11 @@ const listaCanciones =
     "listaCanciones"
   );
 
+const enviarBtn =
+  document.getElementById(
+    "enviar"
+  );
+
 
 /* ============================================================
    HISTORIAL
@@ -684,18 +783,49 @@ let historial = [];
 
 try {
 
-  historial =
-    JSON.parse(
-      localStorage.getItem(
-        CLAVE_HISTORIAL
+  const guardado =
+    localStorage.getItem(
+      CLAVE_HISTORIAL
+    );
+
+  if (guardado) {
+
+    const convertido =
+      JSON.parse(
+        guardado
+      );
+
+    if (
+      Array.isArray(
+        convertido
       )
-    ) || [];
+    ) {
+
+      historial =
+        convertido;
+
+    }
+
+  }
 
 } catch (error) {
+
+  console.log(
+    "No se pudo leer el historial:",
+    error
+  );
 
   historial = [];
 
 }
+
+
+/* ============================================================
+   ESTADO DE ENVÍO
+   ============================================================ */
+
+let procesandoMensaje =
+  false;
 
 
 /* ============================================================
@@ -720,6 +850,7 @@ function mostrarMensaje(
         : "gepeto"
     );
 
+
   const etiqueta =
     document.createElement(
       "div"
@@ -733,13 +864,17 @@ function mostrarMensaje(
       ? "Rafa"
       : "GePeTo";
 
+
   const contenido =
     document.createElement(
       "div"
     );
 
   contenido.textContent =
-    texto;
+    String(
+      texto
+    );
+
 
   div.appendChild(
     etiqueta
@@ -752,6 +887,7 @@ function mostrarMensaje(
   chat.appendChild(
     div
   );
+
 
   chat.scrollTop =
     chat.scrollHeight;
@@ -776,10 +912,12 @@ function guardarHistorial() {
   } catch (error) {
 
     console.log(
-      "No se pudo guardar historial."
+      "No se pudo guardar historial:",
+      error
     );
 
   }
+
 }
 
 
@@ -790,6 +928,7 @@ function guardarHistorial() {
 function cargarHistorial() {
 
   chat.innerHTML = "";
+
 
   if (
     !historial.length
@@ -803,13 +942,24 @@ function cargarHistorial() {
     return;
   }
 
+
   for (
     const mensaje
     of historial
   ) {
 
+    if (
+      !mensaje ||
+      !mensaje.texto
+    ) {
+      continue;
+    }
+
+
     mostrarMensaje(
-      mensaje.tipo,
+      mensaje.tipo === "usuario"
+        ? "usuario"
+        : "gepeto",
       mensaje.texto
     );
 
@@ -832,9 +982,14 @@ async function comprobarEstado() {
         "/estado",
         {
           method: "GET",
-          cache: "no-store"
+          cache: "no-store",
+          headers: {
+            "Accept":
+              "application/json"
+          }
         }
       );
+
 
     if (
       !respuesta.ok
@@ -847,8 +1002,10 @@ async function comprobarEstado() {
 
     }
 
+
     const datos =
       await respuesta.json();
+
 
     if (
       datos.ok === true &&
@@ -861,20 +1018,33 @@ async function comprobarEstado() {
       estado.style.color =
         "#00ff66";
 
-    } else {
+    } else if (
+      datos.ok === true
+    ) {
 
       estado.textContent =
         "● Worker conectado · revisando IA";
 
       estado.style.color =
         "#ffff00";
+
+    } else {
+
+      estado.textContent =
+        "● GePeTo necesita revisión";
+
+      estado.style.color =
+        "#ffff00";
+
     }
 
   } catch (error) {
 
     console.error(
+      "Error comprobando estado:",
       error
     );
+
 
     estado.textContent =
       "● Error conectando con GePeTo";
@@ -887,12 +1057,249 @@ async function comprobarEstado() {
 
 
 /* ============================================================
+   EXTRAER TEXTO DE CUALQUIER RESPUESTA
+   ============================================================ */
+
+function extraerTextoGePeTo(
+  objeto
+) {
+
+  if (
+    objeto === null ||
+    objeto === undefined
+  ) {
+
+    return null;
+
+  }
+
+
+  if (
+    typeof objeto === "string"
+  ) {
+
+    const texto =
+      objeto.trim();
+
+    return texto
+      ? texto
+      : null;
+
+  }
+
+
+  if (
+    typeof objeto !== "object"
+  ) {
+
+    return null;
+
+  }
+
+
+  /*
+   * Campos directos habituales.
+   */
+
+  const campos =
+    [
+      "gepeto",
+      "respuesta",
+      "response",
+      "text",
+      "content",
+      "mensaje"
+    ];
+
+
+  for (
+    const campo
+    of campos
+  ) {
+
+    if (
+      objeto[campo] !== undefined &&
+      objeto[campo] !== null
+    ) {
+
+      const encontrado =
+        extraerTextoGePeTo(
+          objeto[campo]
+        );
+
+      if (encontrado) {
+        return encontrado;
+      }
+
+    }
+
+  }
+
+
+  /*
+   * message.content
+   */
+
+  if (
+    objeto.message
+  ) {
+
+    const encontrado =
+      extraerTextoGePeTo(
+        objeto.message
+      );
+
+    if (encontrado) {
+      return encontrado;
+    }
+
+  }
+
+
+  /*
+   * choices[]
+   */
+
+  if (
+    Array.isArray(
+      objeto.choices
+    )
+  ) {
+
+    for (
+      const choice
+      of objeto.choices
+    ) {
+
+      const encontrado =
+        extraerTextoGePeTo(
+          choice
+        );
+
+      if (encontrado) {
+        return encontrado;
+      }
+
+    }
+
+  }
+
+
+  /*
+   * opciones[]
+   */
+
+  if (
+    Array.isArray(
+      objeto.opciones
+    )
+  ) {
+
+    for (
+      const opcion
+      of objeto.opciones
+    ) {
+
+      const encontrado =
+        extraerTextoGePeTo(
+          opcion
+        );
+
+      if (encontrado) {
+        return encontrado;
+      }
+
+    }
+
+  }
+
+
+  /*
+   * generaciones / resultados / results / outputs
+   */
+
+  const posiblesArrays =
+    [
+      objeto.generations,
+      objeto.resultados,
+      objeto.results,
+      objeto.outputs
+    ];
+
+
+  for (
+    const lista
+    of posiblesArrays
+  ) {
+
+    if (
+      Array.isArray(lista)
+    ) {
+
+      for (
+        const elemento
+        of lista
+      ) {
+
+        const encontrado =
+          extraerTextoGePeTo(
+            elemento
+          );
+
+        if (encontrado) {
+          return encontrado;
+        }
+
+      }
+
+    }
+
+  }
+
+
+  /*
+   * Respuesta anidada completa.
+   */
+
+  if (
+    objeto.respuesta_completa
+  ) {
+
+    const encontrado =
+      extraerTextoGePeTo(
+        objeto.respuesta_completa
+      );
+
+    if (encontrado) {
+      return encontrado;
+    }
+
+  }
+
+
+  return null;
+}
+
+
+/* ============================================================
    PREGUNTAR A GE-PETO
    ============================================================ */
 
 async function preguntarGePeTo(
   pregunta
 ) {
+
+  if (
+    !pregunta ||
+    !pregunta.trim()
+  ) {
+
+    throw new Error(
+      "La pregunta está vacía."
+    );
+
+  }
+
 
   const respuesta =
     await fetch(
@@ -903,42 +1310,90 @@ async function preguntarGePeTo(
 
         headers: {
           "Content-Type":
+            "application/json",
+
+          "Accept":
             "application/json"
         },
+
+        cache: "no-store",
 
         body:
           JSON.stringify({
             pregunta:
-              pregunta
+              pregunta.trim()
           })
       }
     );
 
 
-  let datos;
+  /*
+   * Primero leemos como texto.
+   * Esto permite manejar tanto JSON como
+   * respuestas de texto plano.
+   */
 
-  try {
+  const cuerpo =
+    await respuesta.text();
 
-    datos =
-      await respuesta.json();
 
-  } catch (error) {
+  if (
+    !cuerpo ||
+    !cuerpo.trim()
+  ) {
 
     throw new Error(
-      "El Worker no devolvió JSON."
+      "El Worker no devolvió ningún contenido."
     );
 
   }
 
 
+  let datos;
+
+
+  try {
+
+    datos =
+      JSON.parse(
+        cuerpo
+      );
+
+  } catch (error) {
+
+    /*
+     * Si es texto plano y HTTP es correcto,
+     * lo aceptamos directamente.
+     */
+
+    if (
+      respuesta.ok
+    ) {
+
+      return cuerpo.trim();
+
+    }
+
+
+    throw new Error(
+      "El Worker devolvió una respuesta no válida."
+    );
+
+  }
+
+
+  /*
+   * Comprobar HTTP.
+   */
+
   if (
-    !respuesta.ok ||
-    datos.ok === false
+    !respuesta.ok
   ) {
 
     throw new Error(
       datos.error ||
       datos.mensaje ||
+      datos.message ||
       (
         "Error HTTP " +
         respuesta.status
@@ -948,22 +1403,53 @@ async function preguntarGePeTo(
   }
 
 
-  const texto =
-    datos.gepeto ||
-    datos.respuesta ||
-    datos.response;
+  /*
+   * Comprobar el campo ok del Worker.
+   */
 
-
-  if (!texto) {
+  if (
+    datos.ok === false
+  ) {
 
     throw new Error(
-      "GePeTo no devolvió ninguna respuesta."
+      datos.error ||
+      datos.mensaje ||
+      datos.message ||
+      "El Worker indicó que la operación falló."
     );
 
   }
 
 
-  return texto;
+  /*
+   * Extraer la respuesta real de GePeTo.
+   */
+
+  const texto =
+    extraerTextoGePeTo(
+      datos
+    );
+
+
+  if (
+    !texto ||
+    !texto.trim()
+  ) {
+
+    console.error(
+      "Respuesta completa recibida de /preguntar:",
+      datos
+    );
+
+
+    throw new Error(
+      "Workers AI respondió, pero no se encontró el texto de GePeTo."
+    );
+
+  }
+
+
+  return texto.trim();
 }
 
 
@@ -973,15 +1459,45 @@ async function preguntarGePeTo(
 
 async function procesarMensaje() {
 
-  const pregunta =
-    entrada.value.trim();
+  /*
+   * Evita enviar dos preguntas simultáneas.
+   */
 
-  if (!pregunta) {
+  if (
+    procesandoMensaje
+  ) {
+
     return;
+
   }
 
 
-  entrada.value = "";
+  const pregunta =
+    entrada.value.trim();
+
+
+  if (
+    !pregunta
+  ) {
+
+    return;
+
+  }
+
+
+  procesandoMensaje =
+    true;
+
+
+  entrada.value =
+    "";
+
+
+  enviarBtn.disabled =
+    true;
+
+  microfonoBtn.disabled =
+    true;
 
 
   historial.push({
@@ -999,16 +1515,23 @@ async function procesarMensaje() {
   guardarHistorial();
 
 
+  /*
+   * Mensaje de espera.
+   */
+
   const pensando =
     document.createElement(
       "div"
     );
 
+
   pensando.className =
     "mensaje gepeto";
 
+
   pensando.id =
     "pensando";
+
 
   pensando.innerHTML =
     '<div class="etiqueta">GePeTo</div>' +
@@ -1018,6 +1541,7 @@ async function procesarMensaje() {
   chat.appendChild(
     pensando
   );
+
 
   chat.scrollTop =
     chat.scrollHeight;
@@ -1035,6 +1559,7 @@ async function procesarMensaje() {
       document.getElementById(
         "pensando"
       );
+
 
     if (
       elementoPensando
@@ -1063,6 +1588,7 @@ async function procesarMensaje() {
   } catch (error) {
 
     console.error(
+      "Error de GePeTo:",
       error
     );
 
@@ -1071,6 +1597,7 @@ async function procesarMensaje() {
       document.getElementById(
         "pensando"
       );
+
 
     if (
       elementoPensando
@@ -1099,6 +1626,27 @@ async function procesarMensaje() {
 
 
     guardarHistorial();
+
+
+  } finally {
+
+    /*
+     * Siempre desbloqueamos el chat,
+     * incluso si ocurre un error.
+     */
+
+    procesandoMensaje =
+      false;
+
+
+    enviarBtn.disabled =
+      false;
+
+    microfonoBtn.disabled =
+      false;
+
+
+    entrada.focus();
 
   }
 
@@ -1157,7 +1705,12 @@ async function cargarMemoria() {
         URL_CLOUDFLARE +
         "/memoria",
         {
-          cache: "no-store"
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            "Accept":
+              "application/json"
+          }
         }
       );
 
@@ -1186,6 +1739,7 @@ async function cargarMemoria() {
           "🧠 La memoria está vacía.";
 
         return;
+
       }
 
 
@@ -1241,7 +1795,12 @@ async function cargarTareas() {
         URL_CLOUDFLARE +
         "/tareas",
         {
-          cache: "no-store"
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            "Accept":
+              "application/json"
+          }
         }
       );
 
@@ -1270,6 +1829,7 @@ async function cargarTareas() {
           "📋 No hay tareas guardadas.";
 
         return;
+
       }
 
 
@@ -1325,7 +1885,12 @@ async function cargarInvestigaciones() {
         URL_CLOUDFLARE +
         "/investigaciones",
         {
-          cache: "no-store"
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            "Accept":
+              "application/json"
+          }
         }
       );
 
@@ -1354,6 +1919,7 @@ async function cargarInvestigaciones() {
           "🔎 No hay investigaciones.";
 
         return;
+
       }
 
 
@@ -1431,7 +1997,14 @@ musicaBtn.addEventListener(
       audioPrincipal
         .play()
         .catch(
-          function() {}
+          function(error) {
+
+            console.log(
+              "No se pudo iniciar la música:",
+              error
+            );
+
+          }
         );
 
       musicaBtn.textContent =
@@ -1485,14 +2058,16 @@ selectorMusica.addEventListener(
 
     const archivos =
       Array.from(
-        event.target.files
+        event.target.files || []
       );
 
 
     if (
       archivos.length === 0
     ) {
+
       return;
+
     }
 
 
@@ -1506,7 +2081,9 @@ selectorMusica.addEventListener(
           "audio/"
         )
       ) {
+
         continue;
+
       }
 
 
@@ -1531,11 +2108,12 @@ selectorMusica.addEventListener(
 
 
     /*
-     * Permitimos volver a seleccionar
-     * el mismo archivo posteriormente.
+     * Permite seleccionar otra vez
+     * el mismo archivo.
      */
 
-    selectorMusica.value = "";
+    selectorMusica.value =
+      "";
 
   }
 );
@@ -1547,7 +2125,8 @@ selectorMusica.addEventListener(
 
 function mostrarListaCanciones() {
 
-  listaCanciones.innerHTML = "";
+  listaCanciones.innerHTML =
+    "";
 
 
   if (
@@ -1560,16 +2139,21 @@ function mostrarListaCanciones() {
       '</div>';
 
     return;
+
   }
 
 
   cancionesLocales.forEach(
-    function(cancion, indice) {
+    function(
+      cancion,
+      indice
+    ) {
 
       const fila =
         document.createElement(
           "div"
         );
+
 
       fila.className =
         "cancion";
@@ -1579,6 +2163,7 @@ function mostrarListaCanciones() {
         document.createElement(
           "button"
         );
+
 
       boton.textContent =
         "▶️";
@@ -1605,8 +2190,10 @@ function mostrarListaCanciones() {
           "div"
         );
 
+
       nombre.className =
         "nombreCancion";
+
 
       nombre.textContent =
         cancion.nombre;
@@ -1644,7 +2231,9 @@ function reproducirCancion(
 
 
   if (!cancion) {
+
     return;
+
   }
 
 
@@ -1672,7 +2261,8 @@ function reproducirCancion(
    MICRÓFONO
    ============================================================ */
 
-let reconocimiento = null;
+let reconocimiento =
+  null;
 
 
 const SpeechRecognition =
@@ -1719,7 +2309,12 @@ if (
 
 
   reconocimiento.onerror =
-    function() {
+    function(event) {
+
+      console.log(
+        "Error de reconocimiento:",
+        event
+      );
 
       microfonoBtn.textContent =
         "🎤";
@@ -1730,16 +2325,28 @@ if (
   reconocimiento.onresult =
     function(event) {
 
-      const texto =
-        event.results[0][0]
-          .transcript;
+      try {
+
+        const texto =
+          event
+            .results[0][0]
+            .transcript;
 
 
-      entrada.value =
-        texto;
+        entrada.value =
+          texto;
 
 
-      entrada.focus();
+        entrada.focus();
+
+      } catch (error) {
+
+        console.log(
+          "No se pudo obtener el texto del micrófono:",
+          error
+        );
+
+      }
 
     };
 
@@ -1748,6 +2355,15 @@ if (
     "click",
     function() {
 
+      if (
+        procesandoMensaje
+      ) {
+
+        return;
+
+      }
+
+
       try {
 
         reconocimiento.start();
@@ -1755,6 +2371,7 @@ if (
       } catch (error) {
 
         console.log(
+          "No se pudo iniciar el micrófono:",
           error
         );
 
@@ -1768,6 +2385,7 @@ if (
 
   microfonoBtn.disabled =
     true;
+
 
   microfonoBtn.title =
     "Este navegador no admite reconocimiento de voz.";
