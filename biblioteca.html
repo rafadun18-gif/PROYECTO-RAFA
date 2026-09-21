@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#050505">
+<title>Biblioteca · GePeTo · Proyecto Rafa</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    background:#050505;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.contenedor{
+    width:100%;
+    max-width:900px;
+    margin:0 auto;
+    padding:15px;
+}
+
+.cabecera{
+    text-align:center;
+    padding:10px 5px 18px;
+}
+
+.titulo{
+    margin:0;
+    font-size:32px;
+    font-weight:800;
+    color:#fff;
+    text-shadow:
+        0 0 8px #008cff,
+        0 0 18px #008cff,
+        0 0 30px rgba(0,140,255,.7);
+}
+
+.subtitulo{
+    margin-top:6px;
+    color:#aaa;
+    font-size:14px;
+}
+
+.tarjeta-gepeto{
+    position:relative;
+    width:100%;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(0,140,255,.5);
+    background:
+        linear-gradient(
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.65)
+        ),
+        #101010;
+    box-shadow:
+        0 0 15px rgba(0,140,255,.2),
+        0 0 40px rgba(0,140,255,.08);
+    margin-bottom:18px;
+}
+
+.foto-gepeto{
+    display:block;
+    width:100%;
+    max-height:430px;
+    object-fit:cover;
+    object-position:center;
+    background:#080808;
+}
+
+.info-gepeto{
+    padding:15px;
+    text-align:center;
+}
+
+.nombre-gepeto{
+    font-size:24px;
+    font-weight:bold;
+    color:#fff;
+    text-shadow:
+        0 0 8px #008cff;
+}
+
+.descripcion-gepeto{
+    margin-top:5px;
+    color:#bbb;
+    font-size:14px;
+}
+
+.estado{
+    width:100%;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px;
+    border-radius:12px;
+    background:#111;
+    border:1px solid #333;
+    color:#aaa;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+.estado.ok{
+    color:#8fff8f;
+    border-color:rgba(0,255,100,.5);
+    box-shadow:0 0 12px rgba(0,255,100,.12);
+}
+
+.estado.error{
+    color:#ff7777;
+    border-color:rgba(255,0,0,.45);
+}
+
+.chat{
+    width:100%;
+    min-height:280px;
+    max-height:520px;
+    overflow-y:auto;
+    padding:12px;
+    border-radius:18px;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(0,100,255,.08),
+            transparent 50%
+        ),
+        #090909;
+    border:1px solid #292929;
+    margin-bottom:12px;
+    scroll-behavior:smooth;
+}
+
+.mensaje{
+    width:fit-content;
+    max-width:88%;
+    margin:9px 0;
+    padding:11px 13px;
+    border-radius:15px;
+    line-height:1.45;
+    word-wrap:break-word;
+    white-space:pre-wrap;
+}
+
+.mensaje .nombre{
+    font-weight:bold;
+    margin-bottom:4px;
+    font-size:13px;
+}
+
+.mensaje.rafa{
+    margin-left:auto;
+    background:#063d25;
+    border:1px solid rgba(0,255,100,.35);
+}
+
+.mensaje.rafa .nombre{
+    color:#5cff9a;
+}
+
+.mensaje.gepeto{
+    margin-right:auto;
+    background:#071c39;
+    border:1px solid rgba(0,140,255,.45);
+}
+
+.mensaje.gepeto .nombre{
+    color:#55aaff;
+}
+
+.mensaje.sistema{
+    margin:10px auto;
+    max-width:95%;
+    text-align:center;
+    background:#161616;
+    color:#aaa;
+    border:1px solid #333;
+}
+
+.zona-escribir{
+    display:flex;
+    gap:8px;
+    width:100%;
+    margin-bottom:12px;
+}
+
+#mensaje{
+    flex:1;
+    min-width:0;
+    min-height:48px;
+    max-height:140px;
+    resize:none;
+    border-radius:14px;
+    border:1px solid #333;
+    background:#101010;
+    color:#fff;
+    padding:13px;
+    outline:none;
+    font-size:16px;
+}
+
+#mensaje:focus{
+    border-color:#008cff;
+    box-shadow:0 0 10px rgba(0,140,255,.18);
+}
+
+#enviar{
+    width:80px;
+    min-width:80px;
+    border:0;
+    border-radius:14px;
+    background:#087cff;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    box-shadow:0 0 12px rgba(0,140,255,.25);
+}
+
+#enviar:disabled{
+    opacity:.5;
+}
+
+.botones{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+    margin-bottom:18px;
+}
+
+.boton{
+    min-height:46px;
+    padding:10px;
+    border-radius:13px;
+    border:1px solid #333;
+    background:#111;
+    color:#fff;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.boton:active{
+    transform:scale(.98);
+}
+
+.boton-prueba{
+    border-color:rgba(0,140,255,.5);
+    color:#63b5ff;
+}
+
+.boton-memoria{
+    border-color:rgba(0,255,100,.35);
+    color:#65ff9d;
+}
+
+.boton-tareas{
+    border-color:rgba(255,255,0,.3);
+    color:#ffff8a;
+}
+
+.boton-investigaciones{
+    border-color:rgba(255,0,180,.35);
+    color:#ff7edc;
+}
+
+.boton-video{
+    grid-column:1/-1;
+    border-color:rgba(0,255,100,.5);
+    color:#75ffae;
+    background:#07150d;
+    font-size:16px;
+}
+
+.seccion{
+    margin-top:18px;
+    padding:15px;
+    border-radius:18px;
+    background:#0c0c0c;
+    border:1px solid #292929;
+}
+
+.seccion h2{
+    margin:0 0 10px;
+    font-size:20px;
+}
+
+.seccion p{
+    color:#aaa;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.seccion-ia{
+    border-color:rgba(0,140,255,.25);
+}
+
+.seccion-lia{
+    border-color:rgba(255,0,200,.35);
+    box-shadow:0 0 18px rgba(255,0,200,.06);
+}
+
+.lia-titulo{
+    color:#ff42d1;
+    text-shadow:0 0 10px rgba(255,0,200,.5);
+}
+
+.lia-panel{
+    padding:12px;
+    border-radius:14px;
+    background:#130812;
+    border:1px solid rgba(255,0,200,.25);
+}
+
+.archivo{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#0b0b0b;
+    color:#ccc;
+    margin:5px 0 10px;
+}
+
+audio{
+    width:100%;
+    margin-top:8px;
+}
+
+.cargando{
+    display:none;
+    text-align:center;
+    padding:10px;
+    color:#65b9ff;
+}
+
+.puntos{
+    display:inline-block;
+    animation:parpadeo 1.2s infinite;
+}
+
+@keyframes parpadeo{
+    0%,100%{opacity:.25}
+    50%{opacity:1}
+}
+
+.navegacion{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.navegacion a{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:bold;
+    color:white;
+    background:#111;
+    border:1px solid #333;
+}
+
+.navegacion a:hover{
+    border-color:#008cff;
+}
+
+.pie{
+    text-align:center;
+    padding:25px 5px 30px;
+    color:#555;
+    font-size:12px;
+}
+
+.panel-datos{
+    display:none;
+    margin-top:10px;
+    padding:12px;
+    border-radius:12px;
+    background:#080808;
+    border:1px solid #292929;
+    color:#aaa;
+    font-size:13px;
+    white-space:pre-wrap;
+    max-height:260px;
+    overflow:auto;
+}
+
+@media(max-width:600px){
+
+    .contenedor{
+        padding:10px;
+    }
+
+    .titulo{
+        font-size:27px;
+    }
+
+    .foto-gepeto{
+        max-height:360px;
+    }
+
+    .mensaje{
+        max-width:92%;
+    }
+
+    .botones{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .zona-escribir{
+        align-items:stretch;
+    }
+
+    #enviar{
+        width:70px;
+        min-width:70px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <header class="cabecera">
+        <h1 class="titulo">BIBLIOTECA</h1>
+        <div class="subtitulo">
+            Proyecto Rafa · Espacio de GePeTo
+        </div>
+    </header>
+
+    <section class="tarjeta-gepeto">
+
+        <img
+            class="foto-gepeto"
+            src="./img/gepeto.png"
+            alt="GePeTo"
+            onerror="this.style.display='none';"
+        >
+
+        <div class="info-gepeto">
+
+            <div class="nombre-gepeto">
+                GePeTo
+            </div>
+
+            <div class="descripcion-gepeto">
+                Inteligencia artificial del Proyecto Rafa
+            </div>
+
+        </div>
+
+    </section>
+
+    <div id="estado" class="estado">
+        Comprobando conexión con GePeTo...
+    </div>
+
+    <section class="seccion seccion-ia">
+
+        <h2>💬 Habla con GePeTo</h2>
+
+        <div
+            id="chat"
+            class="chat"
+            aria-live="polite"
+        ></div>
+
+        <div
+            id="pensando"
+            class="cargando"
+        >
+            GePeTo está pensando
+            <span class="puntos">...</span>
+        </div>
+
+        <div class="zona-escribir">
+
+            <textarea
+                id="mensaje"
+                placeholder="Escribe aquí a GePeTo..."
+                autocomplete="off"
+                rows="1"
+            ></textarea>
+
+            <button
+                id="enviar"
+                type="button"
+            >
+                ENVIAR
+            </button>
+
+        </div>
+
+        <div class="botones">
+
+            <button
+                id="prueba"
+                class="boton boton-prueba"
+                type="button"
+            >
+                🤖 Probar GePeTo
+            </button>
+
+            <button
+                id="verMemoria"
+                class="boton boton-memoria"
+                type="button"
+            >
+                🧠 Memoria
+            </button>
+
+            <button
+                id="verTareas"
+                class="boton boton-tareas"
+                type="button"
+            >
+                📋 Tareas
+            </button>
+
+            <button
+                id="verInvestigaciones"
+                class="boton boton-investigaciones"
+                type="button"
+            >
+                🔎 Investigaciones
+            </button>
+
+            <button
+                id="videoconferencia"
+                class="boton boton-video"
+                type="button"
+            >
+                🎥 ABRIR VIDEOCONFERENCIA
+            </button>
+
+        </div>
+
+        <div
+            id="panelDatos"
+            class="panel-datos"
+        ></div>
+
+    </section>
+
+    <section class="seccion seccion-lia">
+
+        <h2 class="lia-titulo">
+            💗 Música de Lía
+        </h2>
+
+        <div class="lia-panel">
+
+            <p>
+                Puedes seleccionar una canción directamente desde
+                el dispositivo que estés utilizando.
+            </p>
+
+            <input
+                id="archivoLia"
+                class="archivo"
+                type="file"
+                accept="audio/*"
+            >
+
+            <audio
+                id="audioLia"
+                controls
+                preload="metadata"
+            ></audio>
+
+        </div>
+
+    </section>
+
+    <section class="seccion">
+
+        <h2>📚 Biblioteca</h2>
+
+        <p>
+            Este espacio pertenece al Proyecto Rafa.
+            Aquí GePeTo puede conversar y utilizar las funciones
+            disponibles en su Worker y en su memoria.
+        </p>
+
+    </section>
+
+    <div class="navegacion">
+
+        <a href="./index.html">
+            ← PORTADA
+        </a>
+
+        <a href="./Laboratorio.html">
+            LABORATORIO
+        </a>
+
+    </div>
+
+    <footer class="pie">
+        Proyecto Rafa · GePeTo + Lía
+    </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   PROYECTO RAFA
+   BIBLIOTECA · GEPETO
+   ============================================================ */
+
+/*
+   WORKER OFICIAL DE GEPETO
+*/
+const GEPETO_URL =
+    "https://gepetto-rafa.rafadun18.workers.dev";
+
+const PREGUNTAR_URL =
+    GEPETO_URL + "/preguntar";
+
+const MEMORIA_URL =
+    GEPETO_URL + "/memoria";
+
+const TAREAS_URL =
+    GEPETO_URL + "/tareas";
+
+const INVESTIGACIONES_URL =
+    GEPETO_URL + "/investigaciones";
+
+
+/* ============================================================
+   ELEMENTOS
+   ============================================================ */
+
+const chat =
+    document.getElementById("chat");
+
+const mensajeInput =
+    document.getElementById("mensaje");
+
+const botonEnviar =
+    document.getElementById("enviar");
+
+const botonPrueba =
+    document.getElementById("prueba");
+
+const pensando =
+    document.getElementById("pensando");
+
+const estado =
+    document.getElementById("estado");
+
+const botonMemoria =
+    document.getElementById("verMemoria");
+
+const botonTareas =
+    document.getElementById("verTareas");
+
+const botonInvestigaciones =
+    document.getElementById("verInvestigaciones");
+
+const botonVideoconferencia =
+    document.getElementById("videoconferencia");
+
+const panelDatos =
+    document.getElementById("panelDatos");
+
+const archivoLia =
+    document.getElementById("archivoLia");
+
+const audioLia =
+    document.getElementById("audioLia");
+
+
+/* ============================================================
+   ESTADO INTERNO
+   ============================================================ */
+
+let ocupado = false;
+
+let historialChat = [];
+
+const CLAVE_HISTORIAL =
+    "proyecto_rafa_biblioteca_gepeto_historial";
+
+
+/* ============================================================
+   AÑADIR MENSAJE
+   ============================================================ */
+
+function añadirMensaje(tipo, nombre, texto){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "mensaje " + tipo;
+
+    const nombreDiv =
+        document.createElement("div");
+
+    nombreDiv.className =
+        "nombre";
+
+    nombreDiv.textContent =
+        nombre;
+
+    const textoDiv =
+        document.createElement("div");
+
+    textoDiv.textContent =
+        texto;
+
+    div.appendChild(nombreDiv);
+    div.appendChild(textoDiv);
+
+    chat.appendChild(div);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+/* ============================================================
+   GUARDAR HISTORIAL
+   ============================================================ */
+
+function guardarHistorial(){
+
+    try{
+
+        localStorage.setItem(
+            CLAVE_HISTORIAL,
+            JSON.stringify(historialChat)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo guardar el historial:",
+            error
+        );
+    }
+}
+
+
+/* ============================================================
+   CARGAR HISTORIAL
+   ============================================================ */
+
+function cargarHistorial(){
+
+    try{
+
+        const guardado =
+            localStorage.getItem(
+                CLAVE_HISTORIAL
+            );
+
+        if(!guardado){
+
+            añadirMensaje(
+                "gepeto",
+                "GePeTo",
+                "Hola Rafa. Soy GePeTo y estoy conectado al Proyecto Rafa."
+            );
+
+            return;
+        }
+
+        const datos =
+            JSON.parse(guardado);
+
+        if(
+            !Array.isArray(datos) ||
+            datos.length === 0
+        ){
+
+            añadirMensaje(
+                "gepeto",
+                "GePeTo",
+                "Hola Rafa. Soy GePeTo y estoy conectado al Proyecto Rafa."
+            );
+
+            return;
+        }
+
+        historialChat =
+            datos;
+
+        datos.forEach(function(item){
+
+            if(
+                item &&
+                item.tipo &&
+                item.nombre &&
+                item.texto
+            ){
+
+                añadirMensaje(
+                    item.tipo,
+                    item.nombre,
+                    item.texto
+                );
+            }
+
+        });
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo cargar el historial:",
+            error
+        );
+
+        añadirMensaje(
+            "gepeto",
+            "GePeTo",
+            "Hola Rafa. Soy GePeTo y estoy conectado al Proyecto Rafa."
+        );
+    }
+}
+
+
+/* ============================================================
+   REGISTRAR MENSAJE
+   ============================================================ */
+
+function registrarMensaje(
+    tipo,
+    nombre,
+    texto
+){
+
+    historialChat.push({
+        tipo:tipo,
+        nombre:nombre,
+        texto:texto,
+        fecha:new Date().toISOString()
+    });
+
+    guardarHistorial();
+}
+
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+
+function mostrarEstado(
+    texto,
+    tipo=""
+){
+
+    estado.textContent =
+        texto;
+
+    estado.className =
+        "estado";
+
+    if(tipo){
+
+        estado.classList.add(
+            tipo
+        );
+    }
+}
+
+
+/* ============================================================
+   EXTRAER TEXTO DE RESPUESTA
+   ============================================================ */
+
+function extraerTexto(data){
+
+    if(!data){
+        return "";
+    }
+
+    if(typeof data === "string"){
+        return data.trim();
+    }
+
+    if(typeof data.response === "string"){
+        return data.response.trim();
+    }
+
+    if(typeof data.text === "string"){
+        return data.text.trim();
+    }
+
+    if(typeof data.output === "string"){
+        return data.output.trim();
+    }
+
+    if(typeof data.mensaje === "string"){
+        return data.mensaje.trim();
+    }
+
+    if(typeof data.respuesta === "string"){
+        return data.respuesta.trim();
+    }
+
+    if(typeof data.content === "string"){
+        return data.content.trim();
+    }
+
+    if(typeof data.answer === "string"){
+        return data.answer.trim();
+    }
+
+    if(data.result){
+
+        if(typeof data.result === "string"){
+            return data.result.trim();
+        }
+
+        if(
+            typeof data.result.response === "string"
+        ){
+            return data.result.response.trim();
+        }
+
+        if(
+            typeof data.result.text === "string"
+        ){
+            return data.result.text.trim();
+        }
+
+        if(
+            typeof data.result.output === "string"
+        ){
+            return data.result.output.trim();
+        }
+
+        if(
+            typeof data.result.respuesta === "string"
+        ){
+            return data.result.respuesta.trim();
+        }
+
+        if(
+            typeof data.result.content === "string"
+        ){
+            return data.result.content.trim();
+        }
+    }
+
+    if(
+        Array.isArray(data.choices) &&
+        data.choices.length > 0
+    ){
+
+        const choice =
+            data.choices[0];
+
+        if(typeof choice === "string"){
+            return choice.trim();
+        }
+
+        if(
+            typeof choice.text === "string"
+        ){
+            return choice.text.trim();
+        }
+
+        if(
+            choice.message &&
+            typeof choice.message.content === "string"
+        ){
+            return choice.message.content.trim();
+        }
+
+        if(
+            choice.message &&
+            Array.isArray(choice.message.content)
+        ){
+
+            return choice.message.content
+                .map(function(item){
+
+                    if(
+                        item &&
+                        typeof item.text === "string"
+                    ){
+
+                        return item.text;
+                    }
+
+                    return "";
+
+                })
+                .join("")
+                .trim();
+        }
+    }
+
+    return "";
+}
+
+
+/* ============================================================
+   PREGUNTAR A GEPETO
+   ============================================================ */
+
+async function preguntarGePeTo(texto){
+
+    if(ocupado){
+        return;
+    }
+
+    const textoLimpio =
+        String(texto || "").trim();
+
+    if(!textoLimpio){
+        return;
+    }
+
+    ocupado = true;
+
+    botonEnviar.disabled =
+        true;
+
+    botonPrueba.disabled =
+        true;
+
+    añadirMensaje(
+        "rafa",
+        "Rafa",
+        textoLimpio
+    );
+
+    registrarMensaje(
+        "rafa",
+        "Rafa",
+        textoLimpio
+    );
+
+    mensajeInput.value =
+        "";
+
+    pensando.style.display =
+        "block";
+
+    mostrarEstado(
+        "Conectando con GePeTo..."
+    );
+
+    try{
+
+        /*
+          IMPORTANTE:
+
+          GePeTo /preguntar utiliza POST.
+
+          Se envían mensaje y pregunta para mantener
+          compatibilidad con las versiones anteriores.
+        */
+
+        const respuesta =
+            await fetch(
+                PREGUNTAR_URL,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        mensaje:
+                            textoLimpio,
+
+                        pregunta:
+                            textoLimpio
+
+                    })
+                }
+            );
+
+
+        if(!respuesta.ok){
+
+            let detalle =
+                "";
+
+            try{
+
+                detalle =
+                    await respuesta.text();
+
+            }catch(e){
+
+                detalle =
+                    "";
+            }
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status +
+                (
+                    detalle
+                    ? " · " + detalle
+                    : ""
+                )
+            );
+        }
+
+
+        const contenido =
+            await respuesta.text();
+
+
+        let data;
+
+
+        try{
+
+            data =
+                JSON.parse(
+                    contenido
+                );
+
+        }catch(e){
+
+            data =
+                contenido;
+        }
+
+
+        if(
+            data &&
+            typeof data === "object" &&
+            data.ok === false
+        ){
+
+            throw new Error(
+                data.error ||
+                "El Worker ha rechazado la petición."
+            );
+        }
+
+
+        const textoRespuesta =
+            extraerTexto(data);
+
+
+        if(!textoRespuesta){
+
+            throw new Error(
+                "GePeTo respondió pero no devolvió texto."
+            );
+        }
+
+
+        añadirMensaje(
+            "gepeto",
+            "GePeTo",
+            textoRespuesta
+        );
+
+
+        registrarMensaje(
+            "gepeto",
+            "GePeTo",
+            textoRespuesta
+        );
+
+
+        mostrarEstado(
+            "GePeTo conectado",
+            "ok"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Error completo de GePeTo:",
+            error
+        );
+
+
+        let mensajeError =
+            error &&
+            error.message
+            ? error.message
+            : String(error);
+
+
+        if(
+            mensajeError ===
+            "Failed to fetch" ||
+            mensajeError.includes(
+                "NetworkError"
+            )
+        ){
+
+            mensajeError =
+                "No se pudo conectar con GePeTo. " +
+                "El Worker responde en /estado, " +
+                "pero la petición POST a /preguntar " +
+                "no ha podido completarse.";
+        }
+
+
+        añadirMensaje(
+            "gepeto",
+            "Error de GePeTo",
+            mensajeError
+        );
+
+
+        registrarMensaje(
+            "gepeto",
+            "Error de GePeTo",
+            mensajeError
+        );
+
+
+        mostrarEstado(
+            "Error de conexión",
+            "error"
+        );
+
+
+    }finally{
+
+        ocupado =
+            false;
+
+        botonEnviar.disabled =
+            false;
+
+        botonPrueba.disabled =
+            false;
+
+        pensando.style.display =
+            "none";
+
+        mensajeInput.focus();
+    }
+}
+
+
+/* ============================================================
+   ENTER PARA ENVIAR
+   ============================================================ */
+
+mensajeInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            preguntarGePeTo(
+                mensajeInput.value
+            );
+        }
+    }
+);
+
+
+/* ============================================================
+   BOTÓN ENVIAR
+   ============================================================ */
+
+botonEnviar.addEventListener(
+    "click",
+    function(){
+
+        preguntarGePeTo(
+            mensajeInput.value
+        );
+    }
+);
+
+
+/* ============================================================
+   BOTÓN DE PRUEBA
+   ============================================================ */
+
+botonPrueba.addEventListener(
+    "click",
+    function(){
+
+        preguntarGePeTo(
+            "Hola GePeTo, ¿quién eres?"
+        );
+    }
+);
+
+
+/* ============================================================
+   MOSTRAR DATOS
+   ============================================================ */
+
+function mostrarPanelDatos(
+    titulo,
+    datos
+){
+
+    panelDatos.style.display =
+        "block";
+
+    if(typeof datos === "string"){
+
+        panelDatos.textContent =
+            titulo +
+            "\n\n" +
+            datos;
+
+        return;
+    }
+
+    try{
+
+        panelDatos.textContent =
+            titulo +
+            "\n\n" +
+            JSON.stringify(
+                datos,
+                null,
+                2
+            );
+
+    }catch(error){
+
+        panelDatos.textContent =
+            titulo +
+            "\n\n" +
+            String(datos);
+    }
+}
+
+
+/* ============================================================
+   CONSULTAR MEMORIA
+   ============================================================ */
+
+async function consultarMemoria(){
+
+    mostrarEstado(
+        "Consultando memoria de GePeTo..."
+    );
+
+    try{
+
+        const respuesta =
+            await fetch(
+                MEMORIA_URL,
+                {
+                    method:"GET",
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+        const texto =
+            await respuesta.text();
+
+        let data;
+
+        try{
+            data =
+                JSON.parse(texto);
+        }catch(e){
+            data =
+                texto;
+        }
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+        }
+
+        mostrarPanelDatos(
+            "🧠 MEMORIA DE GEPETO",
+            data
+        );
+
+        mostrarEstado(
+            "Memoria consultada",
+            "ok"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Error memoria:",
+            error
+        );
+
+        mostrarPanelDatos(
+            "🧠 MEMORIA",
+            "No se pudo consultar la memoria.\n" +
+            error.message
+        );
+
+        mostrarEstado(
+            "No se pudo consultar la memoria",
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   CONSULTAR TAREAS
+   ============================================================ */
+
+async function consultarTareas(){
+
+    mostrarEstado(
+        "Consultando tareas..."
+    );
+
+    try{
+
+        const respuesta =
+            await fetch(
+                TAREAS_URL,
+                {
+                    method:"GET",
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+        const texto =
+            await respuesta.text();
+
+        let data;
+
+        try{
+            data =
+                JSON.parse(texto);
+        }catch(e){
+            data =
+                texto;
+        }
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+        }
+
+        mostrarPanelDatos(
+            "📋 TAREAS DE GEPETO",
+            data
+        );
+
+        mostrarEstado(
+            "Tareas consultadas",
+            "ok"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Error tareas:",
+            error
+        );
+
+        mostrarPanelDatos(
+            "📋 TAREAS",
+            "No se pudieron consultar las tareas.\n" +
+            error.message
+        );
+
+        mostrarEstado(
+            "No se pudieron consultar las tareas",
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   CONSULTAR INVESTIGACIONES
+   ============================================================ */
+
+async function consultarInvestigaciones(){
+
+    mostrarEstado(
+        "Consultando investigaciones..."
+    );
+
+    try{
+
+        const respuesta =
+            await fetch(
+                INVESTIGACIONES_URL,
+                {
+                    method:"GET",
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+        const texto =
+            await respuesta.text();
+
+        let data;
+
+        try{
+            data =
+                JSON.parse(texto);
+        }catch(e){
+            data =
+                texto;
+        }
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+        }
+
+        mostrarPanelDatos(
+            "🔎 INVESTIGACIONES",
+            data
+        );
+
+        mostrarEstado(
+            "Investigaciones consultadas",
+            "ok"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Error investigaciones:",
+            error
+        );
+
+        mostrarPanelDatos(
+            "🔎 INVESTIGACIONES",
+            "No se pudieron consultar las investigaciones.\n" +
+            error.message
+        );
+
+        mostrarEstado(
+            "No se pudieron consultar las investigaciones",
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   BOTONES DE DATOS
+   ============================================================ */
+
+botonMemoria.addEventListener(
+    "click",
+    consultarMemoria
+);
+
+botonTareas.addEventListener(
+    "click",
+    consultarTareas
+);
+
+botonInvestigaciones.addEventListener(
+    "click",
+    consultarInvestigaciones
+);
+
+
+/* ============================================================
+   VIDEOCONFERENCIA
+   ============================================================ */
+
+/*
+   IMPORTANTE:
+
+   El nombre es exactamente:
+
+   Videocomferencua.html
+
+   V MAYÚSCULA.
+*/
+
+botonVideoconferencia.addEventListener(
+    "click",
+    function(){
+
+        window.location.href =
+            "./Videocomferencua.html";
+
+    }
+);
+
+
+/* ============================================================
+   REPRODUCTOR DE LÍA
+   ============================================================ */
+
+archivoLia.addEventListener(
+    "change",
+    function(){
+
+        const archivo =
+            archivoLia.files[0];
+
+        if(!archivo){
+            return;
+        }
+
+        if(
+            !archivo.type ||
+            !archivo.type.startsWith("audio/")
+        ){
+
+            mostrarEstado(
+                "El archivo seleccionado no parece ser audio.",
+                "error"
+            );
+
+            archivoLia.value =
+                "";
+
+            return;
+        }
+
+        const url =
+            URL.createObjectURL(
+                archivo
+            );
+
+        audioLia.src =
+            url;
+
+        audioLia.load();
+
+        mostrarEstado(
+            "Canción de Lía preparada",
+            "ok"
+        );
+    }
+);
+
+
+/* ============================================================
+   COMPROBAR WORKER
+   ============================================================ */
+
+async function comprobarWorker(){
+
+    mostrarEstado(
+        "Comprobando conexión con GePeTo..."
+    );
+
+    try{
+
+        const respuesta =
+            await fetch(
+                GEPETO_URL + "/estado",
+                {
+                    method:"GET",
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "HTTP " +
+                respuesta.status
+            );
+        }
+
+
+        const data =
+            await respuesta.json();
+
+
+        if(
+            data &&
+            data.ok === true
+        ){
+
+            mostrarEstado(
+                "GePeTo está conectado",
+                "ok"
+            );
+
+        }else{
+
+            mostrarEstado(
+                "Worker conectado pero con aviso",
+                "error"
+            );
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "No se pudo comprobar GePeTo:",
+            error
+        );
+
+        mostrarEstado(
+            "No se pudo comprobar la conexión con GePeTo",
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   WEBLLM / IA LOCAL
+   ============================================================ */
+
+/*
+   Esta sección queda preparada para mantener la función
+   de IA local del proyecto.
+
+   No se carga ningún modelo de pago.
+*/
+
+let IA_LOCAL_DISPONIBLE =
+    false;
+
+let IA_LOCAL_INICIALIZADA =
+    false;
+
+
+/* ============================================================
+   DETECCIÓN DE WEBLLM
+   ============================================================ */
+
+async function comprobarIALocal(){
+
+    try{
+
+        if(
+            typeof window !== "undefined" &&
+            window.webllm
+        ){
+
+            IA_LOCAL_DISPONIBLE =
+                true;
+
+            return true;
+        }
+
+    }catch(error){
+
+        console.warn(
+            "WebLLM no disponible:",
+            error
+        );
+    }
+
+    return false;
+}
+
+
+/* ============================================================
+   LIMPIAR CHAT
+   ============================================================ */
+
+function limpiarChat(){
+
+    historialChat =
+        [];
+
+    try{
+
+        localStorage.removeItem(
+            CLAVE_HISTORIAL
+        );
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo limpiar el historial:",
+            error
+        );
+    }
+
+    chat.innerHTML =
+        "";
+
+    añadirMensaje(
+        "gepeto",
+        "GePeTo",
+        "Historial de esta Biblioteca limpiado. Seguimos, Rafa."
+    );
+
+    registrarMensaje(
+        "gepeto",
+        "GePeTo",
+        "Historial de esta Biblioteca limpiado. Seguimos, Rafa."
+    );
+}
+
+
+/* ============================================================
+   ATAJO DE TECLADO
+   ============================================================ */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.ctrlKey &&
+            event.key.toLowerCase() === "l"
+        ){
+
+            event.preventDefault();
+
+            limpiarChat();
+        }
+    }
+);
+
+
+/* ============================================================
+   INICIO
+   ============================================================ */
+
+async function iniciarBiblioteca(){
+
+    cargarHistorial();
+
+    await comprobarIALocal();
+
+    await comprobarWorker();
+}
+
+
+/* ============================================================
+   ARRANCAR
+   ============================================================ */
+
+iniciarBiblioteca();
+
+</script>
+
+</body>
+</html>
