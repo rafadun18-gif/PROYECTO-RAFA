@@ -178,7 +178,7 @@ transform:scale(1.012);
 }
 
 /* ==============================
-PEQUEÑO MOVIMIENTO DE CABEZA
+MOVIMIENTO CABEZA
 ============================== */
 
 @keyframes movimientoCabeza{
@@ -227,6 +227,7 @@ OJOS
 position:absolute;
 
 width:12%;
+
 height:5%;
 
 border-radius:50%;
@@ -235,15 +236,72 @@ background:transparent;
 
 transform-origin:center;
 
+overflow:hidden;
+
 }
 
 /*
-POSICIÓN DE LOS OJOS
+CAPA DEL PARPADEO
+*/
+
+.ojo::before{
+
+content:"";
+
+position:absolute;
+
+left:-10%;
+
+top:-100%;
+
+width:120%;
+
+height:200%;
+
+background:rgba(5,5,5,.92);
+
+border-radius:50%;
+
+transform:translateY(-55%);
+
+transition:transform .08s linear;
+
+}
+
+/*
+PEQUEÑO PUNTO DE MIRADA
+*/
+
+.ojo::after{
+
+content:"";
+
+position:absolute;
+
+width:22%;
+
+height:65%;
+
+left:39%;
+
+top:18%;
+
+background:rgba(20,20,20,.85);
+
+border-radius:50%;
+
+transform:translateX(0);
+
+}
+
+/*
+POSICIÓN OJOS
 */
 
 .ojo-izq{
 
 left:28%;
+
 top:35%;
 
 }
@@ -251,33 +309,63 @@ top:35%;
 .ojo-der{
 
 right:28%;
+
 top:35%;
 
 }
 
 /* ==============================
-MOVIMIENTO DE OJOS
+MOVIMIENTO DE MIRADA
 ============================== */
 
-.hablando .ojo{
+.hablando .ojo-izq::after{
 
 animation:
-mirada .9s ease-in-out infinite alternate;
+miradaIzq
+1.1s
+ease-in-out
+infinite alternate;
 
 }
 
-@keyframes mirada{
+.hablando .ojo-der::after{
+
+animation:
+miradaDer
+1.1s
+ease-in-out
+infinite alternate;
+
+}
+
+@keyframes miradaIzq{
 
 0%{
-transform:translateX(0);
+transform:translateX(-25%);
 }
 
 50%{
-transform:translateX(2px);
+transform:translateX(20%);
 }
 
 100%{
-transform:translateX(-1px);
+transform:translateX(-10%);
+}
+
+}
+
+@keyframes miradaDer{
+
+0%{
+transform:translateX(20%);
+}
+
+50%{
+transform:translateX(-20%);
+}
+
+100%{
+transform:translateX(10%);
 }
 
 }
@@ -286,29 +374,31 @@ transform:translateX(-1px);
 PARPADEO
 ============================== */
 
-.ojo.parpadeo{
+.ojo.parpadeo::before{
 
 animation:
-parpadear .18s linear;
+parpadear
+.22s
+linear;
 
 }
 
 @keyframes parpadear{
 
 0%{
-transform:scaleY(1);
+transform:translateY(-55%);
 }
 
-45%{
-transform:scaleY(.05);
+40%{
+transform:translateY(0%);
 }
 
 70%{
-transform:scaleY(.05);
+transform:translateY(0%);
 }
 
 100%{
-transform:scaleY(1);
+transform:translateY(-55%);
 }
 
 }
@@ -322,9 +412,10 @@ CEJAS
 position:absolute;
 
 width:14%;
-height:4%;
 
-background:transparent;
+height:2.5%;
+
+background:rgba(20,20,20,.70);
 
 border-radius:50%;
 
@@ -337,44 +428,87 @@ transform-origin:center;
 .ceja-izq{
 
 left:27%;
+
 top:30%;
+
+transform:rotate(-4deg);
 
 }
 
 .ceja-der{
 
 right:27%;
+
 top:30%;
+
+transform:rotate(4deg);
 
 }
 
-/* CEJAS HABLANDO */
+/* ==============================
+CEJAS HABLANDO
+============================== */
 
-.hablando .ceja{
+.hablando .ceja-izq{
 
 animation:
-movimientoCejas .55s
+movimientoCejaIzq
+.65s
 ease-in-out
 infinite alternate;
 
 }
 
-@keyframes movimientoCejas{
+.hablando .ceja-der{
 
-from{
-
-transform:
-translateY(0)
-rotate(-2deg);
+animation:
+movimientoCejaDer
+.65s
+ease-in-out
+infinite alternate;
 
 }
 
-to{
+@keyframes movimientoCejaIzq{
 
+0%{
 transform:
-translateY(-3px)
-rotate(2deg);
+translateY(0)
+rotate(-4deg);
+}
 
+50%{
+transform:
+translateY(-4px)
+rotate(-1deg);
+}
+
+100%{
+transform:
+translateY(1px)
+rotate(-6deg);
+}
+
+}
+
+@keyframes movimientoCejaDer{
+
+0%{
+transform:
+translateY(0)
+rotate(4deg);
+}
+
+50%{
+transform:
+translateY(-4px)
+rotate(1deg);
+}
+
+100%{
+transform:
+translateY(1px)
+rotate(6deg);
 }
 
 }
@@ -388,9 +522,11 @@ BOCA
 position:absolute;
 
 left:50%;
+
 top:61%;
 
 width:14%;
+
 height:4%;
 
 transform:
@@ -400,13 +536,42 @@ scaleY(.25);
 border-radius:50%;
 
 background:
-rgba(255,255,255,.08);
+rgba(15,5,5,.82);
 
 border:
 1px solid
-rgba(255,255,255,.15);
+rgba(255,255,255,.20);
 
-opacity:.15;
+opacity:.20;
+
+overflow:hidden;
+
+}
+
+/*
+INTERIOR DE LA BOCA
+*/
+
+.boca::before{
+
+content:"";
+
+position:absolute;
+
+left:18%;
+
+right:18%;
+
+top:20%;
+
+bottom:20%;
+
+background:
+rgba(255,255,255,.12);
+
+border-radius:50%;
+
+transform:scaleY(.15);
 
 }
 
@@ -416,10 +581,20 @@ BOCA HABLANDO
 
 .hablando .boca{
 
-opacity:.9;
+opacity:.95;
 
 animation:
 hablarBoca
+.16s
+ease-in-out
+infinite alternate;
+
+}
+
+.hablando .boca::before{
+
+animation:
+interiorBoca
 .16s
 ease-in-out
 infinite alternate;
@@ -432,35 +607,44 @@ infinite alternate;
 
 transform:
 translate(-50%,-50%)
-scaleX(.8)
+scaleX(.75)
 scaleY(.25);
 
 }
 
-25%{
+20%{
 
 transform:
 translate(-50%,-50%)
 scaleX(1)
-scaleY(.8);
+scaleY(.65);
 
 }
 
-50%{
+40%{
 
 transform:
 translate(-50%,-50%)
-scaleX(1.15)
-scaleY(.45);
+scaleX(1.18)
+scaleY(.42);
 
 }
 
-75%{
+60%{
 
 transform:
 translate(-50%,-50%)
-scaleX(.9)
-scaleY(1);
+scaleX(.90)
+scaleY(.90);
+
+}
+
+80%{
+
+transform:
+translate(-50%,-50%)
+scaleX(1.10)
+scaleY(.55);
 
 }
 
@@ -468,9 +652,63 @@ scaleY(1);
 
 transform:
 translate(-50%,-50%)
-scaleX(1)
-scaleY(.35);
+scaleX(.80)
+scaleY(1);
 
+}
+
+}
+
+@keyframes interiorBoca{
+
+0%{
+transform:scaleY(.1);
+}
+
+50%{
+transform:scaleY(.7);
+}
+
+100%{
+transform:scaleY(.2);
+}
+
+}
+
+/* ==============================
+PEQUEÑO MOVIMIENTO DE LA CAPA FACIAL
+============================== */
+
+.hablando .cara{
+
+animation:
+movimientoCara
+1.8s
+ease-in-out
+infinite;
+
+}
+
+@keyframes movimientoCara{
+
+0%{
+transform:translateY(0);
+}
+
+25%{
+transform:translateY(-1px);
+}
+
+50%{
+transform:translateY(1px);
+}
+
+75%{
+transform:translateY(-1px);
+}
+
+100%{
+transform:translateY(0);
 }
 
 }
@@ -761,7 +999,9 @@ ANIMACIÓN GENERAL CUANDO HABLA
 
 animation:
 respiracionHabla
-1.8s ease-in-out infinite;
+1.8s
+ease-in-out
+infinite;
 
 }
 
@@ -816,12 +1056,6 @@ GEPETO
 class="avatar-zona"
 id="avatarZona"
 >
-
-<!--
-IMPORTANTE:
-LA NUEVA IMAGEN DE FRENTE
-DEBE LLAMARSE GePeToFrontal.png
--->
 
 <img
 id="avatar"
@@ -1116,6 +1350,182 @@ indicador.textContent =
 
 
 /* =========================================
+VOCES DISPONIBLES
+========================================= */
+
+let vocesDisponibles = [];
+
+
+function cargarVoces(){
+
+if(!("speechSynthesis" in window)){
+return;
+}
+
+vocesDisponibles =
+window.speechSynthesis.getVoices();
+
+}
+
+
+/*
+Los navegadores pueden tardar en cargar
+las voces.
+*/
+
+cargarVoces();
+
+if("speechSynthesis" in window){
+
+speechSynthesis.onvoiceschanged =
+function(){
+
+cargarVoces();
+
+};
+
+}
+
+
+/* =========================================
+BUSCAR VOZ MASCULINA ESPAÑOLA
+========================================= */
+
+function buscarVozMasculina(){
+
+const voces =
+vocesDisponibles;
+
+if(!voces ||
+!voces.length){
+
+return null;
+
+}
+
+
+/*
+Primero buscamos voces españolas.
+*/
+
+const vocesEspanol =
+voces.filter(
+
+voz =>
+
+voz.lang &&
+voz.lang.toLowerCase().startsWith("es")
+
+);
+
+
+/*
+Nombres que suelen corresponder
+a voces masculinas.
+*/
+
+const nombresMasculinos = [
+
+"jorge",
+"diego",
+"pablo",
+"carlos",
+"miguel",
+"juan",
+"antonio",
+"daniel",
+"sergio",
+"alvaro",
+"álvaro",
+"male",
+"masculina",
+"male voice"
+
+];
+
+
+/*
+Primera búsqueda:
+voz española + nombre masculino.
+*/
+
+for(
+const voz of vocesEspanol
+){
+
+const nombre =
+voz.name.toLowerCase();
+
+for(
+const masculino of
+nombresMasculinos
+){
+
+if(
+nombre.includes(masculino)
+){
+
+return voz;
+
+}
+
+}
+
+}
+
+
+/*
+Segunda búsqueda:
+algunas plataformas utilizan
+"Spanish Male".
+*/
+
+for(
+const voz of voces
+){
+
+const texto =
+(
+voz.name +
+" " +
+voz.lang
+).toLowerCase();
+
+if(
+(
+texto.includes("male") ||
+texto.includes("mascul")
+)
+&&
+texto.includes("es")
+){
+
+return voz;
+
+}
+
+}
+
+
+/*
+Si no existe una voz masculina
+identificable, usamos una voz
+española del sistema.
+*/
+
+if(vocesEspanol.length){
+
+return vocesEspanol[0];
+
+}
+
+
+return null;
+
+}
+
+
+/* =========================================
 HABLAR
 ========================================= */
 
@@ -1124,6 +1534,7 @@ function hablar(texto){
 if(!texto){
 return;
 }
+
 
 if(!("speechSynthesis" in window)){
 
@@ -1134,7 +1545,20 @@ return;
 
 }
 
+
+/*
+Detener cualquier frase anterior.
+*/
+
 speechSynthesis.cancel();
+
+
+/*
+Volvemos a cargar las voces por si
+el sistema las ha añadido después.
+*/
+
+cargarVoces();
 
 
 const voz =
@@ -1142,18 +1566,56 @@ new SpeechSynthesisUtterance(
 texto
 );
 
+
 voz.lang =
 "es-ES";
 
+
 voz.rate =
-0.95;
+0.92;
+
+
+/*
+Tono algo más grave para GePeTo.
+*/
 
 voz.pitch =
-1;
+0.72;
+
 
 voz.volume =
 1;
 
+
+/*
+Seleccionar voz.
+*/
+
+const vozSeleccionada =
+buscarVozMasculina();
+
+
+if(vozSeleccionada){
+
+voz.voice =
+vozSeleccionada;
+
+indicador.textContent =
+"🔊 Voz GePeTo: "
++
+vozSeleccionada.name;
+
+}else{
+
+indicador.textContent =
+"🔊 Voz GePeTo";
+
+}
+
+
+/* =========================================
+EVENTO COMIENZO
+========================================= */
 
 voz.onstart =
 function(){
@@ -1163,6 +1625,10 @@ comenzarAnimacion();
 };
 
 
+/* =========================================
+EVENTO FINAL
+========================================= */
+
 voz.onend =
 function(){
 
@@ -1171,6 +1637,10 @@ terminarAnimacion();
 };
 
 
+/* =========================================
+ERROR
+========================================= */
+
 voz.onerror =
 function(){
 
@@ -1178,6 +1648,10 @@ terminarAnimacion();
 
 };
 
+
+/*
+Hablar.
+*/
 
 speechSynthesis.speak(
 voz
@@ -1232,6 +1706,10 @@ return;
 }
 
 
+/*
+Mostrar mensaje del usuario.
+*/
+
 agregarMensaje(
 texto,
 "usuario"
@@ -1240,6 +1718,10 @@ texto,
 
 entrada.value = "";
 
+
+/*
+Estado.
+*/
 
 estado.textContent =
 "PENSANDO";
@@ -1276,9 +1758,18 @@ pregunta:texto
 );
 
 
+/*
+Leer respuesta.
+*/
+
 const datos =
 await respuesta.json();
 
+
+/*
+Intentar diferentes formatos
+de respuesta del Worker.
+*/
 
 let textoRespuesta =
 
@@ -1293,6 +1784,34 @@ datos.output ||
 datos.message;
 
 
+/*
+Si el Worker devuelve un objeto
+resultante.
+*/
+
+if(
+!textoRespuesta &&
+datos.result &&
+typeof datos.result === "object"
+){
+
+textoRespuesta =
+
+datos.result.response ||
+
+datos.result.text ||
+
+datos.result.content ||
+
+datos.result.output;
+
+}
+
+
+/*
+Último recurso.
+*/
+
 if(!textoRespuesta){
 
 textoRespuesta =
@@ -1301,11 +1820,27 @@ textoRespuesta =
 }
 
 
+/*
+Convertir a texto.
+*/
+
+textoRespuesta =
+String(textoRespuesta);
+
+
+/*
+Mostrar respuesta.
+*/
+
 agregarMensaje(
 textoRespuesta,
 "gepeto"
 );
 
+
+/*
+GePeTo habla.
+*/
 
 hablar(
 textoRespuesta
@@ -1466,6 +2001,22 @@ indicador.textContent =
 };
 
 
+reconocimiento.onend =
+function(){
+
+if(
+indicador.textContent ===
+"🎤 Escuchando..."
+){
+
+indicador.textContent =
+"Habla con GePeTo";
+
+}
+
+};
+
+
 reconocimiento.start();
 
 }
@@ -1501,7 +2052,18 @@ audio.src =
 url;
 
 
-audio.play();
+/*
+No forzamos la reproducción si el
+navegador la bloquea.
+*/
+
+audio.play().catch(
+function(){
+console.log(
+"El navegador requiere pulsar Play."
+);
+}
+);
 
 }
 
