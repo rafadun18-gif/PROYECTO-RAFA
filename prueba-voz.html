@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Prueba voz GePeTo</title>
+
+<style>
+body {
+    background:#050505;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:20px;
+    text-align:center;
+}
+
+button {
+    display:block;
+    width:100%;
+    max-width:400px;
+    margin:12px auto;
+    padding:16px;
+    border:0;
+    border-radius:12px;
+    background:#1769aa;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+}
+
+#resultado {
+    margin:20px auto;
+    max-width:500px;
+    padding:15px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:12px;
+    text-align:left;
+    line-height:1.5;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎙️ PRUEBA DE VOZ</h1>
+
+<p>GePeTo intentará utilizar automáticamente:</p>
+
+<h2>Jorge (mejorada)</h2>
+
+<button onclick="cargarVoces()">
+🔄 CARGAR VOCES
+</button>
+
+<button onclick="probarJorge()">
+🔊 HABLAR CON JORGE
+</button>
+
+<div id="resultado">
+Esperando...
+</div>
+
+<script>
+
+let vozJorge = null;
+
+
+/* =====================================================
+   BUSCAR EXACTAMENTE JORGE
+===================================================== */
+
+function cargarVoces() {
+
+    const voces =
+        speechSynthesis.getVoices();
+
+    const resultado =
+        document.getElementById("resultado");
+
+    if (!voces.length) {
+
+        resultado.innerHTML =
+            "❌ Safari todavía no ha cargado las voces.<br><br>" +
+            "Pulsa CARGAR VOCES otra vez.";
+
+        return;
+    }
+
+
+    /*
+       Primero buscamos:
+       Jorge + mejorada
+    */
+
+    vozJorge =
+        voces.find(function(voz) {
+
+            const nombre =
+                (voz.name || "").toLowerCase();
+
+            return (
+                nombre.includes("jorge") &&
+                nombre.includes("mejor")
+            );
+
+        });
+
+
+    /*
+       Si no aparece, buscamos cualquier Jorge.
+    */
+
+    if (!vozJorge) {
+
+        vozJorge =
+            voces.find(function(voz) {
+
+                return (voz.name || "")
+                    .toLowerCase()
+                    .includes("jorge");
+
+            });
+
+    }
+
+
+    if (vozJorge) {
+
+        resultado.innerHTML =
+            "✅ VOZ ENCONTRADA<br><br>" +
+
+            "<strong>Nombre:</strong> " +
+            vozJorge.name +
+            "<br>" +
+
+            "<strong>Idioma:</strong> " +
+            vozJorge.lang +
+            "<br>" +
+
+            "<strong>Predeterminada:</strong> " +
+            (vozJorge.default ? "SÍ" : "NO") +
+            "<br><br>" +
+
+            "Esta es la voz que se intentará utilizar.";
+
+    } else {
+
+        resultado.innerHTML =
+            "❌ No encuentro ninguna voz cuyo nombre contenga Jorge.<br><br>" +
+
+            "Voces disponibles:<br>" +
+
+            voces.map(function(v) {
+
+                return v.name +
+                    " — " +
+                    v.lang;
+
+            }).join("<br>");
+
+    }
+
+}
+
+
+/* =====================================================
+   HABLAR
+===================================================== */
+
+function probarJorge() {
+
+    cargarVoces();
+
+
+    if (!vozJorge) {
+
+        alert(
+            "No se ha encontrado Jorge (mejorada)."
+        );
+
+        return;
+    }
+
+
+    speechSynthesis.cancel();
+
+
+    const frase =
+        new SpeechSynthesisUtterance(
+            "Hola Rafa. Soy GePeTo. Esta prueba utiliza Jorge mejorada."
+        );
+
+
+    /*
+       AQUÍ SE ASIGNA DIRECTAMENTE
+       LA VOZ ENCONTRADA.
+    */
+
+    frase.voice =
+        vozJorge;
+
+
+    frase.lang =
+        vozJorge.lang;
+
+
+    frase.rate =
+        0.90;
+
+
+    frase.pitch =
+        1;
+
+
+    frase.volume =
+        1;
+
+
+    document.getElementById(
+        "resultado"
+    ).innerHTML +=
+        "<br><br>🔊 Reproduciendo:<br>" +
+        "<strong>" +
+        vozJorge.name +
+        "</strong>";
+
+
+    speechSynthesis.speak(
+        frase
+    );
+
+}
+
+
+/* =====================================================
+   SAFARI CARGA VOCES DESPUÉS
+===================================================== */
+
+speechSynthesis.onvoiceschanged =
+    function() {
+
+        cargarVoces();
+
+    };
+
+
+/* =====================================================
+   VARIOS INTENTOS
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        setTimeout(
+            cargarVoces,
+            500
+        );
+
+        setTimeout(
+            cargarVoces,
+            1500
+        );
+
+        setTimeout(
+            cargarVoces,
+            3000
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
