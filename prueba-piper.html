@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prueba voz masculina GePeTo</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        background: #050505;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    h1 {
+        color: #00ff66;
+    }
+
+    .caja {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid #00ff66;
+        border-radius: 20px;
+        background: #101010;
+    }
+
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 130px;
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #00ff66;
+        background: #050505;
+        color: white;
+        font-size: 17px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        background: #00ff66;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #estado {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 12px;
+        background: #181818;
+        line-height: 1.5;
+    }
+
+    #cargando {
+        margin-top: 15px;
+        color: #00ff66;
+    }
+
+    audio {
+        width: 100%;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="caja">
+
+    <h1>🎙️ GE-PETO</h1>
+
+    <p>
+        Prueba de voz masculina española
+    </p>
+
+    <textarea id="texto">Hola Rafa. Soy GePeTo. Esta es mi voz masculina en español de España. Estoy funcionando directamente en tu dispositivo.</textarea>
+
+    <button id="boton">
+        🔊 PROBAR VOZ DE GE-PETO
+    </button>
+
+    <div id="cargando">
+        Preparando motor de voz...
+    </div>
+
+    <div id="estado">
+        Esperando...
+    </div>
+
+    <audio id="audio" controls></audio>
+
+</div>
+
+<script type="module">
+
+/*
+============================================================
+ GE-PETO — PRUEBA PIPER
+ Voz:
+ es_ES-davefx-medium
+ Español de España
+ Masculina
+============================================================
+*/
+
+import * as tts from "https://cdn.jsdelivr.net/npm/@realtimex/piper-tts-web/+esm";
+
+
+const boton = document.getElementById("boton");
+const texto = document.getElementById("texto");
+const estado = document.getElementById("estado");
+const cargando = document.getElementById("cargando");
+const audio = document.getElementById("audio");
+
+
+const VOZ = "es_ES-davefx-medium";
+
+
+/*
+============================================================
+ CARGAR MOTOR
+============================================================
+*/
+
+async function prepararMotor() {
+
+    try {
+
+        estado.innerHTML =
+            "⏳ Preparando la voz masculina de GePeTo...";
+
+        cargando.innerHTML =
+            "La primera vez puede tardar porque hay que descargar el modelo de voz.";
+
+        /*
+        Descargamos el modelo.
+
+        Después el navegador puede conservarlo
+        para futuras pruebas.
+        */
+
+        await tts.download(
+            VOZ,
+            (progreso) => {
+
+                if (
+                    progreso &&
+                    progreso.loaded &&
+                    progreso.total
+                ) {
+
+                    const porcentaje =
+                        Math.round(
+                            progreso.loaded /
+                            progreso.total *
+                            100
+                        );
+
+                    cargando.innerHTML =
+                        "⬇️ Descargando voz: " +
+                        porcentaje +
+                        "%";
+                }
+
+            }
+        );
+
+
+        cargando.innerHTML =
+            "✅ Voz preparada.";
+
+        estado.innerHTML =
+            "🟢 GePeTo está preparado para hablar.";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        cargando.innerHTML =
+            "❌ Error preparando la voz.";
+
+        estado.innerHTML =
+            "Error: " +
+            error.message;
+
+    }
+
+}
+
+
+/*
+============================================================
+ HABLAR
+============================================================
+*/
+
+async function hablar() {
+
+    const mensaje =
+        texto.value.trim();
+
+    if (!mensaje) {
+
+        alert("Escribe algo primero.");
+
+        return;
+    }
+
+
+    try {
+
+        boton.disabled = true;
+
+        boton.innerHTML =
+            "⏳ GENERANDO VOZ...";
+
+        estado.innerHTML =
+            "🎙️ GePeTo está generando su voz masculina...";
+
+
+        /*
+        Generamos el WAV directamente
+        en el navegador.
+        */
+
+        const wav =
+            await tts.predict({
+
+                text: mensaje,
+
+                voiceId: VOZ
+
+            });
+
+
+        /*
+        Convertimos el WAV en una URL
+        que puede reproducir Safari.
+        */
+
+        const url =
+            URL.createObjectURL(wav);
+
+
+        audio.src = url;
+
+        await audio.play();
+
+
+        estado.innerHTML =
+            "🟢 GE-PETO HABLANDO";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        estado.innerHTML =
+            "❌ Error generando la voz: " +
+            error.message;
+
+    }
+
+    finally {
+
+        boton.disabled = false;
+
+        boton.innerHTML =
+            "🔊 PROBAR VOZ DE GE-PETO";
+
+    }
+
+}
+
+
+/*
+============================================================
+ BOTÓN
+============================================================
+*/
+
+boton.addEventListener(
+    "click",
+    hablar
+);
+
+
+/*
+============================================================
+ INICIO
+============================================================
+*/
+
+prepararMotor();
+
+</script>
+
+</body>
+</html>
