@@ -3,44 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>CURIOSIDADES · Proyecto Rafa</title>
+
 <style>
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
+
 html,body{
     margin:0;
     padding:0;
     min-height:100%;
     background:#010204;
-    color:white;
+    color:#fff;
     font-family:Arial,Helvetica,sans-serif;
 }
+
 body{
     min-height:100vh;
     overflow-x:hidden;
     background:
-        radial-gradient(circle at 50% 25%,rgba(0,255,255,.15),transparent 28%),
-        radial-gradient(circle at 15% 25%,rgba(0,255,100,.10),transparent 30%),
-        radial-gradient(circle at 90% 65%,rgba(255,0,200,.10),transparent 30%),
+        radial-gradient(circle at 50% 20%,rgba(0,255,255,.16),transparent 30%),
+        radial-gradient(circle at 15% 35%,rgba(0,255,100,.10),transparent 30%),
+        radial-gradient(circle at 85% 65%,rgba(255,0,200,.10),transparent 30%),
         #010204;
 }
-/* =========================
-   FONDO HOLOGRÁFICO
-========================= */
+
+/* FONDO */
+
 body::before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
     z-index:0;
-    opacity:.35;
+    opacity:.3;
     background:
         linear-gradient(rgba(0,255,255,.035) 1px,transparent 1px),
         linear-gradient(90deg,rgba(0,255,255,.035) 1px,transparent 1px);
     background-size:45px 45px;
 }
+
 body::after{
     content:"";
     position:fixed;
@@ -52,25 +57,25 @@ body::after{
     border-radius:50%;
     pointer-events:none;
     z-index:0;
-    background:
-        radial-gradient(
-            circle,
-            rgba(0,255,255,.10) 0%,
-            rgba(0,255,100,.04) 35%,
-            transparent 70%
-        );
+    background:radial-gradient(
+        circle,
+        rgba(0,255,255,.10),
+        rgba(0,255,100,.04) 35%,
+        transparent 70%
+    );
     filter:blur(8px);
 }
-/* =========================
-   PARTÍCULAS
-========================= */
+
+/* PARTÍCULAS */
+
 .particulas{
     position:fixed;
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:0;
+    z-index:1;
 }
+
 .particulas span{
     position:absolute;
     width:3px;
@@ -78,22 +83,23 @@ body::after{
     border-radius:50%;
     background:#00ffff;
     box-shadow:0 0 8px #00ffff;
-    opacity:.7;
-    animation:particula 8s linear infinite;
+    animation:subir 8s linear infinite;
 }
-.particulas span:nth-child(1){left:8%;top:80%;animation-delay:0s;}
-.particulas span:nth-child(2){left:18%;top:35%;animation-delay:2s;}
-.particulas span:nth-child(3){left:30%;top:70%;animation-delay:4s;}
-.particulas span:nth-child(4){left:45%;top:20%;animation-delay:1s;}
+
+.particulas span:nth-child(1){left:8%;top:85%;animation-delay:0s;}
+.particulas span:nth-child(2){left:18%;top:60%;animation-delay:2s;}
+.particulas span:nth-child(3){left:30%;top:80%;animation-delay:4s;}
+.particulas span:nth-child(4){left:45%;top:55%;animation-delay:1s;}
 .particulas span:nth-child(5){left:62%;top:75%;animation-delay:3s;}
-.particulas span:nth-child(6){left:76%;top:30%;animation-delay:5s;}
-.particulas span:nth-child(7){left:90%;top:60%;animation-delay:2s;}
-.particulas span:nth-child(8){left:54%;top:50%;animation-delay:6s;}
-.particulas span:nth-child(9){left:25%;top:15%;animation-delay:4s;}
-.particulas span:nth-child(10){left:84%;top:15%;animation-delay:1s;}
-@keyframes particula{
+.particulas span:nth-child(6){left:76%;top:45%;animation-delay:5s;}
+.particulas span:nth-child(7){left:90%;top:70%;animation-delay:2s;}
+.particulas span:nth-child(8){left:54%;top:90%;animation-delay:6s;}
+.particulas span:nth-child(9){left:25%;top:35%;animation-delay:4s;}
+.particulas span:nth-child(10){left:84%;top:25%;animation-delay:1s;}
+
+@keyframes subir{
     0%{
-        transform:translateY(40px);
+        transform:translateY(60px);
         opacity:0;
     }
     20%{
@@ -103,155 +109,157 @@ body::after{
         opacity:.8;
     }
     100%{
-        transform:translateY(-180px);
+        transform:translateY(-200px);
         opacity:0;
     }
 }
-/* =========================
-   CONTENEDOR
-========================= */
+
+/* CONTENEDOR */
+
 .contenedor{
     position:relative;
     z-index:5;
     width:100%;
     max-width:900px;
     margin:auto;
-    padding:15px 12px 40px;
+    padding:12px 10px 40px;
 }
-/* =========================
-   CABECERA
-========================= */
+
+/* CABECERA */
+
 header{
     text-align:center;
-    padding:18px 10px;
-    margin-bottom:18px;
-    background:rgba(0,0,0,.72);
-    border:1px solid rgba(0,255,255,.25);
+    padding:20px 12px;
+    margin-bottom:14px;
+    border:1px solid rgba(0,255,255,.30);
     border-radius:18px;
+    background:rgba(0,0,0,.78);
     box-shadow:
-        0 0 20px rgba(0,255,255,.10),
+        0 0 25px rgba(0,255,255,.10),
         inset 0 0 25px rgba(0,255,255,.04);
     backdrop-filter:blur(12px);
 }
+
 h1{
     margin:0;
     font-size:30px;
     letter-spacing:4px;
-    color:white;
+    color:#fff;
     text-shadow:
         0 0 8px #00ffff,
         0 0 18px #00ffff,
         0 0 30px rgba(0,255,255,.7);
 }
+
 .subtitulo{
     margin-top:8px;
-    font-size:13px;
+    color:#9fffff;
+    font-size:12px;
     letter-spacing:2px;
-    color:#9ff;
 }
-/* =========================
-   BOTÓN PORTADA
-========================= */
+
+/* PORTADA */
+
 .portada{
     display:block;
     width:100%;
+    padding:14px;
+    margin-bottom:15px;
     text-align:center;
     text-decoration:none;
-    color:white;
-    padding:14px;
-    margin-bottom:18px;
+    color:#fff;
+    font-weight:bold;
+    letter-spacing:2px;
     border:1px solid #00ffff;
     border-radius:14px;
     background:rgba(0,255,255,.08);
-    box-shadow:
-        0 0 12px rgba(0,255,255,.25),
-        inset 0 0 15px rgba(0,255,255,.04);
-    font-weight:bold;
-    letter-spacing:2px;
+    box-shadow:0 0 15px rgba(0,255,255,.15);
 }
-.portada:active{
-    transform:scale(.98);
-}
-/* =========================
-   BLOQUES
-========================= */
+
+/* BLOQUES */
+
 .bloque{
-    margin-bottom:18px;
-    padding:18px;
-    background:rgba(3,7,12,.84);
+    margin-bottom:16px;
+    padding:17px;
     border:1px solid rgba(0,255,255,.25);
     border-radius:18px;
+    background:rgba(2,6,10,.88);
     box-shadow:
         0 0 20px rgba(0,255,255,.07),
         inset 0 0 20px rgba(0,255,255,.025);
 }
-.titulo-bloque{
-    margin:0 0 14px;
+
+.titulo{
+    margin:0 0 15px;
     text-align:center;
     font-size:20px;
     letter-spacing:2px;
-    color:#fff;
     text-shadow:0 0 10px #00ffff;
 }
-/* =========================
-   CARPETAS
-========================= */
+
+/* CURIOSIDADES */
+
+.descripcion{
+    text-align:center;
+    line-height:1.65;
+    font-size:14px;
+    color:#ddffff;
+    margin-bottom:16px;
+}
+
+/* CARPETAS */
+
 .carpetas{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:12px;
+    gap:10px;
 }
+
 .carpeta{
-    min-height:90px;
+    min-height:95px;
+    padding:12px 7px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:12px 8px;
-    border-radius:15px;
     border:1px solid rgba(0,255,255,.30);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(0,255,255,.09),
-            rgba(255,0,200,.05)
-        );
-    box-shadow:0 0 12px rgba(0,255,255,.08);
+    border-radius:15px;
+    background:linear-gradient(
+        145deg,
+        rgba(0,255,255,.09),
+        rgba(255,0,200,.05)
+    );
+    box-shadow:0 0 12px rgba(0,255,255,.07);
 }
-.carpeta .icono{
-    font-size:30px;
+
+.icono{
+    font-size:29px;
     margin-bottom:7px;
 }
-.carpeta .nombre{
-    font-size:14px;
+
+.nombre{
+    font-size:13px;
     font-weight:bold;
     letter-spacing:1px;
 }
-.carpeta .descripcion{
+
+.detalle{
     margin-top:5px;
     font-size:10px;
-    color:#a9ffff;
+    color:#9fffff;
 }
-/* =========================
-   DESCRIPCIÓN
-========================= */
-.info{
-    text-align:center;
-    line-height:1.6;
-    color:#d8ffff;
-    font-size:14px;
-}
-/* =========================
-   REPRODUCTORES
-========================= */
+
+/* REPRODUCTORES */
+
 .reproductor{
-    margin-top:12px;
     padding:14px;
+    margin-top:10px;
     border-radius:15px;
     background:rgba(0,0,0,.45);
     border:1px solid rgba(0,255,255,.22);
 }
+
 .reproductor label{
     display:block;
     text-align:center;
@@ -260,62 +268,92 @@ h1{
     font-weight:bold;
     letter-spacing:1px;
 }
+
 input[type="file"]{
+    display:block;
     width:100%;
     padding:10px;
-    color:white;
+    color:#fff;
     background:#080d12;
     border:1px solid rgba(0,255,255,.35);
     border-radius:10px;
 }
+
 audio,
 video{
+    display:block;
     width:100%;
     margin-top:14px;
     border-radius:10px;
     background:#000;
 }
-/* =========================
-   ESTADO
-========================= */
+
 .estado{
     text-align:center;
     margin-top:9px;
+    font-size:11px;
     color:#8affd5;
-    font-size:12px;
 }
-/* =========================
-   PIE
-========================= */
+
+/* ARCHIVOS */
+
+.archivos{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.archivo{
+    padding:14px 8px;
+    text-align:center;
+    border-radius:13px;
+    border:1px solid rgba(0,255,255,.22);
+    background:rgba(0,255,255,.04);
+}
+
+.archivo strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.archivo small{
+    color:#8fffff;
+}
+
+/* PIE */
+
 .pie{
     text-align:center;
     padding:20px 10px;
-    color:#789;
+    color:#71818b;
     font-size:11px;
     letter-spacing:1px;
 }
-/* =========================
-   MÓVIL
-========================= */
+
 @media(max-width:500px){
+
     .contenedor{
-        padding:10px 9px 30px;
+        padding-left:8px;
+        padding-right:8px;
     }
+
     h1{
         font-size:25px;
-        letter-spacing:3px;
     }
-    .carpetas{
+
+    .carpetas,
+    .archivos{
         grid-template-columns:repeat(2,1fr);
-        gap:9px;
     }
-    .carpeta{
-        min-height:82px;
-    }
+
 }
 </style>
 </head>
+
 <body>
+
+<!-- PARTÍCULAS -->
+
 <div class="particulas">
     <span></span>
     <span></span>
@@ -328,195 +366,297 @@ video{
     <span></span>
     <span></span>
 </div>
+
 <div class="contenedor">
+
+<!-- CABECERA -->
+
 <header>
+
     <h1>🔮 CURIOSIDADES</h1>
+
     <div class="subtitulo">
-        PROYECTO RAFA · UNIVERSO DE DESCUBRIMIENTOS
+        PROYECTO RAFA · DESCUBRIMIENTOS · MISTERIOS · CONOCIMIENTO
     </div>
+
 </header>
+
+<!-- PORTADA -->
+
 <a class="portada" href="index.html">
     ← VOLVER A PORTADA
 </a>
+
+<!-- CURIOSIDADES -->
+
 <section class="bloque">
-    <h2 class="titulo-bloque">
-        📁 CARPETAS DE CURIOSIDADES
+
+    <h2 class="titulo">
+        🧠 SALA DE CURIOSIDADES
     </h2>
+
+    <div class="descripcion">
+
+        Un espacio para guardar curiosidades,
+        descubrimientos, historias, misterios,
+        datos sorprendentes y nuevos conocimientos
+        de Proyecto Rafa.
+
+        <br><br>
+
+        Las carpetas quedan preparadas para ir
+        incorporando nuevos contenidos.
+
+    </div>
+
+</section>
+
+<!-- CARPETAS -->
+
+<section class="bloque">
+
+    <h2 class="titulo">
+        📁 CARPETAS
+    </h2>
+
     <div class="carpetas">
+
         <div class="carpeta">
             <div class="icono">🌌</div>
             <div class="nombre">UNIVERSO</div>
-            <div class="descripcion">
-                Espacio y astronomía
-            </div>
+            <div class="detalle">Galaxias y espacio</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">🗿</div>
             <div class="nombre">HISTORIA</div>
-            <div class="descripcion">
-                Pasado y civilizaciones
-            </div>
+            <div class="detalle">Civilizaciones</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">🕵️</div>
             <div class="nombre">MISTERIOS</div>
-            <div class="descripcion">
-                Enigmas y secretos
-            </div>
+            <div class="detalle">Enigmas y secretos</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">🐠</div>
             <div class="nombre">ANIMALES</div>
-            <div class="descripcion">
-                Mundo animal
-            </div>
+            <div class="detalle">Mundo animal</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">🧪</div>
             <div class="nombre">CIENCIA</div>
-            <div class="descripcion">
-                Ciencia y experimentos
-            </div>
+            <div class="detalle">Ciencia y experimentos</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">🤖</div>
             <div class="nombre">TECNOLOGÍA</div>
-            <div class="descripcion">
-                IA y tecnología
-            </div>
+            <div class="detalle">IA y tecnología</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">💎</div>
             <div class="nombre">TESOROS</div>
-            <div class="descripcion">
-                Lugares y descubrimientos
-            </div>
+            <div class="detalle">Hallazgos y lugares</div>
         </div>
+
         <div class="carpeta">
             <div class="icono">❓</div>
             <div class="nombre">OTRAS</div>
-            <div class="descripcion">
-                Curiosidades varias
-            </div>
+            <div class="detalle">Curiosidades varias</div>
         </div>
+
     </div>
+
 </section>
+
+<!-- MP3 -->
+
 <section class="bloque">
-    <h2 class="titulo-bloque">
-        🧠 SALA DE CURIOSIDADES
+
+    <h2 class="titulo">
+        🎵 MÚSICA MP3
     </h2>
-    <div class="info">
-        Este espacio queda preparado para guardar
-        descubrimientos, historias, misterios,
-        datos curiosos y nuevos conocimientos
-        de Proyecto Rafa.
-        <br><br>
-        Aquí podremos ir ampliando las carpetas
-        sin tener que cambiar la estructura de la sala.
-    </div>
-</section>
-<section class="bloque">
-    <h2 class="titulo-bloque">
-        🎵 MÚSICA · MP3
-    </h2>
+
     <div class="reproductor">
+
         <label>
-            🎧 SELECCIONAR MÚSICA
+            🎧 SELECCIONAR ARCHIVO MP3
         </label>
+
         <input
+            id="selectorMP3"
             type="file"
-            id="mp3"
-            accept="audio/*"
+            accept=".mp3,audio/mpeg,audio/*"
         >
+
         <audio
-            id="audio"
+            id="reproductorMP3"
             controls
             preload="metadata">
         </audio>
+
         <div
-            class="estado"
-            id="estadoAudio">
-            Selecciona un archivo MP3 para reproducirlo
+            id="estadoMP3"
+            class="estado">
+            Selecciona una música MP3 desde tu iPhone o tablet.
         </div>
+
     </div>
+
 </section>
+
+<!-- MP4 -->
+
 <section class="bloque">
-    <h2 class="titulo-bloque">
-        🎬 VÍDEO · MP4
+
+    <h2 class="titulo">
+        🎬 VÍDEO MP4
     </h2>
+
     <div class="reproductor">
+
         <label>
-            🎥 SELECCIONAR VÍDEO
+            🎥 SELECCIONAR ARCHIVO MP4
         </label>
+
         <input
+            id="selectorMP4"
             type="file"
-            id="mp4"
-            accept="video/*"
+            accept=".mp4,video/mp4,video/*"
         >
+
         <video
-            id="video"
+            id="reproductorMP4"
             controls
             playsinline
             preload="metadata">
         </video>
+
         <div
-            class="estado"
-            id="estadoVideo">
-            Selecciona un archivo MP4 para reproducirlo
+            id="estadoMP4"
+            class="estado">
+            Selecciona un vídeo MP4 desde tu iPhone o tablet.
         </div>
+
     </div>
+
 </section>
+
+<!-- ARCHIVOS -->
+
 <section class="bloque">
-    <h2 class="titulo-bloque">
-        📂 ARCHIVOS DE LA SALA
+
+    <h2 class="titulo">
+        📂 ARCHIVOS DE CURIOSIDADES
     </h2>
-    <div class="info">
-        Esta zona queda preparada para incorporar
-        posteriormente las imágenes, audios y vídeos
-        definitivos de CURIOSIDADES.
-        <br><br>
-        Los reproductores permiten probar archivos
-        directamente desde el iPhone o la tablet.
+
+    <div class="archivos">
+
+        <div class="archivo">
+            <strong>🖼️ IMÁGENES</strong>
+            <small>Preparado</small>
+        </div>
+
+        <div class="archivo">
+            <strong>🎵 AUDIO</strong>
+            <small>MP3 preparado</small>
+        </div>
+
+        <div class="archivo">
+            <strong>🎬 VÍDEO</strong>
+            <small>MP4 preparado</small>
+        </div>
+
+        <div class="archivo">
+            <strong>📚 INFORMACIÓN</strong>
+            <small>Curiosidades</small>
+        </div>
+
     </div>
+
 </section>
+
+<!-- PIE -->
+
 <div class="pie">
+
     PROYECTO RAFA · DUAL IA<br>
     GEPeTo · LÍA · CURIOSIDADES
+
 </div>
+
 </div>
+
 <script>
-/* =========================
-   REPRODUCTOR MP3
-========================= */
-const mp3 = document.getElementById("mp3");
-const audio = document.getElementById("audio");
-const estadoAudio = document.getElementById("estadoAudio");
-mp3.addEventListener("change", function(){
-    if(!this.files || !this.files[0]){
+
+/* ==========================
+   MP3
+========================== */
+
+const selectorMP3 =
+    document.getElementById("selectorMP3");
+
+const reproductorMP3 =
+    document.getElementById("reproductorMP3");
+
+const estadoMP3 =
+    document.getElementById("estadoMP3");
+
+selectorMP3.addEventListener("change", function(){
+
+    if(!this.files || !this.files.length){
         return;
     }
+
     const archivo = this.files[0];
-    audio.src = URL.createObjectURL(archivo);
-    estadoAudio.textContent =
-        "🎵 Reproduciendo: " + archivo.name;
-    audio.load();
+
+    reproductorMP3.src =
+        URL.createObjectURL(archivo);
+
+    estadoMP3.textContent =
+        "🎵 Archivo seleccionado: " + archivo.name;
+
+    reproductorMP3.load();
+
 });
-/* =========================
-   REPRODUCTOR MP4
-========================= */
-const mp4 = document.getElementById("mp4");
-const video = document.getElementById("video");
-const estadoVideo = document.getElementById("estadoVideo");
-mp4.addEventListener("change", function(){
-    if(!this.files || !this.files[0]){
+
+
+/* ==========================
+   MP4
+========================== */
+
+const selectorMP4 =
+    document.getElementById("selectorMP4");
+
+const reproductorMP4 =
+    document.getElementById("reproductorMP4");
+
+const estadoMP4 =
+    document.getElementById("estadoMP4");
+
+selectorMP4.addEventListener("change", function(){
+
+    if(!this.files || !this.files.length){
         return;
     }
+
     const archivo = this.files[0];
-    video.src = URL.createObjectURL(archivo);
-    estadoVideo.textContent =
+
+    reproductorMP4.src =
+        URL.createObjectURL(archivo);
+
+    estadoMP4.textContent =
         "🎬 Vídeo seleccionado: " + archivo.name;
-    video.load();
+
+    reproductorMP4.load();
+
 });
+
 </script>
+
 </body>
 </html>
