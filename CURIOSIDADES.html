@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 
 <title>CURIOSIDADES · Proyecto Rafa</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
@@ -35,10 +36,23 @@ body{
     inset:0;
     z-index:0;
     overflow:hidden;
+
     background:
-        radial-gradient(circle at 50% 45%,rgba(0,120,255,.14),transparent 30%),
-        radial-gradient(circle at 15% 20%,rgba(0,255,150,.08),transparent 28%),
-        radial-gradient(circle at 85% 70%,rgba(180,0,255,.10),transparent 30%),
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(0,120,255,.16),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(0,255,150,.08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(255,0,220,.10),
+            transparent 30%
+        ),
         #010207;
 }
 
@@ -55,32 +69,57 @@ body{
     background-image:
         radial-gradient(circle,#fff 1px,transparent 1.5px),
         radial-gradient(circle,#00ffff 1px,transparent 1.5px);
-    background-size:90px 90px,140px 140px;
+
+    background-size:
+        90px 90px,
+        140px 140px;
+
     animation-duration:35s;
 }
 
 .estrellas2{
     background-image:
-        radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px),
-        radial-gradient(circle,rgba(100,180,255,.7) 1px,transparent 1.5px);
-    background-size:170px 170px,230px 230px;
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(100,180,255,.7) 1px,
+            transparent 1.5px
+        );
+
+    background-size:
+        170px 170px,
+        230px 230px;
+
     animation-duration:55s;
 }
 
 .estrellas3{
     background-image:
-        radial-gradient(circle,rgba(255,255,255,.9) 1.5px,transparent 2px);
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.9) 1.5px,
+            transparent 2px
+        );
+
     background-size:280px 280px;
+
     animation-duration:75s;
 }
 
 @keyframes viaje{
+
     from{
         transform:rotate(0deg) scale(1);
     }
+
     to{
         transform:rotate(360deg) scale(1.12);
     }
+
 }
 
 /* =====================================================
@@ -95,35 +134,85 @@ body{
 
 .meteorito{
     position:absolute;
+
     width:2px;
     height:90px;
-    background:linear-gradient(to bottom,transparent,#fff,#00ffff);
-    box-shadow:0 0 12px #00ffff;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #fff,
+            #00ffff
+        );
+
+    box-shadow:
+        0 0 12px #00ffff;
+
     opacity:0;
+
     transform:rotate(35deg);
-    animation:caer 5s linear infinite;
+
+    animation:
+        caer 5s linear infinite;
 }
 
-.meteorito:nth-child(1){left:10%;animation-delay:1s;}
-.meteorito:nth-child(2){left:25%;animation-delay:4s;}
-.meteorito:nth-child(3){left:42%;animation-delay:7s;}
-.meteorito:nth-child(4){left:60%;animation-delay:2s;}
-.meteorito:nth-child(5){left:78%;animation-delay:6s;}
-.meteorito:nth-child(6){left:90%;animation-delay:9s;}
+.meteorito:nth-child(1){
+    left:10%;
+    animation-delay:1s;
+}
+
+.meteorito:nth-child(2){
+    left:25%;
+    animation-delay:4s;
+}
+
+.meteorito:nth-child(3){
+    left:42%;
+    animation-delay:7s;
+}
+
+.meteorito:nth-child(4){
+    left:60%;
+    animation-delay:2s;
+}
+
+.meteorito:nth-child(5){
+    left:78%;
+    animation-delay:6s;
+}
+
+.meteorito:nth-child(6){
+    left:90%;
+    animation-delay:9s;
+}
 
 @keyframes caer{
+
     0%{
         top:-150px;
-        transform:translate3d(0,0,-300px) rotate(35deg);
+        transform:
+            translate3d(0,0,-300px)
+            rotate(35deg);
         opacity:0;
     }
-    10%{opacity:1;}
-    75%{opacity:.9;}
+
+    10%{
+        opacity:1;
+    }
+
+    75%{
+        opacity:.9;
+    }
+
     100%{
         top:100%;
-        transform:translate3d(-280px,500px,500px) rotate(35deg);
+        transform:
+            translate3d(-280px,500px,500px)
+            rotate(35deg);
         opacity:0;
     }
+
 }
 
 /* =====================================================
@@ -133,10 +222,13 @@ body{
 .contenido{
     position:relative;
     z-index:5;
+
     width:100%;
-    max-width:1000px;
+    max-width:1050px;
+
     margin:auto;
-    padding-bottom:50px;
+
+    padding-bottom:60px;
 }
 
 /* =====================================================
@@ -144,18 +236,30 @@ body{
 ===================================================== */
 
 header{
-    padding:30px 15px 20px;
+    padding:
+        30px 15px 20px;
+
     text-align:center;
-    background:rgba(0,0,0,.62);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(0,255,255,.25);
+
+    background:
+        rgba(0,0,0,.62);
+
+    backdrop-filter:
+        blur(14px);
+
+    border-bottom:
+        1px solid rgba(0,255,255,.25);
 }
 
 h1{
     margin:0;
+
     font-size:30px;
+
     letter-spacing:5px;
+
     color:white;
+
     text-shadow:
         0 0 8px #00ffff,
         0 0 18px rgba(0,255,255,.7);
@@ -163,87 +267,34 @@ h1{
 
 .subtitulo{
     margin-top:8px;
+
     font-size:12px;
+
     letter-spacing:2px;
+
     color:#b9ffff;
 }
 
 .portada{
     display:inline-block;
+
     margin-top:16px;
+
     padding:10px 18px;
+
     color:white;
+
     text-decoration:none;
-    border:1px solid rgba(0,255,255,.55);
+
+    border:
+        1px solid rgba(0,255,255,.55);
+
     border-radius:30px;
-    background:rgba(0,20,30,.65);
+
+    background:
+        rgba(0,20,30,.65);
+
     font-size:13px;
-}
-
-/* =====================================================
-   REPRODUCTOR MP3
-===================================================== */
-
-.multimedia{
-    margin:20px 14px;
-    padding:18px;
-    border-radius:20px;
-    background:rgba(3,8,18,.82);
-    border:1px solid rgba(0,255,255,.22);
-    box-shadow:0 0 25px rgba(0,0,0,.35);
-}
-
-.multimedia h2{
-    margin:0 0 10px;
-    text-align:center;
-    font-size:18px;
-    letter-spacing:2px;
-}
-
-.multimedia p{
-    margin:0 0 12px;
-    text-align:center;
-    color:#a9bdc4;
-    font-size:12px;
-}
-
-audio,
-video{
-    display:block;
-    width:100%;
-    margin-top:10px;
-    border-radius:12px;
-}
-
-.audio-boton{
-    display:block;
-    width:100%;
-    margin-top:12px;
-    padding:13px;
-    border:1px solid rgba(0,255,255,.35);
-    border-radius:14px;
-    background:rgba(0,255,255,.08);
-    color:white;
-    font-weight:bold;
-    font-size:14px;
-}
-
-/* =====================================================
-   MP4
-===================================================== */
-
-.video-panel{
-    margin-top:15px;
-}
-
-.video-panel video{
-    max-height:450px;
-    background:#000;
-}
-
-.video-nota{
-    margin-top:10px !important;
-    margin-bottom:0 !important;
 }
 
 /* =====================================================
@@ -251,82 +302,370 @@ video{
 ===================================================== */
 
 .intro{
-    margin:22px 14px 18px;
+    margin:
+        22px 14px 18px;
+
     padding:18px;
+
     border-radius:20px;
-    background:linear-gradient(
-        135deg,
-        rgba(0,255,255,.08),
-        rgba(255,0,220,.06)
-    );
-    border:1px solid rgba(0,255,255,.20);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,255,.08),
+            rgba(255,0,220,.06)
+        );
+
+    border:
+        1px solid rgba(0,255,255,.20);
+
     text-align:center;
 }
 
 .intro h2{
-    margin:0 0 8px;
+    margin:
+        0 0 8px;
+
     font-size:21px;
+
     letter-spacing:2px;
 }
 
 .intro p{
     margin:0;
+
     color:#d7e9ee;
+
     line-height:1.55;
 }
 
 /* =====================================================
-   TITULOS
+   SECCIÓN MULTIMEDIA
 ===================================================== */
 
-.titulo-seccion{
-    margin:24px 15px 12px;
-    font-size:17px;
+.multimedia{
+    margin:
+        18px 14px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:
+        rgba(3,8,18,.88);
+
+    border:
+        1px solid rgba(0,255,255,.22);
+
+    box-shadow:
+        0 0 25px rgba(0,0,0,.45);
+}
+
+.multimedia h2{
+    margin:
+        0 0 8px;
+
+    text-align:center;
+
+    font-size:18px;
+
     letter-spacing:2px;
 }
 
-/* =====================================================
-   CATEGORIAS
-===================================================== */
+.multimedia p{
+    margin:
+        0 0 12px;
 
-.categorias{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    padding:0 14px;
+    text-align:center;
+
+    color:#a9bdc4;
+
+    font-size:12px;
 }
 
-.categoria{
-    min-height:82px;
-    padding:14px;
-    border-radius:18px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(5,10,20,.72);
-    color:white;
-    cursor:pointer;
-}
-
-.categoria.activa{
-    border-color:#00ffff;
-    box-shadow:0 0 18px rgba(0,255,255,.25);
-}
-
-.icono{
+audio,
+video{
     display:block;
-    font-size:25px;
-    margin-bottom:6px;
+
+    width:100%;
+
+    margin-top:10px;
+
+    border-radius:12px;
+
+    background:#000;
 }
 
-.nombre{
+.video{
+    max-height:450px;
+}
+
+.media-boton{
+    display:block;
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:13px;
+
+    border:
+        1px solid rgba(0,255,255,.35);
+
+    border-radius:14px;
+
+    background:
+        rgba(0,255,255,.08);
+
+    color:white;
+
     font-weight:bold;
+
     font-size:14px;
 }
 
-.cantidad{
-    display:block;
-    margin-top:4px;
-    color:#9aaeb5;
+input[type=file]{
+    margin-top:8px;
+
+    width:100%;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    background:#080b12;
+
+    color:#d9e7ea;
+}
+
+/* =====================================================
+   CARPETAS 3D
+===================================================== */
+
+.titulo-seccion{
+    margin:
+        26px 15px 13px;
+
+    font-size:17px;
+
+    letter-spacing:2px;
+}
+
+.sala3d{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
+    padding:
+        0 14px;
+}
+
+.carpeta3d{
+    position:relative;
+
+    min-height:155px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:
+        1px solid rgba(0,255,255,.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,25,45,.92),
+            rgba(3,5,15,.94)
+        );
+
+    box-shadow:
+        0 18px 35px rgba(0,0,0,.55),
+        inset 0 0 25px rgba(0,255,255,.05);
+
+    transform:
+        perspective(700px)
+        rotateX(2deg);
+
+    transition:
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s;
+
+    cursor:pointer;
+}
+
+.carpeta3d:before{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:18px;
+
+    top:-1px;
+    left:18px;
+
+    border-radius:
+        0 0 10px 10px;
+
+    background:
+        rgba(0,255,255,.22);
+
+    box-shadow:
+        0 0 18px
+        rgba(0,255,255,.25);
+}
+
+.carpeta3d:after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            125deg,
+            transparent 35%,
+            rgba(255,255,255,.05),
+            transparent 60%
+        );
+
+    pointer-events:none;
+}
+
+.carpeta3d:hover,
+.carpeta3d:active{
+    transform:
+        perspective(700px)
+        rotateX(0)
+        translateY(-4px)
+        scale(1.015);
+
+    border-color:#00ffff;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.6),
+        0 0 22px rgba(0,255,255,.18);
+}
+
+.carpeta-icono{
+    font-size:40px;
+
+    margin-top:5px;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(0,255,255,.55)
+        );
+}
+
+.carpeta3d h3{
+    margin:
+        9px 0 5px;
+
+    font-size:16px;
+}
+
+.carpeta3d p{
+    margin:0;
+
+    color:#8fa8b1;
+
     font-size:11px;
+
+    line-height:1.4;
+}
+
+.carpeta-contador{
+    position:absolute;
+
+    right:12px;
+    bottom:10px;
+
+    padding:
+        4px 8px;
+
+    border-radius:15px;
+
+    background:
+        rgba(0,255,255,.09);
+
+    color:#82ffff;
+
+    font-size:10px;
+}
+
+/* =====================================================
+   CONTENIDO DE CARPETA
+===================================================== */
+
+.contenedorCarpeta{
+    display:none;
+
+    margin:
+        18px 14px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    border:
+        1px solid rgba(0,255,255,.24);
+
+    background:
+        rgba(3,7,15,.92);
+}
+
+.contenedorCarpeta.abierta{
+    display:block;
+}
+
+.carpetaTitulo{
+    color:#7fffff;
+
+    font-size:19px;
+
+    margin-bottom:8px;
+}
+
+.carpetaDescripcion{
+    color:#b8c8cd;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+}
+
+.cerrarCarpeta{
+    width:100%;
+
+    padding:11px;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    border-radius:12px;
+
+    background:#101722;
+
+    color:white;
+
+    font-weight:bold;
+
+    margin-top:15px;
 }
 
 /* =====================================================
@@ -335,23 +674,38 @@ video{
 
 .lista{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(260px,1fr));
+
     gap:14px;
-    padding:0 14px;
+
+    padding:
+        0 14px;
 }
 
 .tarjeta{
     overflow:hidden;
+
     border-radius:20px;
-    border:1px solid rgba(0,255,255,.18);
-    background:rgba(4,8,16,.82);
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+    border:
+        1px solid rgba(0,255,255,.18);
+
+    background:
+        rgba(4,8,16,.82);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
 }
 
 .tarjeta img{
     display:block;
+
     width:100%;
+
     height:180px;
+
     object-fit:cover;
 }
 
@@ -360,34 +714,52 @@ video{
 }
 
 .tarjeta h3{
-    margin:0 0 8px;
+    margin:
+        0 0 8px;
+
     font-size:18px;
 }
 
 .categoria-nombre{
     display:inline-block;
+
     margin-bottom:10px;
-    padding:4px 9px;
+
+    padding:
+        4px 9px;
+
     border-radius:20px;
-    background:rgba(0,255,255,.10);
+
+    background:
+        rgba(0,255,255,.10);
+
     color:#8fffff;
+
     font-size:10px;
+
     letter-spacing:1px;
 }
 
 .tarjeta p{
     margin:0;
+
     color:#c7d1d5;
+
     line-height:1.5;
+
     font-size:14px;
 }
 
 .sin-contenido{
-    margin:15px;
     padding:30px 18px;
+
     text-align:center;
+
     color:#9aaab0;
-    border:1px dashed rgba(255,255,255,.18);
+
+    border:
+        1px dashed rgba(255,255,255,.18);
+
     border-radius:18px;
 }
 
@@ -397,30 +769,54 @@ video{
 
 .lia-boton{
     display:block;
-    width:calc(100% - 28px);
-    margin:25px 14px 12px;
+
+    width:
+        calc(100% - 28px);
+
+    margin:
+        25px 14px 12px;
+
     padding:15px;
-    border:1px solid rgba(255,0,220,.55);
+
+    border:
+        1px solid rgba(255,0,220,.55);
+
     border-radius:18px;
-    background:linear-gradient(
-        135deg,
-        rgba(255,0,220,.12),
-        rgba(120,0,255,.10)
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,0,220,.12),
+            rgba(120,0,255,.10)
+        );
+
     color:white;
+
     font-size:15px;
+
     font-weight:bold;
+
     letter-spacing:1px;
 }
 
 .lia-panel{
     display:none;
-    margin:0 14px 20px;
+
+    margin:
+        0 14px 20px;
+
     padding:18px;
+
     border-radius:20px;
-    border:1px solid rgba(255,0,220,.28);
-    background:rgba(12,5,18,.88);
-    backdrop-filter:blur(12px);
+
+    border:
+        1px solid rgba(255,0,220,.28);
+
+    background:
+        rgba(12,5,18,.90);
+
+    backdrop-filter:
+        blur(12px);
 }
 
 .lia-panel.abierto{
@@ -429,21 +825,31 @@ video{
 
 .lia-titulo{
     color:#ff7ce9;
+
     font-size:18px;
+
     margin-bottom:5px;
 }
 
 .lia-ayuda{
-    margin:0 0 15px;
+    margin:
+        0 0 15px;
+
     color:#d9c8d8;
+
     font-size:13px;
+
     line-height:1.5;
 }
 
 label{
     display:block;
-    margin:12px 0 6px;
+
+    margin:
+        12px 0 6px;
+
     color:#d8d8d8;
+
     font-size:12px;
 }
 
@@ -451,18 +857,28 @@ input,
 select,
 textarea{
     width:100%;
-    border:1px solid rgba(255,255,255,.16);
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
     border-radius:12px;
+
     padding:12px;
+
     background:#080b12;
+
     color:white;
+
     font-family:inherit;
+
     font-size:14px;
+
     outline:none;
 }
 
 textarea{
     min-height:120px;
+
     resize:vertical;
 }
 
@@ -474,44 +890,75 @@ textarea:focus{
 
 #fotoVista{
     display:none;
+
     width:100%;
+
     max-height:220px;
+
     object-fit:cover;
+
     margin-top:10px;
+
     border-radius:15px;
 }
 
 .botones{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:10px;
+
     margin-top:15px;
 }
 
 .btn{
     padding:13px;
-    border:1px solid rgba(255,255,255,.16);
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
     border-radius:13px;
+
     background:#101722;
+
     color:white;
+
     font-weight:bold;
 }
 
 .btn-principal{
-    background:linear-gradient(135deg,#ff009d,#9b00ff);
+    background:
+        linear-gradient(
+            135deg,
+            #ff009d,
+            #9b00ff
+        );
+
     border:none;
 }
 
 .btn-verde{
-    background:linear-gradient(135deg,#00a85a,#00d98b);
+    background:
+        linear-gradient(
+            135deg,
+            #00a85a,
+            #00d98b
+        );
+
     border:none;
 }
 
 .estado{
     margin-top:12px;
+
     min-height:20px;
+
     text-align:center;
+
     color:#9fffd2;
+
     font-size:12px;
 }
 
@@ -521,25 +968,40 @@ textarea:focus{
 
 footer{
     margin-top:35px;
+
     padding:20px 14px;
+
     text-align:center;
+
     color:#718087;
+
     font-size:11px;
-    border-top:1px solid rgba(255,255,255,.08);
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
 }
 
 /* =====================================================
    MÓVIL
 ===================================================== */
 
-@media(max-width:500px){
+@media(max-width:600px){
 
     h1{
         font-size:25px;
+
         letter-spacing:4px;
     }
 
-    .lista{
+    .sala3d{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:390px){
+
+    .sala3d{
         grid-template-columns:1fr;
     }
 
@@ -550,17 +1012,22 @@ footer{
     .estrellas,
     .estrellas2,
     .estrellas3,
-    .meteorito{
+    .meteorito,
+    .carpeta3d{
         animation:none;
+        transition:none;
     }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- FONDO -->
+<!-- =====================================================
+     FONDO
+===================================================== -->
 
 <div class="espacio">
 
@@ -583,6 +1050,10 @@ footer{
 
 <div class="contenido">
 
+<!-- =====================================================
+     CABECERA
+===================================================== -->
+
 <header>
 
     <h1>CURIOSIDADES</h1>
@@ -591,11 +1062,30 @@ footer{
         HISTORIAS · MISTERIOS · DESCUBRIMIENTOS · DATOS
     </div>
 
-    <a class="portada" href="index.html">
+    <a
+        class="portada"
+        href="index.html"
+    >
         ← PORTADA
     </a>
 
 </header>
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="intro">
+
+    <h2>🌌 SALA 3D DE CURIOSIDADES</h2>
+
+    <p>
+        Una sala viva para descubrir, investigar y organizar
+        nuevos conocimientos. Las carpetas pueden crecer con
+        textos, imágenes, música y vídeos.
+    </p>
+
+</section>
 
 <!-- =====================================================
      MÚSICA
@@ -603,10 +1093,11 @@ footer{
 
 <section class="multimedia">
 
-    <h2>🎵 AMBIENTE</h2>
+    <h2>🎵 MÚSICA DE CURIOSIDADES</h2>
 
     <p>
-        Música de la sala CURIOSIDADES
+        Música de la raíz del proyecto o cualquier MP3
+        seleccionado desde el dispositivo.
     </p>
 
     <audio
@@ -615,203 +1106,277 @@ footer{
         loop
         preload="auto"
     >
+
         <source
             src="curiosidades.mp3"
             type="audio/mpeg"
         >
-        Tu navegador no puede reproducir este audio.
+
     </audio>
 
     <button
-        class="audio-boton"
+        class="media-boton"
         id="botonMusica"
     >
-        🔊 OÍR MÚSICA
+        🔊 REPRODUCIR CURIOSIDADES.MP3
     </button>
+
+    <label for="mp3Dispositivo">
+        🎵 REPRODUCIR MP3 DEL DISPOSITIVO
+    </label>
+
+    <input
+        id="mp3Dispositivo"
+        type="file"
+        accept="audio/mpeg,audio/mp3,audio/*"
+    >
 
 </section>
 
 <!-- =====================================================
-     VÍDEO MP4
+     MP4
 ===================================================== -->
 
-<section class="multimedia video-panel">
+<section class="multimedia">
 
-    <h2>🎬 VÍDEO</h2>
+    <h2>🎬 REPRODUCTOR MP4</h2>
 
     <p>
-        Espacio preparado para los vídeos MP4 de CURIOSIDADES.
+        Selecciona un vídeo MP4 desde el iPhone,
+        tablet o dispositivo.
     </p>
+
+    <input
+        id="mp4Dispositivo"
+        type="file"
+        accept="video/mp4,video/*"
+    >
 
     <video
         id="videoCuriosidades"
+        class="video"
         controls
-        preload="metadata"
         playsinline
-    >
-        <source
-            src="curiosidades.mp4"
-            type="video/mp4"
-        >
-        Tu navegador no puede reproducir este vídeo.
-    </video>
+        preload="metadata"
+    ></video>
 
-    <p class="video-nota">
-        Si todavía no existe <b>curiosidades.mp4</b>,
-        el reproductor quedará preparado hasta que añadas el archivo.
+    <p id="videoEstado">
+        Esperando un vídeo del dispositivo.
     </p>
 
 </section>
 
 <!-- =====================================================
-     INTRO
-===================================================== -->
-
-<section class="intro">
-
-    <h2>Un lugar para descubrir</h2>
-
-    <p>
-        Aquí iremos guardando curiosidades, historias,
-        misterios, descubrimientos, imágenes y conocimientos
-        encontrados durante las investigaciones.
-    </p>
-
-</section>
-
-<!-- =====================================================
-     CATEGORÍAS
+     CARPETAS 3D
 ===================================================== -->
 
 <div class="titulo-seccion">
-    CATEGORÍAS
+    📁 CARPETAS 3D DE INVESTIGACIÓN
 </div>
 
-<section class="categorias">
+<section class="sala3d">
 
-    <button class="categoria activa" data-categoria="Todas">
+    <article
+        class="carpeta3d"
+        data-carpeta="Universo"
+    >
 
-        <span class="icono">✨</span>
+        <div class="carpeta-icono">
+            🌌
+        </div>
 
-        <span class="nombre">
-            Todas
-        </span>
+        <h3>
+            UNIVERSO · NASA
+        </h3>
+
+        <p>
+            Espacio, galaxias, estrellas,
+            planetas, misiones y descubrimientos.
+        </p>
 
         <span
-            class="cantidad"
-            id="cantidadTodas"
+            class="carpeta-contador"
+            id="contador-Universo"
         >
-            0 curiosidades
+            0
         </span>
 
-    </button>
+    </article>
 
-    <button
-        class="categoria"
-        data-categoria="Universo"
+    <article
+        class="carpeta3d"
+        data-carpeta="Historia"
     >
 
-        <span class="icono">🌌</span>
+        <div class="carpeta-icono">
+            🏛️
+        </div>
 
-        <span class="nombre">
-            Universo
+        <h3>
+            HISTORIA Y MISTERIOS
+        </h3>
+
+        <p>
+            Civilizaciones, enigmas,
+            leyendas y descubrimientos.
+        </p>
+
+        <span
+            class="carpeta-contador"
+            id="contador-Historia"
+        >
+            0
         </span>
 
-        <span class="cantidad">
-            Espacio y cosmos
-        </span>
+    </article>
 
-    </button>
-
-    <button
-        class="categoria"
-        data-categoria="Historia"
+    <article
+        class="carpeta3d"
+        data-carpeta="Ciencia"
     >
 
-        <span class="icono">🏛️</span>
+        <div class="carpeta-icono">
+            🔬
+        </div>
 
-        <span class="nombre">
-            Historia y misterios
+        <h3>
+            CIENCIA
+        </h3>
+
+        <p>
+            Investigaciones, experimentos,
+            tecnología y descubrimientos.
+        </p>
+
+        <span
+            class="carpeta-contador"
+            id="contador-Ciencia"
+        >
+            0
         </span>
 
-        <span class="cantidad">
-            Pasado y enigmas
-        </span>
+    </article>
 
-    </button>
-
-    <button
-        class="categoria"
-        data-categoria="Ciencia"
+    <article
+        class="carpeta3d"
+        data-carpeta="Animales"
     >
 
-        <span class="icono">🔬</span>
+        <div class="carpeta-icono">
+            🐾
+        </div>
 
-        <span class="nombre">
-            Ciencia
+        <h3>
+            ANIMALES
+        </h3>
+
+        <p>
+            Naturaleza, especies,
+            comportamiento y curiosidades.
+        </p>
+
+        <span
+            class="carpeta-contador"
+            id="contador-Animales"
+        >
+            0
         </span>
 
-        <span class="cantidad">
-            Descubrimientos
-        </span>
+    </article>
 
-    </button>
-
-    <button
-        class="categoria"
-        data-categoria="Animales"
+    <article
+        class="carpeta3d"
+        data-carpeta="Lugares"
     >
 
-        <span class="icono">🐾</span>
+        <div class="carpeta-icono">
+            🌍
+        </div>
 
-        <span class="nombre">
-            Animales
+        <h3>
+            LUGARES
+        </h3>
+
+        <p>
+            Lugares sorprendentes,
+            mapas, paisajes y culturas.
+        </p>
+
+        <span
+            class="carpeta-contador"
+            id="contador-Lugares"
+        >
+            0
         </span>
 
-        <span class="cantidad">
-            Vida y naturaleza
-        </span>
+    </article>
 
-    </button>
-
-    <button
-        class="categoria"
-        data-categoria="Lugares"
+    <article
+        class="carpeta3d"
+        data-carpeta="Libre"
     >
 
-        <span class="icono">🌍</span>
+        <div class="carpeta-icono">
+            💡
+        </div>
 
-        <span class="nombre">
-            Lugares
+        <h3>
+            OTROS
+        </h3>
+
+        <p>
+            Todo aquello que descubramos
+            y no pertenezca a otra carpeta.
+        </p>
+
+        <span
+            class="carpeta-contador"
+            id="contador-Libre"
+        >
+            0
         </span>
 
-        <span class="cantidad">
-            Sitios sorprendentes
-        </span>
+    </article>
 
-    </button>
+</section>
+
+<!-- =====================================================
+     VISOR DE CARPETA
+===================================================== -->
+
+<section
+    class="contenedorCarpeta"
+    id="contenedorCarpeta"
+>
+
+    <div
+        class="carpetaTitulo"
+        id="carpetaTitulo"
+    >
+        CARPETA
+    </div>
+
+    <div
+        class="carpetaDescripcion"
+        id="carpetaDescripcion"
+    ></div>
+
+    <div
+        class="lista"
+        id="listaCarpeta"
+    ></div>
 
     <button
-        class="categoria"
-        data-categoria="Libre"
+        class="cerrarCarpeta"
+        id="cerrarCarpeta"
     >
-
-        <span class="icono">💡</span>
-
-        <span class="nombre">
-            Otros
-        </span>
-
-        <span class="cantidad">
-            Todo lo demás
-        </span>
-
+        ← CERRAR CARPETA
     </button>
 
 </section>
 
 <!-- =====================================================
-     LÍA
+     ESPACIO DE LÍA
 ===================================================== -->
 
 <button
@@ -827,33 +1392,40 @@ footer{
 >
 
     <div class="lia-titulo">
-        ESPACIO DE LÍA
+        ✨ ESPACIO DE LÍA
     </div>
 
     <p class="lia-ayuda">
-        Desde aquí se pueden preparar y organizar nuevas
-        curiosidades, seleccionar su categoría y añadir una
-        fotografía.
+
+        Aquí Lía podrá organizar futuras investigaciones
+        y preparar nuevos textos, fotografías, MP3 y MP4
+        para las carpetas correspondientes.
+
+        <br><br>
+
+        🌌 Universo queda preparado especialmente para
+        investigaciones de NASA y astronomía.
+
     </p>
 
     <label for="titulo">
-        Título de la curiosidad
+        Título
     </label>
 
     <input
         id="titulo"
         type="text"
-        placeholder="Título"
+        placeholder="Título de la investigación"
     >
 
     <label for="categoria">
-        Categoría
+        Carpeta
     </label>
 
     <select id="categoria">
 
         <option value="Universo">
-            🌌 Universo
+            🌌 Universo · NASA
         </option>
 
         <option value="Historia">
@@ -884,11 +1456,11 @@ footer{
 
     <textarea
         id="texto"
-        placeholder="Escribe aquí la información..."
+        placeholder="Información de la investigación..."
     ></textarea>
 
     <label for="foto">
-        Fotografía
+        🖼️ Fotografía
     </label>
 
     <input
@@ -928,11 +1500,11 @@ footer{
 </section>
 
 <!-- =====================================================
-     CURIOSIDADES
+     TODAS LAS CURIOSIDADES
 ===================================================== -->
 
 <div class="titulo-seccion">
-    CURIOSIDADES GUARDADAS
+    ✨ CONTENIDO GUARDADO
 </div>
 
 <section
@@ -941,7 +1513,13 @@ footer{
 ></section>
 
 <footer>
+
     Proyecto Rafa · Sala CURIOSIDADES
+
+    <br><br>
+
+    🌌 Preparada para crecer con Lía
+
 </footer>
 
 </div>
@@ -955,72 +1533,237 @@ footer{
 const CLAVE =
     "proyectoRafaCuriosidades";
 
-let curiosidades =
-    JSON.parse(
-        localStorage.getItem(CLAVE) || "[]"
-    );
+let curiosidades = [];
 
-let categoriaActual =
-    "Todas";
+try{
 
-let fotoSeleccionada =
-    "";
+    curiosidades =
+        JSON.parse(
+            localStorage.getItem(CLAVE) || "[]"
+        );
+
+    if(!Array.isArray(curiosidades)){
+        curiosidades = [];
+    }
+
+}catch(error){
+
+    curiosidades = [];
+
+}
+
+let fotoSeleccionada = "";
+
+let categoriaActual = "Todas";
+
+let mp3URL = "";
+
+let mp4URL = "";
 
 /* =====================================================
    ELEMENTOS
 ===================================================== */
 
-const lista =
-    document.getElementById("lista");
+const musica =
+    document.getElementById(
+        "musica"
+    );
 
-const cantidadTodas =
-    document.getElementById("cantidadTodas");
+const botonMusica =
+    document.getElementById(
+        "botonMusica"
+    );
+
+const mp3Dispositivo =
+    document.getElementById(
+        "mp3Dispositivo"
+    );
+
+const mp4Dispositivo =
+    document.getElementById(
+        "mp4Dispositivo"
+    );
+
+const video =
+    document.getElementById(
+        "videoCuriosidades"
+    );
+
+const videoEstado =
+    document.getElementById(
+        "videoEstado"
+    );
+
+const lista =
+    document.getElementById(
+        "lista"
+    );
+
+const listaCarpeta =
+    document.getElementById(
+        "listaCarpeta"
+    );
+
+const contenedorCarpeta =
+    document.getElementById(
+        "contenedorCarpeta"
+    );
+
+const carpetaTitulo =
+    document.getElementById(
+        "carpetaTitulo"
+    );
+
+const carpetaDescripcion =
+    document.getElementById(
+        "carpetaDescripcion"
+    );
 
 const titulo =
-    document.getElementById("titulo");
+    document.getElementById(
+        "titulo"
+    );
 
 const categoria =
-    document.getElementById("categoria");
+    document.getElementById(
+        "categoria"
+    );
 
 const texto =
-    document.getElementById("texto");
+    document.getElementById(
+        "texto"
+    );
 
 const foto =
-    document.getElementById("foto");
+    document.getElementById(
+        "foto"
+    );
 
 const fotoVista =
-    document.getElementById("fotoVista");
+    document.getElementById(
+        "fotoVista"
+    );
 
 const estado =
-    document.getElementById("estado");
+    document.getElementById(
+        "estado"
+    );
 
 const liaPanel =
-    document.getElementById("liaPanel");
-
-const musica =
-    document.getElementById("musica");
+    document.getElementById(
+        "liaPanel"
+    );
 
 /* =====================================================
-   MÚSICA
+   MÚSICA DE LA RAÍZ
 ===================================================== */
 
-document
-.getElementById("botonMusica")
-.addEventListener(
+botonMusica.addEventListener(
     "click",
+    function(){
+
+        if(musica.paused){
+
+            musica.play()
+            .then(function(){
+
+                botonMusica.textContent =
+                    "⏸️ PAUSAR MÚSICA";
+
+            })
+            .catch(function(){
+
+                mostrarEstado(
+                    "El navegador ha bloqueado la reproducción."
+                );
+
+            });
+
+        }else{
+
+            musica.pause();
+
+            botonMusica.textContent =
+                "🔊 REPRODUCIR MÚSICA";
+
+        }
+
+    }
+);
+
+/* =====================================================
+   INTENTO AUTOPLAY
+===================================================== */
+
+window.addEventListener(
+    "load",
     function(){
 
         musica.play()
         .then(function(){
 
-            this.textContent =
-                "🔊 MÚSICA SONANDO";
+            botonMusica.textContent =
+                "⏸️ PAUSAR MÚSICA";
 
-        }.bind(this))
+        })
+        .catch(function(){
+
+            botonMusica.textContent =
+                "🔊 REPRODUCIR MÚSICA";
+
+        });
+
+    }
+);
+
+/* =====================================================
+   MP3 DESDE DISPOSITIVO
+===================================================== */
+
+mp3Dispositivo.addEventListener(
+    "change",
+    function(){
+
+        const archivo =
+            this.files[0];
+
+        if(!archivo){
+            return;
+        }
+
+        if(mp3URL){
+
+            URL.revokeObjectURL(
+                mp3URL
+            );
+
+        }
+
+        mp3URL =
+            URL.createObjectURL(
+                archivo
+            );
+
+        musica.src =
+            mp3URL;
+
+        musica.load();
+
+        musica.play()
+        .then(function(){
+
+            botonMusica.textContent =
+                "⏸️ PAUSAR MP3 DEL DISPOSITIVO";
+
+            mostrarEstado(
+                "✓ MP3 cargado y reproduciéndose."
+            );
+
+        })
         .catch(function(){
 
             mostrarEstado(
-                "Pulsa el botón de reproducción del reproductor."
+                "✓ MP3 cargado. Pulsa reproducir."
             );
 
         });
@@ -1028,21 +1771,48 @@ document
     }
 );
 
-/*
-   Intento de reproducción automática.
-   Los navegadores pueden bloquearla hasta que
-   el usuario toque la pantalla.
-*/
+/* =====================================================
+   MP4 DESDE DISPOSITIVO
+===================================================== */
 
-window.addEventListener(
-    "load",
+mp4Dispositivo.addEventListener(
+    "change",
     function(){
 
-        musica.play()
+        const archivo =
+            this.files[0];
+
+        if(!archivo){
+            return;
+        }
+
+        if(mp4URL){
+
+            URL.revokeObjectURL(
+                mp4URL
+            );
+
+        }
+
+        mp4URL =
+            URL.createObjectURL(
+                archivo
+            );
+
+        video.src =
+            mp4URL;
+
+        video.load();
+
+        videoEstado.textContent =
+            "✓ Vídeo cargado: " +
+            archivo.name;
+
+        video.play()
         .catch(function(){
 
-            /* Bloqueada por el navegador:
-               queda disponible con el botón. */
+            /* El navegador puede exigir
+               pulsar reproducir. */
 
         });
 
@@ -1050,7 +1820,7 @@ window.addEventListener(
 );
 
 /* =====================================================
-   PANEL LÍA
+   LÍA
 ===================================================== */
 
 document
@@ -1092,8 +1862,9 @@ foto.addEventListener(
 
         if(!archivo){
 
-            fotoSeleccionada =
-                "";
+            fotoSeleccionada = "";
+
+            fotoVista.src = "";
 
             fotoVista.style.display =
                 "none";
@@ -1126,7 +1897,7 @@ foto.addEventListener(
 );
 
 /* =====================================================
-   GUARDAR
+   GUARDAR CURIOSIDAD
 ===================================================== */
 
 document
@@ -1190,6 +1961,9 @@ document
         texto.value =
             "";
 
+        categoria.value =
+            "Universo";
+
         foto.value =
             "";
 
@@ -1203,10 +1977,12 @@ document
             "none";
 
         mostrarEstado(
-            "✓ Curiosidad guardada correctamente."
+            "✓ Guardado en la carpeta correspondiente."
         );
 
         mostrarCuriosidades();
+
+        actualizarContadores();
 
     }
 );
@@ -1217,28 +1993,30 @@ document
 
 function guardarDatos(){
 
-    localStorage.setItem(
-        CLAVE,
-        JSON.stringify(
-            curiosidades
-        )
-    );
+    try{
+
+        localStorage.setItem(
+            CLAVE,
+            JSON.stringify(
+                curiosidades
+            )
+        );
+
+    }catch(error){
+
+        mostrarEstado(
+            "No hay espacio suficiente para guardar más datos."
+        );
+
+    }
 
 }
 
 /* =====================================================
-   MOSTRAR
+   MOSTRAR TODAS
 ===================================================== */
 
 function mostrarCuriosidades(){
-
-    cantidadTodas.textContent =
-        curiosidades.length +
-        (
-            curiosidades.length === 1
-            ? " curiosidad"
-            : " curiosidades"
-        );
 
     let datos =
         curiosidades;
@@ -1252,9 +2030,10 @@ function mostrarCuriosidades(){
             curiosidades.filter(
                 function(item){
 
-                    return
+                    return (
                         item.categoria ===
-                        categoriaActual;
+                        categoriaActual
+                    );
 
                 }
             );
@@ -1277,13 +2056,15 @@ function mostrarCuriosidades(){
 
                 <br><br>
 
-                Todavía no hay curiosidades
-                en esta categoría.
+                Todavía no hay contenido
+                en esta sala.
 
                 <br><br>
 
-                Puedes añadir la primera
-                desde el espacio de Lía.
+                Lía podrá ir aumentando
+                esta biblioteca cuando
+                conectemos su investigación
+                con el almacenamiento.
 
             </div>
 
@@ -1296,44 +2077,9 @@ function mostrarCuriosidades(){
         function(item){
 
             const tarjeta =
-                document.createElement(
-                    "article"
+                crearTarjeta(
+                    item
                 );
-
-            tarjeta.className =
-                "tarjeta";
-
-            const imagen =
-                item.imagen
-                ? `
-                    <img
-                        src="${item.imagen}"
-                        alt="${escapar(item.titulo)}"
-                    >
-                  `
-                : "";
-
-            tarjeta.innerHTML = `
-
-                ${imagen}
-
-                <div class="tarjeta-contenido">
-
-                    <span class="categoria-nombre">
-                        ${nombreCategoria(item.categoria)}
-                    </span>
-
-                    <h3>
-                        ${escapar(item.titulo)}
-                    </h3>
-
-                    <p>
-                        ${escapar(item.texto)}
-                    </p>
-
-                </div>
-
-            `;
 
             lista.appendChild(
                 tarjeta
@@ -1345,46 +2091,267 @@ function mostrarCuriosidades(){
 }
 
 /* =====================================================
-   CATEGORÍAS
+   CREAR TARJETA
+===================================================== */
+
+function crearTarjeta(
+    item
+){
+
+    const tarjeta =
+        document.createElement(
+            "article"
+        );
+
+    tarjeta.className =
+        "tarjeta";
+
+    const imagen =
+        item.imagen
+        ?
+        `
+        <img
+            src="${item.imagen}"
+            alt="${escapar(item.titulo)}"
+        >
+        `
+        :
+        "";
+
+    tarjeta.innerHTML = `
+
+        ${imagen}
+
+        <div class="tarjeta-contenido">
+
+            <span class="categoria-nombre">
+                ${nombreCategoria(item.categoria)}
+            </span>
+
+            <h3>
+                ${escapar(item.titulo)}
+            </h3>
+
+            <p>
+                ${escapar(item.texto)}
+            </p>
+
+        </div>
+
+    `;
+
+    return tarjeta;
+
+}
+
+/* =====================================================
+   CARPETAS 3D
 ===================================================== */
 
 document
-.querySelectorAll(".categoria")
+.querySelectorAll(".carpeta3d")
 .forEach(
-    function(boton){
+    function(carpeta){
 
-        boton.addEventListener(
+        carpeta.addEventListener(
             "click",
             function(){
 
-                document
-                .querySelectorAll(
-                    ".categoria"
-                )
-                .forEach(
-                    function(b){
-
-                        b.classList.remove(
-                            "activa"
-                        );
-
-                    }
+                abrirCarpeta(
+                    this.dataset.carpeta
                 );
-
-                this.classList.add(
-                    "activa"
-                );
-
-                categoriaActual =
-                    this.dataset.categoria;
-
-                mostrarCuriosidades();
 
             }
         );
 
     }
 );
+
+/* =====================================================
+   ABRIR CARPETA
+===================================================== */
+
+function abrirCarpeta(
+    nombre
+){
+
+    const datos =
+        curiosidades.filter(
+            function(item){
+
+                return (
+                    item.categoria ===
+                    nombre
+                );
+
+            }
+        );
+
+    const titulos = {
+
+        Universo:
+            "🌌 UNIVERSO · NASA",
+
+        Historia:
+            "🏛️ HISTORIA Y MISTERIOS",
+
+        Ciencia:
+            "🔬 CIENCIA",
+
+        Animales:
+            "🐾 ANIMALES",
+
+        Lugares:
+            "🌍 LUGARES",
+
+        Libre:
+            "💡 OTROS"
+
+    };
+
+    const descripciones = {
+
+        Universo:
+            "Investigaciones del universo, NASA, galaxias, estrellas, planetas, lunas, misiones y astronomía.",
+
+        Historia:
+            "Historia, civilizaciones, misterios, leyendas y enigmas.",
+
+        Ciencia:
+            "Ciencia, tecnología, experimentos y descubrimientos.",
+
+        Animales:
+            "Animales, especies, naturaleza y comportamiento.",
+
+        Lugares:
+            "Lugares sorprendentes, paisajes, culturas y mapas.",
+
+        Libre:
+            "Curiosidades que no pertenezcan a las demás carpetas."
+
+    };
+
+    carpetaTitulo.textContent =
+        titulos[nombre] ||
+        nombre;
+
+    carpetaDescripcion.textContent =
+        descripciones[nombre] ||
+        "";
+
+    listaCarpeta.innerHTML =
+        "";
+
+    if(datos.length === 0){
+
+        listaCarpeta.innerHTML = `
+
+            <div class="sin-contenido">
+
+                📂
+
+                <br><br>
+
+                Esta carpeta todavía está vacía.
+
+                <br><br>
+
+                Aquí podremos ir acumulando
+                textos, imágenes y contenidos
+                nuevos de las investigaciones.
+
+            </div>
+
+        `;
+
+    }else{
+
+        datos.forEach(
+            function(item){
+
+                listaCarpeta.appendChild(
+                    crearTarjeta(item)
+                );
+
+            }
+        );
+
+    }
+
+    contenedorCarpeta.classList.add(
+        "abierta"
+    );
+
+    contenedorCarpeta.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+/* =====================================================
+   CERRAR CARPETA
+===================================================== */
+
+document
+.getElementById("cerrarCarpeta")
+.addEventListener(
+    "click",
+    function(){
+
+        contenedorCarpeta.classList.remove(
+            "abierta"
+        );
+
+    }
+);
+
+/* =====================================================
+   CONTADORES
+===================================================== */
+
+function actualizarContadores(){
+
+    const categorias = [
+        "Universo",
+        "Historia",
+        "Ciencia",
+        "Animales",
+        "Lugares",
+        "Libre"
+    ];
+
+    categorias.forEach(
+        function(nombre){
+
+            const total =
+                curiosidades.filter(
+                    function(item){
+
+                        return (
+                            item.categoria ===
+                            nombre
+                        );
+
+                    }
+                ).length;
+
+            const elemento =
+                document.getElementById(
+                    "contador-" + nombre
+                );
+
+            if(elemento){
+
+                elemento.textContent =
+                    total;
+
+            }
+
+        }
+    );
+
+}
 
 /* =====================================================
    EXPORTAR
@@ -1402,7 +2369,7 @@ document
         ){
 
             mostrarEstado(
-                "No hay curiosidades para exportar."
+                "No hay contenido para exportar."
             );
 
             return;
@@ -1453,46 +2420,14 @@ document
         );
 
         mostrarEstado(
-            "✓ Archivo preparado."
+            "✓ Información exportada."
         );
 
     }
 );
 
 /* =====================================================
-   ESCAPAR TEXTO
-===================================================== */
-
-function escapar(
-    valor
-){
-
-    return String(valor)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-/* =====================================================
-   NOMBRES CATEGORÍAS
+   NOMBRE CATEGORÍA
 ===================================================== */
 
 function nombreCategoria(
@@ -1502,7 +2437,7 @@ function nombreCategoria(
     const nombres = {
 
         Universo:
-            "🌌 UNIVERSO",
+            "🌌 UNIVERSO · NASA",
 
         Historia:
             "🏛️ HISTORIA Y MISTERIOS",
@@ -1521,9 +2456,47 @@ function nombreCategoria(
 
     };
 
-    return
+    return (
         nombres[valor] ||
-        valor;
+        valor
+    );
+
+}
+
+/* =====================================================
+   ESCAPAR TEXTO
+===================================================== */
+
+function escapar(
+    valor
+){
+
+    return String(valor)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1550,7 +2523,7 @@ function mostrarEstado(
                     "";
 
             },
-            4000
+            4500
         );
 
 }
@@ -1560,6 +2533,8 @@ function mostrarEstado(
 ===================================================== */
 
 mostrarCuriosidades();
+
+actualizarContadores();
 
 </script>
 
