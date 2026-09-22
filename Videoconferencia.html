@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>Videoconferencia · GePeTo</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    background:#05070b;
+    color:white;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+button,
+textarea,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+#app{
+    min-height:100vh;
+    padding-bottom:110px;
+}
+
+/* =========================
+   CABECERA
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:8px;
+    padding:10px;
+
+    background:rgba(3,8,15,.96);
+    border-bottom:1px solid #173b64;
+    backdrop-filter:blur(10px);
+}
+
+header button{
+    border:1px solid #2769a8;
+    border-radius:12px;
+
+    background:#071522;
+    color:#fff;
+
+    padding:10px 12px;
+    font-size:13px;
+    font-weight:700;
+}
+
+header button:active{
+    transform:scale(.97);
+}
+
+#parar{
+    border-color:#8b2525;
+    background:#230b0b;
+    color:#ff7777;
+}
+
+.titulo{
+    flex:1;
+    text-align:center;
+    min-width:0;
+}
+
+.titulo strong{
+    display:block;
+    color:#55aaff;
+    font-size:17px;
+}
+
+.titulo span{
+    display:block;
+    color:#9db6d0;
+    font-size:11px;
+    margin-top:2px;
+}
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatarBox{
+    display:flex;
+    justify-content:center;
+    padding:18px 12px 8px;
+
+    /*
+     * IMPORTANTE:
+     * El escenario permanece fijo.
+     * El movimiento se aplica al avatar
+     * para que parezca que GePeTo está vivo.
+     */
+    perspective:900px;
+}
+
+.avatar{
+    width:min(230px,65vw);
+    aspect-ratio:1/1;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #1685ff;
+
+    box-shadow:
+        0 0 18px rgba(0,130,255,.55),
+        0 0 55px rgba(0,80,255,.22);
+
+    background:#07101c;
+
+    /*
+     * Movimiento permanente suave.
+     */
+    animation:
+        gepetoVida
+        7.5s
+        ease-in-out
+        infinite;
+
+    transform-origin:center center;
+
+    will-change:
+        transform,
+        filter,
+        box-shadow;
+}
+
+/* =========================
+   MOVIMIENTO NATURAL CONSTANTE
+========================= */
+
+@keyframes gepetoVida{
+
+    0%{
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg)
+            scale(1);
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+
+    10%{
+        transform:
+            translate3d(-1px,-1px,0)
+            rotate(-0.35deg)
+            scale(1.006);
+        filter:
+            brightness(1.015)
+            saturate(1.01);
+    }
+
+    22%{
+        transform:
+            translate3d(1px,-2px,0)
+            rotate(0.3deg)
+            scale(1.012);
+        filter:
+            brightness(1.025)
+            saturate(1.015);
+    }
+
+    35%{
+        transform:
+            translate3d(2px,0,0)
+            rotate(0.5deg)
+            scale(1.004);
+        filter:
+            brightness(.995)
+            saturate(1);
+    }
+
+    48%{
+        transform:
+            translate3d(0,1px,0)
+            rotate(-0.25deg)
+            scale(1.012);
+        filter:
+            brightness(1.02)
+            saturate(1.015);
+    }
+
+    60%{
+        transform:
+            translate3d(-2px,0,0)
+            rotate(-0.5deg)
+            scale(1.006);
+        filter:
+            brightness(1)
+            saturate(1.01);
+    }
+
+    73%{
+        transform:
+            translate3d(-1px,-1px,0)
+            rotate(0.25deg)
+            scale(1.014);
+        filter:
+            brightness(1.025)
+            saturate(1.02);
+    }
+
+    86%{
+        transform:
+            translate3d(1px,0,0)
+            rotate(0.35deg)
+            scale(1.007);
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+
+    100%{
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg)
+            scale(1);
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+}
+
+/* =========================
+   MICRO MOVIMIENTOS FACIALES
+========================= */
+
+/*
+ * Estas animaciones son deliberadamente pequeñas.
+ * El objetivo es evitar que la foto parezca una imagen
+ * completamente inmóvil.
+ */
+
+.avatar.micro1{
+    animation:
+        gepetoVida
+        7.5s
+        ease-in-out
+        infinite,
+        microRespiracion
+        3.2s
+        ease-in-out
+        infinite;
+}
+
+@keyframes microRespiracion{
+
+    0%,100%{
+        margin-top:0;
+    }
+
+    25%{
+        margin-top:-1px;
+    }
+
+    50%{
+        margin-top:1px;
+    }
+
+    75%{
+        margin-top:0;
+    }
+}
+
+/* =========================
+   PARPADEO
+========================= */
+
+.parpadeo{
+    animation:
+        parpadear
+        .18s
+        linear;
+}
+
+@keyframes parpadear{
+
+    0%{
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+
+    30%{
+        filter:
+            brightness(.72)
+            saturate(.9);
+    }
+
+    55%{
+        filter:
+            brightness(.45)
+            saturate(.75);
+    }
+
+    75%{
+        filter:
+            brightness(.72)
+            saturate(.9);
+    }
+
+    100%{
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+}
+
+/* =========================
+   PARPADEOS NATURALES
+========================= */
+
+.parpadeoSuave{
+    animation:
+        parpadeoNatural
+        .16s
+        ease-in-out;
+}
+
+@keyframes parpadeoNatural{
+
+    0%{
+        filter:
+            brightness(1)
+            contrast(1);
+    }
+
+    45%{
+        filter:
+            brightness(.58)
+            contrast(.96);
+    }
+
+    100%{
+        filter:
+            brightness(1)
+            contrast(1);
+    }
+}
+
+/* =========================
+   MOVIMIENTO CUANDO HABLA
+========================= */
+
+.hablando{
+    animation:
+        gepetoHablando
+        1.15s
+        ease-in-out
+        infinite;
+}
+
+@keyframes gepetoHablando{
+
+    0%{
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg)
+            scale(1);
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+
+    18%{
+        transform:
+            translate3d(-1px,-1px,0)
+            rotate(-0.25deg)
+            scale(1.008);
+        filter:
+            brightness(1.02)
+            saturate(1.02);
+    }
+
+    35%{
+        transform:
+            translate3d(1px,0,0)
+            rotate(0.3deg)
+            scale(1.014);
+        filter:
+            brightness(1.035)
+            saturate(1.025);
+    }
+
+    52%{
+        transform:
+            translate3d(0,1px,0)
+            rotate(-0.2deg)
+            scale(1.006);
+        filter:
+            brightness(1.015)
+            saturate(1.015);
+    }
+
+    70%{
+        transform:
+            translate3d(-1px,0,0)
+            rotate(0.25deg)
+            scale(1.012);
+        filter:
+            brightness(1.03)
+            saturate(1.02);
+    }
+
+    86%{
+        transform:
+            translate3d(1px,-1px,0)
+            rotate(-0.15deg)
+            scale(1.008);
+        filter:
+            brightness(1.02)
+            saturate(1.015);
+    }
+
+    100%{
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg)
+            scale(1);
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+}
+
+/* =========================
+   LUZ DE HABLA
+========================= */
+
+.hablando{
+    box-shadow:
+        0 0 20px rgba(0,140,255,.65),
+        0 0 45px rgba(0,120,255,.38),
+        0 0 75px rgba(0,80,255,.20);
+}
+
+/* =========================
+   ESTADO
+========================= */
+
+.estado{
+    text-align:center;
+    margin:2px 15px 15px;
+
+    color:#62b6ff;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* =========================
+   CONTROLES
+========================= */
+
+.controles{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+
+    padding:0 12px 14px;
+}
+
+.controles button{
+    border:1px solid #225b8e;
+    border-radius:12px;
+
+    background:#081521;
+    color:#fff;
+
+    padding:10px 13px;
+    font-size:13px;
+}
+
+.controles button:active{
+    transform:scale(.97);
+}
+
+/* =========================
+   PRUEBA DE VOZ
+========================= */
+
+.prueba{
+    margin:0 12px 15px;
+    padding:13px;
+
+    border:1px solid #174c79;
+    border-radius:15px;
+
+    background:#07111b;
+}
+
+.pruebaTitulo{
+    color:#72bdff;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+#probarVoz{
+    width:100%;
+
+    border:1px solid #2583cf;
+    border-radius:12px;
+
+    padding:12px;
+
+    background:#0a2439;
+    color:#fff;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+/* =========================
+   MÚSICA
+========================= */
+
+.musica{
+    margin:0 12px 15px;
+    padding:13px;
+
+    border:1px solid #21415e;
+    border-radius:15px;
+
+    background:#071018;
+}
+
+.musica h3{
+    margin:0 0 10px;
+
+    color:#8ccaff;
+    font-size:14px;
+}
+
+#selectorMusica{
+    width:100%;
+    color:#d7e9fa;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+#reproductorMusica{
+    width:100%;
+    height:42px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+#chat{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    padding:8px 12px 20px;
+}
+
+.mensaje{
+    width:100%;
+    padding:12px 14px;
+
+    border-radius:15px;
+
+    line-height:1.45;
+    font-size:15px;
+
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.mensaje.usuario{
+    align-self:flex-end;
+
+    background:#10283c;
+    border:1px solid #23547a;
+
+    color:#fff;
+}
+
+.mensaje.gepeto{
+    align-self:flex-start;
+
+    background:#061d12;
+    border:1px solid #18a85c;
+
+    color:#7dffb2;
+}
+
+.mensajeSistema{
+    color:#91a8ba;
+    font-size:12px;
+    text-align:center;
+    padding:5px;
+}
+
+.mensajeCabecera{
+    color:#50aaff;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+
+.textoRespuesta{
+    margin-bottom:9px;
+}
+
+.oir{
+    display:inline-block;
+
+    border:1px solid #1e9d5b;
+    border-radius:10px;
+
+    padding:8px 11px;
+
+    background:#082b19;
+    color:#9affc1;
+
+    font-size:12px;
+    font-weight:700;
+}
+
+.oir:active{
+    transform:scale(.96);
+}
+
+.oir.leyendo{
+    background:#12552d;
+}
+
+/* =========================
+   BARRA INFERIOR
+========================= */
+
+.compositor{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:2000;
+
+    display:flex;
+    align-items:flex-end;
+    gap:7px;
+
+    padding:
+        8px
+        8px
+        calc(8px + env(safe-area-inset-bottom));
+
+    background:rgba(3,8,14,.97);
+    border-top:1px solid #173b64;
+    backdrop-filter:blur(12px);
+}
+
+#mensaje{
+    flex:1;
+
+    min-height:46px;
+    max-height:120px;
+
+    resize:none;
+
+    border:1px solid #285274;
+    border-radius:13px;
+
+    background:#07121d;
+    color:#fff;
+
+    padding:12px;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+#mensaje:focus{
+    border-color:#328ed0;
+}
+
+#microfono,
+#enviar{
+    width:46px;
+    height:46px;
+
+    flex:none;
+
+    border-radius:13px;
+    border:1px solid #2a628e;
+
+    background:#0a1d2d;
+    color:#fff;
+
+    font-size:20px;
+}
+
+#enviar{
+    background:#083b23;
+    border-color:#1b9856;
+    font-size:17px;
+}
+
+#microfono.activo{
+    background:#631515;
+    border-color:#ff5555;
+}
+
+/* =========================
+   INDICADORES
+========================= */
+
+.cargando{
+    color:#70bfff;
+    font-size:13px;
+    padding:7px 0;
+}
+
+.error{
+    color:#ff7373;
+    font-size:13px;
+    padding:7px 0;
+}
+
+.ok{
+    color:#70ff9f;
+    font-size:13px;
+    padding:7px 0;
+}
+
+/* =========================
+   REDUCCIÓN DE MOVIMIENTO
+========================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    .avatar{
+        animation:none !important;
+    }
+
+}
+
+/* =========================
+   EFECTO EXTRA DE VIDA
+========================= */
+
+.avatar.vivo{
+    will-change:
+        transform,
+        filter,
+        box-shadow;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<header>
+    <button id="biblioteca">← BIBLIOTECA</button>
+
+    <div class="titulo">
+        <strong>GePeTo</strong>
+        <span>VIDEOCONFERENCIA</span>
+    </div>
+
+    <button id="parar">🛑 PARAR</button>
+</header>
+
+
+<section class="avatarBox">
+    <img
+        id="avatar"
+        class="avatar vivo micro1"
+        src="./GePeToFrontal.png"
+        alt="GePeTo"
+    >
+</section>
+
+<div id="estado" class="estado">
+    🟢 GePeTo conectado
+</div>
+
+
+<div class="controles">
+    <button id="parpadear">👁️ PARPADEAR</button>
+</div>
+
+
+<section class="prueba">
+
+    <div class="pruebaTitulo">
+        🔊 PRUEBA DE VOZ
+    </div>
+
+    <button id="probarVoz">
+        🔊 PROBAR VOZ
+    </button>
+
+</section>
+
+
+<section class="musica">
+
+    <h3>🎵 Música de fondo</h3>
+
+    <input
+        id="selectorMusica"
+        type="file"
+        accept="audio/*"
+    >
+
+    <audio
+        id="reproductorMusica"
+        controls
+        preload="metadata">
+    </audio>
+
+</section>
+
+
+<div id="chat">
+
+    <div class="mensajeSistema">
+        GePeTo está preparado para hablar contigo.
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="compositor">
+
+    <textarea
+        id="mensaje"
+        placeholder="Escribe a GePeTo..."
+        rows="1"></textarea>
+
+    <button id="microfono" aria-label="Micrófono">
+        🎤
+    </button>
+
+    <button id="enviar" aria-label="Enviar">
+        ➤
+    </button>
+
+</div>
+
+
+<script type="module">
+
+/* ============================================================
+   CONFIGURACIÓN
+============================================================ */
+
+const WORKER =
+    "https://gepetto-rafa.rafad18.workers.dev/preguntar";
+
+const VOZ =
+    "es_ES-davefx-medium";
+
+const PIPER_URL =
+    "https://cdn.jsdelivr.net/npm/@realtimex/piper-tts-web@1.1.1/+esm";
+
+
+/* ============================================================
+   ELEMENTOS
+============================================================ */
+
+const chat =
+    document.getElementById("chat");
+
+const mensaje =
+    document.getElementById("mensaje");
+
+const enviar =
+    document.getElementById("enviar");
+
+const microfono =
+    document.getElementById("microfono");
+
+const probarVoz =
+    document.getElementById("probarVoz");
+
+const parpadear =
+    document.getElementById("parpadear");
+
+const parar =
+    document.getElementById("parar");
+
+const biblioteca =
+    document.getElementById("biblioteca");
+
+const estado =
+    document.getElementById("estado");
+
+const avatar =
+    document.getElementById("avatar");
+
+const selectorMusica =
+    document.getElementById("selectorMusica");
+
+const reproductorMusica =
+    document.getElementById("reproductorMusica");
+
+
+/* ============================================================
+   VARIABLES
+============================================================ */
+
+let piperModulo = null;
+let piperCargando = null;
+let sesionPiper = null;
+
+let audioContext = null;
+let fuenteActual = null;
+
+let audioActual = null;
+let audioURLActual = null;
+
+let musicaURL = null;
+
+let reconociendo = false;
+let reconocimiento = null;
+
+let ultimaRespuesta = "";
+
+let colaVoz = [];
+let reproduciendoVoz = false;
+
+
+/* ============================================================
+   SISTEMA DE VIDA FACIAL
+============================================================ */
+
+/*
+ * GePeTo no se queda completamente inmóvil.
+ *
+ * Se producen pequeños parpadeos y micro-movimientos
+ * a intervalos variables para que la imagen tenga
+ * sensación de presencia.
+ */
+
+let temporizadorParpadeo = null;
+let temporizadorMicroMovimiento = null;
+let vidaFacialActiva = true;
+
+
+/* ============================================================
+   PARPADEO MANUAL
+============================================================ */
+
+function hacerParpadear(){
+
+    avatar.classList.remove("parpadeo");
+    avatar.classList.remove("parpadeoSuave");
+
+    void avatar.offsetWidth;
+
+    avatar.classList.add("parpadeoSuave");
+
+    setTimeout(() => {
+
+        avatar.classList.remove(
+            "parpadeoSuave"
+        );
+
+    },220);
+}
+
+
+/* ============================================================
+   PARPADEOS AUTOMÁTICOS
+============================================================ */
+
+function programarParpadeo(){
+
+    if(!vidaFacialActiva){
+
+        return;
+    }
+
+    if(temporizadorParpadeo){
+
+        clearTimeout(
+            temporizadorParpadeo
+        );
+    }
+
+    /*
+     * Tiempo variable para evitar que parezca
+     * una animación mecánica.
+     *
+     * Normalmente entre unos pocos segundos.
+     */
+
+    const tiempo =
+        2600 +
+        Math.random() * 3900;
+
+    temporizadorParpadeo =
+        setTimeout(() => {
+
+            hacerParpadear();
+
+            /*
+             * Algunas veces hacemos un segundo
+             * parpadeo rápido, como ocurre de forma
+             * natural.
+             */
+
+            if(Math.random() < 0.18){
+
+                setTimeout(() => {
+
+                    hacerParpadear();
+
+                },180);
+            }
+
+            programarParpadeo();
+
+        },tiempo);
+}
+
+
+/* ============================================================
+   MICRO MOVIMIENTO EXTRA
+============================================================ */
+
+function programarMicroMovimiento(){
+
+    if(!vidaFacialActiva){
+
+        return;
+    }
+
+    if(temporizadorMicroMovimiento){
+
+        clearTimeout(
+            temporizadorMicroMovimiento
+        );
+    }
+
+    const tiempo =
+        1800 +
+        Math.random() * 2600;
+
+    temporizadorMicroMovimiento =
+        setTimeout(() => {
+
+            /*
+             * Pequeña variación de duración
+             * para evitar sincronización rígida.
+             */
+
+            avatar.style.animationDuration =
+                (
+                    6.8 +
+                    Math.random() * 2.4
+                ) + "s";
+
+            programarMicroMovimiento();
+
+        },tiempo);
+}
+
+
+/* ============================================================
+   INICIAR VIDA FACIAL
+============================================================ */
+
+function iniciarVidaFacial(){
+
+    vidaFacialActiva = true;
+
+    avatar.classList.add("vivo");
+
+    programarParpadeo();
+
+    programarMicroMovimiento();
+}
+
+
+/* ============================================================
+   DETENER VIDA FACIAL
+============================================================ */
+
+function detenerVidaFacial(){
+
+    vidaFacialActiva = false;
+
+    if(temporizadorParpadeo){
+
+        clearTimeout(
+            temporizadorParpadeo
+        );
+
+        temporizadorParpadeo = null;
+    }
+
+    if(temporizadorMicroMovimiento){
+
+        clearTimeout(
+            temporizadorMicroMovimiento
+        );
+
+        temporizadorMicroMovimiento = null;
+    }
+}
+
+
+/* ============================================================
+   ACTIVAR AUDIO DESDE EL PRIMER TOQUE
+============================================================ */
+
+async function prepararAudio(){
+
+    try{
+
+        if(!audioContext){
+
+            const AudioContextClass =
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+            if(!AudioContextClass){
+
+                console.warn(
+                    "AudioContext no disponible"
+                );
+
+                return false;
+            }
+
+            audioContext =
+                new AudioContextClass();
+        }
+
+        if(audioContext.state === "suspended"){
+
+            await audioContext.resume();
+        }
+
+        return true;
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo activar AudioContext:",
+            error
+        );
+
+        return false;
+    }
+}
+
+
+/* ============================================================
+   ACTIVAR AUDIO CON CUALQUIER TOQUE
+============================================================ */
+
+document.addEventListener(
+    "touchend",
+    () => {
+
+        prepararAudio();
+
+    },
+    {
+        passive:true
+    }
+);
+
+document.addEventListener(
+    "click",
+    () => {
+
+        prepararAudio();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* ============================================================
+   PARPADEAR
+============================================================ */
+
+parpadear.onclick = () => {
+
+    prepararAudio();
+
+    hacerParpadear();
+};
+
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+
+biblioteca.onclick = () => {
+
+    window.location.href =
+        "./biblioteca.html";
+};
+
+
+/* ============================================================
+   CARGAR PIPER
+============================================================ */
+
+async function cargarPiper(){
+
+    if(piperModulo){
+
+        return piperModulo;
+    }
+
+    if(piperCargando){
+
+        return piperCargando;
+    }
+
+    piperCargando =
+        import(PIPER_URL);
+
+    try{
+
+        piperModulo =
+            await piperCargando;
+
+        return piperModulo;
+
+    }finally{
+
+        piperCargando = null;
+    }
+}
+
+
+/* ============================================================
+   CREAR SESIÓN PIPER
+============================================================ */
+
+async function crearSesionPiper(){
+
+    const modulo =
+        await cargarPiper();
+
+    const TtsSession =
+        modulo.TtsSession;
+
+    if(!TtsSession){
+
+        throw new Error(
+            "Piper no contiene TtsSession"
+        );
+    }
+
+    sesionPiper =
+        new TtsSession({
+
+            voiceId: VOZ,
+
+            allowLocalModels:true,
+
+            fallbackStrategy:"auto",
+
+            progress:(info) => {
+
+                if(
+                    info &&
+                    info.loaded &&
+                    info.total
+                ){
+
+                    const porcentaje =
+                        Math.round(
+                            (info.loaded /
+                            info.total) * 100
+                        );
+
+                    estado.textContent =
+                        "🔄 Preparando voz " +
+                        porcentaje +
+                        "%";
+                }
+            },
+
+            logger:(...args) => {
+
+                console.log(
+                    "[PIPER]",
+                    ...args
+                );
+            }
+
+        });
+
+    return sesionPiper;
+}
+
+
+/* ============================================================
+   GENERAR WAV
+============================================================ */
+
+async function generarVoz(texto){
+
+    if(!texto){
+
+        throw new Error(
+            "No hay texto para hablar"
+        );
+    }
+
+    if(!sesionPiper){
+
+        await crearSesionPiper();
+    }
+
+    try{
+
+        const wav =
+            await sesionPiper.predict(texto);
+
+        if(!(wav instanceof Blob)){
+
+            throw new Error(
+                "Piper no devolvió un WAV válido"
+            );
+        }
+
+        return wav;
+
+    }catch(error){
+
+        console.warn(
+            "Piper falló. Se reiniciará la sesión.",
+            error
+        );
+
+        sesionPiper = null;
+
+        throw error;
+    }
+}
+
+
+/* ============================================================
+   REPRODUCIR WAV CON WEB AUDIO
+============================================================ */
+
+async function reproducirWAV(wav){
+
+    const preparado =
+        await prepararAudio();
+
+    if(!preparado){
+
+        throw new Error(
+            "No se pudo activar el audio"
+        );
+    }
+
+    if(!audioContext){
+
+        throw new Error(
+            "AudioContext no disponible"
+        );
+    }
+
+    if(audioContext.state === "suspended"){
+
+        await audioContext.resume();
+    }
+
+
+    /* Detener sonido anterior */
+
+    try{
+
+        if(fuenteActual){
+
+            fuenteActual.stop();
+        }
+
+    }catch(_){}
+
+    fuenteActual = null;
+
+
+    /* Liberar URL anterior */
+
+    if(audioURLActual){
+
+        try{
+
+            URL.revokeObjectURL(
+                audioURLActual
+            );
+
+        }catch(_){}
+
+        audioURLActual = null;
+    }
+
+
+    /* WAV → ArrayBuffer */
+
+    const arrayBuffer =
+        await wav.arrayBuffer();
+
+
+    /* Decodificar */
+
+    const audioBuffer =
+        await audioContext.decodeAudioData(
+            arrayBuffer.slice(0)
+        );
+
+
+    /* Crear fuente */
+
+    const fuente =
+        audioContext.createBufferSource();
+
+    fuente.buffer =
+        audioBuffer;
+
+    fuente.connect(
+        audioContext.destination
+    );
+
+
+    fuenteActual =
+        fuente;
+
+
+    fuente.onended = () => {
+
+        if(fuenteActual === fuente){
+
+            fuenteActual = null;
+        }
+
+        avatar.classList.remove(
+            "hablando"
+        );
+
+        reproduciendoVoz = false;
+
+        /*
+         * La vida facial normal continúa
+         * después de hablar.
+         */
+    };
+
+
+    avatar.classList.add(
+        "hablando"
+    );
+
+    reproduciendoVoz = true;
+
+    fuente.start(0);
+}
+
+
+/* ============================================================
+   HABLAR
+============================================================ */
+
+async function hablarConPiper(texto){
+
+    const wav =
+        await generarVoz(texto);
+
+    await reproducirWAV(wav);
+}
+
+
+/* ============================================================
+   COLA DE VOZ
+============================================================ */
+
+async function procesarColaVoz(){
+
+    if(reproduciendoVoz){
+
+        return;
+    }
+
+    if(colaVoz.length === 0){
+
+        return;
+    }
+
+    const texto =
+        colaVoz.shift();
+
+    try{
+
+        await hablarConPiper(texto);
+
+    }catch(error){
+
+        console.error(
+            "Error reproduciendo voz:",
+            error
+        );
+
+        estado.textContent =
+            "⚠️ Respuesta preparada · pulsa 🔊 OÍR";
+
+    }
+}
+
+
+/* ============================================================
+   AÑADIR VOZ A LA COLA
+============================================================ */
+
+function hablarAutomaticamente(texto){
+
+    if(!texto){
+
+        return;
+    }
+
+    colaVoz.push(texto);
+
+    procesarColaVoz();
+}
+
+
+/* ============================================================
+   BOTÓN PRUEBA DE VOZ
+============================================================ */
+
+probarVoz.onclick = async () => {
+
+    probarVoz.disabled = true;
+
+    estado.textContent =
+        "🔄 Preparando voz de GePeTo...";
+
+    try{
+
+        await prepararAudio();
+
+        const texto =
+            "Hola Rafa. Soy GePeTo. La prueba de voz funciona correctamente.";
+
+        await hablarConPiper(texto);
+
+        estado.textContent =
+            "🟢 Voz de GePeTo funcionando";
+
+    }catch(error){
+
+        console.error(error);
+
+        estado.textContent =
+            "❌ Error de voz: " +
+            (error.message || error);
+
+    }finally{
+
+        probarVoz.disabled = false;
+    }
+};
+
+
+/* ============================================================
+   PARAR
+============================================================ */
+
+parar.onclick = () => {
+
+    colaVoz = [];
+
+    try{
+
+        if(fuenteActual){
+
+            fuenteActual.stop();
+        }
+
+    }catch(_){}
+
+    fuenteActual = null;
+
+    reproduciendoVoz = false;
+
+    avatar.classList.remove(
+        "hablando"
+    );
+
+    estado.textContent =
+        "🟢 GePeTo conectado";
+};
+
+
+/* ============================================================
+   RESPUESTA DEL WORKER
+============================================================ */
+
+function extraerTextoRespuesta(data){
+
+    if(!data){
+
+        return "";
+    }
+
+
+    if(typeof data === "string"){
+
+        return data.trim();
+    }
+
+
+    const campos = [
+        "respuesta",
+        "response",
+        "texto",
+        "text",
+        "answer",
+        "content",
+        "message"
+    ];
+
+
+    for(const campo of campos){
+
+        if(
+            typeof data[campo] ===
+            "string"
+        ){
+
+            const texto =
+                data[campo].trim();
+
+            if(texto){
+
+                return texto;
+            }
+        }
+    }
+
+
+    if(data.data){
+
+        const resultado =
+            extraerTextoRespuesta(
+                data.data
+            );
+
+        if(resultado){
+
+            return resultado;
+        }
+    }
+
+
+    if(data.result){
+
+        const resultado =
+            extraerTextoRespuesta(
+                data.result
+            );
+
+        if(resultado){
+
+            return resultado;
+        }
+    }
+
+
+    if(data.output){
+
+        const resultado =
+            extraerTextoRespuesta(
+                data.output
+            );
+
+        if(resultado){
+
+            return resultado;
+        }
+    }
+
+
+    return "";
+}
+
+
+/* ============================================================
+   MENSAJE DEL USUARIO
+============================================================ */
+
+function añadirMensajeUsuario(texto){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "mensaje usuario";
+
+    div.textContent =
+        texto;
+
+    chat.appendChild(div);
+
+    desplazarChat();
+}
+
+
+/* ============================================================
+   MENSAJE DE GEPETO
+============================================================ */
+
+function añadirMensajeGePeTo(texto){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "mensaje gepeto";
+
+
+    const cabecera =
+        document.createElement("div");
+
+    cabecera.className =
+        "mensajeCabecera";
+
+    cabecera.textContent =
+        "GePeTo";
+
+
+    const contenido =
+        document.createElement("div");
+
+    contenido.className =
+        "textoRespuesta";
+
+    contenido.textContent =
+        texto;
+
+
+    const boton =
+        document.createElement("button");
+
+    boton.className =
+        "oir";
+
+    boton.textContent =
+        "🔊 OÍR";
+
+
+    boton.onclick = async () => {
+
+        try{
+
+            boton.disabled = true;
+
+            boton.classList.add(
+                "leyendo"
+            );
+
+            boton.textContent =
+                "🔊 HABLANDO...";
+
+            await prepararAudio();
+
+            await hablarConPiper(
+                texto
+            );
+
+            boton.textContent =
+                "🔊 OÍR";
