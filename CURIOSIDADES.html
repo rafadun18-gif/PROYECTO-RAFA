@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
 <title>CURIOSIDADES · Proyecto Rafa</title>
-
 <style>
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
-
 html,body{
     margin:0;
     padding:0;
@@ -20,21 +17,18 @@ html,body{
     color:white;
     font-family:Arial,Helvetica,sans-serif;
 }
-
 body{
     min-height:100vh;
     overflow-x:hidden;
     background:
-        radial-gradient(circle at 50% 35%,rgba(0,255,255,.12),transparent 28%),
-        radial-gradient(circle at 15% 20%,rgba(0,255,100,.09),transparent 28%),
+        radial-gradient(circle at 50% 25%,rgba(0,255,255,.15),transparent 28%),
+        radial-gradient(circle at 15% 25%,rgba(0,255,100,.10),transparent 30%),
         radial-gradient(circle at 90% 65%,rgba(255,0,200,.10),transparent 30%),
         #010204;
 }
-
-/* =====================================================
+/* =========================
    FONDO HOLOGRÁFICO
-===================================================== */
-
+========================= */
 body::before{
     content:"";
     position:fixed;
@@ -46,32 +40,30 @@ body::before{
         linear-gradient(rgba(0,255,255,.035) 1px,transparent 1px),
         linear-gradient(90deg,rgba(0,255,255,.035) 1px,transparent 1px);
     background-size:45px 45px;
-    mask-image:linear-gradient(to bottom,black,transparent);
 }
-
 body::after{
     content:"";
     position:fixed;
     width:500px;
     height:500px;
     left:50%;
-    top:38%;
+    top:40%;
     transform:translate(-50%,-50%);
     border-radius:50%;
     pointer-events:none;
     z-index:0;
     background:
-        radial-gradient(circle,
+        radial-gradient(
+            circle,
             rgba(0,255,255,.10) 0%,
             rgba(0,255,100,.04) 35%,
-            transparent 70%);
+            transparent 70%
+        );
     filter:blur(8px);
 }
-
-/* =====================================================
-   PARTICULAS
-===================================================== */
-
+/* =========================
+   PARTÍCULAS
+========================= */
 .particulas{
     position:fixed;
     inset:0;
@@ -79,7 +71,6 @@ body::after{
     pointer-events:none;
     z-index:0;
 }
-
 .particulas span{
     position:absolute;
     width:3px;
@@ -90,105 +81,442 @@ body::after{
     opacity:.7;
     animation:particula 8s linear infinite;
 }
-
-.particulas span:nth-child(1){
-    left:8%;
-    top:80%;
-    animation-delay:0s;
-}
-
-.particulas span:nth-child(2){
-    left:18%;
-    top:35%;
-    animation-delay:2s;
-}
-
-.particulas span:nth-child(3){
-    left:30%;
-    top:70%;
-    animation-delay:4s;
-}
-
-.particulas span:nth-child(4){
-    left:45%;
-    top:20%;
-    animation-delay:1s;
-}
-
-.particulas span:nth-child(5){
-    left:62%;
-    top:75%;
-    animation-delay:3s;
-}
-
-.particulas span:nth-child(6){
-    left:76%;
-    top:30%;
-    animation-delay:5s;
-}
-
-.particulas span:nth-child(7){
-    left:90%;
-    top:60%;
-    animation-delay:2s;
-}
-
-.particulas span:nth-child(8){
-    left:54%;
-    top:50%;
-    animation-delay:6s;
-}
-
-.particulas span:nth-child(9){
-    left:25%;
-    top:15%;
-    animation-delay:4s;
-}
-
-.particulas span:nth-child(10){
-    left:84%;
-    top:15%;
-    animation-delay:1s;
-}
-
+.particulas span:nth-child(1){left:8%;top:80%;animation-delay:0s;}
+.particulas span:nth-child(2){left:18%;top:35%;animation-delay:2s;}
+.particulas span:nth-child(3){left:30%;top:70%;animation-delay:4s;}
+.particulas span:nth-child(4){left:45%;top:20%;animation-delay:1s;}
+.particulas span:nth-child(5){left:62%;top:75%;animation-delay:3s;}
+.particulas span:nth-child(6){left:76%;top:30%;animation-delay:5s;}
+.particulas span:nth-child(7){left:90%;top:60%;animation-delay:2s;}
+.particulas span:nth-child(8){left:54%;top:50%;animation-delay:6s;}
+.particulas span:nth-child(9){left:25%;top:15%;animation-delay:4s;}
+.particulas span:nth-child(10){left:84%;top:15%;animation-delay:1s;}
 @keyframes particula{
     0%{
         transform:translateY(40px);
         opacity:0;
     }
-
     20%{
         opacity:.8;
     }
-
     80%{
         opacity:.8;
     }
-
     100%{
         transform:translateY(-180px);
         opacity:0;
     }
 }
-
-/* =====================================================
-   CABECERA
-===================================================== */
-
-header{
+/* =========================
+   CONTENEDOR
+========================= */
+.contenedor{
     position:relative;
-    z-index:10;
-    padding:15px 12px 12px;
-    text-align:center;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(0,255,255,.22);
+    z-index:5;
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    padding:15px 12px 40px;
 }
-
+/* =========================
+   CABECERA
+========================= */
+header{
+    text-align:center;
+    padding:18px 10px;
+    margin-bottom:18px;
+    background:rgba(0,0,0,.72);
+    border:1px solid rgba(0,255,255,.25);
+    border-radius:18px;
+    box-shadow:
+        0 0 20px rgba(0,255,255,.10),
+        inset 0 0 25px rgba(0,255,255,.04);
+    backdrop-filter:blur(12px);
+}
 h1{
     margin:0;
-    font-size:27px;
+    font-size:30px;
     letter-spacing:4px;
     color:white;
     text-shadow:
-        0 0 8px #00
+        0 0 8px #00ffff,
+        0 0 18px #00ffff,
+        0 0 30px rgba(0,255,255,.7);
+}
+.subtitulo{
+    margin-top:8px;
+    font-size:13px;
+    letter-spacing:2px;
+    color:#9ff;
+}
+/* =========================
+   BOTÓN PORTADA
+========================= */
+.portada{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #00ffff;
+    border-radius:14px;
+    background:rgba(0,255,255,.08);
+    box-shadow:
+        0 0 12px rgba(0,255,255,.25),
+        inset 0 0 15px rgba(0,255,255,.04);
+    font-weight:bold;
+    letter-spacing:2px;
+}
+.portada:active{
+    transform:scale(.98);
+}
+/* =========================
+   BLOQUES
+========================= */
+.bloque{
+    margin-bottom:18px;
+    padding:18px;
+    background:rgba(3,7,12,.84);
+    border:1px solid rgba(0,255,255,.25);
+    border-radius:18px;
+    box-shadow:
+        0 0 20px rgba(0,255,255,.07),
+        inset 0 0 20px rgba(0,255,255,.025);
+}
+.titulo-bloque{
+    margin:0 0 14px;
+    text-align:center;
+    font-size:20px;
+    letter-spacing:2px;
+    color:#fff;
+    text-shadow:0 0 10px #00ffff;
+}
+/* =========================
+   CARPETAS
+========================= */
+.carpetas{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+.carpeta{
+    min-height:90px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:12px 8px;
+    border-radius:15px;
+    border:1px solid rgba(0,255,255,.30);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,255,255,.09),
+            rgba(255,0,200,.05)
+        );
+    box-shadow:0 0 12px rgba(0,255,255,.08);
+}
+.carpeta .icono{
+    font-size:30px;
+    margin-bottom:7px;
+}
+.carpeta .nombre{
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+.carpeta .descripcion{
+    margin-top:5px;
+    font-size:10px;
+    color:#a9ffff;
+}
+/* =========================
+   DESCRIPCIÓN
+========================= */
+.info{
+    text-align:center;
+    line-height:1.6;
+    color:#d8ffff;
+    font-size:14px;
+}
+/* =========================
+   REPRODUCTORES
+========================= */
+.reproductor{
+    margin-top:12px;
+    padding:14px;
+    border-radius:15px;
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(0,255,255,.22);
+}
+.reproductor label{
+    display:block;
+    text-align:center;
+    margin-bottom:10px;
+    color:#00ffff;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+input[type="file"]{
+    width:100%;
+    padding:10px;
+    color:white;
+    background:#080d12;
+    border:1px solid rgba(0,255,255,.35);
+    border-radius:10px;
+}
+audio,
+video{
+    width:100%;
+    margin-top:14px;
+    border-radius:10px;
+    background:#000;
+}
+/* =========================
+   ESTADO
+========================= */
+.estado{
+    text-align:center;
+    margin-top:9px;
+    color:#8affd5;
+    font-size:12px;
+}
+/* =========================
+   PIE
+========================= */
+.pie{
+    text-align:center;
+    padding:20px 10px;
+    color:#789;
+    font-size:11px;
+    letter-spacing:1px;
+}
+/* =========================
+   MÓVIL
+========================= */
+@media(max-width:500px){
+    .contenedor{
+        padding:10px 9px 30px;
+    }
+    h1{
+        font-size:25px;
+        letter-spacing:3px;
+    }
+    .carpetas{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+    }
+    .carpeta{
+        min-height:82px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="particulas">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div class="contenedor">
+<header>
+    <h1>🔮 CURIOSIDADES</h1>
+    <div class="subtitulo">
+        PROYECTO RAFA · UNIVERSO DE DESCUBRIMIENTOS
+    </div>
+</header>
+<a class="portada" href="index.html">
+    ← VOLVER A PORTADA
+</a>
+<section class="bloque">
+    <h2 class="titulo-bloque">
+        📁 CARPETAS DE CURIOSIDADES
+    </h2>
+    <div class="carpetas">
+        <div class="carpeta">
+            <div class="icono">🌌</div>
+            <div class="nombre">UNIVERSO</div>
+            <div class="descripcion">
+                Espacio y astronomía
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">🗿</div>
+            <div class="nombre">HISTORIA</div>
+            <div class="descripcion">
+                Pasado y civilizaciones
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">🕵️</div>
+            <div class="nombre">MISTERIOS</div>
+            <div class="descripcion">
+                Enigmas y secretos
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">🐠</div>
+            <div class="nombre">ANIMALES</div>
+            <div class="descripcion">
+                Mundo animal
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">🧪</div>
+            <div class="nombre">CIENCIA</div>
+            <div class="descripcion">
+                Ciencia y experimentos
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">🤖</div>
+            <div class="nombre">TECNOLOGÍA</div>
+            <div class="descripcion">
+                IA y tecnología
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">💎</div>
+            <div class="nombre">TESOROS</div>
+            <div class="descripcion">
+                Lugares y descubrimientos
+            </div>
+        </div>
+        <div class="carpeta">
+            <div class="icono">❓</div>
+            <div class="nombre">OTRAS</div>
+            <div class="descripcion">
+                Curiosidades varias
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bloque">
+    <h2 class="titulo-bloque">
+        🧠 SALA DE CURIOSIDADES
+    </h2>
+    <div class="info">
+        Este espacio queda preparado para guardar
+        descubrimientos, historias, misterios,
+        datos curiosos y nuevos conocimientos
+        de Proyecto Rafa.
+        <br><br>
+        Aquí podremos ir ampliando las carpetas
+        sin tener que cambiar la estructura de la sala.
+    </div>
+</section>
+<section class="bloque">
+    <h2 class="titulo-bloque">
+        🎵 MÚSICA · MP3
+    </h2>
+    <div class="reproductor">
+        <label>
+            🎧 SELECCIONAR MÚSICA
+        </label>
+        <input
+            type="file"
+            id="mp3"
+            accept="audio/*"
+        >
+        <audio
+            id="audio"
+            controls
+            preload="metadata">
+        </audio>
+        <div
+            class="estado"
+            id="estadoAudio">
+            Selecciona un archivo MP3 para reproducirlo
+        </div>
+    </div>
+</section>
+<section class="bloque">
+    <h2 class="titulo-bloque">
+        🎬 VÍDEO · MP4
+    </h2>
+    <div class="reproductor">
+        <label>
+            🎥 SELECCIONAR VÍDEO
+        </label>
+        <input
+            type="file"
+            id="mp4"
+            accept="video/*"
+        >
+        <video
+            id="video"
+            controls
+            playsinline
+            preload="metadata">
+        </video>
+        <div
+            class="estado"
+            id="estadoVideo">
+            Selecciona un archivo MP4 para reproducirlo
+        </div>
+    </div>
+</section>
+<section class="bloque">
+    <h2 class="titulo-bloque">
+        📂 ARCHIVOS DE LA SALA
+    </h2>
+    <div class="info">
+        Esta zona queda preparada para incorporar
+        posteriormente las imágenes, audios y vídeos
+        definitivos de CURIOSIDADES.
+        <br><br>
+        Los reproductores permiten probar archivos
+        directamente desde el iPhone o la tablet.
+    </div>
+</section>
+<div class="pie">
+    PROYECTO RAFA · DUAL IA<br>
+    GEPeTo · LÍA · CURIOSIDADES
+</div>
+</div>
+<script>
+/* =========================
+   REPRODUCTOR MP3
+========================= */
+const mp3 = document.getElementById("mp3");
+const audio = document.getElementById("audio");
+const estadoAudio = document.getElementById("estadoAudio");
+mp3.addEventListener("change", function(){
+    if(!this.files || !this.files[0]){
+        return;
+    }
+    const archivo = this.files[0];
+    audio.src = URL.createObjectURL(archivo);
+    estadoAudio.textContent =
+        "🎵 Reproduciendo: " + archivo.name;
+    audio.load();
+});
+/* =========================
+   REPRODUCTOR MP4
+========================= */
+const mp4 = document.getElementById("mp4");
+const video = document.getElementById("video");
+const estadoVideo = document.getElementById("estadoVideo");
+mp4.addEventListener("change", function(){
+    if(!this.files || !this.files[0]){
+        return;
+    }
+    const archivo = this.files[0];
+    video.src = URL.createObjectURL(archivo);
+    estadoVideo.textContent =
+        "🎬 Vídeo seleccionado: " + archivo.name;
+    video.load();
+});
+</script>
+</body>
+</html>
