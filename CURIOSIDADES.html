@@ -16,7 +16,7 @@ html,body{
     margin:0;
     padding:0;
     min-height:100%;
-    background:#020204;
+    background:#010204;
     color:white;
     font-family:Arial,Helvetica,sans-serif;
 }
@@ -25,1482 +25,170 @@ body{
     min-height:100vh;
     overflow-x:hidden;
     background:
-        radial-gradient(circle at 50% 0%,rgba(0,255,100,.13),transparent 35%),
-        radial-gradient(circle at 0% 100%,rgba(255,0,180,.10),transparent 35%),
-        radial-gradient(circle at 100% 70%,rgba(0,180,255,.08),transparent 35%),
-        #020204;
+        radial-gradient(circle at 50% 35%,rgba(0,255,255,.12),transparent 28%),
+        radial-gradient(circle at 15% 20%,rgba(0,255,100,.09),transparent 28%),
+        radial-gradient(circle at 90% 65%,rgba(255,0,200,.10),transparent 30%),
+        #010204;
 }
 
+/* =====================================================
+   FONDO HOLOGRÁFICO
+===================================================== */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    opacity:.35;
+    background:
+        linear-gradient(rgba(0,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,255,255,.035) 1px,transparent 1px);
+    background-size:45px 45px;
+    mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+    background:
+        radial-gradient(circle,
+            rgba(0,255,255,.10) 0%,
+            rgba(0,255,100,.04) 35%,
+            transparent 70%);
+    filter:blur(8px);
+}
+
+/* =====================================================
+   PARTICULAS
+===================================================== */
+
+.particulas{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.particulas span{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#00ffff;
+    box-shadow:0 0 8px #00ffff;
+    opacity:.7;
+    animation:particula 8s linear infinite;
+}
+
+.particulas span:nth-child(1){
+    left:8%;
+    top:80%;
+    animation-delay:0s;
+}
+
+.particulas span:nth-child(2){
+    left:18%;
+    top:35%;
+    animation-delay:2s;
+}
+
+.particulas span:nth-child(3){
+    left:30%;
+    top:70%;
+    animation-delay:4s;
+}
+
+.particulas span:nth-child(4){
+    left:45%;
+    top:20%;
+    animation-delay:1s;
+}
+
+.particulas span:nth-child(5){
+    left:62%;
+    top:75%;
+    animation-delay:3s;
+}
+
+.particulas span:nth-child(6){
+    left:76%;
+    top:30%;
+    animation-delay:5s;
+}
+
+.particulas span:nth-child(7){
+    left:90%;
+    top:60%;
+    animation-delay:2s;
+}
+
+.particulas span:nth-child(8){
+    left:54%;
+    top:50%;
+    animation-delay:6s;
+}
+
+.particulas span:nth-child(9){
+    left:25%;
+    top:15%;
+    animation-delay:4s;
+}
+
+.particulas span:nth-child(10){
+    left:84%;
+    top:15%;
+    animation-delay:1s;
+}
+
+@keyframes particula{
+    0%{
+        transform:translateY(40px);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.8;
+    }
+
+    80%{
+        opacity:.8;
+    }
+
+    100%{
+        transform:translateY(-180px);
+        opacity:0;
+    }
+}
+
+/* =====================================================
+   CABECERA
+===================================================== */
+
 header{
-    position:sticky;
-    top:0;
-    z-index:20;
+    position:relative;
+    z-index:10;
     padding:15px 12px 12px;
     text-align:center;
-    background:rgba(0,0,0,.90);
+    background:rgba(0,0,0,.72);
     backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(0,255,100,.30);
+    border-bottom:1px solid rgba(0,255,255,.22);
 }
 
 h1{
     margin:0;
     font-size:27px;
-    letter-spacing:3px;
+    letter-spacing:4px;
     color:white;
     text-shadow:
-        0 0 8px #00ff66,
-        0 0 20px rgba(0,255,100,.5);
-}
-
-.subtitulo{
-    margin-top:5px;
-    font-size:12px;
-    color:#00ff66;
-    letter-spacing:2px;
-}
-
-.contenedor{
-    width:100%;
-    max-width:1000px;
-    margin:auto;
-    padding:14px;
-}
-
-button{
-    border:1px solid rgba(0,255,100,.55);
-    background:rgba(0,20,10,.80);
-    color:white;
-    border-radius:12px;
-    padding:12px 14px;
-    font-size:14px;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:
-        0 0 8px rgba(0,255,100,.12),
-        inset 0 0 12px rgba(0,255,100,.04);
-}
-
-button:active{
-    transform:scale(.97);
-}
-
-.barra-superior{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-bottom:14px;
-}
-
-.btn-portada{
-    border-color:#00ff66;
-    color:#00ff66;
-}
-
-.btn-editar{
-    border-color:#ff00cc;
-    color:#ff55dd;
-}
-
-.btn-nueva{
-    border-color:#00ffff;
-    color:#00ffff;
-}
-
-.estado{
-    text-align:center;
-    min-height:20px;
-    margin:8px 0 12px;
-    color:#aaa;
-    font-size:13px;
-}
-
-/* MÚSICA */
-
-.musica-box{
-    border:1px solid rgba(0,255,100,.35);
-    border-radius:16px;
-    padding:13px;
-    margin-bottom:16px;
-    background:rgba(0,20,10,.65);
-    box-shadow:0 0 20px rgba(0,255,100,.06);
-}
-
-.titulo-seccion{
-    color:#00ff66;
-    font-size:15px;
-    font-weight:bold;
-    letter-spacing:1px;
-    margin-bottom:9px;
-}
-
-audio{
-    width:100%;
-    height:42px;
-}
-
-/* CARPETAS */
-
-h2{
-    text-align:center;
-    font-size:18px;
-    letter-spacing:2px;
-    margin:20px 0 12px;
-    color:#00ffff;
-    text-shadow:0 0 10px rgba(0,255,255,.4);
-}
-
-.carpetas{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.carpeta{
-    position:relative;
-    min-height:145px;
-    padding:15px 12px;
-    border:1px solid rgba(0,255,255,.45);
-    border-radius:18px;
-    background:
-        linear-gradient(145deg,rgba(0,255,255,.08),rgba(0,0,0,.80));
-    box-shadow:
-        0 0 16px rgba(0,255,255,.08),
-        inset 0 0 20px rgba(0,255,255,.04);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.carpeta:hover{
-    transform:translateY(-2px);
-}
-
-.carpeta.seleccionada{
-    border-color:#00ff66;
-    box-shadow:
-        0 0 20px rgba(0,255,100,.30),
-        inset 0 0 20px rgba(0,255,100,.08);
-}
-
-.icono-carpeta{
-    font-size:45px;
-    margin-bottom:8px;
-    filter:drop-shadow(0 0 8px rgba(0,255,255,.5));
-}
-
-.nombre-carpeta{
-    font-size:16px;
-    font-weight:bold;
-    letter-spacing:1px;
-    color:white;
-    text-shadow:0 0 8px rgba(255,255,255,.25);
-    word-break:break-word;
-}
-
-.descripcion-carpeta{
-    margin-top:5px;
-    color:#aaa;
-    font-size:11px;
-}
-
-/* CONTENIDO */
-
-.panel{
-    display:none;
-    margin-top:18px;
-    padding:15px;
-    border:1px solid rgba(255,0,204,.35);
-    border-radius:18px;
-    background:rgba(10,0,12,.75);
-    box-shadow:0 0 25px rgba(255,0,200,.07);
-}
-
-.panel.visible{
-    display:block;
-}
-
-.panel-titulo{
-    text-align:center;
-    color:#ff55dd;
-    font-size:20px;
-    font-weight:bold;
-    letter-spacing:2px;
-    margin-bottom:5px;
-    text-shadow:0 0 10px rgba(255,0,204,.45);
-}
-
-.panel-info{
-    text-align:center;
-    color:#aaa;
-    font-size:12px;
-    margin-bottom:15px;
-}
-
-/* LÍA */
-
-.lia-box{
-    border:1px solid rgba(255,0,204,.45);
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:15px;
-    background:
-        radial-gradient(circle at 50% 0%,rgba(255,0,204,.10),transparent 60%),
-        rgba(20,0,15,.75);
-}
-
-.lia-titulo{
-    text-align:center;
-    color:#ff00cc;
-    font-size:17px;
-    font-weight:bold;
-    letter-spacing:2px;
-    margin-bottom:10px;
-    text-shadow:0 0 12px rgba(255,0,204,.55);
-}
-
-.lia-estado{
-    text-align:center;
-    color:#aaa;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-textarea{
-    width:100%;
-    min-height:85px;
-    resize:vertical;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid rgba(255,0,204,.35);
-    background:#050207;
-    color:white;
-    outline:none;
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:14px;
-}
-
-textarea:focus{
-    border-color:#ff00cc;
-    box-shadow:0 0 12px rgba(255,0,204,.15);
-}
-
-.botones-lia{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:10px;
-}
-
-.btn-lia{
-    border-color:#ff00cc;
-    color:#ff55dd;
-}
-
-.respuesta{
-    margin-top:12px;
-    padding:12px;
-    min-height:50px;
-    border-radius:12px;
-    background:rgba(0,0,0,.55);
-    border:1px solid rgba(255,0,204,.20);
-    color:#eee;
-    line-height:1.5;
-    white-space:pre-wrap;
-}
-
-/* HERRAMIENTAS */
-
-.herramientas{
-    border:1px solid rgba(0,255,255,.25);
-    border-radius:16px;
-    padding:14px;
-    margin-top:15px;
-    background:rgba(0,10,15,.55);
-}
-
-.botones-archivos{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-input[type="file"]{
-    display:none;
-}
-
-.archivo-label{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:12px 14px;
-    border-radius:12px;
-    border:1px solid rgba(0,255,255,.50);
-    color:#00ffff;
-    background:rgba(0,20,25,.75);
-    font-size:13px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* CONTENIDO MULTIMEDIA */
-
-.contenido{
-    margin-top:15px;
-}
-
-.contenido-vacio{
-    text-align:center;
-    color:#666;
-    padding:15px;
-    font-size:13px;
-}
-
-.elemento{
-    margin-top:12px;
-    padding:10px;
-    border-radius:14px;
-    background:rgba(0,0,0,.55);
-    border:1px solid rgba(255,255,255,.10);
-}
-
-.elemento img{
-    display:block;
-    width:100%;
-    max-height:420px;
-    object-fit:contain;
-    border-radius:10px;
-}
-
-.elemento video{
-    display:block;
-    width:100%;
-    max-height:420px;
-    border-radius:10px;
-    background:#000;
-}
-
-.elemento audio{
-    width:100%;
-}
-
-.elemento-nombre{
-    color:#aaa;
-    font-size:11px;
-    margin-top:7px;
-    word-break:break-word;
-}
-
-/* EDITAR */
-
-.editor{
-    display:none;
-    margin-top:15px;
-    padding:14px;
-    border:1px solid rgba(255,0,204,.35);
-    border-radius:16px;
-    background:rgba(15,0,12,.70);
-}
-
-.editor.visible{
-    display:block;
-}
-
-.editor p{
-    color:#aaa;
-    font-size:12px;
-    text-align:center;
-}
-
-.lista-editor{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.fila-editor{
-    display:flex;
-    gap:7px;
-    align-items:center;
-}
-
-.fila-editor input{
-    flex:1;
-    min-width:0;
-    padding:11px;
-    border-radius:10px;
-    border:1px solid rgba(255,0,204,.35);
-    background:#050207;
-    color:white;
-    font-size:14px;
-}
-
-.btn-borrar{
-    border-color:#ff3333;
-    color:#ff6666;
-    padding:10px 12px;
-}
-
-/* TEXTO */
-
-.texto-agregado{
-    color:#ddd;
-    line-height:1.6;
-    white-space:pre-wrap;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:520px){
-    .carpetas{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .carpeta{
-        min-height:135px;
-    }
-
-    .icono-carpeta{
-        font-size:39px;
-    }
-
-    .nombre-carpeta{
-        font-size:14px;
-    }
-}
-
-@media(min-width:700px){
-    .carpetas{
-        grid-template-columns:repeat(3,1fr);
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>✦ CURIOSIDADES ✦</h1>
-    <div class="subtitulo">EXPLORA · DESCUBRE · APRENDE</div>
-</header>
-
-<div class="contenedor">
-
-    <div class="barra-superior">
-        <button class="btn-portada" onclick="irPortada()">← PORTADA</button>
-        <button class="btn-editar" onclick="mostrarEditor()">✎ EDITAR CARPETAS</button>
-        <button class="btn-nueva" onclick="nuevaCarpeta()">＋ NUEVA CARPETA</button>
-    </div>
-
-    <div id="estado" class="estado"></div>
-
-    <!-- MÚSICA FIJA -->
-    <div class="musica-box">
-        <div class="titulo-seccion">🎵 MÚSICA DE CURIOSIDADES</div>
-
-        <audio controls preload="metadata">
-            <source src="./curiosidades.mp3" type="audio/mpeg">
-            Tu navegador no puede reproducir este audio.
-        </audio>
-
-        <div style="margin-top:8px;text-align:center;color:#777;font-size:11px;">
-            Archivo fijo: curiosidades.mp3
-        </div>
-    </div>
-
-    <h2>◈ CARPETAS DE CONOCIMIENTO ◈</h2>
-
-    <div id="carpetas" class="carpetas"></div>
-
-    <!-- EDITOR -->
-    <div id="editor" class="editor">
-        <h2 style="margin-top:0;color:#ff55dd;">EDITAR CARPETAS</h2>
-
-        <p>
-            Cambia el nombre directamente aquí.
-            Los cambios quedan guardados en este dispositivo.
-        </p>
-
-        <div id="listaEditor" class="lista-editor"></div>
-
-        <div style="text-align:center;margin-top:12px;">
-            <button class="btn-editar" onclick="guardarNombres()">
-                💾 GUARDAR NOMBRES
-            </button>
-        </div>
-    </div>
-
-    <!-- PANEL CARPETA -->
-    <div id="panel" class="panel">
-
-        <div id="panelTitulo" class="panel-titulo">
-            CARPETA
-        </div>
-
-        <div id="panelInfo" class="panel-info">
-            Selecciona una carpeta.
-        </div>
-
-        <!-- LÍA -->
-        <div class="lia-box">
-
-            <div class="lia-titulo">✦ LÍA · INVESTIGADORA ✦</div>
-
-            <div id="liaEstado" class="lia-estado">
-                Preparada para investigar.
-            </div>
-
-            <textarea
-                id="pregunta"
-                placeholder="Escribe aquí lo que quieres saber..."
-            ></textarea>
-
-            <div class="botones-lia">
-
-                <button class="btn-lia" onclick="preguntarLia()">
-                    💗 PREGUNTAR A LÍA
-                </button>
-
-                <button class="btn-lia" onclick="buscarWikipedia()">
-                    📖 WIKIPEDIA
-                </button>
-
-                <button class="btn-lia" onclick="buscarFotos()">
-                    📸 FOTOS
-                </button>
-
-                <button class="btn-lia" onclick="buscarLibros()">
-                    📚 LIBROS
-                </button>
-
-                <button class="btn-lia" onclick="investigarTodo()">
-                    🔎 INVESTIGAR TODO
-                </button>
-
-            </div>
-
-            <div id="respuesta" class="respuesta">
-                Lía está preparada.
-            </div>
-
-        </div>
-
-        <!-- ARCHIVOS -->
-        <div class="herramientas">
-
-            <div class="titulo-seccion">
-                📁 AÑADIR CONTENIDO
-            </div>
-
-            <div class="botones-archivos">
-
-                <label class="archivo-label">
-                    🎵 SUBIR MP3
-                    <input
-                        id="inputMp3"
-                        type="file"
-                        accept="audio/*"
-                        onchange="agregarAudio(event)"
-                    >
-                </label>
-
-                <label class="archivo-label">
-                    🖼️ SUBIR IMÁGENES
-                    <input
-                        id="inputImagenes"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onchange="agregarImagenes(event)"
-                    >
-                </label>
-
-                <label class="archivo-label">
-                    🎬 SUBIR MP4
-                    <input
-                        id="inputMp4"
-                        type="file"
-                        accept="video/*"
-                        onchange="agregarVideo(event)"
-                    >
-                </label>
-
-                <button onclick="agregarTexto()">
-                    📝 AÑADIR TEXTO
-                </button>
-
-            </div>
-
-        </div>
-
-        <div id="contenido" class="contenido">
-            <div class="contenido-vacio">
-                Esta carpeta todavía no tiene contenido añadido.
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-"use strict";
-
-/* =====================================================
-   CONFIGURACIÓN
-===================================================== */
-
-const CLAVE = "proyectoRafaCuriosidadesV4";
-
-const LIA_URL = "https://lia-rafa.rafadun18.workers.dev";
-
-let carpetas = [];
-let carpetaSeleccionada = null;
-
-/* =====================================================
-   CARPETAS INICIALES
-===================================================== */
-
-const carpetasIniciales = [
-    {
-        nombre:"🌌 UNIVERSO",
-        descripcion:"Estrellas, planetas, galaxias y espacio",
-        tipo:"universo",
-        contenido:[]
-    },
-    {
-        nombre:"🐠 ANIMALES",
-        descripcion:"Animales, especies y naturaleza",
-        tipo:"animales",
-        contenido:[]
-    },
-    {
-        nombre:"🌍 TIERRA",
-        descripcion:"Nuestro planeta y sus secretos",
-        tipo:"tierra",
-        contenido:[]
-    },
-    {
-        nombre:"🔬 CIENCIA",
-        descripcion:"Ciencia, física, química y descubrimientos",
-        tipo:"ciencia",
-        contenido:[]
-    },
-    {
-        nombre:"🏛️ HISTORIA",
-        descripcion:"Civilizaciones, personajes y acontecimientos",
-        tipo:"historia",
-        contenido:[]
-    },
-    {
-        nombre:"❓ MISTERIOS",
-        descripcion:"Misterios, enigmas y preguntas sin resolver",
-        tipo:"misterios",
-        contenido:[]
-    },
-    {
-        nombre:"💡 INVENTOS",
-        descripcion:"Inventos, tecnología e ideas",
-        tipo:"inventos",
-        contenido:[]
-    }
-];
-
-/* =====================================================
-   INICIO
-===================================================== */
-
-window.addEventListener("DOMContentLoaded",function(){
-
-    cargarDatos();
-
-    pintarCarpetas();
-
-    document.getElementById("estado").textContent =
-        "CURIOSIDADES preparada · Lía investigadora";
-
-});
-
-/* =====================================================
-   LOCALSTORAGE
-===================================================== */
-
-function cargarDatos(){
-
-    try{
-
-        const guardado = localStorage.getItem(CLAVE);
-
-        if(guardado){
-
-            const datos = JSON.parse(guardado);
-
-            if(Array.isArray(datos) && datos.length){
-
-                carpetas = datos;
-
-                carpetas.forEach(function(c){
-                    if(!Array.isArray(c.contenido)){
-                        c.contenido = [];
-                    }
-                });
-
-                return;
-            }
-        }
-
-    }catch(error){
-
-        console.log("No se pudieron cargar los datos:",error);
-
-    }
-
-    carpetas = JSON.parse(JSON.stringify(carpetasIniciales));
-
-}
-
-function guardarDatos(){
-
-    try{
-
-        localStorage.setItem(CLAVE,JSON.stringify(carpetas));
-
-    }catch(error){
-
-        console.log("No se pudo guardar:",error);
-
-    }
-
-}
-
-/* =====================================================
-   PINTAR CARPETAS
-===================================================== */
-
-function pintarCarpetas(){
-
-    const zona = document.getElementById("carpetas");
-
-    zona.innerHTML = "";
-
-    carpetas.forEach(function(carpeta,index){
-
-        const div = document.createElement("div");
-
-        div.className = "carpeta";
-
-        if(carpetaSeleccionada === index){
-            div.classList.add("seleccionada");
-        }
-
-        div.innerHTML = `
-            <div class="icono-carpeta">📁</div>
-            <div class="nombre-carpeta"></div>
-            <div class="descripcion-carpeta"></div>
-        `;
-
-        div.querySelector(".nombre-carpeta").textContent =
-            carpeta.nombre;
-
-        div.querySelector(".descripcion-carpeta").textContent =
-            carpeta.descripcion || "Carpeta de conocimiento";
-
-        div.addEventListener("click",function(){
-            abrirCarpeta(index);
-        });
-
-        zona.appendChild(div);
-
-    });
-
-}
-
-/* =====================================================
-   ABRIR CARPETA
-===================================================== */
-
-function abrirCarpeta(index){
-
-    carpetaSeleccionada = index;
-
-    pintarCarpetas();
-
-    const carpeta = carpetas[index];
-
-    document.getElementById("panel").classList.add("visible");
-
-    document.getElementById("panelTitulo").textContent =
-        carpeta.nombre;
-
-    document.getElementById("panelInfo").textContent =
-        carpeta.descripcion || "Explora esta carpeta.";
-
-    document.getElementById("respuesta").textContent =
-        "Lía está preparada para investigar sobre " +
-        carpeta.nombre + ".";
-
-    pintarContenido();
-
-    window.scrollTo({
-        top:document.getElementById("panel").offsetTop - 10,
-        behavior:"smooth"
-    });
-
-}
-
-/* =====================================================
-   EDITAR CARPETAS
-===================================================== */
-
-function mostrarEditor(){
-
-    const editor = document.getElementById("editor");
-
-    editor.classList.toggle("visible");
-
-    const lista = document.getElementById("listaEditor");
-
-    lista.innerHTML = "";
-
-    carpetas.forEach(function(carpeta,index){
-
-        const fila = document.createElement("div");
-
-        fila.className = "fila-editor";
-
-        const input = document.createElement("input");
-
-        input.type = "text";
-
-        input.value = carpeta.nombre;
-
-        input.dataset.index = index;
-
-        const borrar = document.createElement("button");
-
-        borrar.className = "btn-borrar";
-
-        borrar.textContent = "🗑️";
-
-        borrar.onclick = function(){
-
-            borrarCarpeta(index);
-
-        };
-
-        fila.appendChild(input);
-
-        fila.appendChild(borrar);
-
-        lista.appendChild(fila);
-
-    });
-
-}
-
-function guardarNombres(){
-
-    const inputs =
-        document.querySelectorAll("#listaEditor input");
-
-    inputs.forEach(function(input){
-
-        const index = Number(input.dataset.index);
-
-        if(input.value.trim()){
-
-            carpetas[index].nombre =
-                input.value.trim();
-
-        }
-
-    });
-
-    guardarDatos();
-
-    pintarCarpetas();
-
-    if(carpetaSeleccionada !== null){
-
-        const carpeta = carpetas[carpetaSeleccionada];
-
-        document.getElementById("panelTitulo").textContent =
-            carpeta.nombre;
-
-    }
-
-    document.getElementById("estado").textContent =
-        "✓ Nombres guardados";
-
-}
-
-function borrarCarpeta(index){
-
-    const nombre = carpetas[index].nombre;
-
-    if(!confirm("¿Borrar la carpeta " + nombre + "?")){
-        return;
-    }
-
-    carpetas.splice(index,1);
-
-    carpetaSeleccionada = null;
-
-    guardarDatos();
-
-    pintarCarpetas();
-
-    document.getElementById("panel").classList.remove("visible");
-
-    mostrarEditor();
-
-}
-
-/* =====================================================
-   NUEVA CARPETA
-===================================================== */
-
-function nuevaCarpeta(){
-
-    const nombre = prompt(
-        "Escribe el nombre de la nueva carpeta:"
-    );
-
-    if(!nombre || !nombre.trim()){
-        return;
-    }
-
-    carpetas.push({
-
-        nombre:"📁 " + nombre.trim(),
-
-        descripcion:"Nueva carpeta de conocimiento",
-
-        tipo:"personalizada",
-
-        contenido:[]
-
-    });
-
-    guardarDatos();
-
-    pintarCarpetas();
-
-    document.getElementById("estado").textContent =
-        "✓ Nueva carpeta creada";
-
-}
-
-/* =====================================================
-   LÍA
-===================================================== */
-
-async function preguntarLia(){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Primero selecciona una carpeta.");
-
-        return;
-    }
-
-    const pregunta =
-        document.getElementById("pregunta").value.trim();
-
-    if(!pregunta){
-
-        alert("Escribe primero una pregunta.");
-
-        return;
-    }
-
-    const carpeta =
-        carpetas[carpetaSeleccionada];
-
-    const respuesta =
-        document.getElementById("respuesta");
-
-    const estado =
-        document.getElementById("liaEstado");
-
-    estado.textContent =
-        "💗 Lía está investigando...";
-
-    respuesta.textContent =
-        "Lía está buscando información sobre " +
-        carpeta.nombre + "...";
-
-    try{
-
-        const texto =
-            "Carpeta de conocimiento: " +
-            carpeta.nombre +
-            "\n\nPregunta del usuario:\n" +
-            pregunta;
-
-        const url =
-            LIA_URL +
-            "/preguntar?q=" +
-            encodeURIComponent(texto);
-
-        const res =
-            await fetch(url);
-
-        if(!res.ok){
-            throw new Error("HTTP " + res.status);
-        }
-
-        const data =
-            await res.json();
-
-        let resultado = "";
-
-        if(typeof data === "string"){
-
-            resultado = data;
-
-        }else if(data.respuesta){
-
-            resultado = data.respuesta;
-
-        }else if(data.answer){
-
-            resultado = data.answer;
-
-        }else if(data.texto){
-
-            resultado = data.texto;
-
-        }else if(data.result){
-
-            resultado = data.result;
-
-        }else{
-
-            resultado =
-                JSON.stringify(data,null,2);
-
-        }
-
-        respuesta.textContent = resultado;
-
-        estado.textContent =
-            "✓ Lía ha terminado la investigación";
-
-    }catch(error){
-
-        console.log(error);
-
-        respuesta.textContent =
-            "Lía no ha podido conectar ahora mismo.\n\n" +
-            "Puedes utilizar los botones de Wikipedia, Fotos " +
-            "o Libros para continuar la búsqueda.";
-
-        estado.textContent =
-            "⚠️ Conexión con Lía no disponible";
-
-    }
-
-}
-
-/* =====================================================
-   BÚSQUEDAS EXTERNAS
-===================================================== */
-
-function textoBusqueda(){
-
-    if(carpetaSeleccionada === null){
-
-        return "";
-
-    }
-
-    const carpeta =
-        carpetas[carpetaSeleccionada];
-
-    const pregunta =
-        document.getElementById("pregunta").value.trim();
-
-    return (
-        carpeta.nombre.replace(/[^\w\sáéíóúüñÁÉÍÓÚÜÑ]/g," ") +
-        " " +
-        pregunta
-    ).trim();
-
-}
-
-function buscarWikipedia(){
-
-    const q = textoBusqueda();
-
-    if(!q){
-
-        alert("Selecciona una carpeta primero.");
-
-        return;
-    }
-
-    window.open(
-        "https://es.wikipedia.org/wiki/Especial:Buscar?search=" +
-        encodeURIComponent(q),
-        "_blank"
-    );
-
-}
-
-function buscarFotos(){
-
-    const q = textoBusqueda();
-
-    if(!q){
-
-        alert("Selecciona una carpeta primero.");
-
-        return;
-    }
-
-    window.open(
-        "https://commons.wikimedia.org/w/index.php?search=" +
-        encodeURIComponent(q) +
-        "&title=Special:MediaSearch&type=image",
-        "_blank"
-    );
-
-}
-
-function buscarLibros(){
-
-    const q = textoBusqueda();
-
-    if(!q){
-
-        alert("Selecciona una carpeta primero.");
-
-        return;
-    }
-
-    window.open(
-        "https://openlibrary.org/search?q=" +
-        encodeURIComponent(q),
-        "_blank"
-    );
-
-}
-
-async function investigarTodo(){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Primero selecciona una carpeta.");
-
-        return;
-    }
-
-    const pregunta =
-        document.getElementById("pregunta").value.trim();
-
-    if(!pregunta){
-
-        alert("Escribe qué quieres investigar.");
-
-        return;
-    }
-
-    document.getElementById("respuesta").textContent =
-        "🔎 Lía va a investigar el tema...\n\n" +
-        "También puedes consultar Wikipedia, Fotos y Libros " +
-        "con los botones de arriba.";
-
-    await preguntarLia();
-
-}
-
-/* =====================================================
-   AÑADIR MP3
-===================================================== */
-
-function agregarAudio(event){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Selecciona una carpeta primero.");
-
-        event.target.value = "";
-
-        return;
-    }
-
-    const archivo =
-        event.target.files[0];
-
-    if(!archivo){
-        return;
-    }
-
-    const url =
-        URL.createObjectURL(archivo);
-
-    carpetas[carpetaSeleccionada].contenido.push({
-
-        tipo:"audio",
-
-        nombre:archivo.name,
-
-        url:url
-
-    });
-
-    guardarDatos();
-
-    pintarContenido();
-
-    event.target.value = "";
-
-}
-
-/* =====================================================
-   AÑADIR IMÁGENES
-===================================================== */
-
-function agregarImagenes(event){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Selecciona una carpeta primero.");
-
-        event.target.value = "";
-
-        return;
-    }
-
-    const archivos =
-        Array.from(event.target.files || []);
-
-    archivos.forEach(function(archivo){
-
-        const url =
-            URL.createObjectURL(archivo);
-
-        carpetas[carpetaSeleccionada].contenido.push({
-
-            tipo:"imagen",
-
-            nombre:archivo.name,
-
-            url:url
-
-        });
-
-    });
-
-    guardarDatos();
-
-    pintarContenido();
-
-    event.target.value = "";
-
-}
-
-/* =====================================================
-   AÑADIR MP4
-===================================================== */
-
-function agregarVideo(event){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Selecciona una carpeta primero.");
-
-        event.target.value = "";
-
-        return;
-    }
-
-    const archivo =
-        event.target.files[0];
-
-    if(!archivo){
-        return;
-    }
-
-    const url =
-        URL.createObjectURL(archivo);
-
-    carpetas[carpetaSeleccionada].contenido.push({
-
-        tipo:"video",
-
-        nombre:archivo.name,
-
-        url:url
-
-    });
-
-    guardarDatos();
-
-    pintarContenido();
-
-    event.target.value = "";
-
-}
-
-/* =====================================================
-   AÑADIR TEXTO
-===================================================== */
-
-function agregarTexto(){
-
-    if(carpetaSeleccionada === null){
-
-        alert("Selecciona una carpeta primero.");
-
-        return;
-    }
-
-    const texto =
-        prompt("Escribe el texto que quieres guardar:");
-
-    if(!texto || !texto.trim()){
-        return;
-    }
-
-    carpetas[carpetaSeleccionada].contenido.push({
-
-        tipo:"texto",
-
-        nombre:"Texto",
-
-        texto:texto.trim()
-
-    });
-
-    guardarDatos();
-
-    pintarContenido();
-
-}
-
-/* =====================================================
-   PINTAR CONTENIDO
-===================================================== */
-
-function pintarContenido(){
-
-    const zona =
-        document.getElementById("contenido");
-
-    zona.innerHTML = "";
-
-    if(carpetaSeleccionada === null){
-
-        zona.innerHTML =
-            '<div class="contenido-vacio">' +
-            'Selecciona una carpeta.' +
-            '</div>';
-
-        return;
-    }
-
-    const lista =
-        carpetas[carpetaSeleccionada].contenido || [];
-
-    if(lista.length === 0){
-
-        zona.innerHTML =
-            '<div class="contenido-vacio">' +
-            'Esta carpeta todavía no tiene contenido añadido.' +
-            '</div>';
-
-        return;
-    }
-
-    lista.forEach(function(item){
-
-        const elemento =
-            document.createElement("div");
-
-        elemento.className = "elemento";
-
-        if(item.tipo === "imagen"){
-
-            elemento.innerHTML = `
-                <img src="" alt="">
-                <div class="elemento-nombre"></div>
-            `;
-
-            elemento.querySelector("img").src =
-                item.url;
-
-            elemento.querySelector("img").alt =
-                item.nombre;
-
-            elemento.querySelector(".elemento-nombre").textContent =
-                item.nombre;
-
-        }
-
-        else if(item.tipo === "video"){
-
-            elemento.innerHTML = `
-                <video controls playsinline preload="metadata"></video>
-                <div class="elemento-nombre"></div>
-            `;
-
-            elemento.querySelector("video").src =
-                item.url;
-
-            elemento.querySelector(".elemento-nombre").textContent =
-                item.nombre;
-
-        }
-
-        else if(item.tipo === "audio"){
-
-            elemento.innerHTML = `
-                <audio controls preload="metadata"></audio>
-                <div class="elemento-nombre"></div>
-            `;
-
-            elemento.querySelector("audio").src =
-                item.url;
-
-            elemento.querySelector(".elemento-nombre").textContent =
-                item.nombre;
-
-        }
-
-        else if(item.tipo === "texto"){
-
-            elemento.innerHTML = `
-                <div class="texto-agregado"></div>
-            `;
-
-            elemento.querySelector(".texto-agregado").textContent =
-                item.texto;
-
-        }
-
-        zona.appendChild(elemento);
-
-    });
-
-}
-
-/* =====================================================
-   PORTADA
-===================================================== */
-
-function irPortada(){
-
-    window.location.href =
-        "./index.html";
-
-}
-</script>
-
-</body>
-</html>
+        0 0 8px #00
