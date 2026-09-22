@@ -2,155 +2,81 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>PROYECTO RAFA</title>
+
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-html,body{
-    width:100%;
-    height:100%;
-    background:#000;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
-}
-.portada{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#000;
-}
-.portada img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    object-position:center;
-    display:block;
-}
-/* ACCESOS */
-.sala{
-    position:absolute;
-    width:28%;
-    text-align:center;
-    z-index:10;
-}
-.sala a{
-    display:block;
-    width:100%;
-    height:100%;
-    min-height:70px;
-    background:transparent;
-    text-decoration:none;
-    cursor:pointer;
-}
-.sala span{
-    display:block;
-    margin-top:3px;
-    color:white;
-    font-size:14px;
-    font-weight:bold;
-    text-shadow:
-        0 0 5px #000,
-        0 0 10px #000;
-    pointer-events:none;
-}
-/* FILA SUPERIOR */
-.relax{
-    left:4%;
-    top:68%;
-}
-.infinita{
-    left:36%;
-    top:68%;
-}
-.espacial{
-    left:68%;
-    top:68%;
-}
-/* FILA INFERIOR */
-.acuario{
-    left:4%;
-    top:82%;
-}
-.biblioteca{
-    left:36%;
-    top:82%;
-}
-.laboratorio{
-    left:68%;
-    top:82%;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}
+.portada{position:relative;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:#000}
+.portada img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+
+.sala{position:absolute;width:28%;text-align:center;z-index:10}
+.sala a{display:block;width:100%;height:100%;min-height:70px;background:transparent;text-decoration:none;cursor:pointer}
+.sala span{display:block;margin-top:3px;color:white;font-size:14px;font-weight:bold;text-shadow:0 0 5px #000,0 0 10px #000;pointer-events:none}
+
+.relax{left:4%;top:68%}
+.infinita{left:36%;top:68%}
+.curiosidades{left:68%;top:68%}
+.acuario{left:4%;top:82%}
+.biblioteca{left:36%;top:82%}
+.laboratorio{left:68%;top:82%}
 </style>
 </head>
+
 <body>
-<!-- MÚSICA DE PORTADA -->
+
 <script>
-const musica = new Audio("./Port..mp3");
-musica.loop = true;
-musica.volume = 1;
-musica.preload = "auto";
-window.addEventListener("load", function(){
-    musica.play().catch(function(){});
-});
+const musica=new Audio("./Port..mp3");
+musica.loop=true;
+musica.volume=1;
+musica.preload="auto";
+
+window.addEventListener("load",()=>musica.play().catch(()=>{}));
+
 function iniciarMusica(){
-    musica.play().catch(function(){});
+    musica.play().catch(()=>{});
 }
-document.addEventListener("touchstart", iniciarMusica, {
-    once:true,
-    passive:true
-});
-document.addEventListener("click", iniciarMusica, {
-    once:true
-});
+
+document.addEventListener("touchstart",iniciarMusica,{once:true,passive:true});
+document.addEventListener("click",iniciarMusica,{once:true});
 </script>
-<!-- PORTADA -->
+
 <div class="portada">
-<img
-    src="Screenshot_20260908-212015.png"
-    alt="Proyecto Rafa"
->
+
+<img src="Screenshot_20260908-212015.png" alt="Proyecto Rafa">
+
 <!-- RELAX -->
 <div class="sala relax">
-    <a href="Relax.html">
-        <span>RELAX</span>
-    </a>
+<a href="Relax.html"><span>RELAX</span></a>
 </div>
+
 <!-- INFINITA -->
 <div class="sala infinita">
-    <a href="Infinita.html">
-        <span>INFINITA</span>
-    </a>
+<a href="Infinita.html"><span>INFINITA</span></a>
 </div>
+
 <!-- CURIOSIDADES -->
-<div class="sala espacial">
-    <a href="curiosidades.html">
-        <span>CURIOSIDADES</span>
-    </a>
+<div class="sala curiosidades">
+<a href="CURIOSIDADES.html"><span>CURIOSIDADES</span></a>
 </div>
+
 <!-- ACUARIO -->
 <div class="sala acuario">
-    <a href="acuario.html">
-        <span>ACUARIO</span>
-    </a>
+<a href="acuario.html"><span>ACUARIO</span></a>
 </div>
+
 <!-- BIBLIOTECA -->
 <div class="sala biblioteca">
-    <a href="https://rafadun18-gif.github.io/PROYECTO-RAFA/biblioteca.html">
-        <span>BIBLIOTECA</span>
-    </a>
+<a href="biblioteca.html"><span>BIBLIOTECA</span></a>
 </div>
+
 <!-- LABORATORIO -->
 <div class="sala laboratorio">
-    <a href="laboratorio.html">
-        <span>LABORATORIO</span>
-    </a>
+<a href="laboratorio.html"><span>LABORATORIO</span></a>
 </div>
+
 </div>
+
 </body>
 </html>
