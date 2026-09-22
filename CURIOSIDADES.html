@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>CURIOSIDADES · Proyecto Rafa</title>
 
@@ -26,7 +26,9 @@ body{
     overflow-x:hidden;
 }
 
-/* FONDO ESPACIAL */
+/* =====================================================
+   FONDO ESPACIAL
+===================================================== */
 
 .espacio{
     position:fixed;
@@ -81,7 +83,9 @@ body{
     }
 }
 
-/* LLUVIA DE ESTRELLAS */
+/* =====================================================
+   LLUVIA DE ESTRELLAS
+===================================================== */
 
 .lluvia{
     position:absolute;
@@ -122,7 +126,9 @@ body{
     }
 }
 
-/* CONTENIDO */
+/* =====================================================
+   CONTENIDO
+===================================================== */
 
 .contenido{
     position:relative;
@@ -133,7 +139,9 @@ body{
     padding-bottom:50px;
 }
 
-/* CABECERA */
+/* =====================================================
+   CABECERA
+===================================================== */
 
 header{
     padding:30px 15px 20px;
@@ -172,7 +180,75 @@ h1{
     font-size:13px;
 }
 
-/* INTRO */
+/* =====================================================
+   REPRODUCTOR MP3
+===================================================== */
+
+.multimedia{
+    margin:20px 14px;
+    padding:18px;
+    border-radius:20px;
+    background:rgba(3,8,18,.82);
+    border:1px solid rgba(0,255,255,.22);
+    box-shadow:0 0 25px rgba(0,0,0,.35);
+}
+
+.multimedia h2{
+    margin:0 0 10px;
+    text-align:center;
+    font-size:18px;
+    letter-spacing:2px;
+}
+
+.multimedia p{
+    margin:0 0 12px;
+    text-align:center;
+    color:#a9bdc4;
+    font-size:12px;
+}
+
+audio,
+video{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    border-radius:12px;
+}
+
+.audio-boton{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border:1px solid rgba(0,255,255,.35);
+    border-radius:14px;
+    background:rgba(0,255,255,.08);
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* =====================================================
+   MP4
+===================================================== */
+
+.video-panel{
+    margin-top:15px;
+}
+
+.video-panel video{
+    max-height:450px;
+    background:#000;
+}
+
+.video-nota{
+    margin-top:10px !important;
+    margin-bottom:0 !important;
+}
+
+/* =====================================================
+   INTRO
+===================================================== */
 
 .intro{
     margin:22px 14px 18px;
@@ -199,7 +275,9 @@ h1{
     line-height:1.55;
 }
 
-/* TITULOS */
+/* =====================================================
+   TITULOS
+===================================================== */
 
 .titulo-seccion{
     margin:24px 15px 12px;
@@ -207,7 +285,9 @@ h1{
     letter-spacing:2px;
 }
 
-/* CATEGORIAS */
+/* =====================================================
+   CATEGORIAS
+===================================================== */
 
 .categorias{
     display:grid;
@@ -249,7 +329,9 @@ h1{
     font-size:11px;
 }
 
-/* LISTA */
+/* =====================================================
+   LISTA
+===================================================== */
 
 .lista{
     display:grid;
@@ -309,7 +391,9 @@ h1{
     border-radius:18px;
 }
 
-/* LÍA */
+/* =====================================================
+   LÍA
+===================================================== */
 
 .lia-boton{
     display:block;
@@ -431,7 +515,9 @@ textarea:focus{
     font-size:12px;
 }
 
-/* PIE */
+/* =====================================================
+   PIE
+===================================================== */
 
 footer{
     margin-top:35px;
@@ -442,7 +528,9 @@ footer{
     border-top:1px solid rgba(255,255,255,.08);
 }
 
-/* MÓVIL */
+/* =====================================================
+   MÓVIL
+===================================================== */
 
 @media(max-width:500px){
 
@@ -454,6 +542,7 @@ footer{
     .lista{
         grid-template-columns:1fr;
     }
+
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -464,11 +553,14 @@ footer{
     .meteorito{
         animation:none;
     }
+
 }
 </style>
 </head>
 
 <body>
+
+<!-- FONDO -->
 
 <div class="espacio">
 
@@ -477,12 +569,14 @@ footer{
     <div class="estrellas3"></div>
 
     <div class="lluvia">
+
         <div class="meteorito"></div>
         <div class="meteorito"></div>
         <div class="meteorito"></div>
         <div class="meteorito"></div>
         <div class="meteorito"></div>
         <div class="meteorito"></div>
+
     </div>
 
 </div>
@@ -503,6 +597,76 @@ footer{
 
 </header>
 
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<section class="multimedia">
+
+    <h2>🎵 AMBIENTE</h2>
+
+    <p>
+        Música de la sala CURIOSIDADES
+    </p>
+
+    <audio
+        id="musica"
+        controls
+        loop
+        preload="auto"
+    >
+        <source
+            src="curiosidades.mp3"
+            type="audio/mpeg"
+        >
+        Tu navegador no puede reproducir este audio.
+    </audio>
+
+    <button
+        class="audio-boton"
+        id="botonMusica"
+    >
+        🔊 OÍR MÚSICA
+    </button>
+
+</section>
+
+<!-- =====================================================
+     VÍDEO MP4
+===================================================== -->
+
+<section class="multimedia video-panel">
+
+    <h2>🎬 VÍDEO</h2>
+
+    <p>
+        Espacio preparado para los vídeos MP4 de CURIOSIDADES.
+    </p>
+
+    <video
+        id="videoCuriosidades"
+        controls
+        preload="metadata"
+        playsinline
+    >
+        <source
+            src="curiosidades.mp4"
+            type="video/mp4"
+        >
+        Tu navegador no puede reproducir este vídeo.
+    </video>
+
+    <p class="video-nota">
+        Si todavía no existe <b>curiosidades.mp4</b>,
+        el reproductor quedará preparado hasta que añadas el archivo.
+    </p>
+
+</section>
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
 <section class="intro">
 
     <h2>Un lugar para descubrir</h2>
@@ -515,6 +679,10 @@ footer{
 
 </section>
 
+<!-- =====================================================
+     CATEGORÍAS
+===================================================== -->
+
 <div class="titulo-seccion">
     CATEGORÍAS
 </div>
@@ -522,56 +690,141 @@ footer{
 <section class="categorias">
 
     <button class="categoria activa" data-categoria="Todas">
+
         <span class="icono">✨</span>
-        <span class="nombre">Todas</span>
-        <span class="cantidad" id="cantidadTodas">
+
+        <span class="nombre">
+            Todas
+        </span>
+
+        <span
+            class="cantidad"
+            id="cantidadTodas"
+        >
             0 curiosidades
         </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Universo">
+    <button
+        class="categoria"
+        data-categoria="Universo"
+    >
+
         <span class="icono">🌌</span>
-        <span class="nombre">Universo</span>
-        <span class="cantidad">Espacio y cosmos</span>
+
+        <span class="nombre">
+            Universo
+        </span>
+
+        <span class="cantidad">
+            Espacio y cosmos
+        </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Historia">
+    <button
+        class="categoria"
+        data-categoria="Historia"
+    >
+
         <span class="icono">🏛️</span>
-        <span class="nombre">Historia y misterios</span>
-        <span class="cantidad">Pasado y enigmas</span>
+
+        <span class="nombre">
+            Historia y misterios
+        </span>
+
+        <span class="cantidad">
+            Pasado y enigmas
+        </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Ciencia">
+    <button
+        class="categoria"
+        data-categoria="Ciencia"
+    >
+
         <span class="icono">🔬</span>
-        <span class="nombre">Ciencia</span>
-        <span class="cantidad">Descubrimientos</span>
+
+        <span class="nombre">
+            Ciencia
+        </span>
+
+        <span class="cantidad">
+            Descubrimientos
+        </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Animales">
+    <button
+        class="categoria"
+        data-categoria="Animales"
+    >
+
         <span class="icono">🐾</span>
-        <span class="nombre">Animales</span>
-        <span class="cantidad">Vida y naturaleza</span>
+
+        <span class="nombre">
+            Animales
+        </span>
+
+        <span class="cantidad">
+            Vida y naturaleza
+        </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Lugares">
+    <button
+        class="categoria"
+        data-categoria="Lugares"
+    >
+
         <span class="icono">🌍</span>
-        <span class="nombre">Lugares</span>
-        <span class="cantidad">Sitios sorprendentes</span>
+
+        <span class="nombre">
+            Lugares
+        </span>
+
+        <span class="cantidad">
+            Sitios sorprendentes
+        </span>
+
     </button>
 
-    <button class="categoria" data-categoria="Libre">
+    <button
+        class="categoria"
+        data-categoria="Libre"
+    >
+
         <span class="icono">💡</span>
-        <span class="nombre">Otros</span>
-        <span class="cantidad">Todo lo demás</span>
+
+        <span class="nombre">
+            Otros
+        </span>
+
+        <span class="cantidad">
+            Todo lo demás
+        </span>
+
     </button>
 
 </section>
 
-<button class="lia-boton" id="abrirLia">
+<!-- =====================================================
+     LÍA
+===================================================== -->
+
+<button
+    class="lia-boton"
+    id="abrirLia"
+>
     ✨ ABRIR ESPACIO DE LÍA
 </button>
 
-<section class="lia-panel" id="liaPanel">
+<section
+    class="lia-panel"
+    id="liaPanel"
+>
 
     <div class="lia-titulo">
         ESPACIO DE LÍA
@@ -644,29 +897,48 @@ footer{
         accept="image/*"
     >
 
-    <img id="fotoVista" alt="Vista previa">
+    <img
+        id="fotoVista"
+        alt="Vista previa"
+    >
 
     <div class="botones">
 
-        <button class="btn btn-principal" id="guardar">
+        <button
+            class="btn btn-principal"
+            id="guardar"
+        >
             💾 GUARDAR
         </button>
 
-        <button class="btn btn-verde" id="exportar">
+        <button
+            class="btn btn-verde"
+            id="exportar"
+        >
             📤 EXPORTAR
         </button>
 
     </div>
 
-    <div class="estado" id="estado"></div>
+    <div
+        class="estado"
+        id="estado"
+    ></div>
 
 </section>
+
+<!-- =====================================================
+     CURIOSIDADES
+===================================================== -->
 
 <div class="titulo-seccion">
     CURIOSIDADES GUARDADAS
 </div>
 
-<section class="lista" id="lista"></section>
+<section
+    class="lista"
+    id="lista"
+></section>
 
 <footer>
     Proyecto Rafa · Sala CURIOSIDADES
@@ -676,15 +948,27 @@ footer{
 
 <script>
 
-const CLAVE = "proyectoRafaCuriosidades";
+/* =====================================================
+   DATOS
+===================================================== */
+
+const CLAVE =
+    "proyectoRafaCuriosidades";
 
 let curiosidades =
     JSON.parse(
         localStorage.getItem(CLAVE) || "[]"
     );
 
-let categoriaActual = "Todas";
-let fotoSeleccionada = "";
+let categoriaActual =
+    "Todas";
+
+let fotoSeleccionada =
+    "";
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
 
 const lista =
     document.getElementById("lista");
@@ -713,132 +997,238 @@ const estado =
 const liaPanel =
     document.getElementById("liaPanel");
 
-/* ABRIR LÍA */
+const musica =
+    document.getElementById("musica");
+
+/* =====================================================
+   MÚSICA
+===================================================== */
 
 document
-.getElementById("abrirLia")
-.addEventListener("click",function(){
+.getElementById("botonMusica")
+.addEventListener(
+    "click",
+    function(){
 
-    liaPanel.classList.toggle("abierto");
+        musica.play()
+        .then(function(){
 
-    if(liaPanel.classList.contains("abierto")){
+            this.textContent =
+                "🔊 MÚSICA SONANDO";
 
-        liaPanel.scrollIntoView({
-            behavior:"smooth",
-            block:"start"
+        }.bind(this))
+        .catch(function(){
+
+            mostrarEstado(
+                "Pulsa el botón de reproducción del reproductor."
+            );
+
         });
 
     }
+);
 
-});
+/*
+   Intento de reproducción automática.
+   Los navegadores pueden bloquearla hasta que
+   el usuario toque la pantalla.
+*/
 
-/* FOTO */
+window.addEventListener(
+    "load",
+    function(){
 
-foto.addEventListener("change",function(){
+        musica.play()
+        .catch(function(){
 
-    const archivo = this.files[0];
+            /* Bloqueada por el navegador:
+               queda disponible con el botón. */
 
-    if(!archivo){
-
-        fotoSeleccionada = "";
-        fotoVista.style.display = "none";
-        return;
+        });
 
     }
+);
 
-    const lector = new FileReader();
+/* =====================================================
+   PANEL LÍA
+===================================================== */
 
-    lector.onload = function(e){
+document
+.getElementById("abrirLia")
+.addEventListener(
+    "click",
+    function(){
 
-        fotoSeleccionada = e.target.result;
+        liaPanel.classList.toggle(
+            "abierto"
+        );
 
-        fotoVista.src = fotoSeleccionada;
+        if(
+            liaPanel.classList.contains(
+                "abierto"
+            )
+        ){
 
-        fotoVista.style.display = "block";
+            liaPanel.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
 
-    };
+        }
 
-    lector.readAsDataURL(archivo);
+    }
+);
 
-});
+/* =====================================================
+   FOTO
+===================================================== */
 
-/* GUARDAR */
+foto.addEventListener(
+    "change",
+    function(){
+
+        const archivo =
+            this.files[0];
+
+        if(!archivo){
+
+            fotoSeleccionada =
+                "";
+
+            fotoVista.style.display =
+                "none";
+
+            return;
+        }
+
+        const lector =
+            new FileReader();
+
+        lector.onload =
+            function(e){
+
+                fotoSeleccionada =
+                    e.target.result;
+
+                fotoVista.src =
+                    fotoSeleccionada;
+
+                fotoVista.style.display =
+                    "block";
+
+            };
+
+        lector.readAsDataURL(
+            archivo
+        );
+
+    }
+);
+
+/* =====================================================
+   GUARDAR
+===================================================== */
 
 document
 .getElementById("guardar")
-.addEventListener("click",function(){
+.addEventListener(
+    "click",
+    function(){
 
-    const nombre =
-        titulo.value.trim();
+        const nombre =
+            titulo.value.trim();
 
-    const informacion =
-        texto.value.trim();
+        const informacion =
+            texto.value.trim();
 
-    if(!nombre){
+        if(!nombre){
+
+            mostrarEstado(
+                "Escribe un título."
+            );
+
+            return;
+        }
+
+        if(!informacion){
+
+            mostrarEstado(
+                "Escribe la información."
+            );
+
+            return;
+        }
+
+        curiosidades.unshift({
+
+            id:
+                Date.now(),
+
+            titulo:
+                nombre,
+
+            categoria:
+                categoria.value,
+
+            texto:
+                informacion,
+
+            imagen:
+                fotoSeleccionada,
+
+            fecha:
+                new Date()
+                .toISOString()
+
+        });
+
+        guardarDatos();
+
+        titulo.value =
+            "";
+
+        texto.value =
+            "";
+
+        foto.value =
+            "";
+
+        fotoSeleccionada =
+            "";
+
+        fotoVista.src =
+            "";
+
+        fotoVista.style.display =
+            "none";
 
         mostrarEstado(
-            "Escribe un título."
+            "✓ Curiosidad guardada correctamente."
         );
 
-        return;
+        mostrarCuriosidades();
+
     }
+);
 
-    if(!informacion){
-
-        mostrarEstado(
-            "Escribe la información."
-        );
-
-        return;
-    }
-
-    curiosidades.unshift({
-
-        id:Date.now(),
-
-        titulo:nombre,
-
-        categoria:categoria.value,
-
-        texto:informacion,
-
-        imagen:fotoSeleccionada,
-
-        fecha:new Date().toISOString()
-
-    });
-
-    guardarDatos();
-
-    titulo.value = "";
-    texto.value = "";
-    foto.value = "";
-
-    fotoSeleccionada = "";
-
-    fotoVista.src = "";
-    fotoVista.style.display = "none";
-
-    mostrarEstado(
-        "✓ Curiosidad guardada correctamente."
-    );
-
-    mostrarCuriosidades();
-
-});
-
-/* GUARDAR LOCAL */
+/* =====================================================
+   GUARDAR LOCAL
+===================================================== */
 
 function guardarDatos(){
 
     localStorage.setItem(
         CLAVE,
-        JSON.stringify(curiosidades)
+        JSON.stringify(
+            curiosidades
+        )
     );
 
 }
 
-/* MOSTRAR */
+/* =====================================================
+   MOSTRAR
+===================================================== */
 
 function mostrarCuriosidades(){
 
@@ -850,22 +1240,34 @@ function mostrarCuriosidades(){
             : " curiosidades"
         );
 
-    let datos = curiosidades;
+    let datos =
+        curiosidades;
 
-    if(categoriaActual !== "Todas"){
+    if(
+        categoriaActual !==
+        "Todas"
+    ){
 
         datos =
             curiosidades.filter(
-                item =>
-                    item.categoria ===
-                    categoriaActual
+                function(item){
+
+                    return
+                        item.categoria ===
+                        categoriaActual;
+
+                }
             );
 
     }
 
-    lista.innerHTML = "";
+    lista.innerHTML =
+        "";
 
-    if(datos.length === 0){
+    if(
+        datos.length ===
+        0
+    ){
 
         lista.innerHTML = `
 
@@ -890,187 +1292,272 @@ function mostrarCuriosidades(){
         return;
     }
 
-    datos.forEach(function(item){
+    datos.forEach(
+        function(item){
 
-        const tarjeta =
-            document.createElement("article");
+            const tarjeta =
+                document.createElement(
+                    "article"
+                );
 
-        tarjeta.className = "tarjeta";
+            tarjeta.className =
+                "tarjeta";
 
-        const imagen =
-            item.imagen
-            ? `
-                <img
-                    src="${item.imagen}"
-                    alt="${escapar(item.titulo)}"
-                >
-              `
-            : "";
+            const imagen =
+                item.imagen
+                ? `
+                    <img
+                        src="${item.imagen}"
+                        alt="${escapar(item.titulo)}"
+                    >
+                  `
+                : "";
 
-        tarjeta.innerHTML = `
+            tarjeta.innerHTML = `
 
-            ${imagen}
+                ${imagen}
 
-            <div class="tarjeta-contenido">
+                <div class="tarjeta-contenido">
 
-                <span class="categoria-nombre">
-                    ${nombreCategoria(item.categoria)}
-                </span>
+                    <span class="categoria-nombre">
+                        ${nombreCategoria(item.categoria)}
+                    </span>
 
-                <h3>
-                    ${escapar(item.titulo)}
-                </h3>
+                    <h3>
+                        ${escapar(item.titulo)}
+                    </h3>
 
-                <p>
-                    ${escapar(item.texto)}
-                </p>
+                    <p>
+                        ${escapar(item.texto)}
+                    </p>
 
-            </div>
+                </div>
 
-        `;
+            `;
 
-        lista.appendChild(tarjeta);
+            lista.appendChild(
+                tarjeta
+            );
 
-    });
+        }
+    );
 
 }
 
-/* CATEGORÍAS */
+/* =====================================================
+   CATEGORÍAS
+===================================================== */
 
 document
 .querySelectorAll(".categoria")
-.forEach(function(boton){
+.forEach(
+    function(boton){
 
-    boton.addEventListener("click",function(){
+        boton.addEventListener(
+            "click",
+            function(){
 
-        document
-        .querySelectorAll(".categoria")
-        .forEach(function(b){
-            b.classList.remove("activa");
-        });
+                document
+                .querySelectorAll(
+                    ".categoria"
+                )
+                .forEach(
+                    function(b){
 
-        this.classList.add("activa");
+                        b.classList.remove(
+                            "activa"
+                        );
 
-        categoriaActual =
-            this.dataset.categoria;
+                    }
+                );
 
-        mostrarCuriosidades();
+                this.classList.add(
+                    "activa"
+                );
 
-    });
+                categoriaActual =
+                    this.dataset.categoria;
 
-});
+                mostrarCuriosidades();
 
-/* EXPORTAR */
-
-document
-.getElementById("exportar")
-.addEventListener("click",function(){
-
-    if(curiosidades.length === 0){
-
-        mostrarEstado(
-            "No hay curiosidades para exportar."
-        );
-
-        return;
-
-    }
-
-    const contenido =
-        JSON.stringify(
-            curiosidades,
-            null,
-            2
-        );
-
-    const archivo =
-        new Blob(
-            [contenido],
-            {
-                type:"application/json"
             }
         );
 
-    const url =
-        URL.createObjectURL(archivo);
+    }
+);
 
-    const enlace =
-        document.createElement("a");
+/* =====================================================
+   EXPORTAR
+===================================================== */
 
-    enlace.href = url;
+document
+.getElementById("exportar")
+.addEventListener(
+    "click",
+    function(){
 
-    enlace.download =
-        "curiosidades-proyecto-rafa.json";
+        if(
+            curiosidades.length ===
+            0
+        ){
 
-    document.body.appendChild(enlace);
+            mostrarEstado(
+                "No hay curiosidades para exportar."
+            );
 
-    enlace.click();
+            return;
+        }
 
-    enlace.remove();
+        const contenido =
+            JSON.stringify(
+                curiosidades,
+                null,
+                2
+            );
 
-    URL.revokeObjectURL(url);
+        const archivo =
+            new Blob(
+                [contenido],
+                {
+                    type:
+                        "application/json"
+                }
+            );
 
-    mostrarEstado(
-        "✓ Archivo preparado."
-    );
+        const url =
+            URL.createObjectURL(
+                archivo
+            );
 
-});
+        const enlace =
+            document.createElement(
+                "a"
+            );
 
-/* ESCAPAR TEXTO */
+        enlace.href =
+            url;
 
-function escapar(valor){
+        enlace.download =
+            "curiosidades-proyecto-rafa.json";
+
+        document.body.appendChild(
+            enlace
+        );
+
+        enlace.click();
+
+        enlace.remove();
+
+        URL.revokeObjectURL(
+            url
+        );
+
+        mostrarEstado(
+            "✓ Archivo preparado."
+        );
+
+    }
+);
+
+/* =====================================================
+   ESCAPAR TEXTO
+===================================================== */
+
+function escapar(
+    valor
+){
 
     return String(valor)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
-/* NOMBRES */
+/* =====================================================
+   NOMBRES CATEGORÍAS
+===================================================== */
 
-function nombreCategoria(valor){
+function nombreCategoria(
+    valor
+){
 
     const nombres = {
 
-        Universo:"🌌 UNIVERSO",
+        Universo:
+            "🌌 UNIVERSO",
 
-        Historia:"🏛️ HISTORIA Y MISTERIOS",
+        Historia:
+            "🏛️ HISTORIA Y MISTERIOS",
 
-        Ciencia:"🔬 CIENCIA",
+        Ciencia:
+            "🔬 CIENCIA",
 
-        Animales:"🐾 ANIMALES",
+        Animales:
+            "🐾 ANIMALES",
 
-        Lugares:"🌍 LUGARES",
+        Lugares:
+            "🌍 LUGARES",
 
-        Libre:"💡 OTROS"
+        Libre:
+            "💡 OTROS"
 
     };
 
-    return nombres[valor] || valor;
+    return
+        nombres[valor] ||
+        valor;
 
 }
 
-/* ESTADO */
+/* =====================================================
+   ESTADO
+===================================================== */
 
-function mostrarEstado(mensaje){
+function mostrarEstado(
+    mensaje
+){
 
-    estado.textContent = mensaje;
+    estado.textContent =
+        mensaje;
 
-    clearTimeout(window.estadoTimer);
+    clearTimeout(
+        window.estadoTimer
+    );
 
     window.estadoTimer =
-        setTimeout(function(){
+        setTimeout(
+            function(){
 
-            estado.textContent = "";
+                estado.textContent =
+                    "";
 
-        },4000);
+            },
+            4000
+        );
 
 }
 
-/* INICIO */
+/* =====================================================
+   INICIO
+===================================================== */
 
 mostrarCuriosidades();
 
