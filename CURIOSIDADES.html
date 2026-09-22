@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Curiosidades · Proyecto Rafa</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:#020204;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(0,255,100,.10),transparent 35%),
+        radial-gradient(circle at 0% 100%,rgba(255,0,180,.08),transparent 35%),
+        #020204;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    padding:14px 12px 10px;
+    text-align:center;
+    background:rgba(0,0,0,.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(0,255,100,.25);
+}
+
+h1{
+    margin:0;
+    font-size:27px;
+    letter-spacing:3px;
+    color:#fff;
+    text-shadow:
+        0 0 8px #00ff66,
+        0 0 20px rgba(0,255,100,.5);
+}
+
+.subtitulo{
+    margin-top:5px;
+    font-size:12px;
+    color:#00ff66;
+    letter-spacing:2px;
+}
+
+.contenedor{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    padding:14px;
+}
+
+button{
+    border:1px solid rgba(0,255,100,.55);
+    background:rgba(0,20,10,.75);
+    color:white;
+    border-radius:12px;
+    padding:12px 14px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:
+        0 0 8px rgba(0,255,100,.12),
+        inset 0 0 12px rgba(0,255,100,.04);
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+.barra-superior{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:14px;
+}
+
+.btn-portada{
+    border-color:#00ff66;
+    color:#00ff66;
+}
+
+.btn-editar{
+    border-color:#ff00cc;
+    color:#ff55dd;
+}
+
+.btn-nueva{
+    border-color:#00ffff;
+    color:#00ffff;
+}
+
+.estado{
+    text-align:center;
+    min-height:20px;
+    margin:8px 0 12px;
+    color:#aaa;
+    font-size:13px;
+}
+
+/* MÚSICA */
+
+.musica-box{
+    border:1px solid rgba(0,255,100,.35);
+    border-radius:16px;
+    padding:13px;
+    margin-bottom:16px;
+    background:rgba(0,20,10,.
