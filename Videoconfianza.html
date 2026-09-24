@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Videoconferencia · GePeTo</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#050505;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:white;
+  position:fixed;
+  inset:0;
+  overscroll-behavior:none;
+}
+
+button,
+textarea,
+select{
+  font-family:inherit;
+}
+
+#app{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(0,140,255,.10),transparent 35%),
+    #050505;
+}
+
+/* CABECERA */
+header{
+  flex:0 0 auto;
+  width:100%;
+  padding:
+    max(8px,env(safe-area-inset-top))
+    12px
+    8px;
+  text-align:center;
+  border-bottom:1px solid rgba(0,180,255,.25);
+  background:rgba(0,0,0,.88);
+  z-index:20;
+}
+
+.titulo{
+  font-size:20px;
+  font-weight:bold;
+  letter-spacing:1px;
+  color:#fff;
+}
+
+.subtitulo{
+  margin-top:2px;
+  font-size:12px;
+  color:#58baff;
+}
+
+/* ZONA FIJA DE GePeTo */
+.zonaGepeto{
+  flex:0 0 auto;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:5px 8px 6px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at center,
+      rgba(0,110,255,.12),
+      transparent 62%);
+}
+
+/*
+  IMPORTANTE:
+  Esta zona NO pertenece al scroll del chat.
+  Por eso GePeTo nunca sube cuando crecen los mensajes.
+*/
+
+.avatarStage{
+  position:relative;
+  flex:0 0 auto;
+  width:min(205px,45vw);
+  aspect-ratio:781 / 1000;
+  margin:0 auto;
+  transform-origin:center center;
+  animation:
+    respirar 3.8s ease-in-out infinite,
+    movimientoCabeza 7s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 10px rgba(0,145,255,.28));
+  user-select:none;
+}
+
+@keyframes respirar{
+  0%,100%{
+    transform:translate3d(0,0,0) scale(1);
+  }
+  50%{
+    transform:translate3d(0,-.7px,0) scale(1.003);
+  }
+}
+
+@keyframes movimientoCabeza{
+  0%,100%{
+    margin-left:0;
+  }
+  25%{
+    margin-left:.45px;
+  }
+  50%{
+    margin-left:-.35px;
+  }
+  75%{
+    margin-left:.25px;
+  }
+}
+
+.avatarStage img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
+}
+
+/* CARA ANIMADA */
+.caraAnimada{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+/* OJOS */
+.ojo{
+  position:absolute;
+  width:10.5%;
+  height:4.8%;
+  border-radius:50%;
+  background:rgba(245,250,255,.92);
+  overflow:hidden;
+  transform:
+    translate(
+      var(--miradaX,0px),
+      var(--miradaY,0px)
+    );
+  transform-origin:center center;
+}
+
+.ojo.izq{
+  left:31.5%;
+  top:39.0%;
+}
+
+.ojo.der{
+  left:55.2%;
+  top:39.0%;
+}
+
+.pupila{
+  position:absolute;
+  width:43%;
+  height:72%;
+  left:50%;
+  top:50%;
+  border-radius:50%;
+  background:#101820;
+  transform:
+    translate(-50%,-50%)
+    translate(
+      var(--pupilaX,0px),
+      var(--pupilaY,0px)
+    );
+  box-shadow:
+    0 0 2px rgba(0,0,0,.9),
+    inset 0 0 2px rgba(255,255,255,.3);
+}
+
+.pupila::after{
+  content:"";
+  position:absolute;
+  width:24%;
+  height:24%;
+  border-radius:50%;
+  background:white;
+  top:13%;
+  left:20%;
+}
+
+/* PÁRPADOS */
+.parpado{
+  position:absolute;
+  width:12%;
+  height:7%;
+  background:rgba(20,25,30,.65);
+  border-radius:50%;
+  top:37.2%;
+  z-index:5;
+  transform-origin:center;
+  animation:parpadeo 6s infinite;
+}
+
+.parpado.izq{
+  left:30.8%;
+}
+
+.parpado.der{
+  left:54.5%;
+}
+
+@keyframes parpadeo{
+  0%,44%,48%,100%{
+    transform:scaleY(0);
+    opacity:0;
+  }
+  45%,47%{
+    transform:scaleY(1);
+    opacity:.72;
+  }
+}
+
+/* CEJAS */
+.cej{
+  position:absolute;
+  width:15%;
+  height:1.4%;
+  border-radius:100%;
+  background:rgba(25,30,35,.82);
+  z-index:4;
+  transform-origin:center;
+}
+
+.cej.izq{
+  left:29.5%;
+  top:34.0%;
+  transform:rotate(-5deg);
+}
+
+.cej.der{
+  left:53.5%;
+  top:34.0%;
+  transform:rotate(5deg);
+}
+
+/* MEJILLAS */
+.mejilla{
+  position:absolute;
+  width:10%;
+  height:4%;
+  border-radius:50%;
+  background:rgba(255,105,125,.18);
+  filter:blur(1.5px);
+}
+
+.mejilla.izq{
+  left:25%;
+  top:55%;
+}
+
+.mejilla.der{
+  left:64%;
+  top:55%;
+}
+
+/* BOCA */
+.boca{
+  position:absolute;
+  left:38%;
+  top:59.7%;
+  width:24%;
+  height:9%;
+  border-radius:0 0 50% 50%;
+  border-bottom:3px solid rgba(25,25,25,.9);
+  transform-origin:center center;
+  transition:
+    height .08s ease,
+    transform .08s ease,
+    border-radius .08s ease;
+}
+
+.boca.hablando{
+  animation:
+    moverBoca .16s ease-in-out infinite alternate;
+}
+
+@keyframes moverBoca{
+  from{
+    height:4%;
+    transform:scaleX(.94);
+  }
+  to{
+    height:12%;
+    transform:scaleX(1.03);
+  }
+}
+
+.boca.sonriendo{
+  border-bottom-width:4px;
+  border-radius:0 0 60% 60%;
+  transform:scaleX(1.05);
+}
+
+/* ESTADO */
+.estado{
+  flex:0 0 auto;
+  margin-top:2px;
+  min-height:17px;
+  font-size:11px;
+  color:#75c9ff;
+  text-align:center;
+}
+
+/* ZONA DE CHAT */
+.zonaChat{
+  flex:1 1 auto;
+  min-height:0;
+  width:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:
+    7px
+    10px
+    130px;
+  scroll-behavior:smooth;
+}
+
+/* BARRA DE SCROLL DEL CHAT */
+.zonaChat::-webkit-scrollbar{
+  width:4px;
+}
+
+.zonaChat::-webkit-scrollbar-thumb{
+  background:rgba(0,150,255,.45);
+  border-radius:10px;
+}
+
+/* MENSAJES */
+.mensaje{
+  width:100%;
+  display:flex;
+  margin:7px 0;
+}
+
+.mensaje.usuario{
+  justify-content:flex-end;
+}
+
+.mensaje.gepeto{
+  justify-content:flex-start;
+}
+
+.burbuja{
+  max-width:88%;
+  padding:10px 13px;
+  border-radius:15px;
+  line-height:1.4;
+  font-size:15px;
+  word-wrap:break-word;
+  white-space:pre-wrap;
+}
+
+.usuario .burbuja{
+  background:#075ca8;
+  border-bottom-right-radius:4px;
+}
+
+.gepeto .burbuja{
+  background:#15191d;
+  border:1px solid rgba(0,150,255,.35);
+  border-bottom-left-radius:4px;
+}
+
+/* BOTÓN OÍR */
+.botonOir{
+  display:block;
+  margin-top:8px;
+  padding:6px 11px;
+  border:1px solid rgba(0,170,255,.65);
+  border-radius:10px;
+  background:#07131d;
+  color:#72caff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.botonOir:active{
+  transform:scale(.97);
+}
+
+/* CONTROLES */
+.controles{
+  margin:8px 0;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+}
+
+.btn{
+  border:1px solid rgba(0,160,255,.55);
+  background:#09131b;
+  color:#fff;
+  border-radius:11px;
+  padding:8px 12px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.btn.azul{
+  border-color:#008cff;
+  color:#7dccff;
+}
+
+.btn.parar{
+  border-color:#ff4d5d;
+  color:#ff8994;
+}
+
+.btn.verde{
+  border-color:#28ff75;
+  color:#65ff9a;
+}
+
+.btn.biblioteca{
+  border-color:#00d9ff;
+  color:#72edff;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+
+/* MÚSICA */
+.musica{
+  width:100%;
+  max-width:500px;
+  margin:6px auto 10px;
+  padding:9px;
+  border:1px solid rgba(0,180,255,.2);
+  border-radius:12px;
+  background:rgba(0,20,30,.45);
+}
+
+.musica label{
+  display:block;
+  text-align:center;
+  font-size:11px;
+  color:#72caff;
+  margin-bottom:6px;
+}
+
+.musica select{
+  width:100%;
+  padding:8px;
+  border-radius:9px;
+  border:1px solid rgba(0,160,255,.4);
+  background:#071018;
+  color:white;
+}
+
+.musica audio{
+  width:100%;
+  margin-top:7px;
+  height:35px;
+}
+
+/* COMPOSITOR FIJO */
+.compositor{
+  position:fixed;
+  z-index:50;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  padding:
+    7px
+    9px
+    max(8px,env(safe-area-inset-bottom));
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.98),
+      rgba(0,0,0,.94)
+    );
+  border-top:1px solid rgba(0,170,255,.28);
+}
+
+.formulario{
+  width:100%;
+  max-width:800px;
+  margin:auto;
+  display:flex;
+  gap:7px;
+  align-items:flex-end;
+}
+
+#mensaje{
+  flex:1;
+  min-width:0;
+  max-height:100px;
+  min-height:42px;
+  resize:none;
+  padding:11px 12px;
+  border-radius:13px;
+  border:1px solid rgba(0,150,255,.5);
+  outline:none;
+  background:#0b1116;
+  color:white;
+  font-size:15px;
+  line-height:20px;
+}
+
+#mensaje:focus{
+  border-color:#00aaff;
+  box-shadow:0 0 7px rgba(0,160,255,.18);
+}
+
+#mensaje::placeholder{
+  color:#7e8a92;
+}
+
+#enviar{
+  flex:0 0 auto;
+  width:47px;
+  height:42px;
+  border:0;
+  border-radius:13px;
+  background:#087fd0;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+
+#micro{
+  flex:0 0 auto;
+  width:47px;
+  height:42px;
+  border:1px solid #00aaff;
+  border-radius:13px;
+  background:#07131d;
+  color:#72caff;
+  font-size:20px;
+  cursor:pointer;
+}
+
+#micro.escuchando{
+  background:#7b1522;
+  border-color:#ff5264;
+  color:#fff;
+}
+
+/* INDICADOR ESCRIBIENDO */
+.escribiendo{
+  display:none;
+  align-items:center;
+  gap:4px;
+  margin:5px 0 7px 4px;
+  color:#65bfff;
+  font-size:12px;
+}
+
+.escribiendo.activo{
+  display:flex;
+}
+
+.punto{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#55baff;
+  animation:punto .8s infinite alternate;
+}
+
+.punto:nth-child(2){
+  animation-delay:.2s;
+}
+
+.punto:nth-child(3){
+  animation-delay:.4s;
+}
+
+@keyframes punto{
+  from{
+    opacity:.25;
+    transform:translateY(0);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-3px);
+  }
+}
+
+/* MÓVILES PEQUEÑOS */
+@media(max-width:420px){
+  .titulo{
+    font-size:18px;
+  }
+
+  .avatarStage{
+    width:min(180px,42vw);
+  }
+
+  .burbuja{
+    max-width:92%;
+    font-size:14px;
+  }
+
+  .zonaChat{
+    padding-left:7px;
+    padding-right:7px;
+  }
+}
+
+/* PANTALLAS MUY BAJAS */
+@media(max-height:650px){
+  .avatarStage{
+    width:min(155px,38vw);
+  }
+
+  .zonaGepeto{
+    padding-top:2px;
+    padding-bottom:2px;
+  }
+
+  .estado{
+    min-height:14px;
+    font-size:10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <header>
+    <div class="titulo">🎥 VIDEOCONFERENCIA</div>
+    <div class="subtitulo">GePeTo · Proyecto Rafa</div>
+  </header>
+
+  <!--
+    ESTA ZONA ES FIJA.
+    EL CHAT DE ABAJO ES EL ÚNICO QUE HACE SCROLL.
+  -->
+  <section class="zonaGepeto">
+
+    <div class="avatarStage">
+
+      <img
+        src="GePeToFrontal.png"
+        alt="GePeTo"
+      >
+
+      <div class="caraAnimada">
+
+        <div class="cej izq"></div>
+        <div class="cej der"></div>
+
+        <div class="ojo izq">
+          <div class="pupila"></div>
+        </div>
+
+        <div class="ojo der">
+          <div class="pupila"></div>
+        </div>
+
+        <div class="parpado izq"></div>
+        <div class="parpado der"></div>
+
+        <div class="mejilla izq"></div>
+        <div class="mejilla der"></div>
+
+        <div id="boca" class="boca"></div>
+
+      </div>
+    </div>
+
+    <div id="estado" class="estado">
+      GePeTo conectado
+    </div>
+
+  </section>
+
+
+  <!-- SOLO ESTA ZONA SE DESPLAZA -->
+  <main id="zonaChat" class="zonaChat">
+
+    <div id="chat">
+
+      <div class="mensaje gepeto">
+        <div class="burbuja">
+          Hola Rafa 👋<br>
+          Soy GePeTo. Estoy aquí contigo.
+        </div>
+      </div>
+
+    </div>
+
+    <div id="escribiendo" class="escribiendo">
+      GePeTo está pensando
+      <span class="punto"></span>
+      <span class="punto"></span>
+      <span class="punto"></span>
+    </div>
+
+    <div class="controles">
+
+      <button
+        class="btn azul"
+        onclick="probarVoz()">
+        🔊 PROBAR VOZ DE GePeTo
+      </button>
+
+      <button
+        class="btn parar"
+        onclick="pararTodo()">
+        ⏹ PARAR
+      </button>
+
+      <a
+        class="btn biblioteca"
+        href="biblioteca.html">
+        ← BIBLIOTECA
+      </a>
+
+    </div>
+
+    <div class="musica">
+
+      <label for="selectorMusica">
+        🎵 MÚSICA DE FONDO
+      </label>
+
+      <select id="selectorMusica" onchange="cambiarMusica()">
+        <option value="">
+          Sin música
+        </option>
+        <option value="GePeTo.mp3">
+          GePeTo
+        </option>
+        <option value="Musica.mp3">
+          Música
+        </option>
+      </select>
+
+      <audio
+        id="musicaAudio"
+        controls
+        loop
+        playsinline>
+      </audio>
+
+    </div>
+
+  </main>
+
+
+  <!-- COMPOSITOR SIEMPRE ABAJO -->
+  <div class="compositor">
+
+    <div class="formulario">
+
+      <textarea
+        id="mensaje"
+        rows="1"
+        placeholder="Escribe a GePeTo..."
+        autocomplete="off"
+        autocorrect="on"
+        spellcheck="true"></textarea>
+
+      <button
+        id="micro"
+        title="Hablar"
+        onclick="alternarMicrofono()">
+        🎤
+      </button>
+
+      <button
+        id="enviar"
+        title="Enviar"
+        onclick="enviarMensaje()">
+        ➤
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
+const WORKER =
+  "https://gepetto-rafa.rafadun18.workers.dev";
+
+let audioActual = null;
+let hablando = false;
+let sonriendo = false;
+let reconocimiento = null;
+let escuchando = false;
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const mensaje =
+  document.getElementById("mensaje");
+
+const chat =
+  document.getElementById("chat");
+
+const zonaChat =
+  document.getElementById("zonaChat");
+
+const estado =
+  document.getElementById("estado");
+
+const boca =
+  document.getElementById("boca");
+
+const escribiendo =
+  document.getElementById("escribiendo");
+
+const micro =
+  document.getElementById("micro");
+
+const musicaAudio =
+  document.getElementById("musicaAudio");
+
+
+/* =========================================================
+   MOVIMIENTO DE OJOS
+========================================================= */
+
+let miradaX = 0;
+let miradaY = 0;
+
+function moverOjos(){
+
+  const direcciones = [
+    [-1,0],
+    [0,0],
+    [1,0],
+    [0,-1],
+    [0,1],
+    [0,0],
+    [-1,1],
+    [1,-1]
+  ];
+
+  const d =
+    direcciones[
+      Math.floor(
+        Math.random() * direcciones.length
+      )
+    ];
+
+  miradaX = d[0] * 2.2;
+  miradaY = d[1] * 1.5;
+
+  document.documentElement.style
+    .setProperty("--miradaX", miradaX + "px");
+
+  document.documentElement.style
+    .setProperty("--miradaY", miradaY + "px");
+
+  document.querySelectorAll(".pupila")
+    .forEach(p => {
+
+      p.style.setProperty(
+        "--pupilaX",
+        (d[0] * 1.5) + "px"
+      );
+
+      p.style.setProperty(
+        "--pupilaY",
+        (d[1] * 1.1) + "px"
+      );
+
+    });
+}
+
+setInterval(
+  moverOjos,
+  1700 + Math.random() * 1400
+);
+
+moverOjos();
+
+
+/* =========================================================
+   BOCA
+========================================================= */
+
+function empezarHabla(){
+
+  hablando = true;
+
+  boca.classList.add("hablando");
+
+  estado.textContent =
+    "GePeTo está hablando...";
+
+}
+
+function terminarHabla(){
+
+  hablando = false;
+
+  boca.classList.remove("hablando");
+
+  estado.textContent =
+    "GePeTo conectado";
+
+}
+
+
+/* =========================================================
+   SONRISA
+========================================================= */
+
+function sonreir(){
+
+  boca.classList.add("sonriendo");
+
+  sonriendo = true;
+
+  setTimeout(() => {
+
+    boca.classList.remove("sonriendo");
+
+    sonriendo = false;
+
+  },1800);
+}
+
+
+/* =========================================================
+   PARAR AUDIO Y HABLA
+========================================================= */
+
+function pararTodo(){
+
+  if(audioActual){
+
+    try{
+      audioActual.pause();
+      audioActual.currentTime = 0;
+    }catch(e){}
+
+    audioActual = null;
+  }
+
+  try{
+    window.speechSynthesis.cancel();
+  }catch(e){}
+
+  terminarHabla();
+
+  estado.textContent =
+    "GePeTo preparado";
+
+}
+
+
+/* =========================================================
+   AÑADIR MENSAJE DEL USUARIO
+========================================================= */
+
+function añadirUsuario(texto){
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "mensaje usuario";
+
+  div.innerHTML =
+    '<div class="burbuja"></div>';
+
+  div.querySelector(".burbuja")
+    .textContent = texto;
+
+  chat.appendChild(div);
+
+  bajarChat();
+}
+
+
+/* =========================================================
+   AÑADIR RESPUESTA GePeTo
+========================================================= */
+
+function añadirGePeTo(texto){
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "mensaje gepeto";
+
+  const burbuja =
+    document.createElement("div");
+
+  burbuja.className =
+    "burbuja";
+
+  burbuja.textContent =
+    texto;
+
+  const boton =
+    document.createElement("button");
+
+  boton.className =
+    "botonOir";
+
+  boton.textContent =
+    "🔊 OÍR";
+
+  boton.onclick = () => {
+    hablar(texto);
+  };
+
+  burbuja.appendChild(boton);
+
+  div.appendChild(burbuja);
+
+  chat.appendChild(div);
+
+  bajarChat();
+}
+
+
+/* =========================================================
+   SCROLL: SOLO EL CHAT
+========================================================= */
+
+function bajarChat(){
+
+  setTimeout(() => {
+
+    zonaChat.scrollTo({
+      top: zonaChat.scrollHeight,
+      behavior:"smooth"
+    });
+
+  },50);
+
+}
+
+
+/* =========================================================
+   CONVERTIR BASE64 EN AUDIO
+========================================================= */
+
+function base64AUrlAudio(base64, mime){
+
+  if(!base64) return null;
+
+  base64 =
+    String(base64)
+      .replace(/^data:audio\/[^;]+;base64,/i,"")
+      .replace(/\s/g,"");
+
+  return "data:" +
+    (mime || "audio/wav") +
+    ";base64," +
+    base64;
+}
+
+
+/* =========================================================
+   EXTRAER AUDIO DE RESPUESTA
+========================================================= */
+
+function extraerFuenteAudio(data){
+
+  if(!data) return null;
+
+  if(typeof data === "string"){
+
+    if(
+      data.startsWith("data:audio/") ||
+      data.startsWith("blob:")
+    ){
+      return data;
+    }
+
+    if(
+      data.length > 100 &&
+      /^[A-Za-z0-9+/=\s]+$/.test(data)
+    ){
+      return base64AUrlAudio(
+        data,
+        "audio/wav"
+      );
+    }
+
+    return null;
+  }
+
+  const posibles = [
+    data.audio,
+    data.audio_url,
+    data.audioUrl,
+    data.url,
+    data.src,
+    data.audioSrc,
+    data.data,
+    data.base64,
+    data.audio_base64,
+    data.audioBase64,
+    data.output,
+    data.result
+  ];
+
+  for(const valor of posibles){
+
+    if(typeof valor !== "string")
+      continue;
+
+    if(
+      valor.startsWith("data:audio/") ||
+      valor.startsWith("blob:")
+    ){
+      return valor;
+    }
+
+    if(
+      valor.startsWith("http://") ||
+      valor.startsWith("https://")
+    ){
+      return valor;
+    }
+
+    if(
+      valor.length > 100 &&
+      /^[A-Za-z0-9+/=\s]+$/.test(valor)
+    ){
+      return base64AUrlAudio(
+        valor,
+        data.mime || "audio/wav"
+      );
+    }
+
+  }
+
+  return null;
+}
+
+
+/* =========================================================
+   REPRODUCIR PIPER
+========================================================= */
+
+async function reproducirPiper(texto){
+
+  try{
+
+    const respuesta =
+      await fetch(
+        WORKER + "/voz",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+
+            texto:texto,
+            text:texto,
+            mensaje:texto,
+
+            voice:"es_ES",
+            voz:"es_ES",
+
+            modelo:"piper",
+            model:"piper",
+
+            speaker:0,
+
+            gender:"male",
+            idioma:"es"
+
+          })
+        }
+      );
+
+    if(!respuesta.ok){
+
+      throw new Error(
+        "HTTP " + respuesta.status
+      );
+
+    }
+
+    const contentType =
+      respuesta.headers
+        .get("content-type") || "";
+
+    let fuente = null;
+
+    /* AUDIO DIRECTO */
+    if(
+      contentType.includes("audio/")
+    ){
+
+      const blob =
+        await respuesta.blob();
+
+      fuente =
+        URL.createObjectURL(blob);
+
+    }
+
+    /* JSON */
+    else if(
+      contentType.includes("application/json")
+    ){
+
+      const data =
+        await respuesta.json();
+
+      fuente =
+        extraerFuenteAudio(data);
+
+    }
+
+    /* TEXTO */
+    else{
+
+      const textoRespuesta =
+        await respuesta.text();
+
+      try{
+
+        const data =
+          JSON.parse(textoRespuesta);
+
+        fuente =
+          extraerFuenteAudio(data);
+
+      }catch(e){
+
+        fuente =
+          extraerFuenteAudio(
+            textoRespuesta
+          );
+
+      }
+
+    }
+
+    if(!fuente){
+
+      throw new Error(
+        "No se encontró audio"
+      );
+
+    }
+
+    if(audioActual){
+
+      try{
+        audioActual.pause();
+      }catch(e){}
+
+    }
+
+    audioActual =
+      new Audio(fuente);
+
+    audioActual.preload =
+      "auto";
+
+    audioActual.playsInline =
+      true;
+
+    audioActual.onplay = () => {
+
+      empezarHabla();
+
+    };
+
+    audioActual.onended = () => {
+
+      terminarHabla();
+
+      if(
+        musicaAudio.src &&
+        musicaAudio.paused
+      ){
+
+        musicaAudio.play()
+          .catch(()=>{});
+
+      }
+
+    };
+
+    audioActual.onerror = () => {
+
+      terminarHabla();
+
+    };
+
+    /* Pausamos música */
+    if(!musicaAudio.paused){
+
+      musicaAudio.pause();
+
+    }
+
+    try{
+
+      await audioActual.play();
+
+      return true;
+
+    }catch(error){
+
+      console.log(
+        "Autoplay bloqueado:",
+        error
+      );
+
+      return false;
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Error Piper:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   HABLAR
+========================================================= */
+
+async function hablar(texto){
+
+  if(!texto) return;
+
+  pararTodo();
+
+  estado.textContent =
+    "GePeTo preparando la voz...";
+
+  const piperOK =
+    await reproducirPiper(texto);
+
+  /*
+    Si el navegador bloquea el audio de Piper,
+    hacemos un segundo intento mediante la voz
+    disponible del propio navegador.
+  */
+
+  if(!piperOK){
+
+    try{
+
+      if(
+        "speechSynthesis"
+        in window
+      ){
+
+        window.speechSynthesis.cancel();
+
+        const voz =
+          new SpeechSynthesisUtterance(
+            texto
+          );
+
+        voz.lang =
+          "es-ES";
+
+        voz.rate =
+          0.95;
+
+        voz.pitch =
+          0.78;
+
+        voz.volume =
+          1;
+
+        voz.onstart = () => {
+
+          empezarHabla();
+
+        };
+
+        voz.onend = () => {
+
+          terminarHabla();
+
+        };
+
+        voz.onerror = () => {
+
+          terminarHabla();
+
+        };
+
+        window.speechSynthesis.speak(
+          voz
+        );
+
+      }
+
+    }catch(e){
+
+      terminarHabla();
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   ENVIAR MENSAJE
+========================================================= */
+
+async function enviarMensaje(){
+
+  const texto =
+    mensaje.value.trim();
+
+  if(!texto) return;
+
+  añadirUsuario(texto);
+
+  mensaje.value = "";
+
+  ajustarTextarea();
+
+  escribiendo.classList.add(
+    "activo"
+  );
+
+  estado.textContent =
+    "GePeTo está pensando...";
+
+  const botonEnviar =
+    document.getElementById("enviar");
+
+  botonEnviar.disabled =
+    true;
+
+  try{
+
+    const respuesta =
+      await fetch(
+        WORKER + "/preguntar",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+
+            mensaje:texto,
+            pregunta:texto,
+            prompt:texto
+
+          })
+        }
+      );
+
+    if(!respuesta.ok){
+
+      throw new Error(
+        "HTTP " + respuesta.status
+      );
+
+    }
+
+    const contentType =
+      respuesta.headers
+        .get("content-type") || "";
+
+    let textoRespuesta = "";
+
+    if(
+      contentType.includes(
+        "application/json"
+      )
+    ){
+
+      const data =
+        await respuesta.json();
+
+      textoRespuesta =
+        data.respuesta ||
+        data.response ||
+        data.texto ||
+        data.text ||
+        data.answer ||
+        data.mensaje ||
+        data.content ||
+        "";
+
+    }else{
+
+      textoRespuesta =
+        await respuesta.text();
+
+    }
+
+    if(
+      !textoRespuesta ||
+      !textoRespuesta.trim()
+    ){
+
+      textoRespuesta =
+        "He recibido tu mensaje, Rafa, pero ahora mismo no he podido obtener una respuesta de la IA.";
+
+    }
+
+    textoRespuesta =
+      textoRespuesta.trim();
+
+    escribiendo.classList.remove(
+      "activo"
+    );
+
+    añadirGePeTo(
+      textoRespuesta
+    );
+
+    sonreir();
+
+    /*
+      IMPORTANTE:
+      La voz se inicia AUTOMÁTICAMENTE
+      después de recibir la respuesta.
+    */
+    await hablar(
+      textoRespuesta
+    );
+
+  }catch(error){
+
+    console.log(
+      "Error preguntando:",
+      error
+    );
+
+    escribiendo.classList.remove(
+      "activo"
+    );
+
+    const errorTexto =
+      "Ahora mismo no puedo cargar la IA local. Puedes seguir usando recuerdos, tareas e investigaciones.";
+
+    añadirGePeTo(
+      errorTexto
+    );
+
+    estado.textContent =
+      "GePeTo conectado";
+
+  }finally{
+
+    botonEnviar.disabled =
+      false;
+
+    /*
+      No hacemos window.scrollTo().
+      El documento entero permanece quieto.
+    */
+
+    setTimeout(() => {
+
+      mensaje.focus();
+
+      bajarChat();
+
+    },80);
+
+  }
+
+}
+
+
+/* =========================================================
+   TEXTAREA AUTOMÁTICO
+========================================================= */
+
+function ajustarTextarea(){
+
+  mensaje.style.height =
+    "auto";
+
+  mensaje.style.height =
+    Math.min(
+      mensaje.scrollHeight,
+      100
+    ) + "px";
+
+}
+
+mensaje.addEventListener(
+  "input",
+  ajustarTextarea
+);
+
+
+/* ENTER PARA ENVIAR
+   SHIFT + ENTER = NUEVA LÍNEA
+========================================================= */
+
+mensaje.addEventListener(
+  "keydown",
+  function(e){
+
+    if(
+      e.key === "Enter" &&
+      !e.shiftKey
+    ){
+
+      e.preventDefault();
+
+      enviarMensaje();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   PROBAR VOZ
+========================================================= */
+
+async function probarVoz(){
+
+  const texto =
+    "Hola Rafa. Soy GePeTo. La voz está funcionando.";
+
+  sonreir();
+
+  await hablar(texto);
+
+}
+
+
+/* =========================================================
+   MICRÓFONO
+========================================================= */
+
+function iniciarReconocimiento(){
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if(!SpeechRecognition){
+
+    alert(
+      "El reconocimiento de voz no está disponible en este navegador."
+    );
+
+    return;
+
+  }
+
+  reconocimiento =
+    new SpeechRecognition();
+
+  reconocimiento.lang =
+    "es-ES";
+
+  reconocimiento.continuous =
+    false;
+
+  reconocimiento.interimResults =
+    true;
+
+  reconocimiento.onstart =
+    function(){
+
+      escuchando = true;
+
+      micro.classList.add(
+        "escuchando"
+      );
+
+      micro.textContent =
+        "⏹";
+
+      estado.textContent =
+        "Te estoy escuchando...";
+
+    };
+
+  reconocimiento.onresult =
+    function(event){
+
+      let resultado = "";
+
+      for(
+        let i =
+          event.resultIndex;
+        i < event.results.length;
+        i++
+      ){
+
+        resultado +=
+          event.results[i][0].transcript;
+
+      }
+
+      mensaje.value =
+        resultado;
+
+      ajustarTextarea();
+
+    };
+
+  reconocimiento.onerror =
+    function(){
+
+      finalizarMicrofono();
+
+    };
+
+  reconocimiento.onend =
+    function(){
+
+      finalizarMicrofono();
+
+    };
+
+  reconocimiento.start();
+
+}
+
+
+function finalizarMicrofono(){
+
+  escuchando = false;
+
+  micro.classList.remove(
+    "escuchando"
+  );
+
+  micro.textContent =
+    "🎤";
+
+  if(
+    !hablando
+  ){
+
+    estado.textContent =
+      "GePeTo conectado";
+
+  }
+
+}
+
+
+function alternarMicrofono(){
+
+  if(escuchando){
+
+    try{
+
+      reconocimiento.stop();
+
+    }catch(e){}
+
+    return;
+
+  }
+
+  iniciarReconocimiento();
+
+}
+
+
+/* =========================================================
+   MÚSICA
+========================================================= */
+
+function cambiarMusica(){
+
+  const archivo =
+    document.getElementById(
+      "selectorMusica"
+    ).value;
+
+  if(!archivo){
+
+    musicaAudio.pause();
+
+    musicaAudio.removeAttribute(
+      "src"
+    );
+
+    musicaAudio.load();
+
+    return;
+
+  }
+
+  musicaAudio.src =
+    archivo;
+
+  musicaAudio.load();
+
+  musicaAudio.play()
+    .catch(() => {
+
+      /*
+        El navegador puede requerir
+        una primera pulsación del usuario.
+      */
+
+    });
+
+}
+
+
+/* =========================================================
+   EVITAR QUE EL DOCUMENTO SE DESPLACE
+========================================================= */
+
+window.addEventListener(
+  "scroll",
+  function(){
+
+    /*
+      Si Safari intenta desplazar
+      la página, la devolvemos al
+      punto superior.
+
+      El chat tiene su propio scroll.
+    */
+
+    if(
+      window.scrollY !== 0 ||
+      window.scrollX !== 0
+    ){
+
+      window.scrollTo(
+        0,
+        0
+      );
+
+    }
+
+  },
+  {passive:true}
+);
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    ajustarTextarea();
+
+    bajarChat();
+
+    estado.textContent =
+      "GePeTo conectado";
+
+  }
+);
+
+</script>
+
+</body>
+</html>
