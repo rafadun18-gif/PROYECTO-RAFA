@@ -2,1365 +2,525 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#05070b">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <title>Videoconferencia · GePeTo</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-  margin:0;
-  padding:0;
-  width:100%;
-  min-height:100%;
-  background:#05070b;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    background:#05070b;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 body{
-  overflow-x:hidden;
+    overflow-x:hidden;
 }
 
 button,
-input,
-textarea{
-  font-family:inherit;
+textarea,
+input{
+    font-family:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
 }
 
-.header{
-  width:100%;
-  min-height:58px;
-  padding:9px 10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  background:#090d15;
-  border-bottom:1px solid #202938;
-  position:sticky;
-  top:0;
-  z-index:50;
+#app{
+    min-height:100vh;
+    padding-bottom:110px;
 }
 
-.header button{
-  border:1px solid #354052;
-  background:#111722;
-  color:#fff;
-  border-radius:12px;
-  padding:10px 12px;
-  font-size:14px;
+/* ============================================================
+   CABECERA
+============================================================ */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:8px;
+    padding:10px;
+
+    background:rgba(3,8,15,.97);
+    border-bottom:1px solid #173b64;
+
+    backdrop-filter:blur(10px);
 }
 
-.header .titulo{
-  flex:1;
-  text-align:center;
-  font-size:18px;
-  font-weight:bold;
-  color:#4da3ff;
-  text-shadow:0 0 12px rgba(77,163,255,.55);
+header button{
+    border:1px solid #2769a8;
+    border-radius:12px;
+
+    background:#071522;
+    color:#fff;
+
+    padding:10px 12px;
+
+    font-size:13px;
+    font-weight:700;
+}
+
+header button:active{
+    transform:scale(.97);
 }
 
 #parar{
-  color:#ff6b6b;
+    border-color:#8b2525;
+    background:#230b0b;
+    color:#ff7777;
 }
 
-.main{
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  padding:10px;
+.titulo{
+    flex:1;
+    text-align:center;
+    min-width:0;
 }
 
-/* =========================
-   ZONA GEPeTo
-========================= */
+.titulo strong{
+    display:block;
+    color:#55aaff;
+    font-size:17px;
+}
+
+.titulo span{
+    display:block;
+    color:#9db6d0;
+    font-size:11px;
+    margin-top:2px;
+}
+
+/* ============================================================
+   AVATAR
+============================================================ */
+
+.avatarBox{
+    display:flex;
+    justify-content:center;
+    padding:18px 12px 8px;
+
+    perspective:1000px;
+}
 
 .avatarStage{
-  position:relative;
-  width:100%;
-  height:min(61vh,620px);
-  min-height:390px;
-  overflow:hidden;
-  border-radius:22px;
-  background:
-    radial-gradient(circle at 50% 38%,rgba(30,80,150,.22),transparent 43%),
-    radial-gradient(circle at 50% 100%,rgba(0,130,255,.08),transparent 45%),
-    #020408;
-  border:1px solid #172131;
-  box-shadow:
-    0 0 30px rgba(0,110,255,.12),
-    inset 0 0 50px rgba(0,0,0,.8);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    position:relative;
 
-.avatar{
-  position:relative;
-  height:96%;
-  width:min(100%,620px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transform-origin:50% 55%;
-  animation:
-    cabezaNatural 7.5s ease-in-out infinite,
-    respiracion 4.2s ease-in-out infinite;
-  will-change:transform;
-}
+    width:min(260px,72vw);
+    aspect-ratio:1/1;
 
-.avatar img{
-  display:block;
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
-  filter:
-    drop-shadow(0 0 13px rgba(40,130,255,.22));
+    transform-style:preserve-3d;
+
+    will-change:transform;
+
+    animation:
+        respiracion
+        5s
+        ease-in-out
+        infinite;
 }
 
 /*
- Capas faciales.
- Se colocan encima de la imagen.
- Si la imagen ya lleva ojos/boca, estas capas funcionan
- como pequeños movimientos visuales adicionales.
+   FOTO CORRECTA
+   GePeToFrontal.png
 */
 
-.face{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:100%;
-  height:100%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
+.avatar{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #1685ff;
+
+    background:#07101c;
+
+    box-shadow:
+        0 0 18px rgba(0,130,255,.60),
+        0 0 55px rgba(0,80,255,.25);
+
+    transform-origin:50% 45%;
+
+    will-change:
+        transform,
+        filter;
 }
 
+/* ============================================================
+   MOVIMIENTO MUY PEQUEÑO DE LA CABEZA
+   La cara no depende solamente de este movimiento.
+============================================================ */
+
+@keyframes respiracion{
+
+    0%,100%{
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg);
+    }
+
+    20%{
+        transform:
+            translate3d(-.5px,-.4px,0)
+            rotate(-.10deg);
+    }
+
+    40%{
+        transform:
+            translate3d(.7px,-.7px,0)
+            rotate(.12deg);
+    }
+
+    60%{
+        transform:
+            translate3d(1px,.3px,0)
+            rotate(.18deg);
+    }
+
+    80%{
+        transform:
+            translate3d(-.7px,.2px,0)
+            rotate(-.13deg);
+    }
+}
+
+/* ============================================================
+   CAPA DE RASGOS FACIALES
+============================================================ */
+
+.caraAnimada{
+    position:absolute;
+    inset:0;
+
+    z-index:10;
+
+    pointer-events:none;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    /*
+       Variables controladas por JavaScript.
+    */
+
+    --miradaX:0px;
+    --miradaY:0px;
+
+    --cejaIzqY:0px;
+    --cejaDerY:0px;
+
+    --cejaIzqR:0deg;
+    --cejaDerR:0deg;
+
+    --bocaX:0px;
+    --bocaY:0px;
+
+    --bocaEscalaX:1;
+    --bocaEscalaY:.75;
+
+    --sonrisa:0;
+
+    --parpado:1;
+}
+
+/* ============================================================
+   OJOS
+============================================================ */
+
 .ojo{
-  position:absolute;
-  width:30px;
-  height:8px;
-  border-radius:50%;
-  background:rgba(0,170,255,.12);
-  opacity:.35;
-  transform-origin:center;
-  filter:blur(.4px);
+    position:absolute;
+
+    top:34.5%;
+
+    width:17%;
+    height:6%;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255,255,255,.52) 0%,
+            rgba(110,190,255,.24) 35%,
+            rgba(0,0,0,0) 75%
+        );
+
+    opacity:.28;
+
+    filter:blur(.65px);
+
+    transform:
+        translate3d(
+            var(--miradaX),
+            var(--miradaY),
+            0
+        )
+        scaleY(var(--parpado));
+
+    transition:
+        transform .10s ease-out,
+        opacity .2s ease;
 }
 
 .ojo.izq{
-  left:34%;
-  top:35%;
+    left:23%;
 }
 
 .ojo.der{
-  right:34%;
-  top:35%;
-}
-
-.ceja{
-  position:absolute;
-  width:43px;
-  height:7px;
-  border-top:2px solid rgba(80,180,255,.14);
-  opacity:.35;
-}
-
-.ceja.izq{
-  left:31.5%;
-  top:31%;
-  transform:rotate(-5deg);
-}
-
-.ceja.der{
-  right:31.5%;
-  top:31%;
-  transform:rotate(5deg);
-}
-
-.boca{
-  position:absolute;
-  left:50%;
-  top:52%;
-  width:35px;
-  height:7px;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:rgba(40,150,255,.10);
-  opacity:.28;
-}
-
-.avatar.parpadeo .ojo{
-  height:2px;
-  opacity:.12;
-}
-
-.avatar.hablando .boca{
-  animation:
-    bocaHabla .16s ease-in-out infinite alternate;
-  opacity:.55;
-}
-
-.avatar.pensando{
-  animation:
-    cabezaPensando 3.2s ease-in-out infinite,
-    respiracion 4.2s ease-in-out infinite;
-}
-
-@keyframes cabezaNatural{
-  0%,100%{
-    transform:translate3d(0,0,0) rotate(0deg);
-  }
-  13%{
-    transform:translate3d(-2px,1px,0) rotate(-.45deg);
-  }
-  27%{
-    transform:translate3d(2px,-1px,0) rotate(.38deg);
-  }
-  43%{
-    transform:translate3d(0,1px,0) rotate(.12deg);
-  }
-  61%{
-    transform:translate3d(-1px,-1px,0) rotate(-.3deg);
-  }
-  79%{
-    transform:translate3d(2px,1px,0) rotate(.32deg);
-  }
-}
-
-@keyframes respiracion{
-  0%,100%{
-    scale:1;
-  }
-  50%{
-    scale:1.006;
-  }
-}
-
-@keyframes cabezaPensando{
-  0%,100%{
-    transform:translate3d(0,0,0) rotate(0deg);
-  }
-  25%{
-    transform:translate3d(-4px,0,0) rotate(-1deg);
-  }
-  50%{
-    transform:translate3d(3px,-1px,0) rotate(.8deg);
-  }
-  75%{
-    transform:translate3d(-2px,1px,0) rotate(-.4deg);
-  }
-}
-
-@keyframes bocaHabla{
-  from{
-    transform:translateX(-50%) scaleY(.65);
-  }
-  to{
-    transform:translateX(-50%) scaleY(1.45);
-  }
-}
-
-.status{
-  margin:9px auto 4px;
-  width:max-content;
-  max-width:95%;
-  padding:7px 13px;
-  border-radius:30px;
-  background:#0b111c;
-  border:1px solid #263246;
-  color:#77bfff;
-  font-size:13px;
-  text-align:center;
-}
-
-.status.ok{
-  color:#55ff9a;
-  border-color:#1d7345;
-}
-
-.status.error{
-  color:#ff7777;
-  border-color:#773333;
-}
-
-.status.talking{
-  color:#63b6ff;
-  border-color:#286ca8;
-  box-shadow:0 0 15px rgba(50,150,255,.18);
-}
-
-/* =========================
-   CONTROLES
-========================= */
-
-.controls{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-  margin:9px 0;
-}
-
-.controls button{
-  border:1px solid #304056;
-  border-radius:13px;
-  padding:10px 13px;
-  background:#101722;
-  color:#fff;
-  font-size:14px;
-}
-
-.controls button:active{
-  transform:scale(.97);
-}
-
-#parpadear{
-  color:#8fcaff;
-}
-
-.voiceBox,
-.musicBox{
-  margin-top:10px;
-  padding:12px;
-  border:1px solid #202c3c;
-  border-radius:16px;
-  background:#090e16;
-}
-
-.boxTitle{
-  font-size:14px;
-  font-weight:bold;
-  margin-bottom:8px;
-  color:#b9d9ff;
-}
-
-.voiceButtons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.voiceButtons button{
-  border:1px solid #33445c;
-  background:#111a28;
-  color:#fff;
-  border-radius:11px;
-  padding:9px 12px;
-}
-
-.musicRow{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-input[type=file]{
-  width:100%;
-  color:#ddd;
-  background:#0d131d;
-  border:1px solid #27354a;
-  border-radius:10px;
-  padding:7px;
-}
-
-audio{
-  width:100%;
-  max-width:100%;
-}
-
-/* =========================
-   CHAT
-========================= */
-
-.chat{
-  margin-top:12px;
-  min-height:260px;
-  max-height:430px;
-  overflow-y:auto;
-  padding:12px;
-  border:1px solid #202c3c;
-  border-radius:18px;
-  background:
-    linear-gradient(rgba(8,13,20,.95),rgba(5,8,13,.98));
-  scroll-behavior:smooth;
-}
-
-.msg{
-  width:100%;
-  display:flex;
-  margin:8px 0;
-}
-
-.msg .bubble{
-  max-width:88%;
-  padding:10px 12px;
-  border-radius:15px;
-  line-height:1.42;
-  font-size:15px;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-.msg.user{
-  justify-content:flex-end;
-}
-
-.msg.user .bubble{
-  background:#12385b;
-  border:1px solid #1c6196;
-}
-
-.msg.gepetto{
-  justify-content:flex-start;
-}
-
-.msg.gepetto .bubble{
-  background:#111923;
-  border:1px solid #26384d;
-}
-
-.msg.system{
-  justify-content:center;
-}
-
-.msg.system .bubble{
-  background:#17130b;
-  border:1px solid #51401f;
-  color:#ffd77d;
-  font-size:13px;
-}
-
-.composer{
-  display:flex;
-  gap:7px;
-  align-items:flex-end;
-  margin-top:9px;
-}
-
-#mensaje{
-  flex:1;
-  min-height:48px;
-  max-height:150px;
-  resize:none;
-  border-radius:14px;
-  border:1px solid #304057;
-  background:#0b111a;
-  color:#fff;
-  padding:12px;
-  outline:none;
-  font-size:15px;
-}
-
-#mensaje:focus{
-  border-color:#438cd0;
-}
-
-.composer button{
-  min-width:48px;
-  height:48px;
-  border-radius:13px;
-  border:1px solid #34465e;
-  background:#111a27;
-  color:#fff;
-  font-size:18px;
-}
-
-#enviar{
-  background:#104c7b;
-  border-color:#237db8;
-}
-
-#microfono.activo{
-  background:#662222;
-  border-color:#b44a4a;
-  animation:microPulse 1s infinite;
-}
-
-@keyframes microPulse{
-  50%{
-    box-shadow:0 0 18px rgba(255,70,70,.35);
-  }
-}
-
-.info{
-  text-align:center;
-  color:#7f8da0;
-  font-size:12px;
-  margin:10px 0 20px;
-}
-
-.hidden{
-  display:none!important;
-}
-
-@media(max-width:600px){
-  .header{
-    min-height:54px;
-  }
-
-  .header button{
-    padding:8px 9px;
-    font-size:12px;
-  }
-
-  .header .titulo{
-    font-size:16px;
-  }
-
-  .avatarStage{
-    height:53vh;
-    min-height:350px;
-    border-radius:17px;
-  }
-
-  .chat{
-    max-height:360px;
-  }
-
-  .msg .bubble{
-    max-width:93%;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .avatar{
-    animation:respiracion 5s ease-in-out infinite;
-  }
-
-  .avatar.hablando .boca{
-    animation:none;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header class="header">
-  <button id="biblioteca">← BIBLIOTECA</button>
-  <div class="titulo">🔵 GePeTo · Videoconferencia</div>
-  <button id="parar">🛑 PARAR</button>
-</header>
-
-<main class="main">
-
-  <section class="avatarStage">
-
-    <div class="avatar" id="avatar">
-
-      <img
-        id="imagenGePeTo"
-        src="GePeToFrontal.png"
-        alt="GePeTo"
-        draggable="false"
-      >
-
-      <div class="face">
-        <div class="ceja izq"></div>
-        <div class="ceja der"></div>
-        <div class="ojo izq"></div>
-        <div class="ojo der"></div>
-        <div class="boca"></div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <div id="estado" class="status">
-    GePeTo está preparado para hablar contigo.
-  </div>
-
-  <div class="controls">
-    <button id="parpadear">👁️ PARPADEAR</button>
-    <button id="pruebaVoz">🔊 PRUEBA DE VOZ</button>
-  </div>
-
-  <section class="voiceBox">
-    <div class="boxTitle">🔊 VOZ DE GePeTo</div>
-
-    <div class="voiceButtons">
-      <button id="probarVoz">🔊 PROBAR VOZ</button>
-      <button id="oirUltima">🔊 OÍR ÚLTIMA RESPUESTA</button>
-    </div>
-  </section>
-
-  <section class="musicBox">
-    <div class="boxTitle">🎵 Música de fondo</div>
-
-    <div class="musicRow">
-      <input id="archivoMusica" type="file" accept="audio/*">
-      <audio id="musica" controls loop></audio>
-    </div>
-  </section>
-
-  <section id="chat" class="chat">
-    <div class="msg gepetto">
-      <div class="bubble">
-        GePeTo está preparado para hablar contigo.
-      </div>
-    </div>
-  </section>
-
-  <div class="composer">
-    <textarea
-      id="mensaje"
-      placeholder="Escribe algo a GePeTo..."
-      autocomplete="off"
-      spellcheck="true"
-    ></textarea>
-
-    <button id="microfono" title="Hablar por micrófono">🎙️</button>
-    <button id="enviar" title="Enviar">➤</button>
-  </div>
-
-  <div class="info">
-    Proyecto Rafa · GePeTo
-  </div>
-
-</main>
-
-<script>
-"use strict";
-
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
-
-const WORKER = "https://gepetto-rafa.rafadun18.workers.dev";
-const PREGUNTAR_URL = WORKER + "/preguntar";
-const VOZ_URL = WORKER + "/voz";
-
-/* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const avatar = document.getElementById("avatar");
-const imagenGePeTo = document.getElementById("imagenGePeTo");
-const estado = document.getElementById("estado");
-const chat = document.getElementById("chat");
-const mensaje = document.getElementById("mensaje");
-const enviar = document.getElementById("enviar");
-const microfono = document.getElementById("microfono");
-const parar = document.getElementById("parar");
-const parpadear = document.getElementById("parpadear");
-const pruebaVoz = document.getElementById("pruebaVoz");
-const probarVoz = document.getElementById("probarVoz");
-const oirUltima = document.getElementById("oirUltima");
-const biblioteca = document.getElementById("biblioteca");
-const archivoMusica = document.getElementById("archivoMusica");
-const musica = document.getElementById("musica");
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-let reconocimiento = null;
-let escuchando = false;
-let hablando = false;
-let audioActual = null;
-let ultimaRespuesta = "";
-let musicaURL = null;
-let respuestaEnCurso = false;
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-function ponerEstado(texto, tipo=""){
-  estado.textContent = texto;
-  estado.className = "status";
-
-  if(tipo){
-    estado.classList.add(tipo);
-  }
-}
-
-/* =========================================================
-   CHAT
-========================================================= */
-
-function agregarMensaje(texto, tipo="gepetto"){
-  const fila = document.createElement("div");
-  fila.className = "msg " + tipo;
-
-  const burbuja = document.createElement("div");
-  burbuja.className = "bubble";
-  burbuja.textContent = texto;
-
-  fila.appendChild(burbuja);
-  chat.appendChild(fila);
-
-  chat.scrollTop = chat.scrollHeight;
-
-  return fila;
-}
-
-/* =========================================================
-   MOVIMIENTOS FACIALES NATURALES
-========================================================= */
-
-function parpadearUnaVez(){
-  avatar.classList.add("parpadeo");
-
-  setTimeout(()=>{
-    avatar.classList.remove("parpadeo");
-  },145);
-}
-
-function programarParpadeo(){
-  const espera = 2800 + Math.random()*5200;
-
-  setTimeout(()=>{
-    if(!document.hidden){
-      parpadearUnaVez();
-
-      if(Math.random() < 0.12){
-        setTimeout(parpadearUnaVez,190);
-      }
-    }
-
-    programarParpadeo();
-  },espera);
-}
-
-function microMovimientoFacial(){
-
-  const ojos = document.querySelectorAll(".ojo");
-  const cejas = document.querySelectorAll(".ceja");
-
-  const dx = (Math.random()-.5)*4;
-  const dy = (Math.random()-.5)*2;
-
-  ojos.forEach(ojo=>{
-    ojo.style.marginLeft = dx + "px";
-    ojo.style.marginTop = dy + "px";
-  });
-
-  cejas.forEach(ceja=>{
-    ceja.style.translate = dx*.35 + "px " + dy*.2 + "px";
-  });
-
-  setTimeout(microMovimientoFacial,700+Math.random()*1600);
-}
-
-function iniciarVidaFacial(){
-  programarParpadeo();
-  microMovimientoFacial();
-}
-
-function empezarHablarVisual(){
-  hablando = true;
-  avatar.classList.add("hablando");
-  avatar.classList.remove("pensando");
-  ponerEstado("GePeTo está hablando...","talking");
-}
-
-function terminarHablarVisual(){
-  hablando = false;
-  avatar.classList.remove("hablando");
-  avatar.classList.remove("pensando");
-
-  if(!respuestaEnCurso){
-    ponerEstado("GePeTo está preparado para hablar contigo.","ok");
-  }
-}
-
-function pensarVisual(){
-  if(!hablando){
-    avatar.classList.add("pensando");
-    ponerEstado("GePeTo está pensando...");
-  }
-}
-
-/* =========================================================
-   AUDIO / VOZ
-========================================================= */
-
-function detenerAudio(){
-  if(audioActual){
-    try{
-      audioActual.pause();
-      audioActual.currentTime = 0;
-    }catch(e){}
-    audioActual = null;
-  }
-
-  window.speechSynthesis.cancel();
-  terminarHablarVisual();
-}
-
-async function reproducirAudioBlob(blob){
-
-  return new Promise((resolve,reject)=>{
-
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-
-    audioActual = audio;
-
-    empezarHablarVisual();
-
-    audio.onended = ()=>{
-      if(audioActual === audio){
-        audioActual = null;
-      }
-
-      URL.revokeObjectURL(url);
-      terminarHablarVisual();
-      resolve();
-    };
-
-    audio.onerror = ()=>{
-      if(audioActual === audio){
-        audioActual = null;
-      }
-
-      URL.revokeObjectURL(url);
-      terminarHablarVisual();
-      reject(new Error("No se pudo reproducir el audio."));
-    };
-
-    audio.play().catch(err=>{
-      terminarHablarVisual();
-      reject(err);
-    });
-  });
+    right:23%;
 }
 
 /*
- Intenta primero Piper del Worker.
- Si el Worker no dispone de /voz, utiliza la voz del navegador
- como respaldo para que GePeTo siga hablando.
+   Pequeño brillo de pupila.
 */
 
-async function hablarConGePeTo(texto){
-
-  if(!texto) return;
-
-  ultimaRespuesta = texto;
-
-  detenerAudio();
-
-  empezarHablarVisual();
-
-  try{
-
-    const respuesta = await fetch(VOZ_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        texto:texto,
-        text:texto,
-        mensaje:texto,
-        voice:"es_ES-davefx-medium"
-      })
-    });
-
-    if(respuesta.ok){
-
-      const tipo = respuesta.headers.get("content-type") || "";
-
-      if(
-        tipo.includes("audio") ||
-        tipo.includes("octet-stream") ||
-        tipo.includes("wav")
-      ){
-        const blob = await respuesta.blob();
-
-        terminarHablarVisual();
-
-        await reproducirAudioBlob(blob);
-        return;
-      }
-    }
-
-  }catch(error){
-    /* Se utiliza el respaldo del navegador. */
-  }
-
-  hablarConNavegador(texto);
-}
-
-function hablarConNavegador(texto){
-
-  window.speechSynthesis.cancel();
-
-  const utter = new SpeechSynthesisUtterance(texto);
-
-  utter.lang = "es-ES";
-  utter.rate = .96;
-  utter.pitch = .82;
-  utter.volume = 1;
-
-  const voces = window.speechSynthesis.getVoices();
-
-  const vozEspañola =
-    voces.find(v =>
-      /^es-ES/i.test(v.lang) &&
-      /male|hombre|david|jorge|pablo/i.test(v.name)
-    )
-    ||
-    voces.find(v => /^es-ES/i.test(v.lang))
-    ||
-    voces.find(v => /^es/i.test(v.lang));
-
-  if(vozEspañola){
-    utter.voice = vozEspañola;
-  }
-
-  utter.onstart = ()=>{
-    empezarHablarVisual();
-  };
-
-  utter.onend = ()=>{
-    terminarHablarVisual();
-  };
-
-  utter.onerror = ()=>{
-    terminarHablarVisual();
-  };
-
-  window.speechSynthesis.speak(utter);
-}
-
-async function pruebaDeVoz(){
-
-  detenerAudio();
-
-  const texto =
-    "Hola Rafa. Soy GePeTo. La conexión de voz está preparada.";
-
-  agregarMensaje(texto,"gepetto");
-
-  await hablarConGePeTo(texto);
-}
-
-/* =========================================================
-   EXTRACCIÓN DE RESPUESTA DEL WORKER
-========================================================= */
-
-function extraerTexto(data){
-
-  if(data === null || data === undefined){
-    return "";
-  }
-
-  if(typeof data === "string"){
-    return data.trim();
-  }
-
-  /*
-   Aceptamos diferentes formatos para que el HTML funcione
-   aunque el Worker devuelva text, respuesta, answer, etc.
-  */
-
-  const candidatos = [
-    data.respuesta,
-    data.response,
-    data.answer,
-    data.texto,
-    data.text,
-    data.mensaje,
-    data.message,
-    data.content
-  ];
-
-  for(const valor of candidatos){
-
-    if(typeof valor === "string" && valor.trim()){
-      return valor.trim();
-    }
-
-  }
-
-  if(data.result){
-
-    if(typeof data.result === "string"){
-      return data.result.trim();
-    }
-
-    if(typeof data.result === "object"){
-      const resultado = extraerTexto(data.result);
-
-      if(resultado){
-        return resultado;
-      }
-    }
-  }
-
-  if(data.output){
-
-    if(typeof data.output === "string"){
-      return data.output.trim();
-    }
-
-    if(typeof data.output === "object"){
-      const resultado = extraerTexto(data.output);
-
-      if(resultado){
-        return resultado;
-      }
-    }
-  }
-
-  return "";
-}
-
-/* =========================================================
-   HABLAR CON GEPETO
-========================================================= */
-
-async function preguntarGePeTo(texto){
-
-  const limpio = texto.trim();
-
-  if(!limpio || respuestaEnCurso){
-    return;
-  }
-
-  respuestaEnCurso = true;
-
-  agregarMensaje(limpio,"user");
-
-  mensaje.value = "";
-
-  pensarVisual();
-
-  enviar.disabled = true;
-
-  try{
-
-    /*
-      ESTA ES LA RUTA CORRECTA:
-      /preguntar
-
-      Nunca se envía el POST a la raíz "/".
-    */
-
-    const respuesta = await fetch(PREGUNTAR_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Accept":"application/json,text/plain,*/*"
-      },
-      body:JSON.stringify({
-        mensaje:limpio,
-        texto:limpio,
-        pregunta:limpio
-      })
-    });
-
-    const contenido = await respuesta.text();
-
-    let data = null;
-
-    try{
-      data = JSON.parse(contenido);
-    }catch(e){
-      data = contenido;
-    }
-
-    if(!respuesta.ok){
-
-      let detalle = extraerTexto(data);
-
-      if(!detalle){
-        detalle = contenido || ("HTTP " + respuesta.status);
-      }
-
-      throw new Error(detalle);
-    }
-
-    const textoRespuesta = extraerTexto(data);
-
-    if(!textoRespuesta){
-
-      /*
-       Si el Worker responde algo como {"ok":true} pero no entrega
-       texto, lo mostramos para poder detectar el formato real.
-      */
-
-      if(data && data.ok === false){
-        throw new Error(
-          data.error ||
-          data.mensaje ||
-          "El Worker ha rechazado la petición."
+.ojo::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:27%;
+    height:50%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        translate(
+            calc(var(--miradaX) * .45),
+            calc(var(--miradaY) * .25)
         );
-      }
 
-      throw new Error(
-        "GePeTo no devolvió texto."
-      );
-    }
+    border-radius:50%;
 
-    ultimaRespuesta = textoRespuesta;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.90) 0 15%,
+            rgba(60,160,255,.42) 30%,
+            rgba(0,0,0,.22) 60%,
+            transparent 72%
+        );
 
-    agregarMensaje(textoRespuesta,"gepetto");
-
-    respuestaEnCurso = false;
-
-    await hablarConGePeTo(textoRespuesta);
-
-  }catch(error){
-
-    console.error("Error GePeTo:",error);
-
-    avatar.classList.remove("pensando");
-    terminarHablarVisual();
-
-    let mensajeError = error && error.message
-      ? error.message
-      : "Error desconocido.";
-
-    agregarMensaje(
-      "❌ No se pudo obtener respuesta de GePeTo. " +
-      mensajeError,
-      "system"
-    );
-
-    ponerEstado(
-      "Error de conexión con GePeTo",
-      "error"
-    );
-
-    respuestaEnCurso = false;
-
-  }finally{
-
-    enviar.disabled = false;
-    mensaje.focus();
-
-  }
+    opacity:.72;
 }
 
-/* =========================================================
-   ENVÍO
-========================================================= */
+/* ============================================================
+   CEJAS
+============================================================ */
 
-enviar.addEventListener("click",()=>{
-  preguntarGePeTo(mensaje.value);
-});
+.ceja{
+    position:absolute;
 
-mensaje.addEventListener("keydown",(event)=>{
+    top:29.5%;
 
-  if(event.key === "Enter" && !event.shiftKey){
+    width:18%;
+    height:3%;
 
-    event.preventDefault();
+    border-radius:50%;
 
-    preguntarGePeTo(mensaje.value);
-  }
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(100,185,255,.28),
+            transparent
+        );
 
-});
+    opacity:.25;
 
-/* =========================================================
-   MICRÓFONO
-========================================================= */
+    filter:blur(1px);
 
-function prepararReconocimiento(){
-
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-  if(!SpeechRecognition){
-    return null;
-  }
-
-  const recognition = new SpeechRecognition();
-
-  recognition.lang = "es-ES";
-  recognition.continuous = false;
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-
-  recognition.onstart = ()=>{
-
-    escuchando = true;
-
-    microfono.classList.add("activo");
-
-    microfono.textContent = "⏹️";
-
-    ponerEstado("Escuchando...");
-
-  };
-
-  recognition.onresult = (event)=>{
-
-    let textoFinal = "";
-    let textoTemporal = "";
-
-    for(
-      let i = event.resultIndex;
-      i < event.results.length;
-      i++
-    ){
-
-      const texto =
-        event.results[i][0].transcript;
-
-      if(event.results[i].isFinal){
-        textoFinal += texto;
-      }else{
-        textoTemporal += texto;
-      }
-    }
-
-    if(textoFinal){
-      mensaje.value = textoFinal.trim();
-    }else if(textoTemporal){
-      mensaje.value = textoTemporal.trim();
-    }
-
-  };
-
-  recognition.onerror = (event)=>{
-
-    console.error("Micrófono:",event.error);
-
-    escuchando = false;
-
-    microfono.classList.remove("activo");
-
-    microfono.textContent = "🎙️";
-
-    ponerEstado(
-      "No se pudo usar el micrófono.",
-      "error"
-    );
-  };
-
-  recognition.onend = ()=>{
-
-    escuchando = false;
-
-    microfono.classList.remove("activo");
-
-    microfono.textContent = "🎙️";
-
-    if(mensaje.value.trim()){
-      preguntarGePeTo(mensaje.value);
-    }else{
-      ponerEstado(
-        "GePeTo está preparado para hablar contigo.",
-        "ok"
-      );
-    }
-  };
-
-  return recognition;
+    transition:
+        transform .22s ease-out;
 }
 
-microfono.addEventListener("click",()=>{
+.ceja.izq{
+    left:22.5%;
 
-  if(!reconocimiento){
-    reconocimiento = prepararReconocimiento();
-  }
+    transform:
+        translateY(var(--cejaIzqY))
+        rotate(var(--cejaIzqR));
+}
 
-  if(!reconocimiento){
+.ceja.der{
+    right:22.5%;
 
-    agregarMensaje(
-      "❌ Este navegador no permite reconocimiento de voz.",
-      "system"
-    );
+    transform:
+        translateY(var(--cejaDerY))
+        rotate(var(--cejaDerR));
+}
 
-    return;
-  }
+/* ============================================================
+   MEJILLAS
+============================================================ */
 
-  if(escuchando){
+.mejilla{
+    position:absolute;
 
-    try{
-      reconocimiento.stop();
-    }catch(e){}
+    top:56%;
 
-  }else{
+    width:20%;
+    height:11%;
 
-    try{
-      reconocimiento.start();
-    }catch(e){
+    border-radius:50%;
 
-      console.error(e);
+    background:
+        radial-gradient(
+            circle,
+            rgba(50,150,255,.22),
+            rgba(50,150,255,.05) 48%,
+            transparent 75%
+        );
 
-      reconocimiento = prepararReconocimiento();
+    opacity:.10;
 
-      if(reconocimiento){
+    filter:blur(4px);
 
-        try{
-          reconocimiento.start();
-        }catch(err){
-          agregarMensaje(
-            "❌ No se pudo iniciar el micrófono.",
-            "system"
-          );
-        }
-      }
-    }
-  }
+    transition:
+        opacity .45s ease,
+        transform .45s ease;
+}
 
-});
+.mejilla.izq{
+    left:15%;
+}
 
-/* =========================================================
-   BOTONES DE VOZ
-========================================================= */
+.mejilla.der{
+    right:15%;
+}
 
-pruebaVoz.addEventListener("click",()=>{
-  pruebaDeVoz();
-});
+/* ============================================================
+   BOCA
+============================================================ */
 
-probarVoz.addEventListener("click",()=>{
-  pruebaDeVoz();
-});
+.boca{
+    position:absolute;
 
-oirUltima.addEventListener("click",()=>{
+    left:35%;
 
-  if(ultimaRespuesta){
-    hablarConGePeTo(ultimaRespuesta);
-  }else{
-    pruebaDeVoz();
-  }
+    top:59%;
 
-});
+    width:30%;
+    height:9%;
 
-/* =========================================================
-   PARPADEO MANUAL
-========================================================= */
+    transform:
+        translate(
+            var(--bocaX),
+            var(--bocaY)
+        )
+        scaleX(var(--bocaEscalaX))
+        scaleY(var(--bocaEscalaY));
 
-parpadear.addEventListener("click",()=>{
-  parpadearUnaVez();
-});
+    transform-origin:center;
 
-/* =========================================================
-   PARAR TODO
-========================================================= */
+    border-radius:
+        12% 12% 48% 48%;
 
-function pararTodo(){
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(10,10,15,.78) 0 35%,
+            rgba(50,160,255,.22) 58%,
+            transparent 78%
+        );
 
-  respuestaEnCurso = false;
+    border:
+        1px solid rgba(100,190,255,.18);
 
-  if(reconocimiento){
+    opacity:.18;
 
-    try{
-      reconocimiento.abort();
-    }catch(e){}
+    filter:blur(.7px);
 
-  }
+    transition:
+        transform .08s linear,
+        border-radius .20s ease,
+        opacity .25s ease;
+}
 
-  escuchando = false;
+/* ============================================================
+   SONRISA
+============================================================ */
 
-  microfono.classList.remove("activo");
- 
+.boca.sonrisa{
+    border-radius:
+        8% 8% 65% 65%;
+
+    transform:
+        translate(
+            var(--bocaX),
+            var(--bocaY)
+        )
+        scaleX(
+            calc(var(--bocaEscalaX) * 1.08)
+        )
+        scaleY(
+            calc(var(--bocaEscalaY) * .82)
+        );
+
+    opacity:.31;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(10,10,15,.72) 0 28%,
+            rgba(50,170,255,.30) 48%,
+            transparent 78%
+        );
+}
+
+/* ============================================================
+   SONRISA EXTERIOR
+============================================================ */
+
+.sonrisaLinea{
+    position:absolute;
+
+    left:32%;
+    top:61%;
+
+    width:36%;
+    height:12%;
+
+    border-bottom:
+        2px solid
+        rgba(90,190,255,.23);
+
+    border-radius:
+        0 0 50% 50%;
+
+    opacity:0;
+
+    transform:
+        scaleX(.75
