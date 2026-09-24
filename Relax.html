@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+
+<title>RELAX · Proyecto Rafa</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    background:#000;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* =========================
+   FONDO VÍDEO
+========================= */
+
+#fondoVideo{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-10;
+    background:#000;
+}
+
+#capaOscura{
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.55)
+        );
+    z-index:-9;
+    pointer-events:none;
+}
+
+/* =========================
+   EFECTOS
+========================= */
+
+#particulas{
+    position:fixed;
+    inset:0;
+    z-index:-8;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.particula{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:
+        0 0 8px #fff,
+        0 0 18px #0ff;
+    opacity:.55;
+    animation:flotar linear infinite;
+}
+
+@keyframes flotar{
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+
+    15%{
+        opacity:.6;
+    }
+
+    85%{
+        opacity:.6;
+    }
+
+    to{
+        transform:translateY(-15vh);
+        opacity:0;
+    }
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.contenedor{
+    width:100%;
+    min-height:100vh;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+}
+
+/* =========================
+   CABECERA
+========================= */
+
+.cabecera{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.botonNav{
+    border:1px solid rgba(0,255,180,.7);
+    background:rgba(0,0,0,.62);
+    color:#fff;
+    border-radius:14px;
+    padding:11px 15px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:
+        0 0 12px rgba(0,255,180,.25),
+        inset 0 0 12px rgba(0,255,180,.08);
+}
+
+.botonNav:active{
+    transform:scale(.97);
+}
+
+.titulo{
+    text-align:center;
+    flex:1;
+    min-width:0;
+}
+
+.titulo h1{
+    margin:0;
+    font-size:clamp(25px,5vw,48px);
+    letter-spacing:7px;
+    text-shadow:
+        0 0 8px #fff,
+        0 0 20px #00ffc8,
+        0 0 40px #00ffc8;
+}
+
+.titulo p{
+    margin:4px 0 0;
+    font-size:11px;
+    letter-spacing:4px;
+    opacity:.85;
+}
+
+/* =========================
+   ESCRITORIO FUTURISTA
+========================= */
+
+.escritorio{
+    width:100%;
+    max-width:1450px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:18px;
+    flex:1;
+}
+
+.panel{
+    background:rgba(5,10,15,.64);
+    border:1px solid rgba(0,255,200,.45);
+    border-radius:22px;
+    padding:18px;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    box-shadow:
+        0 0 20px rgba(0,255,200,.12),
+        inset 0 0 25px rgba(0,255,200,.035);
+}
+
+.panel h2{
+    margin:0 0 14px;
+    font-size:18px;
+    letter-spacing:2px;
+    color:#fff;
+    text-shadow:0 0 12px #00ffc8;
+}
+
+/* =========================
+   ESFERA CENTRAL
+========================= */
+
+.orbe{
+    width:145px;
+    height:145px;
+    margin:10px auto 20px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff 0%,
+            #00ffc8 8%,
+            rgba(0,255,200,.4) 25%,
+            rgba(0,80,70,.25) 50%,
+            rgba(0,0,0,.1) 70%
+        );
+    box-shadow:
+        0 0 25px #00ffc8,
+        0 0 60px rgba(0,255,200,.7),
+        0 0 110px rgba(0,255,200,.35);
+    animation:respirar 4s ease-in-out infinite;
+}
+
+@keyframes respirar{
+    0%,100%{
+        transform:scale(.94);
+        opacity:.8;
+    }
+
+    50%{
+        transform:scale(1.06);
+        opacity:1;
+    }
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.controles{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-top:10px;
+}
+
+button,
+select,
+input[type="file"]{
+    font-family:inherit;
+}
+
+.control{
+    border:1px solid rgba(0,255,200,.55);
+    background:rgba(0,0,0,.65);
+    color:#fff;
+    border-radius:12px;
+    padding:10px 13px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.control:hover{
+    box-shadow:0 0 15px rgba(0,255,200,.25);
+}
+
+.control:active{
+    transform:scale(.97);
+}
+
+.select{
+    width:100%;
+    border:1px solid rgba(0,255,200,.5);
+    background:#050a0f;
+    color:#fff;
+    border-radius:12px;
+    padding:11px;
+    margin-bottom:9px;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#00ffc8;
+}
+
+/* =========================
+   MÚSICA
+========================= */
+
+#musica{
+    display:none;
+}
+
+.pista{
+    text-align:center;
+    margin:8px 0 13px;
+    color:#00ffc8;
+    font-weight:bold;
+    min-height:20px;
+}
+
+.archivoBox{
+    border:1px dashed rgba(255,255,255,.35);
+    border-radius:14px;
+    padding:12px;
+    margin-top:14px;
+    background:rgba(0,0,0,.3);
+}
+
+.archivoBox label{
+    display:block;
+    font-size:12px;
+    margin-bottom:8px;
+    opacity:.85;
+}
+
+/* =========================
+   VÍDEO
+========================= */
+
+.videoArea{
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid rgba(0,255,200,.35);
+    margin-bottom:12px;
+}
+
+#videoPrincipal{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    background:#000;
+}
+
+.videoInfo{
+    font-size:12px;
+    opacity:.8;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.textoArea{
+    width:100%;
+    min-height:250px;
+    max-height:480px;
+    overflow:auto;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:15px;
+    background:rgba(0,0,0,.55);
+    padding:16px;
+    font-size:15px;
+    line-height:1.65;
+    white-space:pre-wrap;
+    word-break:break-word;
+    -webkit-overflow-scrolling:touch;
+}
+
+.textoVacio{
+    opacity:.55;
+    text-align:center;
+    padding:40px 10px;
+}
+
+.textoNombre{
+    margin:10px 0;
+    color:#00ffc8;
+    font-size:12px;
+    text-align:center;
+}
+
+/* =========================
+   VOZ
+========================= */
+
+.vozGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
+
+.vozGrid select{
+    width:100%;
+}
+
+.estado{
+    text-align:center;
+    font-size:12px;
+    min-height:18px;
+    margin-top:8px;
+    opacity:.85;
+}
+
+/* =========================
+   MEMORIA
+========================= */
+
+.memoriaInfo{
+    margin-top:12px;
+    padding:11px;
+    border-radius:12px;
+    background:rgba(0,255,200,.06);
+    border:1px solid rgba(0,255,200,.18);
+    font-size:11px;
+    line-height:1.5;
+    opacity:.9;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .escritorio{
+        grid-template-columns:1fr;
+    }
+
+    .orbe{
+        width:120px;
+        height:120px;
+    }
+}
+
+@media(max-width:600px){
+
+    .contenedor{
+        padding:10px;
+    }
+
+    .cabecera{
+        gap:6px;
+    }
+
+    .botonNav{
+        padding:9px 10px;
+        font-size:11px;
+    }
+
+    .titulo h1{
+        font-size:25px;
+        letter-spacing:4px;
+    }
+
+    .titulo p{
+        font-size:8px;
+        letter-spacing:2px;
+    }
+
+    .panel{
+        padding:13px;
+        border-radius:17px;
+    }
+
+    .control{
+        padding:9px 10px;
+        font-size:11px;
+    }
+
+    .vozGrid{
+        grid-template-columns:1fr;
+    }
+
+    .textoArea{
+        min-height:220px;
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     FONDO
+========================= -->
+
+<video
+    id="fondoVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+>
+    <source src="relax-fondo.mp4" type="video/mp4">
+</video>
+
+<div id="capaOscura"></div>
+<div id="particulas"></div>
+
+<div class="contenedor">
+
+    <!-- =========================
+         CABECERA
+    ========================= -->
+
+    <div class="cabecera">
+
+        <button
+            class="botonNav"
+            onclick="location.href='index.html'"
+        >
+            ← PORTADA
+        </button>
+
+        <div class="titulo">
+            <h1>RELAX</h1>
+            <p>ESTACIÓN FUTURISTA · PROYECTO RAFA</p>
+        </div>
+
+        <button
+            class="botonNav"
+            onclick="irRelax2()"
+        >
+            Relax2 →
+        </button>
+
+    </div>
+
+    <!-- =========================
+         ESCRITORIO
+    ========================= -->
+
+    <main class="escritorio">
+
+        <!-- =====================
+             COLUMNA IZQUIERDA
+        ====================== -->
+
+        <section class="panel">
+
+            <h2>🎵 SISTEMA MUSICAL</h2>
+
+            <div class="orbe"></div>
+
+            <div id="pistaActual" class="pista">
+                Relax1.mp3
+            </div>
+
+            <audio id="musica" preload="auto"></audio>
+
+            <select id="selectorMusica" class="select">
+                <option value="Relax1.mp3">🎵 Relax1.mp3</option>
+                <option value="Relax2.mp3">🎵 Relax2.mp3</option>
+            </select>
+
+            <div class="controles">
+
+                <button class="control" id="anterior">
+                    ⏮️ ANTERIOR
+                </button>
+
+                <button class="control" id="reproducir">
+                    ▶️ REPRODUCIR
+                </button>
+
+                <button class="control" id="pausar">
+                    ⏸️ PAUSAR
+                </button>
+
+                <button class="control" id="parar">
+                    ⏹️ PARAR
+                </button>
+
+                <button class="control" id="siguiente">
+                    ⏭️ SIGUIENTE
+                </button>
+
+            </div>
+
+            <div style="margin-top:14px;">
+                <label style="font-size:12px;">
+                    🔊 VOLUMEN
+                </label>
+
+                <input
+                    id="volumen"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.8"
+                >
+            </div>
+
+            <div class="archivoBox">
+
+                <label>
+                    📱 CARGAR OTRO MP3 DESDE EL DISPOSITIVO
+                </label>
+
+                <input
+                    id="mp3Local"
+                    type="file"
+                    accept="audio/mpeg,audio/mp3,audio/*"
+                >
+
+            </div>
+
+            <div id="estadoMusica" class="estado"></div>
+
+        </section>
+
+
+        <!-- =====================
+             COLUMNA DERECHA
+        ====================== -->
+
+        <section class="panel">
+
+            <h2>🎬 VÍDEO / PANTALLA</h2>
+
+            <div class="videoArea">
+
+                <video
+                    id="videoPrincipal"
+                    controls
+                    playsinline
+                    loop
+                    preload="metadata"
+                ></video>
+
+            </div>
+
+            <div id="videoInfo" class="videoInfo">
+                Carga un MP4 para reproducirlo.
+            </div>
+
+            <div class="controles">
+
+                <button class="control" id="videoPlay">
+                    ▶️ REPRODUCIR
+                </button>
+
+                <button class="control" id="videoPause">
+                    ⏸️ PAUSAR
+                </button>
+
+                <button class="control" id="videoStop">
+                    ⏹️ PARAR
+                </button>
+
+                <button class="control" id="videoFull">
+                    ⛶ PANTALLA COMPLETA
+                </button>
+
+            </div>
+
+            <div class="archivoBox">
+
+                <label>
+                    📱 CARGAR OTRO MP4 DESDE EL DISPOSITIVO
+                </label>
+
+                <input
+                    id="mp4Local"
+                    type="file"
+                    accept="video/mp4,video/*"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             LECTOR DE TEXTOS
+        ====================== -->
+
+        <section class="panel">
+
+            <h2>📖 LECTOR DE TEXTOS</h2>
+
+            <div class="archivoBox">
+
+                <label>
+                    📱 CARGAR ARCHIVO DE TEXTO
+                </label>
+
+                <input
+                    id="textoLocal"
+                    type="file"
+                    accept=".txt,.text,.md,.csv,.log"
+                >
+
+            </div>
+
+            <div
+                id="nombreTexto"
+                class="textoNombre"
+            ></div>
+
+            <div
+                id="texto"
+                class="textoArea"
+            >
+                <div class="textoVacio">
+                    Aquí aparecerá exactamente el texto cargado.
+                </div>
+            </div>
+
+            <div class="controles">
+
+                <button class="control" id="vozPlay">
+                    ▶️ LEER
+                </button>
+
+                <button class="control" id="vozPause">
+                    ⏸️ PAUSAR
+                </button>
+
+                <button class="control" id="vozContinue">
+                    ▶️ CONTINUAR
+                </button>
+
+                <button class="control" id="vozStop">
+                    ⏹️ PARAR
+                </button>
+
+                <button class="control" id="vozRestart">
+                    🔄 REINICIAR
+                </button>
+
+            </div>
+
+            <div class="vozGrid">
+
+                <select id="voz" class="select">
+                    <option value="">
+                        🔊 Seleccionar voz
+                    </option>
+                </select>
+
+                <select id="velocidad" class="select">
+                    <option value="0.7">🐢 0.7×</option>
+                    <option value="0.85">0.85×</option>
+                    <option value="1" selected>⚡ 1×</option>
+                    <option value="1.15">1.15×</option>
+                    <option value="1.3">🚀 1.3×</option>
+                    <option value="1.5">🚀 1.5×</option>
+                </select>
+
+            </div>
+
+            <div
+                id="estadoVoz"
+                class="estado"
+            ></div>
+
+            <button
+                class="control"
+                id="guardarMemoria"
+                style="width:100%;margin-top:12px;"
+            >
+                💾 GUARDAR EN MEMORIA
+            </button>
+
+            <div class="memoriaInfo">
+                El texto y la posición de lectura pueden prepararse
+                para guardarse en la memoria externa de Proyecto Rafa.
+                La conexión con el Worker/D1 se activará cuando
+                tengamos la dirección real de esa memoria.
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
+
+const particulas = document.getElementById("particulas");
+
+for(let i=0;i<35;i++){
+
+    const p = document.createElement("div");
+
+    p.className = "particula";
+
+    p.style.left = Math.random()*100 + "%";
+
+    p.style.animationDuration =
+        (8 + Math.random()*14) + "s";
+
+    p.style.animationDelay =
+        (-Math.random()*20) + "s";
+
+    p.style.transform =
+        `scale(${0.5 + Math.random()*1.5})`;
+
+    particulas.appendChild(p);
+}
+
+
+/* =====================================================
+   FONDO DE CASCADA
+===================================================== */
+
+const fondoVideo =
+    document.getElementById("fondoVideo");
+
+/*
+    Vídeo original:
+    relax-fondo.mp4
+
+    Siempre empieza en bucle.
+*/
+
+fondoVideo.loop = true;
+fondoVideo.muted = true;
+fondoVideo.playsInline = true;
+
+fondoVideo.play().catch(()=>{
+
+    /*
+       Algunos navegadores bloquean el autoplay.
+       El vídeo podrá comenzar cuando exista
+       interacción del usuario.
+    */
+
+});
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
+
+const musica =
+    document.getElementById("musica");
+
+const selectorMusica =
+    document.getElementById("selectorMusica");
+
+const pistaActual =
+    document.getElementById("pistaActual");
+
+const estadoMusica =
+    document.getElementById("estadoMusica");
+
+const volumen =
+    document.getElementById("volumen");
+
+const pistas = [
+    "Relax1.mp3",
+    "Relax2.mp3"
+];
+
+let indicePista = 0;
+
+
+/* Cargar primera pista */
+
+function cargarPista(indice, reproducir=false){
+
+    indicePista =
+        (indice + pistas.length) % pistas.length;
+
+    const archivo =
+        pistas[indicePista];
+
+    musica.src = archivo;
+
+    musica.load();
+
+    selectorMusica.value = archivo;
+
+    pistaActual.textContent = archivo;
+
+    estadoMusica.textContent =
+        "Pista preparada: " + archivo;
+
+    if(reproducir){
+
+        musica.play().then(()=>{
+
+            estadoMusica.textContent =
+                "▶️ Reproduciendo " + archivo;
+
+        }).catch(()=>{
+
+            estadoMusica.textContent =
+                "Pulsa ▶️ REPRODUCIR para iniciar la música.";
+
+        });
+
+    }
+}
+
+
+/* Primera pista */
+
+cargarPista(0,false);
+
+
+/* Reproducir */
+
+document
+.getElementById("reproducir")
+.addEventListener("click",()=>{
+
+    musica.play().then(()=>{
+
+        estadoMusica.textContent =
+            "▶️ Reproduciendo " + musica.src.split("/").pop();
+
+    }).catch(()=>{
+
+        estadoMusica.textContent =
+            "No se pudo reproducir. Pulsa de nuevo ▶️ REPRODUCIR.";
+
+    });
+
+});
+
+
+/* Pausar */
+
+document
+.getElementById("pausar")
+.addEventListener("click",()=>{
+
+    musica.pause();
+
+    estadoMusica.textContent =
+        "⏸️ Música pausada.";
+
+});
+
+
+/* Parar */
+
+document
+.getElementById("parar")
+.addEventListener("click",()=>{
+
+    musica.pause();
+
+    musica.currentTime = 0;
+
+    estadoMusica.textContent =
+        "⏹️ Música parada.";
+
+});
+
+
+/* Siguiente */
+
+document
+.getElementById("siguiente")
+.addEventListener("click",()=>{
+
+    cargarPista(indicePista + 1,true);
+
+});
+
+
+/* Anterior */
+
+document
+.getElementById("anterior")
+.addEventListener("click",()=>{
+
+    cargarPista(indicePista - 1,true);
+
+});
+
+
+/* Selector manual */
+
+selectorMusica.addEventListener("change",()=>{
+
+    const indice =
+        pistas.indexOf(selectorMusica.value);
+
+    if(indice >= 0){
+
+        cargarPista(indice,true);
+
+    }
+
+});
+
+
+/* Secuencia automática */
+
+musica.addEventListener("ended",()=>{
+
+    indicePista++;
+
+    cargarPista(indicePista,true);
+
+});
+
+
+/* Volumen */
+
+musica.volume =
+    Number(volumen.value);
+
+volumen.addEventListener("input",()=>{
+
+    musica.volume =
+        Number(volumen.value);
+
+});
+
+
+/* MP3 local */
+
+document
+.getElementById("mp3Local")
+.addEventListener("change",(evento)=>{
+
+    const archivo =
+        evento.target.files[0];
+
+    if(!archivo) return;
+
+    const url =
+        URL.createObjectURL(archivo);
+
+    musica.src = url;
+
+    musica.load();
+
+    pistaActual.textContent =
+        "📱 " + archivo.name;
+
+    estadoMusica.textContent =
+        "MP3 del dispositivo preparado.";
+
+    musica.play().then(()=>{
+
+        estadoMusica.textContent =
+            "▶️ Reproduciendo " + archivo.name;
+
+    }).catch(()=>{
+
+        estadoMusica.textContent =
+            "MP3 preparado. Pulsa ▶️ REPRODUCIR.";
+
+    });
+
+});
+
+
+/* =====================================================
+   VÍDEO MP4
+===================================================== */
+
+const videoPrincipal =
+    document.getElementById("videoPrincipal");
+
+const videoInfo =
+    document.getElementById("videoInfo");
+
+
+/*
+   El reproductor empieza vacío.
+   El fondo es la cascada.
+
+   Cuando el usuario carga un MP4,
+   ese vídeo pasa a ser el nuevo fondo.
+*/
+
+document
+.getElementById("mp4Local")
+.addEventListener("change",(evento)=>{
+
+    const archivo =
+        evento.target.files[0];
+
+    if(!archivo) return;
+
+    const url =
+        URL.createObjectURL(archivo);
+
+    /*
+       IMPORTANTE:
+       El MP4 cargado también sustituye
+       temporalmente el vídeo de fondo.
+    */
+
+    fondoVideo.src = url;
+
+    fondoVideo.loop = true;
+    fondoVideo.muted = true;
+
+    fondoVideo.load();
+
+    videoPrincipal.src = url;
+
+    videoPrincipal.loop = true;
+
+    videoPrincipal.load();
+
+    videoInfo.textContent =
+        "📱 Vídeo cargado: " + archivo.name;
+
+    /*
+       Intentamos reproducir automáticamente
+       el nuevo fondo.
+    */
+
+    fondoVideo.play().catch(()=>{});
+
+});
+
+
+/* Reproducir MP4 */
+
+document
+.getElementById("videoPlay")
+.addEventListener("click",()=>{
+
+    videoPrincipal.play().catch(()=>{});
+
+    /*
+       El fondo también sigue reproduciéndose.
+    */
+
+    fondoVideo.play().catch(()=>{});
+
+});
+
+
+/* Pausar */
+
+document
+.getElementById("videoPause")
+.addEventListener("click",()=>{
+
+    videoPrincipal.pause();
+
+    fondoVideo.pause();
+
+});
+
+
+/* Parar */
+
+document
+.getElementById("videoStop")
+.addEventListener("click",()=>{
+
+    videoPrincipal.pause();
+
+    videoPrincipal.currentTime = 0;
+
+    fondoVideo.pause();
+
+    fondoVideo.currentTime = 0;
+
+});
+
+
+/* Pantalla completa */
+
+document
+.getElementById("videoFull")
+.addEventListener("click",async()=>{
+
+    try{
+
+        if(videoPrincipal.requestFullscreen){
+
+            await videoPrincipal.requestFullscreen();
+
+        }else if(videoPrincipal.webkitEnterFullscreen){
+
+            videoPrincipal.webkitEnterFullscreen();
+
+        }
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+});
+
+
+/* =====================================================
+   LECTOR DE TEXTOS
+===================================================== */
+
+const textoLocal =
+    document.getElementById("textoLocal");
+
+const texto =
+    document.getElementById("texto");
+
+const nombreTexto =
+    document.getElementById("nombreTexto");
+
+const estadoVoz =
+    document.getElementById("estadoVoz");
+
+let contenidoTexto = "";
+let archivoTextoActual = "";
+let voces = [];
+
+
+/* Cargar texto */
+
+textoLocal.addEventListener("change",(evento)=>{
+
+    const archivo =
+        evento.target.files[0];
+
+    if(!archivo) return;
+
+    archivoTextoActual =
+        archivo.name;
+
+    const lector =
+        new FileReader();
+
+    lector.onload = function(){
+
+        contenidoTexto =
+            lector.result;
+
+        texto.textContent =
+            contenidoTexto;
+
+        nombreTexto.textContent =
+            "📖 " + archivo.name;
+
+        estadoVoz.textContent =
+            "Texto cargado correctamente.";
+
+        /*
+           Recuperar posición local temporal.
+        */
+
+        const clave =
+            "proyecto-rafa-relax-pos-" +
+            archivo.name;
+
+        const posicion =
+            localStorage.getItem(clave);
+
+        if(posicion !== null){
+
+            setTimeout(()=>{
+
+                texto.scrollTop =
+                    Number(posicion);
+
+            },100);
+
+        }
+
+    };
+
+    lector.readAsText(archivo);
+
+});
+
+
+/* Guardar posición mientras se desplaza */
+
+texto.addEventListener("scroll",()=>{
+
+    if(!archivoTextoActual) return;
+
+    const clave =
+        "proyecto-rafa-relax-pos-" +
+        archivoTextoActual;
+
+    localStorage.setItem(
+        clave,
+        String(texto.scrollTop)
+    );
+
+});
+
+
+/* =====================================================
+   VOCES
+===================================================== */
+
+const selectorVoz =
+    document.getElementById("voz");
+
+function cargarVoces(){
+
+    voces =
+        speechSynthesis.getVoices();
+
+    selectorVoz.innerHTML =
+        '<option value="">🔊 Seleccionar voz</option>';
+
+    voces.forEach((voz,index)=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value = index;
+
+        option.textContent =
+            voz.name +
+            " · " +
+            voz.lang;
+
+        selectorVoz.appendChild(option);
+
+    });
+
+}
+
+cargarVoces();
+
+speechSynthesis.onvoiceschanged =
+    cargarVoces;
+
+
+/* =====================================================
+   LECTURA DE TEXTO
+===================================================== */
+
+let fraseActual = null;
+let indiceCaracter = 0;
+
+const velocidad =
+    document.getElementById("velocidad");
+
+
+/* LEER */
+
+document
+.getElementById("vozPlay")
+.addEventListener("click",()=>{
+
+    if(!contenidoTexto){
+
+        estadoVoz.textContent =
+            "Primero carga un archivo de texto.";
+
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    indiceCaracter = 0;
+
+    leerDesde(indiceCaracter);
+
+});
+
+
+/* CONTINUAR */
+
+document
+.getElementById("vozContinue")
+.addEventListener("click",()=>{
+
+    if(!contenidoTexto){
+
+        estadoVoz.textContent =
+            "Primero carga un archivo de texto.";
+
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    leerDesde(indiceCaracter);
+
+});
+
+
+/* PAUSAR */
+
+document
+.getElementById("vozPause")
+.addEventListener("click",()=>{
+
+    if(speechSynthesis.speaking){
+
+        speechSynthesis.pause();
+
+        estadoVoz.textContent =
+            "⏸️ Lectura pausada.";
+
+    }
+
+});
+
+
+/* PARAR */
+
+document
+.getElementById("vozStop")
+.addEventListener("click",()=>{
+
+    speechSynthesis.cancel();
+
+    estadoVoz.textContent =
+        "⏹️ Lectura detenida.";
+
+});
+
+
+/* REINICIAR */
+
+document
+.getElementById("vozRestart")
+.addEventListener("click",()=>{
+
+    if(!contenidoTexto) return;
+
+    speechSynthesis.cancel();
+
+    indiceCaracter = 0;
+
+    texto.scrollTop = 0;
+
+    leerDesde(0);
+
+});
+
+
+/* Función de lectura */
+
+function leerDesde(posicion){
+
+    if(
+        !contenidoTexto ||
+        posicion >= contenidoTexto.length
+    ){
+
+        estadoVoz.textContent =
+            "✅ Lectura terminada.";
+
+        indiceCaracter = 0;
+
+        return;
+    }
+
+    /*
+       Leemos por bloques para poder
+       continuar desde una posición.
+    */
+
+    const maximo =
+        180;
+
+    let fin =
+        Math.min(
+            posicion + maximo,
+            contenidoTexto.length
+        );
+
+    /*
+       Intentar terminar en espacio o salto.
+    */
+
+    if(fin < contenidoTexto.length){
+
+        const espacio =
+            contenidoTexto.lastIndexOf(" ",fin);
+
+        const salto =
+            contenidoTexto.lastIndexOf("\n",fin);
+
+        const mejor =
+            Math.max(espacio,salto);
+
+        if(mejor > posicion + 40){
+
+            fin = mejor;
+
+        }
+
+    }
+
+    const fragmento =
+        contenidoTexto.slice(
+            posicion,
+            fin
+        );
+
+    fraseActual =
+        new SpeechSynthesisUtterance(
+            fragmento
+        );
+
+    fraseActual.lang = "es-ES";
+
+    fraseActual.rate =
+        Number(velocidad.value);
+
+    fraseActual.pitch = 1;
+
+    const indiceVoz =
+        selectorVoz.value;
+
+    if(indiceVoz !== ""){
+
+        const vozSeleccionada =
+            voces[Number(indiceVoz)];
+
+        if(vozSeleccionada){
+
+            fraseActual.voice =
+                vozSeleccionada;
+
+        }
+
+    }
+
+    indiceCaracter = fin;
+
+    fraseActual.onstart = ()=>{
+
+        estadoVoz.textContent =
+            "🔊 Leyendo...";
+
+    };
+
+    fraseActual.onend = ()=>{
+
+        /*
+           Avanzar automáticamente
+           al siguiente bloque.
+        */
+
+        if(indiceCaracter <
+           contenidoTexto.length){
+
+            leerDesde(indiceCaracter);
+
+        }else{
+
+            estadoVoz.textContent =
+                "✅ Lectura terminada.";
+
+        }
+
+    };
+
+    fraseActual.onerror = ()=>{
+
+        estadoVoz.textContent =
+            "⚠️ La voz no pudo continuar.";
+
+    };
+
+    speechSynthesis.speak(
+        fraseActual
+    );
+
+}
+
+
+/* =====================================================
+   MEMORIA EXTERNA
+===================================================== */
+
+/*
+   IMPORTANTE:
+
+   No inventamos ninguna dirección.
+
+   Cuando tengamos el Worker/D1 real de memoria
+   de Proyecto Rafa, aquí podremos conectar:
+
+   const MEMORIA_API = "DIRECCIÓN-REAL";
+
+   Por ahora permanece vacío para no enviar
+   datos a ningún servicio desconocido.
+*/
+
+const MEMORIA_API = "";
+
+
+document
+.getElementById("guardarMemoria")
+.addEventListener("click",async()=>{
+
+    if(!contenidoTexto){
+
+        estadoVoz.textContent =
+            "Primero carga un texto.";
+
+        return;
+
+    }
+
+    if(!MEMORIA_API){
+
+        estadoVoz.textContent =
+            "💾 Texto preparado. La memoria externa todavía no está conectada.";
+
+        return;
+
+    }
+
+    try{
+
+        const respuesta =
+            await fetch(
+                MEMORIA_API,
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body:JSON.stringify({
+
+                        nombre:
+                            archivoTextoActual,
+
+                        contenido:
+                            contenidoTexto,
+
+                        posicion:
+                            texto.scrollTop
+
+                    })
+
+                }
+            );
+
+        if(!respuesta.ok){
+
+            throw new Error(
+                "Error de memoria"
+            );
+
+        }
+
+        estadoVoz.textContent =
+            "💾 Texto guardado en memoria externa.";
+
+    }catch(error){
+
+        estadoVoz.textContent =
+            "⚠️ No se pudo guardar en memoria.";
+
+    }
+
+});
+
+
+/* =====================================================
+   RELAX2
+===================================================== */
+
+function irRelax2(){
+
+    /*
+       La sala Relax2 todavía no está creada.
+    */
+
+    alert(
+        "RELAX2 · Esta sala se añadirá próximamente."
+    );
+
+}
+
+
+/* =====================================================
+   INTERACCIÓN PARA AUTOPLAY DEL FONDO
+===================================================== */
+
+document.addEventListener(
+    "touchstart",
+    iniciarFondo,
+    {once:true}
+);
+
+document.addEventListener(
+    "click",
+    iniciarFondo,
+    {once:true}
+);
+
+function iniciarFondo(){
+
+    fondoVideo.play().catch(()=>{});
+
+}
+
+</script>
+
+</body>
+</html>
