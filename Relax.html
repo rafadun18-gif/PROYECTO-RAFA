@@ -3335,7 +3335,7 @@ function mostrarMemoria(){
    GUARDAR EN MEMORIA
    ===================================================== */
 
-function guardarEnMemoria(){
+async function guardarEnMemoria(){
 
     const texto =
         textoSalida.textContent
@@ -3406,28 +3406,114 @@ function guardarEnMemoria(){
     }
 
 
-    const ahora =
-        new Date();
+    /*
+       OBTENER EL NOMBRE DEL ARCHIVO
+       QUE SE HA CARGADO EN RELAX.
+    */
+
+    const archivoSeleccionado =
+        document.getElementById(
+            "archivoTexto"
+        ).files[0];
 
 
-    const fecha =
-        ahora.toLocaleString(
-            "es-ES"
-        );
+    const nombreArchivo =
+        archivoSeleccionado
+            ? archivoSeleccionado.name
+            : "Documento de Relax";
 
 
-    memoria.push({
+    /*
+       CONTENIDO QUE SE ENVÍA A GE-PETO
+       Y A LA BASE DE DATOS D1.
+    */
 
-        fecha:
-            fecha,
+    const contenidoWorker =
+        "DOCUMENTO DE LA SALA RELAX\n" +
+        "ARCHIVO: " +
+        nombreArchivo +
+        "\n\n" +
+        texto;
 
-        contenido:
-            texto
 
-    });
+    estadoPDF.textContent =
+        "◌ GUARDANDO EN GE-PETO Y D1...";
 
 
     try{
+
+        const respuesta =
+            await fetch(
+                MEMORIA_API,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            tipo:"relax",
+                            contenido:
+                                contenidoWorker
+                        })
+                }
+            );
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if(
+            !respuesta.ok ||
+            !datos.ok
+        ){
+
+            throw new Error(
+                datos?.error ||
+                datos?.mensaje ||
+                "El Worker no confirmó el guardado."
+            );
+
+        }
+
+
+        const ahora =
+            new Date();
+
+
+        const fecha =
+            ahora.toLocaleString(
+                "es-ES"
+            );
+
+
+        /*
+           SOLO GUARDAMOS LA COPIA LOCAL
+           DESPUÉS DE QUE GE-PETO + D1
+           HAYAN CONFIRMADO EL GUARDADO.
+        */
+
+        memoria.push({
+
+            fecha:
+                fecha,
+
+            contenido:
+                texto,
+
+            archivo:
+                nombreArchivo,
+
+            workerId:
+                datos?.memoria?.id ||
+                null
+
+        });
+
 
         localStorage.setItem(
             CLAVE_MEMORIA,
@@ -3441,18 +3527,26 @@ function guardarEnMemoria(){
 
 
         estadoPDF.textContent =
-            "✓ CONOCIMIENTO GUARDADO EN MEMORIA";
+            "✓ GUARDADO EN GE-PETO Y D1" +
+            (
+                datos?.memoria?.id
+                    ? " · ID " +
+                      datos.memoria.id
+                    : ""
+            );
 
     }
     catch(error){
 
         console.error(
+            "Error guardando en Worker:",
             error
         );
 
 
         estadoPDF.textContent =
-            "⚠ NO SE PUDO GUARDAR LA MEMORIA";
+            "⚠ NO SE PUDO GUARDAR EN EL WORKER · " +
+            error.message;
 
     }
 
@@ -3663,11 +3757,10 @@ mostrarMemoria();
 
 /* =====================================================
    MEMORIA API
-   PREPARADA PARA FUTURA CONEXIÓN
    ===================================================== */
 
 const MEMORIA_API =
-    "";
+    "https://gepetto-rafa.rafad18.workers.dev/memoria";
 
 
 /* =====================================================
