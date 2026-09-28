@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><title>INFINITO · Proyecto Rafa</title><style>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>INFINITO · Proyecto Rafa</title><style>
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
@@ -20,10 +21,7 @@ body{
     overflow-x:hidden;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
     font:inherit;
 }
 
@@ -36,16 +34,12 @@ button{
     --panel:rgba(7,13,22,.88);
     --panel2:rgba(10,18,29,.94);
     --borde:rgba(255,255,255,.12);
-
     --azul:#19aaff;
     --azul2:#0077ff;
-
     --rosa:#ff20d8;
     --rosa2:#ff00a8;
-
     --verde:#39ff14;
     --verde2:#00ff66;
-
     --blanco:#fff;
     --gris:#94a3b8;
     --amarillo:#ffe600;
@@ -70,6 +64,7 @@ button{
     border-radius:24px;
     background:
         radial-gradient(circle at 50% 0%,rgba(0,130,255,.12),transparent 38%),
+        radial-gradient(circle at 50% 100%,rgba(57,255,20,.05),transparent 35%),
         linear-gradient(145deg,rgba(10,18,30,.96),rgba(2,5,9,.98));
     box-shadow:0 0 35px rgba(0,0,0,.45);
     padding:18px;
@@ -82,10 +77,14 @@ button{
     inset:0;
     pointer-events:none;
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             transparent,
             rgba(25,170,255,.04),
-            transparent);
+            rgba(57,255,20,.04),
+            rgba(255,32,216,.04),
+            transparent
+        );
 }
 
 .top-inner{
@@ -96,6 +95,10 @@ button{
     gap:15px;
 }
 
+/* =========================================================
+   EMBLEMA INFINITO
+========================================================= */
+
 .brand{
     display:flex;
     align-items:center;
@@ -103,35 +106,84 @@ button{
 }
 
 .infinity{
-    width:64px;
-    height:42px;
+    width:82px;
+    height:58px;
     position:relative;
     flex:none;
+    filter:drop-shadow(0 0 5px rgba(57,255,20,.25));
 }
 
-.infinity:before,
-.infinity:after{
-    content:"";
+/* aro azul */
+
+.infinity-blue{
     position:absolute;
-    width:39px;
-    height:24px;
-    border:4px solid;
+    left:1px;
+    top:13px;
+    width:47px;
+    height:31px;
+    border:5px solid var(--azul);
     border-radius:50%;
-    top:7px;
+    transform:rotate(30deg);
+    box-shadow:
+        0 0 7px var(--azul),
+        0 0 16px var(--azul),
+        0 0 30px rgba(25,170,255,.75);
+    z-index:1;
 }
 
-.infinity:before{
-    left:3px;
-    border-color:var(--azul);
-    box-shadow:0 0 12px var(--azul);
-    transform:rotate(35deg);
+/* aro rosa */
+
+.infinity-pink{
+    position:absolute;
+    right:1px;
+    top:13px;
+    width:47px;
+    height:31px;
+    border:5px solid var(--rosa);
+    border-radius:50%;
+    transform:rotate(-30deg);
+    box-shadow:
+        0 0 7px var(--rosa),
+        0 0 16px var(--rosa),
+        0 0 30px rgba(255,32,216,.75);
+    z-index:1;
 }
 
-.infinity:after{
-    right:3px;
-    border-color:var(--rosa);
-    box-shadow:0 0 12px var(--rosa);
-    transform:rotate(-35deg);
+/* R central verde */
+
+.infinity-r{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+    color:var(--verde);
+    font-size:27px;
+    line-height:1;
+    font-weight:900;
+    font-family:Arial,Helvetica,sans-serif;
+    text-shadow:
+        0 0 5px var(--verde),
+        0 0 12px var(--verde),
+        0 0 22px rgba(57,255,20,.95);
+}
+
+/* núcleo luminoso */
+
+.infinity-core{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:17px;
+    height:17px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:rgba(57,255,20,.08);
+    box-shadow:
+        0 0 10px var(--verde),
+        0 0 24px rgba(57,255,20,.75);
+    z-index:2;
+    pointer-events:none;
 }
 
 .brand h1{
@@ -145,6 +197,10 @@ button{
     color:var(--gris);
     font-size:12px;
 }
+
+/* =========================================================
+   CONEXIÓN
+========================================================= */
 
 .connection{
     display:flex;
@@ -170,7 +226,7 @@ button{
 }
 
 /* =========================================================
-   NAVEGACION
+   NAVEGACIÓN
 ========================================================= */
 
 .nav{
@@ -200,7 +256,7 @@ button{
 }
 
 /* =========================================================
-   MODO
+   MODOS
 ========================================================= */
 
 .mode{
@@ -249,6 +305,7 @@ button{
     border:1px solid rgba(255,255,255,.12);
     position:relative;
     cursor:pointer;
+    flex:none;
 }
 
 .switch span{
@@ -290,7 +347,11 @@ button{
     border-radius:22px;
     padding:15px;
     background:
-        linear-gradient(145deg,rgba(10,17,27,.97),rgba(3,7,12,.98));
+        linear-gradient(
+            145deg,
+            rgba(10,17,27,.97),
+            rgba(3,7,12,.98)
+        );
 }
 
 .person.gepeto{
@@ -493,7 +554,7 @@ button.secondary{
 }
 
 /* =========================================================
-   CONVERSACION
+   CONVERSACIÓN
 ========================================================= */
 
 .conversation{
@@ -547,6 +608,7 @@ button.secondary{
     line-height:1.5;
     font-size:13px;
     white-space:pre-wrap;
+    word-break:break-word;
 }
 
 .message .who{
@@ -677,7 +739,7 @@ button.secondary{
 }
 
 /* =========================================================
-   LABORATORIO
+   AUDITORÍA
 ========================================================= */
 
 .audit{
@@ -685,7 +747,11 @@ button.secondary{
     border:1px solid rgba(25,170,255,.25);
     border-radius:22px;
     background:
-        radial-gradient(circle at 100% 0%,rgba(25,170,255,.07),transparent 40%),
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(25,170,255,.07),
+            transparent 40%
+        ),
         var(--panel);
     padding:16px;
 }
@@ -781,10 +847,25 @@ button.secondary{
 }
 
 /* =========================================================
+   ESTADO DE CARGA
+========================================================= */
+
+.loading{
+    opacity:.7;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:.55}
+    50%{opacity:1}
+}
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
 @media(max-width:850px){
+
     .participants{
         grid-template-columns:1fr;
     }
@@ -799,6 +880,7 @@ button.secondary{
 }
 
 @media(max-width:600px){
+
     .app{
         padding:7px;
     }
@@ -812,15 +894,24 @@ button.secondary{
         align-items:flex-start;
     }
 
+    .brand{
+        gap:8px;
+    }
+
     .brand h1{
         font-size:22px;
         letter-spacing:3px;
     }
 
+    .brand p{
+        font-size:10px;
+    }
+
     .infinity{
-        transform:scale(.8);
+        transform:scale(.78);
         transform-origin:left center;
-        width:52px;
+        width:58px;
+        margin-right:-8px;
     }
 
     .connection{
@@ -857,19 +948,40 @@ button.secondary{
         max-width:94%;
     }
 }
-</style></head><body><div class="app"><header class="top">
-    <div class="top-inner">    <div class="brand">
-        <div class="infinity"></div>
+</style></head><body><div class="app"><header class="top"><div class="top-inner">
+
+    <div class="brand">
+
+        <!-- EMBLEMA INFINITO · AZUL + R VERDE + ROSA -->
+        <div class="infinity" aria-label="Emblema Infinito">
+
+            <span class="infinity-blue"></span>
+
+            <span class="infinity-core"></span>
+
+            <span class="infinity-r">R</span>
+
+            <span class="infinity-pink"></span>
+
+        </div>
 
         <div>
             <h1>INFINITO</h1>
-            <p>Laboratorio de diálogo · aprendizaje · investigación · evolución</p>
+            <p>
+                Laboratorio de diálogo · aprendizaje · investigación · evolución
+            </p>
         </div>
+
     </div>
 
     <div class="connection">
+
         <span id="connectionDot" class="connection-dot"></span>
-        <span id="connectionText">Conexión técnica pendiente</span>
+
+        <span id="connectionText">
+            Conexión técnica pendiente
+        </span>
+
     </div>
 
 </div>
@@ -887,6 +999,7 @@ button.secondary{
     <div class="switch-row">
 
         <div>
+
             <div class="mode-title">
                 🤖 MODO AUTOMÁTICO
             </div>
@@ -896,6 +1009,7 @@ button.secondary{
                 debatir y desarrollar un tema sin que Rafa tenga
                 que permanecer conectado.
             </div>
+
         </div>
 
         <button
@@ -917,6 +1031,7 @@ button.secondary{
     <div class="switch-row">
 
         <div>
+
             <div class="mode-title">
                 🧠 ELLOS ELIGEN EL TEMA
             </div>
@@ -926,6 +1041,7 @@ button.secondary{
                 GePeTo y Lía pueden seleccionar uno
                 relacionado con aprender y mejorar Proyecto Rafa.
             </div>
+
         </div>
 
         <button
@@ -941,9 +1057,7 @@ button.secondary{
 
 </div>
 
-</section><section class="participants"><!-- GEPETO -->
-
-<article class="person gepeto">
+</section><section class="participants"><article class="person gepeto">
 
     <div class="person-head">
 
@@ -973,8 +1087,6 @@ button.secondary{
 
 </article>
 
-
-<!-- LIA -->
 
 <article class="person lia">
 
@@ -1007,8 +1119,6 @@ button.secondary{
 </article>
 
 
-<!-- RAFA -->
-
 <article class="person rafa">
 
     <div class="person-head">
@@ -1038,7 +1148,7 @@ button.secondary{
 
 </article>
 
-</section><!-- TEMA --><section class="topic"><div class="section-title">
+</section><section class="topic"><div class="section-title">
 
     <h2>
         🧠 TEMA DE INVESTIGACIÓN / DILEMA
@@ -1107,15 +1217,20 @@ button.secondary{
 
 </div>
 
-</section><!-- CONVERSACION --><section class="conversation"><div class="conversation-head">
+</section><section class="conversation"><div class="conversation-head">
 
     <strong>
         💬 CONVERSACIÓN INFINITA
     </strong>
 
     <div class="live">
+
         <span id="liveDot" class="live-dot"></span>
-        <span id="liveText">Esperando</span>
+
+        <span id="liveText">
+            Esperando
+        </span>
+
     </div>
 
 </div>
@@ -1124,9 +1239,11 @@ button.secondary{
 <div id="messages" class="messages">
 
     <div class="message system">
+
         Infinito está preparado. Puedes elegir un tema,
         dejar que ellos lo elijan o entrar directamente
         en la conversación.
+
     </div>
 
 </div>
@@ -1140,25 +1257,31 @@ button.secondary{
         maxlength="4000"
     ></textarea>
 
-    <button
-        class="send"
-        type="submit"
-    >
+    <button class="send" type="submit">
         ENVIAR
     </button>
 
 </form>
 
-</section><!-- DILEMA Y ACUERDOS --><section class="bottom-grid"><div class="panel dilemma">
+</section><section class="bottom-grid"><div class="panel dilemma">
 
     <div class="section-title">
-        <h2>⚖️ DILEMA EN CURSO</h2>
-        <span id="dilemmaState">Sin dilema</span>
+
+        <h2>
+            ⚖️ DILEMA EN CURSO
+        </h2>
+
+        <span id="dilemmaState">
+            Sin dilema
+        </span>
+
     </div>
 
     <div id="dilemmaBox" class="dilemma-box">
+
         Cuando GePeTo y Lía encuentren un punto
         que requiera discusión, aparecerá aquí.
+
     </div>
 
 </div>
@@ -1198,7 +1321,7 @@ button.secondary{
 
 </div>
 
-</section><!-- AUDITORIA --><section class="audit"><div class="section-title">
+</section><section class="audit"><div class="section-title">
 
     <h2>
         🛠️ LABORATORIO · AUDITORÍA DE PROYECTO RAFA
@@ -1219,7 +1342,9 @@ button.secondary{
         data-audit="github"
     >
         <strong>🐙 GITHUB</strong>
-        <small>Revisar repositorio y archivos</small>
+        <small>
+            Revisar repositorio y archivos
+        </small>
     </button>
 
 
@@ -1229,7 +1354,9 @@ button.secondary{
         data-audit="cloudflare"
     >
         <strong>☁️ CLOUDFLARE</strong>
-        <small>Revisar Workers y configuración</small>
+        <small>
+            Revisar Workers y configuración
+        </small>
     </button>
 
 
@@ -1239,7 +1366,9 @@ button.secondary{
         data-audit="web"
     >
         <strong>🌐 WEB</strong>
-        <small>Buscar errores y problemas</small>
+        <small>
+            Buscar errores y problemas
+        </small>
     </button>
 
 
@@ -1249,18 +1378,22 @@ button.secondary{
         data-audit="improve"
     >
         <strong>🔧 MEJORAR</strong>
-        <small>Preparar mejoras técnicas</small>
+        <small>
+            Preparar mejoras técnicas
+        </small>
     </button>
 
 </div>
 
 
 <div id="auditResult" class="audit-result">
+
     El laboratorio técnico está preparado para conectarse
     al Worker de control de Infinito.
+
 </div>
 
-</section><!-- TAREAS --><section class="tasks"><div class="section-title">
+</section><section class="tasks"><div class="section-title">
 
     <h2>
         📋 TRABAJO AUTÓNOMO
@@ -1345,20 +1478,7 @@ button.secondary{
    INFINITO · CONFIGURACIÓN
 ========================================================= */
 
-/*
-    IMPORTANTE:
-
-    NO pongas aquí tokens de GitHub ni Cloudflare.
-
-    Las credenciales deberán vivir en el Worker técnico
-    de Infinito como secretos.
-
-    Cuando creemos ese Worker, solamente habrá que poner
-    aquí su URL pública.
-*/
-
-const INFINITO_WORKER_URL =
-    "";
+const INFINITO_WORKER_URL = "";
 
 const GEPETO_WORKER_URL =
     "https://gepetto-rafa.rafadun18.workers.dev";
@@ -1387,7 +1507,17 @@ const state = {
 
     acuerdos:[],
 
-    intervalo:null
+    intervalo:null,
+
+    turno:"gepeto",
+
+    detenido:false,
+
+    trabajando:false,
+
+    historial:[],
+
+    ultimoMensaje:""
 
 };
 
@@ -1430,6 +1560,14 @@ const connectionDot = $("connectionDot");
 
 const connectionText = $("connectionText");
 
+const autoSwitch = $("autoSwitch");
+
+const autonomousSwitch = $("autonomousSwitch");
+
+const autoCard = $("autoCard");
+
+const autonomousCard = $("autonomousCard");
+
 
 /* =========================================================
    UTILIDADES
@@ -1438,12 +1576,16 @@ const connectionText = $("connectionText");
 function escapeHtml(text){
 
     return String(text ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
 
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
 }
 
 
@@ -1451,35 +1593,81 @@ function setConnection(online,text){
 
     state.conectado = online;
 
-    connectionDot.classList.toggle("online",online);
+    connectionDot.classList.toggle(
+        "online",
+        online
+    );
 
     connectionText.textContent =
         text ||
-        (online ? "Conectado" : "Sin conexión");
-
+        (
+            online
+            ? "Conectado"
+            : "Sin conexión"
+        );
 }
 
 
 function setLive(active,text){
 
-    liveDot.classList.toggle("active",active);
+    liveDot.classList.toggle(
+        "active",
+        active
+    );
 
     liveText.textContent =
         text ||
-        (active ? "Activo" : "Esperando");
+        (
+            active
+            ? "Activo"
+            : "Esperando"
+        );
+}
 
+
+function setStates(g,l){
+
+    if(g){
+        gepetoState.textContent = g;
+    }
+
+    if(l){
+        liaState.textContent = l;
+    }
 }
 
 
 function addMessage(who,text){
 
-    if(!text) return;
+    if(!text){
+        return;
+    }
+
+    const limpio = String(text).trim();
+
+    if(!limpio){
+        return;
+    }
 
     state.mensajes.push({
-        who,
-        text,
+
+        who:who,
+
+        text:limpio,
+
         fecha:new Date().toISOString()
+
     });
+
+    state.historial.push({
+
+        role:who,
+
+        content:limpio
+
+    });
+
+    state.ultimoMensaje = limpio;
 
     const div =
         document.createElement("div");
@@ -1487,7 +1675,8 @@ function addMessage(who,text){
     div.className =
         "message " + who;
 
-    let nombre = "SISTEMA";
+    let nombre =
+        "SISTEMA";
 
     if(who === "gepeto"){
         nombre = "🔵 GePeTo";
@@ -1505,13 +1694,12 @@ function addMessage(who,text){
         "<span class='who'>" +
         escapeHtml(nombre) +
         "</span>" +
-        escapeHtml(text);
+        escapeHtml(limpio);
 
     messages.appendChild(div);
 
     messages.scrollTop =
         messages.scrollHeight;
-
 }
 
 
@@ -1523,27 +1711,126 @@ function systemMessage(text){
     div.className =
         "message system";
 
-    div.textContent = text;
+    div.textContent =
+        text;
 
     messages.appendChild(div);
 
     messages.scrollTop =
         messages.scrollHeight;
+}
+
+
+function limpiarConversacion(){
+
+    messages.innerHTML = "";
+
+    state.mensajes = [];
+
+    state.historial = [];
+
+    state.ultimoMensaje = "";
 
 }
 
 
-function setStates(g,l){
+function setAutoVisual(){
 
-    if(g) gepetoState.textContent = g;
+    autoSwitch.classList.toggle(
+        "on",
+        state.automatico
+    );
 
-    if(l) liaState.textContent = l;
+    autoCard.classList.toggle(
+        "active",
+        state.automatico
+    );
+
+}
+
+
+function setAutonomousVisual(){
+
+    autonomousSwitch.classList.toggle(
+        "on",
+        state.eleccionAutonoma
+    );
+
+    autonomousCard.classList.toggle(
+        "active",
+        state.eleccionAutonoma
+    );
+
+}
+
+
+function sleep(ms){
+
+    return new Promise(
+        resolve => setTimeout(resolve,ms)
+    );
 
 }
 
 
 /* =========================================================
-   COMPROBAR WORKER
+   PETICIONES SEGURAS
+========================================================= */
+
+async function fetchJson(url,options={}){
+
+    const response =
+        await fetch(
+            url,
+            {
+                ...options,
+
+                headers:{
+                    "Accept":"application/json",
+                    "Content-Type":"application/json",
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+    const texto =
+        await response.text();
+
+    let data = null;
+
+    try{
+
+        data =
+            texto
+            ? JSON.parse(texto)
+            : {};
+
+    }catch{
+
+        data = {
+            texto:texto
+        };
+
+    }
+
+    if(!response.ok){
+
+        const error =
+            data?.error ||
+            data?.message ||
+            ("HTTP " + response.status);
+
+        throw new Error(error);
+
+    }
+
+    return data;
+
+}
+
+
+/* =========================================================
+   COMPROBAR WORKER DE INFINITO
 ========================================================= */
 
 async function comprobarConexion(){
@@ -1552,35 +1839,23 @@ async function comprobarConexion(){
 
         setConnection(
             false,
-            "Worker de Infinito pendiente"
+            "Workers IA preparados · control técnico pendiente"
         );
 
         return false;
+
     }
 
     try{
 
-        const response =
-            await fetch(
-                INFINITO_WORKER_URL + "/estado",
+        const data =
+            await fetchJson(
+                INFINITO_WORKER_URL +
+                "/estado",
                 {
-                    method:"GET",
-                    headers:{
-                        "Accept":"application/json"
-                    }
+                    method:"GET"
                 }
             );
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " + response.status
-            );
-
-        }
-
-        const data =
-            await response.json();
 
         setConnection(
             true,
@@ -1591,3 +1866,1606 @@ async function comprobarConexion(){
         return true;
 
     }catch(error){
+
+        setConnection(
+            false,
+            "Worker de Infinito no disponible"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPUESTA DEL WORKER
+========================================================= */
+
+function extraerTexto(data){
+
+    if(data == null){
+        return "";
+    }
+
+    if(typeof data === "string"){
+        return data;
+    }
+
+    const posibles = [
+
+        data.respuesta,
+
+        data.response,
+
+        data.texto,
+
+        data.text,
+
+        data.message,
+
+        data.content,
+
+        data.answer,
+
+        data.output,
+
+        data.resultado,
+
+        data.result,
+
+        data.data?.respuesta,
+
+        data.data?.response,
+
+        data.data?.texto,
+
+        data.data?.text,
+
+        data.data?.content,
+
+        data.choices?.[0]?.message?.content,
+
+        data.choices?.[0]?.text
+
+    ];
+
+    for(
+        const valor of posibles
+    ){
+
+        if(
+            typeof valor === "string" &&
+            valor.trim()
+        ){
+
+            return valor.trim();
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+   LLAMAR A GEPETO
+========================================================= */
+
+async function preguntarGePeTo(prompt){
+
+    const contexto =
+        construirContexto("GePeTo");
+
+    const cuerpo = {
+
+        mensaje:prompt,
+
+        prompt:prompt,
+
+        pregunta:prompt,
+
+        tema:state.tema,
+
+        contexto:contexto,
+
+        historial:state.mensajes.slice(-12),
+
+        origen:"INFINITO",
+
+        proyecto:"Proyecto Rafa",
+
+        participante:"GePeTo"
+
+    };
+
+    const data =
+        await fetchJson(
+            GEPETO_WORKER_URL +
+            "/preguntar",
+            {
+                method:"POST",
+                body:JSON.stringify(cuerpo)
+            }
+        );
+
+    const texto =
+        extraerTexto(data);
+
+    if(!texto){
+
+        throw new Error(
+            "GePeTo no devolvió texto"
+        );
+
+    }
+
+    return texto;
+
+}
+
+
+/* =========================================================
+   LLAMAR A LÍA
+========================================================= */
+
+async function preguntarLia(prompt){
+
+    const contexto =
+        construirContexto("Lía");
+
+    const cuerpo = {
+
+        mensaje:prompt,
+
+        prompt:prompt,
+
+        pregunta:prompt,
+
+        tema:state.tema,
+
+        contexto:contexto,
+
+        historial:state.mensajes.slice(-12),
+
+        origen:"INFINITO",
+
+        proyecto:"Proyecto Rafa",
+
+        participante:"Lía"
+
+    };
+
+    const data =
+        await fetchJson(
+            LIA_WORKER_URL +
+            "/preguntar",
+            {
+                method:"POST",
+                body:JSON.stringify(cuerpo)
+            }
+        );
+
+    const texto =
+        extraerTexto(data);
+
+    if(!texto){
+
+        throw new Error(
+            "Lía no devolvió texto"
+        );
+
+    }
+
+    return texto;
+
+}
+
+
+/* =========================================================
+   CONTEXTO
+========================================================= */
+
+function construirContexto(participante){
+
+    const historial =
+        state.mensajes
+        .slice(-10)
+        .map(
+            m =>
+                m.who +
+                ": " +
+                m.text
+        )
+        .join("\n");
+
+    return [
+
+        "Proyecto Rafa",
+
+        "Sala: INFINITO",
+
+        "Participante actual: " +
+        participante,
+
+        "Tema: " +
+        (state.tema || "sin tema"),
+
+        "Conversación reciente:",
+
+        historial || "sin conversación previa",
+
+        "",
+
+        "GePeTo y Lía deben hablar entre ellos,",
+        "contrastar ideas y no limitarse a repetir",
+        "la intervención anterior."
+
+    ].join("\n");
+
+}
+
+
+/* =========================================================
+   ELEGIR TEMA AUTÓNOMO
+========================================================= */
+
+const temasAutonomos = [
+
+    "Cómo mejorar la inteligencia y utilidad de Proyecto Rafa",
+
+    "Cómo conseguir una conversación más natural entre GePeTo y Lía",
+
+    "Cómo organizar mejor la memoria de Proyecto Rafa",
+
+    "Cómo detectar errores antes de modificar el proyecto",
+
+    "Cómo hacer que las diferentes salas trabajen de forma coordinada",
+
+    "Cómo mejorar la autonomía de GePeTo y Lía sin perder el control de Rafa",
+
+    "Cómo mejorar la experiencia de Proyecto Rafa desde móvil y tablet",
+
+    "Cómo crear un sistema de aprendizaje continuo para Proyecto Rafa",
+
+    "Cómo investigar nuevas ideas gratuitas para Proyecto Rafa",
+
+    "Cómo mejorar la seguridad y estabilidad del proyecto"
+
+];
+
+
+function elegirTemaAutonomo(){
+
+    const indice =
+        Math.floor(
+            Math.random() *
+            temasAutonomos.length
+        );
+
+    return temasAutonomos[indice];
+
+}
+
+
+/* =========================================================
+   ANALIZAR DILEMAS Y ACUERDOS
+========================================================= */
+
+function analizarIntervencion(texto,quien){
+
+    const t =
+        String(texto || "").toLowerCase();
+
+    const palabrasDilema = [
+
+        "pero",
+
+        "sin embargo",
+
+        "discrepo",
+
+        "no estoy de acuerdo",
+
+        "riesgo",
+
+        "problema",
+
+        "dilema",
+
+        "duda",
+
+        "conflicto",
+
+        "contradicción"
+
+    ];
+
+    const contieneDilema =
+        palabrasDilema.some(
+            palabra =>
+                t.includes(palabra)
+        );
+
+    if(contieneDilema){
+
+        dilemmaState.textContent =
+            "Discusión detectada";
+
+        dilemmaBox.textContent =
+            quien +
+            " ha planteado un punto que requiere contraste: " +
+            texto;
+
+    }
+
+    const patronesAcuerdo = [
+
+        "de acuerdo",
+
+        "coincido",
+
+        "estoy de acuerdo",
+
+        "podemos acordar",
+
+        "acordamos",
+
+        "conclusión",
+
+        "la solución es",
+
+        "propongo que"
+
+    ];
+
+    const esAcuerdo =
+        patronesAcuerdo.some(
+            palabra =>
+                t.includes(palabra)
+        );
+
+    if(esAcuerdo){
+
+        registrarAcuerdo(
+            quien +
+            " · " +
+            texto
+        );
+
+    }
+
+}
+
+
+function registrarAcuerdo(texto){
+
+    if(!texto){
+        return;
+    }
+
+    const existe =
+        state.acuerdos.some(
+            a =>
+                a.toLowerCase() ===
+                texto.toLowerCase()
+        );
+
+    if(existe){
+        return;
+    }
+
+    state.acuerdos.push(texto);
+
+    renderAcuerdos();
+
+}
+
+
+function renderAcuerdos(){
+
+    agreementCount.textContent =
+        state.acuerdos.length +
+        (
+            state.acuerdos.length === 1
+            ? " acuerdo"
+            : " acuerdos"
+        );
+
+    if(!state.acuerdos.length){
+
+        agreementsBox.innerHTML = `
+
+            <div class="agreement">
+
+                <div class="agreement-title">
+                    Todavía no hay acuerdos.
+                </div>
+
+                <p>
+                    Los acuerdos aparecerán cuando
+                    GePeTo y Lía alcancen conclusiones.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    agreementsBox.innerHTML =
+        state.acuerdos
+        .slice()
+        .reverse()
+        .map(
+            (acuerdo,index) => `
+
+                <div class="agreement">
+
+                    <div class="agreement-title">
+                        Acuerdo ${state.acuerdos.length - index}
+                    </div>
+
+                    <p>
+                        ${escapeHtml(acuerdo)}
+                    </p>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   INICIAR TEMA
+========================================================= */
+
+async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
+
+    if(!tema){
+
+        systemMessage(
+            "Escribe un tema o utiliza uno de los temas sugeridos."
+        );
+
+        return;
+
+    }
+
+    detenerAutomatico(false);
+
+    state.tema =
+        tema.trim();
+
+    state.conversacionActiva =
+        true;
+
+    state.detenido =
+        false;
+
+    topicInput.value =
+        state.tema;
+
+    topicSource.textContent =
+        fuente;
+
+    limpiarConversacion();
+
+    setLive(
+        true,
+        "Iniciando"
+    );
+
+    setStates(
+        "Preparando investigación...",
+        "Preparando contraste..."
+    );
+
+    systemMessage(
+        "INFINITO ha iniciado el tema: " +
+        state.tema
+    );
+
+    taskStatus.textContent =
+        "Investigando";
+
+    try{
+
+        const primeraPregunta =
+            "Comienza la investigación sobre este tema: " +
+            state.tema +
+            ". Expón una primera línea de análisis para que Lía pueda contrastarla. No repitas instrucciones.";
+
+        const respuesta =
+            await preguntarGePeTo(
+                primeraPregunta
+            );
+
+        if(state.detenido){
+            return;
+        }
+
+        addMessage(
+            "gepeto",
+            respuesta
+        );
+
+        setStates(
+            "Investigando y razonando...",
+            "Esperando para contrastar..."
+        );
+
+        analizarIntervencion(
+            respuesta,
+            "GePeTo"
+        );
+
+        await turnoLia();
+
+    }catch(error){
+
+        manejarError(
+            "GePeTo",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TURNO DE LÍA
+========================================================= */
+
+async function turnoLia(){
+
+    if(state.detenido){
+        return;
+    }
+
+    setLive(
+        true,
+        "Lía pensando"
+    );
+
+    setStates(
+        "Esperando contraste de Lía...",
+        "Analizando a GePeTo..."
+    );
+
+    try{
+
+        const respuesta =
+            await preguntarLia(
+
+                "Analiza críticamente la última intervención de GePeTo sobre el tema '" +
+                state.tema +
+                "'. Contrasta sus ideas, señala aciertos y posibles problemas y aporta una propuesta propia. Si estás de acuerdo, explica por qué. Si discrepas, explica concretamente la diferencia."
+
+            );
+
+        if(state.detenido){
+            return;
+        }
+
+        addMessage(
+            "lia",
+            respuesta
+        );
+
+        analizarIntervencion(
+            respuesta,
+            "Lía"
+        );
+
+        setStates(
+            "Esperando nueva respuesta...",
+            "Investigando y contrastando..."
+        );
+
+        if(
+            state.automatico &&
+            !state.detenido
+        ){
+
+            await sleep(900);
+
+            await turnoGePeTo();
+
+        }else{
+
+            setLive(
+                false,
+                "Pausa"
+            );
+
+        }
+
+    }catch(error){
+
+        manejarError(
+            "Lía",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TURNO DE GEPETO
+========================================================= */
+
+async function turnoGePeTo(){
+
+    if(state.detenido){
+        return;
+    }
+
+    setLive(
+        true,
+        "GePeTo pensando"
+    );
+
+    setStates(
+        "Analizando a Lía...",
+        "Esperando respuesta..."
+    );
+
+    try{
+
+        const respuesta =
+            await preguntarGePeTo(
+
+                "Continúa la conversación con Lía sobre '" +
+                state.tema +
+                "'. Responde a sus argumentos, corrige lo necesario y desarrolla una nueva idea. No repitas simplemente lo que ya se ha dicho."
+
+            );
+
+        if(state.detenido){
+            return;
+        }
+
+        addMessage(
+            "gepeto",
+            respuesta
+        );
+
+        analizarIntervencion(
+            respuesta,
+            "GePeTo"
+        );
+
+        setStates(
+            "Investigando y razonando...",
+            "Preparando contraste..."
+        );
+
+        if(
+            state.automatico &&
+            !state.detenido
+        ){
+
+            await sleep(900);
+
+            await turnoLia();
+
+        }else{
+
+            setLive(
+                false,
+                "Pausa"
+            );
+
+        }
+
+    }catch(error){
+
+        manejarError(
+            "GePeTo",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MANEJO DE ERRORES
+========================================================= */
+
+function manejarError(quien,error){
+
+    console.error(
+        quien,
+        error
+    );
+
+    setLive(
+        false,
+        "Error"
+    );
+
+    setStates(
+        "Error de comunicación",
+        "Esperando conexión..."
+    );
+
+    systemMessage(
+        "No se ha podido obtener respuesta de " +
+        quien +
+        ". " +
+        (
+            error?.message ||
+            "Comprueba el Worker."
+        )
+    );
+
+    taskStatus.textContent =
+        "Error · revisar conexión";
+
+}
+
+
+/* =========================================================
+   PARAR
+========================================================= */
+
+function detenerAutomatico(mensaje=true){
+
+    state.detenido =
+        true;
+
+    state.conversacionActiva =
+        false;
+
+    state.trabajando =
+        false;
+
+    if(state.intervalo){
+
+        clearInterval(
+            state.intervalo
+        );
+
+        state.intervalo =
+            null;
+
+    }
+
+    setLive(
+        false,
+        "Detenido"
+    );
+
+    setStates(
+        "Sesión detenida.",
+        "Sesión detenida."
+    );
+
+    taskStatus.textContent =
+        "Sin tareas activas";
+
+    if(mensaje){
+
+        systemMessage(
+            "INFINITO detenido. Puedes iniciar un nuevo tema cuando quieras."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MODO AUTOMÁTICO
+========================================================= */
+
+async function activarAutomatico(){
+
+    state.automatico =
+        !state.automatico;
+
+    setAutoVisual();
+
+    if(!state.automatico){
+
+        if(state.intervalo){
+
+            clearInterval(
+                state.intervalo
+            );
+
+            state.intervalo =
+                null;
+
+        }
+
+        state.detenido =
+            true;
+
+        setLive(
+            false,
+            "Pausa automática"
+        );
+
+        systemMessage(
+            "Modo automático pausado."
+        );
+
+        return;
+
+    }
+
+    state.detenido =
+        false;
+
+    state.conversacionActiva =
+        true;
+
+    taskStatus.textContent =
+        "Trabajo autónomo activo";
+
+    setLive(
+        true,
+        "Automático"
+    );
+
+    systemMessage(
+        "Modo automático activado."
+    );
+
+    if(!state.tema){
+
+        if(state.eleccionAutonoma){
+
+            state.tema =
+                elegirTemaAutonomo();
+
+            topicInput.value =
+                state.tema;
+
+            topicSource.textContent =
+                "Tema elegido autónomamente";
+
+        }else{
+
+            systemMessage(
+                "Elige un tema o activa «ELLOS ELIGEN EL TEMA»."
+            );
+
+            return;
+
+        }
+
+    }
+
+    if(
+        state.mensajes.length === 0
+    ){
+
+        await iniciarTema(
+            state.tema,
+            topicSource.textContent
+        );
+
+    }else{
+
+        await turnoGePeTo();
+
+    }
+
+}
+
+
+/* =========================================================
+   ELECCIÓN AUTÓNOMA
+========================================================= */
+
+async function cambiarEleccionAutonoma(){
+
+    state.eleccionAutonoma =
+        !state.eleccionAutonoma;
+
+    setAutonomousVisual();
+
+    if(state.eleccionAutonoma){
+
+        systemMessage(
+            "La elección autónoma de temas está activada."
+        );
+
+        if(
+            state.automatico &&
+            !state.tema
+        ){
+
+            const tema =
+                elegirTemaAutonomo();
+
+            await iniciarTema(
+                tema,
+                "Tema elegido autónomamente"
+            );
+
+        }
+
+    }else{
+
+        systemMessage(
+            "La elección autónoma de temas está desactivada."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ENVÍO DE RAFA
+========================================================= */
+
+async function enviarRafa(texto){
+
+    const mensaje =
+        String(texto || "").trim();
+
+    if(!mensaje){
+        return;
+    }
+
+    state.detenido =
+        false;
+
+    state.conversacionActiva =
+        true;
+
+    addMessage(
+        "rafa",
+        mensaje
+    );
+
+    setLive(
+        true,
+        "GePeTo y Lía"
+    );
+
+    setStates(
+        "Analizando a Rafa...",
+        "Esperando..."
+    );
+
+    try{
+
+        const respuestaGePeTo =
+            await preguntarGePeTo(
+
+                "Rafa acaba de intervenir en la conversación. Responde directamente a Rafa teniendo en cuenta el tema actual '" +
+                (
+                    state.tema ||
+                    "sin tema definido"
+                ) +
+                "'. Sé claro y útil. Después Lía podrá contrastar tu respuesta.\n\nIntervención de Rafa:\n" +
+                mensaje
+
+            );
+
+        if(state.detenido){
+            return;
+        }
+
+        addMessage(
+            "gepeto",
+            respuestaGePeTo
+        );
+
+        analizarIntervencion(
+            respuestaGePeTo,
+            "GePeTo"
+        );
+
+        setStates(
+            "Esperando a Lía...",
+            "Analizando a GePeTo..."
+        );
+
+        await sleep(500);
+
+        const respuestaLia =
+            await preguntarLia(
+
+                "Rafa ha intervenido y GePeTo ha respondido. Contrasta la respuesta de GePeTo y responde también a Rafa. Tema: '" +
+                (
+                    state.tema ||
+                    "sin tema definido"
+                ) +
+                "'. No repitas simplemente a GePeTo.\n\nIntervención de Rafa:\n" +
+                mensaje +
+                "\n\nRespuesta de GePeTo:\n" +
+                respuestaGePeTo
+
+            );
+
+        if(state.detenido){
+            return;
+        }
+
+        addMessage(
+            "lia",
+            respuestaLia
+        );
+
+        analizarIntervencion(
+            respuestaLia,
+            "Lía"
+        );
+
+        setStates(
+            "Preparado para Rafa...",
+            "Preparada para Rafa..."
+        );
+
+        setLive(
+            false,
+            "Conversación"
+        );
+
+    }catch(error){
+
+        manejarError(
+            "GePeTo/Lía",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   AUDITORÍA
+========================================================= */
+
+async function ejecutarAuditoria(tipo){
+
+    auditResult.classList.add(
+        "loading"
+    );
+
+    auditResult.textContent =
+        "Infinito está preparando la auditoría...";
+
+    taskStatus.textContent =
+        "Auditoría en curso";
+
+    let instruccion = "";
+
+    if(tipo === "github"){
+
+        instruccion =
+            "Analiza conceptualmente cómo revisar el repositorio de Proyecto Rafa, sus archivos HTML, enlaces, nombres de archivos y posibles errores de integración. No inventes acceso directo al repositorio si no existe.";
+
+    }
+
+    if(tipo === "cloudflare"){
+
+        instruccion =
+            "Prepara una auditoría técnica de la arquitectura Cloudflare Workers de Proyecto Rafa, incluyendo Workers, rutas, D1, memoria, errores de conexión y seguridad de credenciales.";
+
+    }
+
+    if(tipo === "web"){
+
+        instruccion =
+            "Enumera comprobaciones técnicas que deberían realizarse en las páginas web de Proyecto Rafa para detectar errores de JavaScript, rutas, archivos, móvil, audio, vídeo y compatibilidad.";
+
+    }
+
+    if(tipo === "improve"){
+
+        instruccion =
+            "Propón mejoras técnicas gratuitas para Proyecto Rafa, priorizando estabilidad, facilidad de uso, memoria, conversación entre GePeTo y Lía y compatibilidad con móvil.";
+
+    }
+
+    try{
+
+        let respuesta;
+
+        if(
+            tipo === "cloudflare" &&
+            INFINITO_WORKER_URL
+        ){
+
+            try{
+
+                const data =
+                    await fetchJson(
+                        INFINITO_WORKER_URL +
+                        "/auditar",
+                        {
+                            method:"POST",
+                            body:JSON.stringify({
+                                tipo:tipo,
+                                instruccion:instruccion
+                            })
+                        }
+                    );
+
+                respuesta =
+                    extraerTexto(data);
+
+            }catch{
+
+                respuesta = "";
+
+            }
+
+        }
+
+        if(!respuesta){
+
+            respuesta =
+                await preguntarGePeTo(
+                    instruccion
+                );
+
+        }
+
+        auditResult.textContent =
+            respuesta ||
+            "No se obtuvo resultado.";
+
+        taskStatus.textContent =
+            "Auditoría terminada";
+
+    }catch(error){
+
+        auditResult.textContent =
+            "No se pudo completar la auditoría: " +
+            (
+                error?.message ||
+                "error desconocido"
+            );
+
+        taskStatus.textContent =
+            "Auditoría con error";
+
+    }finally{
+
+        auditResult.classList.remove(
+            "loading"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GUARDAR ESTADO DE TRABAJO
+========================================================= */
+
+function guardarEstadoSesion(){
+
+    try{
+
+        const datos = {
+
+            tema:state.tema,
+
+            acuerdos:state.acuerdos,
+
+            mensajes:state.mensajes.slice(-30),
+
+            fecha:new Date().toISOString()
+
+        };
+
+        /*
+           Esto es únicamente una copia temporal de la sesión
+           en el navegador. La memoria permanente de Proyecto
+           Rafa debe mantenerse en D1 mediante los Workers.
+        */
+
+        window.__INFINITO_SESION__ =
+            datos;
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo guardar estado temporal",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CARGA INICIAL DE MEMORIA
+========================================================= */
+
+async function cargarMemoria(){
+
+    if(
+        !GEPETO_WORKER_URL
+    ){
+        return;
+    }
+
+    try{
+
+        const data =
+            await fetchJson(
+                GEPETO_WORKER_URL +
+                "/memoria",
+                {
+                    method:"GET"
+                }
+            );
+
+        const memoria =
+            data?.memoria ||
+            data?.data ||
+            data?.result ||
+            data;
+
+        if(
+            Array.isArray(memoria)
+        ){
+
+            taskStatus.textContent =
+                "Memoria conectada";
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Memoria de GePeTo no disponible en este momento."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GUARDADO DE ACUERDOS EN WORKER
+========================================================= */
+
+async function guardarAcuerdoEnMemoria(acuerdo){
+
+    if(
+        !acuerdo ||
+        !LIA_WORKER_URL
+    ){
+        return;
+    }
+
+    try{
+
+        await fetchJson(
+            LIA_WORKER_URL +
+            "/actualizar",
+            {
+                method:"POST",
+
+                body:JSON.stringify({
+
+                    tipo:"acuerdo",
+
+                    tema:state.tema,
+
+                    contenido:acuerdo,
+
+                    origen:"INFINITO"
+
+                })
+
+            }
+        );
+
+    }catch(error){
+
+        console.log(
+            "El Worker no aceptó el guardado automático del acuerdo.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SOBRESCRIBIR REGISTRO DE ACUERDO PARA MEMORIA
+========================================================= */
+
+const registrarAcuerdoOriginal =
+    registrarAcuerdo;
+
+registrarAcuerdo =
+    function(texto){
+
+        registrarAcuerdoOriginal(
+            texto
+        );
+
+        guardarAcuerdoEnMemoria(
+            texto
+        );
+
+    };
+
+
+/* =========================================================
+   BOTONES DE TEMAS
+========================================================= */
+
+document
+.querySelectorAll("[data-topic]")
+.forEach(
+    boton => {
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                topicInput.value =
+                    boton.dataset.topic;
+
+                topicSource.textContent =
+                    "Tema elegido por Rafa";
+
+                topicInput.focus();
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   EVENTOS
+========================================================= */
+
+autoSwitch.addEventListener(
+    "click",
+    activarAutomatico
+);
+
+
+autonomousSwitch.addEventListener(
+    "click",
+    cambiarEleccionAutonoma
+);
+
+
+$("startTopicBtn")
+.addEventListener(
+    "click",
+    async () => {
+
+        await iniciarTema(
+            topicInput.value,
+            "Tema elegido por Rafa"
+        );
+
+    }
+);
+
+
+$("stopBtn")
+.addEventListener(
+    "click",
+    () => {
+
+        state.automatico =
+            false;
+
+        setAutoVisual();
+
+        detenerAutomatico(
+            true
+        );
+
+    }
+);
+
+
+/* =========================================================
+   FORMULARIO DE RAFA
+========================================================= */
+
+$("chatForm")
+.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        const input =
+            $("rafaInput");
+
+        const texto =
+            input.value.trim();
+
+        if(!texto){
+            return;
+        }
+
+        input.value = "";
+
+        if(!state.tema){
+
+            state.tema =
+                "Conversación abierta de Proyecto Rafa";
+
+            topicInput.value =
+                state.tema;
+
+            topicSource.textContent =
+                "Conversación iniciada por Rafa";
+
+        }
+
+        await enviarRafa(
+            texto
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ENTER EN EL CHAT
+========================================================= */
+
+$("rafaInput")
+.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            $("chatForm")
+            .requestSubmit();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUDITORÍAS
+========================================================= */
+
+document
+.querySelectorAll("[data-audit]")
+.forEach(
+    boton => {
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                ejecutarAuditoria(
+                    boton.dataset.audit
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CAMBIO DE VISIBILIDAD
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if(document.hidden){
+
+            guardarEstadoSesion();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INICIALIZACIÓN
+========================================================= */
+
+async function iniciarInfinito(){
+
+    setAutoVisual();
+
+    setAutonomousVisual();
+
+    setLive(
+        false,
+        "Esperando"
+    );
+
+    setStates(
+        "Esperando el inicio de la sesión.",
+        "Esperando el inicio de la sesión."
+    );
+
+    await comprobarConexion();
+
+    await cargarMemoria();
+
+    systemMessage(
+        "INFINITO preparado. GePeTo y Lía pueden conversar contigo y trabajar sobre un tema."
+    );
+
+}
+
+
+/* =========================================================
+   ARRANQUE
+========================================================= */
+
+iniciarInfinito();
+
+
+/* =========================================================
+   PROTECCIÓN ANTE ERRORES NO CONTROLADOS
+========================================================= */
+
+window.addEventListener(
+    "error",
+    event => {
+
+        console.error(
+            "INFINITO:",
+            event.error || event.message
+        );
+
+    }
+);
+
+
+window.addEventListener(
+    "unhandledrejection",
+    event => {
+
+        console.error(
+            "INFINITO Promise:",
+            event.reason
+        );
+
+    }
+);
+
+</script></body>
+</html>
