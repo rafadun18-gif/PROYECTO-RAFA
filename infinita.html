@@ -1,2 +1,1593 @@
-<!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>INFINITA · Proyecto Rafa</title><link rel="stylesheet" href="../style.css"></head><body><main><section class="hero"><div class="infinity"><span>∞</span></div><h1>INFINITA</h1><p>Ideas sin límite</p><p class="aviso">Aquí añadiremos después la imagen, el audio y las funciones de esta sala.</p><p><a href="../index.html" style="color:#39ff14">← VOLVER A PROYECTO RAFA</a></p></section></main></body></html>
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><title>INFINITO · Proyecto Rafa</title><style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:#020509;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+:root{
+    --negro:#020509;
+    --panel:rgba(7,13,22,.88);
+    --panel2:rgba(10,18,29,.94);
+    --borde:rgba(255,255,255,.12);
+
+    --azul:#19aaff;
+    --azul2:#0077ff;
+
+    --rosa:#ff20d8;
+    --rosa2:#ff00a8;
+
+    --verde:#39ff14;
+    --verde2:#00ff66;
+
+    --blanco:#fff;
+    --gris:#94a3b8;
+    --amarillo:#ffe600;
+    --rojo:#ff4545;
+}
+
+.app{
+    width:100%;
+    max-width:1500px;
+    margin:0 auto;
+    padding:12px;
+}
+
+/* =========================================================
+   CABECERA
+========================================================= */
+
+.top{
+    position:relative;
+    min-height:105px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(0,130,255,.12),transparent 38%),
+        linear-gradient(145deg,rgba(10,18,30,.96),rgba(2,5,9,.98));
+    box-shadow:0 0 35px rgba(0,0,0,.45);
+    padding:18px;
+    overflow:hidden;
+}
+
+.top:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(25,170,255,.04),
+            transparent);
+}
+
+.top-inner{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.infinity{
+    width:64px;
+    height:42px;
+    position:relative;
+    flex:none;
+}
+
+.infinity:before,
+.infinity:after{
+    content:"";
+    position:absolute;
+    width:39px;
+    height:24px;
+    border:4px solid;
+    border-radius:50%;
+    top:7px;
+}
+
+.infinity:before{
+    left:3px;
+    border-color:var(--azul);
+    box-shadow:0 0 12px var(--azul);
+    transform:rotate(35deg);
+}
+
+.infinity:after{
+    right:3px;
+    border-color:var(--rosa);
+    box-shadow:0 0 12px var(--rosa);
+    transform:rotate(-35deg);
+}
+
+.brand h1{
+    margin:0;
+    font-size:27px;
+    letter-spacing:5px;
+}
+
+.brand p{
+    margin:5px 0 0;
+    color:var(--gris);
+    font-size:12px;
+}
+
+.connection{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 12px;
+    border:1px solid rgba(57,255,20,.22);
+    border-radius:12px;
+    background:rgba(57,255,20,.05);
+    font-size:12px;
+}
+
+.connection-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#777;
+}
+
+.connection-dot.online{
+    background:var(--verde);
+    box-shadow:0 0 10px var(--verde);
+}
+
+/* =========================================================
+   NAVEGACION
+========================================================= */
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin:12px 0;
+}
+
+.nav a,
+.nav button{
+    min-height:45px;
+    border:1px solid var(--borde);
+    border-radius:13px;
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 15px;
+}
+
+.nav a:hover,
+.nav button:hover{
+    border-color:rgba(255,255,255,.3);
+}
+
+/* =========================================================
+   MODO
+========================================================= */
+
+.mode{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.mode-card{
+    border:1px solid var(--borde);
+    border-radius:17px;
+    background:var(--panel);
+    padding:14px;
+}
+
+.mode-card.active{
+    border-color:rgba(57,255,20,.5);
+    box-shadow:0 0 20px rgba(57,255,20,.08);
+}
+
+.mode-title{
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.mode-text{
+    color:var(--gris);
+    font-size:12px;
+    line-height:1.45;
+}
+
+.switch-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.switch{
+    width:54px;
+    height:30px;
+    border-radius:30px;
+    background:#222b36;
+    border:1px solid rgba(255,255,255,.12);
+    position:relative;
+    cursor:pointer;
+}
+
+.switch span{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    position:absolute;
+    top:3px;
+    left:4px;
+    background:#888;
+    transition:.2s;
+}
+
+.switch.on{
+    background:rgba(57,255,20,.15);
+    border-color:rgba(57,255,20,.6);
+}
+
+.switch.on span{
+    left:27px;
+    background:var(--verde);
+    box-shadow:0 0 12px var(--verde);
+}
+
+/* =========================================================
+   PARTICIPANTES
+========================================================= */
+
+.participants{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+}
+
+.person{
+    position:relative;
+    overflow:hidden;
+    min-height:225px;
+    border-radius:22px;
+    padding:15px;
+    background:
+        linear-gradient(145deg,rgba(10,17,27,.97),rgba(3,7,12,.98));
+}
+
+.person.gepeto{
+    border:1px solid rgba(25,170,255,.6);
+    box-shadow:0 0 25px rgba(25,170,255,.08);
+}
+
+.person.lia{
+    border:1px solid rgba(255,32,216,.6);
+    box-shadow:0 0 25px rgba(255,32,216,.08);
+}
+
+.person.rafa{
+    border:1px solid rgba(57,255,20,.6);
+    box-shadow:0 0 25px rgba(57,255,20,.08);
+}
+
+.person-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.person-photo{
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+    background:#05090f;
+}
+
+.gepeto .person-photo{
+    border:2px solid var(--azul);
+    box-shadow:0 0 18px rgba(25,170,255,.5);
+}
+
+.lia .person-photo{
+    border:2px solid var(--rosa);
+    box-shadow:0 0 18px rgba(255,32,216,.5);
+}
+
+.rafa-photo{
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--verde);
+    font-size:30px;
+    font-weight:bold;
+    border:2px solid var(--verde);
+    box-shadow:0 0 18px rgba(57,255,20,.35);
+}
+
+.person-name{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.gepeto .person-name{
+    color:var(--azul);
+    text-shadow:0 0 10px rgba(25,170,255,.55);
+}
+
+.lia .person-name{
+    color:var(--rosa);
+    text-shadow:0 0 10px rgba(255,32,216,.55);
+}
+
+.rafa .person-name{
+    color:var(--verde);
+    text-shadow:0 0 10px rgba(57,255,20,.55);
+}
+
+.person-role{
+    margin-top:4px;
+    font-size:11px;
+    color:var(--gris);
+}
+
+.person-state{
+    margin-top:13px;
+    min-height:70px;
+    border-radius:15px;
+    padding:12px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.gepeto .person-state{
+    background:rgba(25,170,255,.07);
+    border:1px solid rgba(25,170,255,.25);
+}
+
+.lia .person-state{
+    background:rgba(255,32,216,.07);
+    border:1px solid rgba(255,32,216,.25);
+}
+
+.rafa .person-state{
+    background:rgba(57,255,20,.07);
+    border:1px solid rgba(57,255,20,.25);
+}
+
+/* =========================================================
+   TEMA
+========================================================= */
+
+.topic{
+    margin-top:12px;
+    border:1px solid var(--borde);
+    border-radius:22px;
+    background:var(--panel);
+    padding:16px;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:17px;
+}
+
+.section-title span{
+    color:var(--gris);
+    font-size:11px;
+}
+
+.topic-grid{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:13px;
+    background:rgba(0,0,0,.38);
+    color:#fff;
+    padding:13px;
+    outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:rgba(57,255,20,.65);
+    box-shadow:0 0 0 2px rgba(57,255,20,.08);
+}
+
+select option{
+    background:#081018;
+    color:#fff;
+}
+
+button.primary{
+    border:1px solid rgba(57,255,20,.65);
+    background:rgba(57,255,20,.09);
+    color:var(--verde);
+    padding:0 18px;
+    border-radius:13px;
+    font-weight:bold;
+}
+
+button.secondary{
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    padding:0 18px;
+    border-radius:13px;
+}
+
+.topic-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.small-btn{
+    min-height:38px;
+    padding:0 11px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);
+    color:#ddd;
+    font-size:11px;
+}
+
+/* =========================================================
+   CONVERSACION
+========================================================= */
+
+.conversation{
+    margin-top:12px;
+    border:1px solid var(--borde);
+    border-radius:22px;
+    background:rgba(3,8,14,.94);
+    overflow:hidden;
+}
+
+.conversation-head{
+    padding:13px 16px;
+    border-bottom:1px solid var(--borde);
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+}
+
+.live{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--gris);
+    font-size:11px;
+}
+
+.live-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#555;
+}
+
+.live-dot.active{
+    background:var(--verde);
+    box-shadow:0 0 10px var(--verde);
+}
+
+.messages{
+    max-height:560px;
+    overflow-y:auto;
+    padding:14px;
+}
+
+.message{
+    max-width:88%;
+    margin-bottom:12px;
+    padding:12px 14px;
+    border-radius:16px;
+    line-height:1.5;
+    font-size:13px;
+    white-space:pre-wrap;
+}
+
+.message .who{
+    display:block;
+    font-size:10px;
+    font-weight:bold;
+    margin-bottom:5px;
+    letter-spacing:.7px;
+}
+
+.message.gepeto{
+    margin-right:auto;
+    border:1px solid rgba(25,170,255,.35);
+    background:rgba(25,170,255,.08);
+}
+
+.message.gepeto .who{
+    color:var(--azul);
+}
+
+.message.lia{
+    margin-left:auto;
+    border:1px solid rgba(255,32,216,.35);
+    background:rgba(255,32,216,.08);
+}
+
+.message.lia .who{
+    color:var(--rosa);
+}
+
+.message.rafa{
+    margin-left:auto;
+    border:1px solid rgba(57,255,20,.45);
+    background:rgba(57,255,20,.08);
+}
+
+.message.rafa .who{
+    color:var(--verde);
+}
+
+.message.system{
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    color:var(--gris);
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.025);
+    font-size:11px;
+}
+
+.chat-form{
+    padding:12px;
+    border-top:1px solid var(--borde);
+    display:flex;
+    gap:8px;
+}
+
+.chat-form textarea{
+    min-height:48px;
+    max-height:150px;
+    resize:vertical;
+}
+
+.send{
+    width:105px;
+    border-radius:13px;
+    border:1px solid rgba(57,255,20,.65);
+    color:var(--verde);
+    background:rgba(57,255,20,.08);
+    font-weight:bold;
+}
+
+/* =========================================================
+   DILEMA Y ACUERDOS
+========================================================= */
+
+.bottom-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:12px;
+}
+
+.panel{
+    border:1px solid var(--borde);
+    border-radius:22px;
+    background:var(--panel);
+    padding:16px;
+}
+
+.dilemma{
+    border-color:rgba(255,230,0,.25);
+}
+
+.dilemma-box{
+    border-left:3px solid var(--amarillo);
+    padding-left:12px;
+    color:#eee;
+    line-height:1.5;
+    font-size:13px;
+}
+
+.agreements{
+    max-height:400px;
+    overflow:auto;
+}
+
+.agreement{
+    padding:13px;
+    border:1px solid rgba(57,255,20,.22);
+    border-radius:15px;
+    background:rgba(57,255,20,.045);
+    margin-bottom:9px;
+}
+
+.agreement-title{
+    color:var(--verde);
+    font-weight:bold;
+    font-size:13px;
+}
+
+.agreement p{
+    margin:6px 0 0;
+    color:#ddd;
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   LABORATORIO
+========================================================= */
+
+.audit{
+    margin-top:12px;
+    border:1px solid rgba(25,170,255,.25);
+    border-radius:22px;
+    background:
+        radial-gradient(circle at 100% 0%,rgba(25,170,255,.07),transparent 40%),
+        var(--panel);
+    padding:16px;
+}
+
+.audit-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+}
+
+.audit-btn{
+    min-height:72px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    background:rgba(255,255,255,.035);
+    color:#fff;
+    padding:10px;
+    text-align:left;
+}
+
+.audit-btn strong{
+    display:block;
+    font-size:12px;
+}
+
+.audit-btn small{
+    display:block;
+    margin-top:5px;
+    color:var(--gris);
+    font-size:10px;
+}
+
+.audit-btn:hover{
+    border-color:rgba(25,170,255,.5);
+}
+
+.audit-result{
+    margin-top:10px;
+    min-height:70px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.25);
+    padding:12px;
+    color:#bbb;
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   TAREAS
+========================================================= */
+
+.tasks{
+    margin-top:12px;
+    border:1px solid var(--borde);
+    border-radius:22px;
+    background:var(--panel);
+    padding:16px;
+}
+
+.task{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.task:last-child{
+    border-bottom:0;
+}
+
+.task-icon{
+    width:31px;
+    height:31px;
+    flex:none;
+    display:grid;
+    place-items:center;
+    border-radius:9px;
+    background:rgba(255,255,255,.05);
+}
+
+.task-text{
+    font-size:12px;
+    line-height:1.45;
+}
+
+.task-status{
+    display:inline-block;
+    margin-top:3px;
+    color:var(--gris);
+    font-size:10px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:850px){
+    .participants{
+        grid-template-columns:1fr;
+    }
+
+    .bottom-grid{
+        grid-template-columns:1fr;
+    }
+
+    .audit-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+    .app{
+        padding:7px;
+    }
+
+    .top{
+        border-radius:18px;
+        padding:13px;
+    }
+
+    .top-inner{
+        align-items:flex-start;
+    }
+
+    .brand h1{
+        font-size:22px;
+        letter-spacing:3px;
+    }
+
+    .infinity{
+        transform:scale(.8);
+        transform-origin:left center;
+        width:52px;
+    }
+
+    .connection{
+        font-size:10px;
+        padding:7px;
+    }
+
+    .mode{
+        grid-template-columns:1fr;
+    }
+
+    .topic-grid{
+        grid-template-columns:1fr;
+    }
+
+    .audit-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .chat-form{
+        flex-direction:column;
+    }
+
+    .send{
+        width:100%;
+        min-height:48px;
+    }
+
+    .person{
+        min-height:200px;
+    }
+
+    .message{
+        max-width:94%;
+    }
+}
+</style></head><body><div class="app"><header class="top">
+    <div class="top-inner">    <div class="brand">
+        <div class="infinity"></div>
+
+        <div>
+            <h1>INFINITO</h1>
+            <p>Laboratorio de diálogo · aprendizaje · investigación · evolución</p>
+        </div>
+    </div>
+
+    <div class="connection">
+        <span id="connectionDot" class="connection-dot"></span>
+        <span id="connectionText">Conexión técnica pendiente</span>
+    </div>
+
+</div>
+
+</header><nav class="nav"><a href="index.html">
+    ← PORTADA
+</a>
+
+<button type="button" id="stopBtn">
+    ⏹ DETENER
+</button>
+
+</nav><section class="mode"><div id="autoCard" class="mode-card">
+
+    <div class="switch-row">
+
+        <div>
+            <div class="mode-title">
+                🤖 MODO AUTOMÁTICO
+            </div>
+
+            <div class="mode-text">
+                GePeTo y Lía pueden conversar, investigar,
+                debatir y desarrollar un tema sin que Rafa tenga
+                que permanecer conectado.
+            </div>
+        </div>
+
+        <button
+            id="autoSwitch"
+            class="switch"
+            type="button"
+            aria-label="Activar modo automático"
+        >
+            <span></span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="autonomousCard" class="mode-card">
+
+    <div class="switch-row">
+
+        <div>
+            <div class="mode-title">
+                🧠 ELLOS ELIGEN EL TEMA
+            </div>
+
+            <div class="mode-text">
+                Si Rafa no proporciona un tema,
+                GePeTo y Lía pueden seleccionar uno
+                relacionado con aprender y mejorar Proyecto Rafa.
+            </div>
+        </div>
+
+        <button
+            id="autonomousSwitch"
+            class="switch"
+            type="button"
+            aria-label="Permitir elección autónoma del tema"
+        >
+            <span></span>
+        </button>
+
+    </div>
+
+</div>
+
+</section><section class="participants"><!-- GEPETO -->
+
+<article class="person gepeto">
+
+    <div class="person-head">
+
+        <img
+            src="GePeTo.png"
+            class="person-photo"
+            alt="GePeTo"
+        >
+
+        <div>
+
+            <div class="person-name">
+                GePeTo
+            </div>
+
+            <div class="person-role">
+                🔵 Azul fosforito · investigador
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="gepetoState" class="person-state">
+        Esperando el inicio de la sesión.
+    </div>
+
+</article>
+
+
+<!-- LIA -->
+
+<article class="person lia">
+
+    <div class="person-head">
+
+        <img
+            src="LiA.png"
+            class="person-photo"
+            alt="Lía"
+        >
+
+        <div>
+
+            <div class="person-name">
+                Lía
+            </div>
+
+            <div class="person-role">
+                🩷 Rosa fosforito · investigadora
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="liaState" class="person-state">
+        Esperando el inicio de la sesión.
+    </div>
+
+</article>
+
+
+<!-- RAFA -->
+
+<article class="person rafa">
+
+    <div class="person-head">
+
+        <div class="rafa-photo">
+            R
+        </div>
+
+        <div>
+
+            <div class="person-name">
+                Rafa
+            </div>
+
+            <div class="person-role">
+                🟢 Verde fosforito · creador
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="person-state">
+        Puedes entrar en cualquier momento y hablar
+        directamente con los dos.
+    </div>
+
+</article>
+
+</section><!-- TEMA --><section class="topic"><div class="section-title">
+
+    <h2>
+        🧠 TEMA DE INVESTIGACIÓN / DILEMA
+    </h2>
+
+    <span id="topicSource">
+        Tema elegido por Rafa
+    </span>
+
+</div>
+
+
+<div class="topic-grid">
+
+    <input
+        id="topicInput"
+        type="text"
+        maxlength="500"
+        placeholder="Escribe el tema que quieres que investiguen..."
+    >
+
+    <button
+        id="startTopicBtn"
+        class="primary"
+        type="button"
+    >
+        INICIAR
+    </button>
+
+</div>
+
+
+<div class="topic-options">
+
+    <button
+        type="button"
+        class="small-btn"
+        data-topic="Buscar una mejora importante para Proyecto Rafa"
+    >
+        Mejorar Proyecto Rafa
+    </button>
+
+    <button
+        type="button"
+        class="small-btn"
+        data-topic="Revisar y mejorar la memoria de GePeTo y Lía"
+    >
+        Mejorar memoria
+    </button>
+
+    <button
+        type="button"
+        class="small-btn"
+        data-topic="Buscar mejoras para la conversación entre GePeTo y Lía"
+    >
+        Mejorar conversación
+    </button>
+
+    <button
+        type="button"
+        class="small-btn"
+        data-topic="Buscar errores y mejoras en la programación de Proyecto Rafa"
+    >
+        Revisar programación
+    </button>
+
+</div>
+
+</section><!-- CONVERSACION --><section class="conversation"><div class="conversation-head">
+
+    <strong>
+        💬 CONVERSACIÓN INFINITA
+    </strong>
+
+    <div class="live">
+        <span id="liveDot" class="live-dot"></span>
+        <span id="liveText">Esperando</span>
+    </div>
+
+</div>
+
+
+<div id="messages" class="messages">
+
+    <div class="message system">
+        Infinito está preparado. Puedes elegir un tema,
+        dejar que ellos lo elijan o entrar directamente
+        en la conversación.
+    </div>
+
+</div>
+
+
+<form id="chatForm" class="chat-form">
+
+    <textarea
+        id="rafaInput"
+        placeholder="Rafa, escribe aquí para hablar con GePeTo y Lía..."
+        maxlength="4000"
+    ></textarea>
+
+    <button
+        class="send"
+        type="submit"
+    >
+        ENVIAR
+    </button>
+
+</form>
+
+</section><!-- DILEMA Y ACUERDOS --><section class="bottom-grid"><div class="panel dilemma">
+
+    <div class="section-title">
+        <h2>⚖️ DILEMA EN CURSO</h2>
+        <span id="dilemmaState">Sin dilema</span>
+    </div>
+
+    <div id="dilemmaBox" class="dilemma-box">
+        Cuando GePeTo y Lía encuentren un punto
+        que requiera discusión, aparecerá aquí.
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <div class="section-title">
+
+        <h2>
+            🤝 ACUERDOS ALCANZADOS
+        </h2>
+
+        <span id="agreementCount">
+            0 acuerdos
+        </span>
+
+    </div>
+
+    <div id="agreements" class="agreements">
+
+        <div class="agreement">
+
+            <div class="agreement-title">
+                Todavía no hay acuerdos.
+            </div>
+
+            <p>
+                Los acuerdos reales se guardarán cuando
+                GePeTo y Lía hayan investigado y contrastado
+                un tema.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section><!-- AUDITORIA --><section class="audit"><div class="section-title">
+
+    <h2>
+        🛠️ LABORATORIO · AUDITORÍA DE PROYECTO RAFA
+    </h2>
+
+    <span>
+        Acceso técnico autorizado
+    </span>
+
+</div>
+
+
+<div class="audit-grid">
+
+    <button
+        type="button"
+        class="audit-btn"
+        data-audit="github"
+    >
+        <strong>🐙 GITHUB</strong>
+        <small>Revisar repositorio y archivos</small>
+    </button>
+
+
+    <button
+        type="button"
+        class="audit-btn"
+        data-audit="cloudflare"
+    >
+        <strong>☁️ CLOUDFLARE</strong>
+        <small>Revisar Workers y configuración</small>
+    </button>
+
+
+    <button
+        type="button"
+        class="audit-btn"
+        data-audit="web"
+    >
+        <strong>🌐 WEB</strong>
+        <small>Buscar errores y problemas</small>
+    </button>
+
+
+    <button
+        type="button"
+        class="audit-btn"
+        data-audit="improve"
+    >
+        <strong>🔧 MEJORAR</strong>
+        <small>Preparar mejoras técnicas</small>
+    </button>
+
+</div>
+
+
+<div id="auditResult" class="audit-result">
+    El laboratorio técnico está preparado para conectarse
+    al Worker de control de Infinito.
+</div>
+
+</section><!-- TAREAS --><section class="tasks"><div class="section-title">
+
+    <h2>
+        📋 TRABAJO AUTÓNOMO
+    </h2>
+
+    <span id="taskStatus">
+        Sin tareas activas
+    </span>
+
+</div>
+
+
+<div id="tasksList">
+
+    <div class="task">
+
+        <div class="task-icon">
+            🧠
+        </div>
+
+        <div class="task-text">
+
+            <strong>
+                Aprender y mejorar Proyecto Rafa
+            </strong>
+
+            <div class="task-status">
+                Preparado para iniciar
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="task">
+
+        <div class="task-icon">
+            🔍
+        </div>
+
+        <div class="task-text">
+
+            <strong>
+                Comprobar código antes de proponer cambios
+            </strong>
+
+            <div class="task-status">
+                Regla de Infinito
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="task">
+
+        <div class="task-icon">
+            🤝
+        </div>
+
+        <div class="task-text">
+
+            <strong>
+                Guardar acuerdos y conocimiento
+            </strong>
+
+            <div class="task-status">
+                Preparado
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section></div><script>
+
+/* =========================================================
+   INFINITO · CONFIGURACIÓN
+========================================================= */
+
+/*
+    IMPORTANTE:
+
+    NO pongas aquí tokens de GitHub ni Cloudflare.
+
+    Las credenciales deberán vivir en el Worker técnico
+    de Infinito como secretos.
+
+    Cuando creemos ese Worker, solamente habrá que poner
+    aquí su URL pública.
+*/
+
+const INFINITO_WORKER_URL =
+    "";
+
+const GEPETO_WORKER_URL =
+    "https://gepetto-rafa.rafadun18.workers.dev";
+
+const LIA_WORKER_URL =
+    "https://lia-rafa.rafadun18.workers.dev";
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+const state = {
+
+    automatico:false,
+
+    eleccionAutonoma:false,
+
+    conectado:false,
+
+    conversacionActiva:false,
+
+    tema:"",
+
+    mensajes:[],
+
+    acuerdos:[],
+
+    intervalo:null
+
+};
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const messages = $("messages");
+
+const topicInput = $("topicInput");
+
+const topicSource = $("topicSource");
+
+const gepetoState = $("gepetoState");
+
+const liaState = $("liaState");
+
+const liveDot = $("liveDot");
+
+const liveText = $("liveText");
+
+const dilemmaBox = $("dilemmaBox");
+
+const dilemmaState = $("dilemmaState");
+
+const agreementsBox = $("agreements");
+
+const agreementCount = $("agreementCount");
+
+const auditResult = $("auditResult");
+
+const taskStatus = $("taskStatus");
+
+const tasksList = $("tasksList");
+
+const connectionDot = $("connectionDot");
+
+const connectionText = $("connectionText");
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function escapeHtml(text){
+
+    return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function setConnection(online,text){
+
+    state.conectado = online;
+
+    connectionDot.classList.toggle("online",online);
+
+    connectionText.textContent =
+        text ||
+        (online ? "Conectado" : "Sin conexión");
+
+}
+
+
+function setLive(active,text){
+
+    liveDot.classList.toggle("active",active);
+
+    liveText.textContent =
+        text ||
+        (active ? "Activo" : "Esperando");
+
+}
+
+
+function addMessage(who,text){
+
+    if(!text) return;
+
+    state.mensajes.push({
+        who,
+        text,
+        fecha:new Date().toISOString()
+    });
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message " + who;
+
+    let nombre = "SISTEMA";
+
+    if(who === "gepeto"){
+        nombre = "🔵 GePeTo";
+    }
+
+    if(who === "lia"){
+        nombre = "🩷 Lía";
+    }
+
+    if(who === "rafa"){
+        nombre = "🟢 Rafa";
+    }
+
+    div.innerHTML =
+        "<span class='who'>" +
+        escapeHtml(nombre) +
+        "</span>" +
+        escapeHtml(text);
+
+    messages.appendChild(div);
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+function systemMessage(text){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message system";
+
+    div.textContent = text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+function setStates(g,l){
+
+    if(g) gepetoState.textContent = g;
+
+    if(l) liaState.textContent = l;
+
+}
+
+
+/* =========================================================
+   COMPROBAR WORKER
+========================================================= */
+
+async function comprobarConexion(){
+
+    if(!INFINITO_WORKER_URL){
+
+        setConnection(
+            false,
+            "Worker de Infinito pendiente"
+        );
+
+        return false;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                INFINITO_WORKER_URL + "/estado",
+                {
+                    method:"GET",
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        setConnection(
+            true,
+            data.nombre ||
+            "Infinito conectado"
+        );
+
+        return true;
+
+    }catch(error){
