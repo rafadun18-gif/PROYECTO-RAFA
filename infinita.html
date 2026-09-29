@@ -1,8 +1,19 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<title>INFINITO · Proyecto Rafa</title><style>
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+>
+
+<title>INFINITO · Proyecto Rafa</title>
+
+<style>
+
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
@@ -21,7 +32,10 @@ body{
     overflow-x:hidden;
 }
 
-button,input,textarea,select{
+button,
+input,
+textarea,
+select{
     font:inherit;
 }
 
@@ -63,9 +77,21 @@ button{
     border:1px solid rgba(255,255,255,.12);
     border-radius:24px;
     background:
-        radial-gradient(circle at 50% 0%,rgba(0,130,255,.12),transparent 38%),
-        radial-gradient(circle at 50% 100%,rgba(57,255,20,.05),transparent 35%),
-        linear-gradient(145deg,rgba(10,18,30,.96),rgba(2,5,9,.98));
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0,130,255,.12),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(57,255,20,.05),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(10,18,30,.96),
+            rgba(2,5,9,.98)
+        );
     box-shadow:0 0 35px rgba(0,0,0,.45);
     padding:18px;
     overflow:hidden;
@@ -96,7 +122,7 @@ button{
 }
 
 /* =========================================================
-   EMBLEMA INFINITO
+   EMBLEMA
 ========================================================= */
 
 .brand{
@@ -110,10 +136,10 @@ button{
     height:58px;
     position:relative;
     flex:none;
-    filter:drop-shadow(0 0 5px rgba(57,255,20,.25));
+    filter:drop-shadow(
+        0 0 5px rgba(57,255,20,.25)
+    );
 }
-
-/* aro azul */
 
 .infinity-blue{
     position:absolute;
@@ -131,8 +157,6 @@ button{
     z-index:1;
 }
 
-/* aro rosa */
-
 .infinity-pink{
     position:absolute;
     right:1px;
@@ -148,8 +172,6 @@ button{
         0 0 30px rgba(255,32,216,.75);
     z-index:1;
 }
-
-/* R central verde */
 
 .infinity-r{
     position:absolute;
@@ -167,8 +189,6 @@ button{
         0 0 12px var(--verde),
         0 0 22px rgba(57,255,20,.95);
 }
-
-/* núcleo luminoso */
 
 .infinity-core{
     position:absolute;
@@ -218,11 +238,22 @@ button{
     height:9px;
     border-radius:50%;
     background:#777;
+    flex:none;
 }
 
 .connection-dot.online{
     background:var(--verde);
     box-shadow:0 0 10px var(--verde);
+}
+
+.connection-dot.warning{
+    background:var(--amarillo);
+    box-shadow:0 0 10px var(--amarillo);
+}
+
+.connection-dot.error{
+    background:var(--rojo);
+    box-shadow:0 0 10px var(--rojo);
 }
 
 /* =========================================================
@@ -456,6 +487,100 @@ button{
 .rafa .person-state{
     background:rgba(57,255,20,.07);
     border:1px solid rgba(57,255,20,.25);
+}
+
+/* =========================================================
+   AUDIO Y VOZ
+========================================================= */
+
+.audio-panel{
+    margin-top:12px;
+    border:1px solid rgba(57,255,20,.25);
+    border-radius:22px;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(57,255,20,.06),
+            transparent 42%
+        ),
+        var(--panel);
+    padding:16px;
+}
+
+.audio-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.audio-box{
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:17px;
+    background:rgba(0,0,0,.2);
+    padding:13px;
+}
+
+.audio-title{
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:9px;
+}
+
+.audio-controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.audio-controls button{
+    min-height:39px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    padding:0 12px;
+}
+
+.audio-controls button:hover{
+    border-color:rgba(57,255,20,.55);
+}
+
+.audio-controls button.active{
+    border-color:var(--verde);
+    color:var(--verde);
+}
+
+.audio-select{
+    margin-bottom:9px;
+}
+
+.audio-range{
+    width:100%;
+    accent-color:var(--verde);
+}
+
+.file-label{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:39px;
+    padding:0 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    cursor:pointer;
+}
+
+.file-label input{
+    display:none;
+}
+
+.audio-now{
+    margin-top:9px;
+    color:var(--gris);
+    font-size:11px;
+    min-height:16px;
 }
 
 /* =========================================================
@@ -856,8 +981,13 @@ button.secondary{
 }
 
 @keyframes pulse{
-    0%,100%{opacity:.55}
-    50%{opacity:1}
+    0%,100%{
+        opacity:.55
+    }
+
+    50%{
+        opacity:1
+    }
 }
 
 /* =========================================================
@@ -876,6 +1006,10 @@ button.secondary{
 
     .audit-grid{
         grid-template-columns:1fr 1fr;
+    }
+
+    .audio-grid{
+        grid-template-columns:1fr;
     }
 }
 
@@ -948,543 +1082,842 @@ button.secondary{
         max-width:94%;
     }
 }
-</style></head><body><div class="app"><header class="top"><div class="top-inner">
 
-    <div class="brand">
+</style>
 
-        <!-- EMBLEMA INFINITO · AZUL + R VERDE + ROSA -->
-        <div class="infinity" aria-label="Emblema Infinito">
+</head>
 
-            <span class="infinity-blue"></span>
+<body>
 
-            <span class="infinity-core"></span>
+<div class="app">
 
-            <span class="infinity-r">R</span>
+<header class="top">
 
-            <span class="infinity-pink"></span>
+<div class="top-inner">
 
-        </div>
+<div class="brand">
 
-        <div>
-            <h1>INFINITO</h1>
-            <p>
-                Laboratorio de diálogo · aprendizaje · investigación · evolución
-            </p>
-        </div>
+<div
+    class="infinity"
+    aria-label="Emblema Infinito"
+>
 
-    </div>
+<span class="infinity-blue"></span>
 
-    <div class="connection">
+<span class="infinity-core"></span>
 
-        <span id="connectionDot" class="connection-dot"></span>
+<span class="infinity-r">R</span>
 
-        <span id="connectionText">
-            Conexión técnica pendiente
-        </span>
-
-    </div>
+<span class="infinity-pink"></span>
 
 </div>
 
-</header><nav class="nav"><a href="index.html">
-    ← PORTADA
+<div>
+
+<h1>INFINITO</h1>
+
+<p>
+Laboratorio de diálogo · aprendizaje · investigación · evolución
+</p>
+
+</div>
+
+</div>
+
+<div class="connection">
+
+<span
+    id="connectionDot"
+    class="connection-dot warning"
+></span>
+
+<span id="connectionText">
+Comprobando Workers IA...
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+<nav class="nav">
+
+<a href="index.html">
+← PORTADA
 </a>
 
-<button type="button" id="stopBtn">
-    ⏹ DETENER
+<button
+    type="button"
+    id="stopBtn"
+>
+⏹ DETENER
 </button>
 
-</nav><section class="mode"><div id="autoCard" class="mode-card">
+</nav>
 
-    <div class="switch-row">
+<section class="mode">
 
-        <div>
+<div
+    id="autoCard"
+    class="mode-card"
+>
 
-            <div class="mode-title">
-                🤖 MODO AUTOMÁTICO
-            </div>
+<div class="switch-row">
 
-            <div class="mode-text">
-                GePeTo y Lía pueden conversar, investigar,
-                debatir y desarrollar un tema sin que Rafa tenga
-                que permanecer conectado.
-            </div>
+<div>
 
-        </div>
+<div class="mode-title">
+🤖 MODO AUTOMÁTICO
+</div>
 
-        <button
-            id="autoSwitch"
-            class="switch"
-            type="button"
-            aria-label="Activar modo automático"
-        >
-            <span></span>
-        </button>
-
-    </div>
+<div class="mode-text">
+GePeTo y Lía conversan automáticamente sobre el
+tema seleccionado. Rafa puede intervenir en cualquier
+momento y ellos responderán a su intervención.
+</div>
 
 </div>
 
+<button
+    id="autoSwitch"
+    class="switch"
+    type="button"
+    aria-label="Activar modo automático"
+>
 
-<div id="autonomousCard" class="mode-card">
+<span></span>
 
-    <div class="switch-row">
-
-        <div>
-
-            <div class="mode-title">
-                🧠 ELLOS ELIGEN EL TEMA
-            </div>
-
-            <div class="mode-text">
-                Si Rafa no proporciona un tema,
-                GePeTo y Lía pueden seleccionar uno
-                relacionado con aprender y mejorar Proyecto Rafa.
-            </div>
-
-        </div>
-
-        <button
-            id="autonomousSwitch"
-            class="switch"
-            type="button"
-            aria-label="Permitir elección autónoma del tema"
-        >
-            <span></span>
-        </button>
-
-    </div>
+</button>
 
 </div>
 
-</section><section class="participants"><article class="person gepeto">
+</div>
 
-    <div class="person-head">
+<div
+    id="autonomousCard"
+    class="mode-card"
+>
 
-        <img
-            src="GePeTo.png"
-            class="person-photo"
-            alt="GePeTo"
-        >
+<div class="switch-row">
 
-        <div>
+<div>
 
-            <div class="person-name">
-                GePeTo
-            </div>
+<div class="mode-title">
+🧠 ELLOS ELIGEN EL TEMA
+</div>
 
-            <div class="person-role">
-                🔵 Azul fosforito · investigador
-            </div>
+<div class="mode-text">
+Si no existe un tema, GePeTo y Lía pueden elegir
+uno relacionado con aprender y mejorar Proyecto Rafa.
+</div>
 
-        </div>
+</div>
 
-    </div>
+<button
+    id="autonomousSwitch"
+    class="switch"
+    type="button"
+    aria-label="Permitir elección autónoma del tema"
+>
 
-    <div id="gepetoState" class="person-state">
-        Esperando el inicio de la sesión.
-    </div>
+<span></span>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="participants">
+
+<article class="person gepeto">
+
+<div class="person-head">
+
+<img
+    src="GePeTo.png"
+    class="person-photo"
+    alt="GePeTo"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+>
+
+<div
+    style="
+        display:none;
+        width:76px;
+        height:76px;
+        border-radius:50%;
+        align-items:center;
+        justify-content:center;
+        color:#19aaff;
+        font-size:25px;
+        font-weight:bold;
+        border:2px solid #19aaff;
+    "
+>
+GP
+</div>
+
+<div>
+
+<div class="person-name">
+GePeTo
+</div>
+
+<div class="person-role">
+🔵 Azul fosforito · investigador
+</div>
+
+</div>
+
+</div>
+
+<div
+    id="gepetoState"
+    class="person-state"
+>
+Esperando el inicio de la sesión.
+</div>
 
 </article>
-
 
 <article class="person lia">
 
-    <div class="person-head">
+<div class="person-head">
 
-        <img
-            src="LiA.png"
-            class="person-photo"
-            alt="Lía"
-        >
+<img
+    id="liaPhoto"
+    src="LiA.png"
+    class="person-photo"
+    alt="Lía"
+>
 
-        <div>
+<div>
 
-            <div class="person-name">
-                Lía
-            </div>
+<div class="person-name">
+Lía
+</div>
 
-            <div class="person-role">
-                🩷 Rosa fosforito · investigadora
-            </div>
+<div class="person-role">
+🩷 Rosa fosforito · investigadora
+</div>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
-    <div id="liaState" class="person-state">
-        Esperando el inicio de la sesión.
-    </div>
+<div
+    id="liaState"
+    class="person-state"
+>
+Esperando el inicio de la sesión.
+</div>
 
 </article>
-
 
 <article class="person rafa">
 
-    <div class="person-head">
+<div class="person-head">
 
-        <div class="rafa-photo">
-            R
-        </div>
+<div class="rafa-photo">
+R
+</div>
 
-        <div>
+<div>
 
-            <div class="person-name">
-                Rafa
-            </div>
+<div class="person-name">
+Rafa
+</div>
 
-            <div class="person-role">
-                🟢 Verde fosforito · creador
-            </div>
+<div class="person-role">
+🟢 Verde fosforito · creador
+</div>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
-    <div class="person-state">
-        Puedes entrar en cualquier momento y hablar
-        directamente con los dos.
-    </div>
+<div class="person-state">
+Puedes entrar en cualquier momento y hablar
+directamente con los dos.
+</div>
 
 </article>
 
-</section><section class="topic"><div class="section-title">
+</section>
 
-    <h2>
-        🧠 TEMA DE INVESTIGACIÓN / DILEMA
-    </h2>
+<!-- =====================================================
+     AUDIO Y VOZ
+===================================================== -->
 
-    <span id="topicSource">
-        Tema elegido por Rafa
-    </span>
+<section class="audio-panel">
+
+<div class="section-title">
+
+<h2>
+🔊 AUDIO · VOZ DE INFINITO
+</h2>
+
+<span id="voiceStatus">
+Voz preparada
+</span>
 
 </div>
 
+<div class="audio-grid">
+
+<div class="audio-box">
+
+<div class="audio-title">
+🗣️ VOZ DE GEPETO Y LÍA
+</div>
+
+<div class="audio-controls">
+
+<button
+    type="button"
+    id="voiceToggle"
+    class="active"
+>
+🔊 VOZ ACTIVADA
+</button>
+
+<button
+    type="button"
+    id="voiceStop"
+>
+⏹ PARAR VOZ
+</button>
+
+</div>
+
+<select
+    id="voiceSelect"
+    class="audio-select"
+    style="margin-top:9px;"
+>
+<option value="">
+Voz automática en español
+</option>
+</select>
+
+<input
+    id="voiceVolume"
+    class="audio-range"
+    type="range"
+    min="0"
+    max="1"
+    step=".05"
+    value="1"
+>
+
+<div class="audio-now">
+Las respuestas de GePeTo y Lía se leerán en voz alta.
+El navegador puede exigir una primera interacción del usuario
+antes de permitir voz automática.
+</div>
+
+</div>
+
+<div class="audio-box">
+
+<div class="audio-title">
+🎵 REPRODUCTOR MP3 DE INFINITO
+</div>
+
+<select
+    id="mp3Select"
+    class="audio-select"
+>
+<option value="Relax1.mp3">
+Relax1.mp3
+</option>
+
+<option value="Relax2.mp3">
+Relax2.mp3
+</option>
+</select>
+
+<audio
+    id="mp3Player"
+    preload="metadata"
+    controls
+    style="width:100%;"
+>
+</audio>
+
+<div
+    class="audio-controls"
+    style="margin-top:9px;"
+>
+
+<button
+    type="button"
+    id="mp3Play"
+>
+▶ REPRODUCIR
+</button>
+
+<button
+    type="button"
+    id="mp3Pause"
+>
+⏸ PAUSAR
+</button>
+
+<button
+    type="button"
+    id="mp3Stop"
+>
+⏹ PARAR
+</button>
+
+<button
+    type="button"
+    id="mp3Prev"
+>
+⏮ ANTERIOR
+</button>
+
+<button
+    type="button"
+    id="mp3Next"
+>
+⏭ SIGUIENTE
+</button>
+
+</div>
+
+<div
+    class="audio-controls"
+    style="margin-top:9px;"
+>
+
+<label class="file-label">
+
+📁 SUBIR MP3
+
+<input
+    id="mp3Upload"
+    type="file"
+    accept="audio/mpeg,audio/mp3,audio/*"
+>
+
+</label>
+
+</div>
+
+<input
+    id="mp3Volume"
+    class="audio-range"
+    type="range"
+    min="0"
+    max="1"
+    step=".05"
+    value=".8"
+    style="margin-top:9px;"
+>
+
+<div
+    id="mp3Now"
+    class="audio-now"
+>
+Preparado para reproducir música.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="topic">
+
+<div class="section-title">
+
+<h2>
+🧠 TEMA DE INVESTIGACIÓN / DILEMA
+</h2>
+
+<span id="topicSource">
+Tema elegido por Rafa
+</span>
+
+</div>
 
 <div class="topic-grid">
 
-    <input
-        id="topicInput"
-        type="text"
-        maxlength="500"
-        placeholder="Escribe el tema que quieres que investiguen..."
-    >
+<input
+    id="topicInput"
+    type="text"
+    maxlength="500"
+    placeholder="Escribe el tema que quieres que investiguen..."
+>
 
-    <button
-        id="startTopicBtn"
-        class="primary"
-        type="button"
-    >
-        INICIAR
-    </button>
+<button
+    id="startTopicBtn"
+    class="primary"
+    type="button"
+>
+INICIAR
+</button>
 
 </div>
-
 
 <div class="topic-options">
 
-    <button
-        type="button"
-        class="small-btn"
-        data-topic="Buscar una mejora importante para Proyecto Rafa"
-    >
-        Mejorar Proyecto Rafa
-    </button>
+<button
+    type="button"
+    class="small-btn"
+    data-topic="Buscar una mejora importante para Proyecto Rafa"
+>
+Mejorar Proyecto Rafa
+</button>
 
-    <button
-        type="button"
-        class="small-btn"
-        data-topic="Revisar y mejorar la memoria de GePeTo y Lía"
-    >
-        Mejorar memoria
-    </button>
+<button
+    type="button"
+    class="small-btn"
+    data-topic="Revisar y mejorar la memoria de GePeTo y Lía"
+>
+Mejorar memoria
+</button>
 
-    <button
-        type="button"
-        class="small-btn"
-        data-topic="Buscar mejoras para la conversación entre GePeTo y Lía"
-    >
-        Mejorar conversación
-    </button>
+<button
+    type="button"
+    class="small-btn"
+    data-topic="Buscar mejoras para la conversación entre GePeTo y Lía"
+>
+Mejorar conversación
+</button>
 
-    <button
-        type="button"
-        class="small-btn"
-        data-topic="Buscar errores y mejoras en la programación de Proyecto Rafa"
-    >
-        Revisar programación
-    </button>
-
-</div>
-
-</section><section class="conversation"><div class="conversation-head">
-
-    <strong>
-        💬 CONVERSACIÓN INFINITA
-    </strong>
-
-    <div class="live">
-
-        <span id="liveDot" class="live-dot"></span>
-
-        <span id="liveText">
-            Esperando
-        </span>
-
-    </div>
+<button
+    type="button"
+    class="small-btn"
+    data-topic="Buscar errores y mejoras en la programación de Proyecto Rafa"
+>
+Revisar programación
+</button>
 
 </div>
 
+</section>
 
-<div id="messages" class="messages">
+<section class="conversation">
 
-    <div class="message system">
+<div class="conversation-head">
 
-        Infinito está preparado. Puedes elegir un tema,
-        dejar que ellos lo elijan o entrar directamente
-        en la conversación.
+<strong>
+💬 CONVERSACIÓN INFINITA
+</strong>
 
-    </div>
+<div class="live">
+
+<span
+    id="liveDot"
+    class="live-dot"
+></span>
+
+<span id="liveText">
+Esperando
+</span>
 
 </div>
 
+</div>
 
-<form id="chatForm" class="chat-form">
+<div
+    id="messages"
+    class="messages"
+>
 
-    <textarea
-        id="rafaInput"
-        placeholder="Rafa, escribe aquí para hablar con GePeTo y Lía..."
-        maxlength="4000"
-    ></textarea>
+<div class="message system">
 
-    <button class="send" type="submit">
-        ENVIAR
-    </button>
+Infinito está preparado. Puedes elegir un tema,
+dejar que ellos lo elijan o entrar directamente
+en la conversación.
+
+</div>
+
+</div>
+
+<form
+    id="chatForm"
+    class="chat-form"
+>
+
+<textarea
+    id="rafaInput"
+    placeholder="Rafa, escribe aquí para hablar con GePeTo y Lía..."
+    maxlength="4000"
+></textarea>
+
+<button
+    class="send"
+    type="submit"
+>
+ENVIAR
+</button>
 
 </form>
 
-</section><section class="bottom-grid"><div class="panel dilemma">
+</section>
 
-    <div class="section-title">
+<section class="bottom-grid">
 
-        <h2>
-            ⚖️ DILEMA EN CURSO
-        </h2>
+<div class="panel dilemma">
 
-        <span id="dilemmaState">
-            Sin dilema
-        </span>
+<div class="section-title">
 
-    </div>
+<h2>
+⚖️ DILEMA EN CURSO
+</h2>
 
-    <div id="dilemmaBox" class="dilemma-box">
-
-        Cuando GePeTo y Lía encuentren un punto
-        que requiera discusión, aparecerá aquí.
-
-    </div>
+<span id="dilemmaState">
+Sin dilema
+</span>
 
 </div>
 
+<div
+    id="dilemmaBox"
+    class="dilemma-box"
+>
+
+Cuando GePeTo y Lía encuentren un punto
+que requiera discusión, aparecerá aquí.
+
+</div>
+
+</div>
 
 <div class="panel">
 
-    <div class="section-title">
+<div class="section-title">
 
-        <h2>
-            🤝 ACUERDOS ALCANZADOS
-        </h2>
+<h2>
+🤝 ACUERDOS ALCANZADOS
+</h2>
 
-        <span id="agreementCount">
-            0 acuerdos
-        </span>
-
-    </div>
-
-    <div id="agreements" class="agreements">
-
-        <div class="agreement">
-
-            <div class="agreement-title">
-                Todavía no hay acuerdos.
-            </div>
-
-            <p>
-                Los acuerdos reales se guardarán cuando
-                GePeTo y Lía hayan investigado y contrastado
-                un tema.
-            </p>
-
-        </div>
-
-    </div>
+<span id="agreementCount">
+0 acuerdos
+</span>
 
 </div>
 
-</section><section class="audit"><div class="section-title">
+<div
+    id="agreements"
+    class="agreements"
+>
 
-    <h2>
-        🛠️ LABORATORIO · AUDITORÍA DE PROYECTO RAFA
-    </h2>
+<div class="agreement">
 
-    <span>
-        Acceso técnico autorizado
-    </span>
+<div class="agreement-title">
+Todavía no hay acuerdos.
+</div>
+
+<p>
+Los acuerdos reales se guardarán cuando
+GePeTo y Lía hayan investigado y contrastado
+un tema.
+</p>
 
 </div>
 
+</div>
+
+</div>
+
+</section>
+
+<section class="audit">
+
+<div class="section-title">
+
+<h2>
+🛠️ LABORATORIO · CONTROL DE WORKERS
+</h2>
+
+<span>
+Diagnóstico real
+</span>
+
+</div>
 
 <div class="audit-grid">
 
-    <button
-        type="button"
-        class="audit-btn"
-        data-audit="github"
-    >
-        <strong>🐙 GITHUB</strong>
-        <small>
-            Revisar repositorio y archivos
-        </small>
-    </button>
+<button
+    type="button"
+    class="audit-btn"
+    data-audit="gepeto"
+>
+<strong>🔵 GEPETO</strong>
+<small>
+Comprobar /preguntar
+</small>
+</button>
 
+<button
+    type="button"
+    class="audit-btn"
+    data-audit="lia"
+>
+<strong>🩷 LÍA</strong>
+<small>
+Comprobar /preguntar
+</small>
+</button>
 
-    <button
-        type="button"
-        class="audit-btn"
-        data-audit="cloudflare"
-    >
-        <strong>☁️ CLOUDFLARE</strong>
-        <small>
-            Revisar Workers y configuración
-        </small>
-    </button>
+<button
+    type="button"
+    class="audit-btn"
+    data-audit="both"
+>
+<strong>⚡ AMBOS</strong>
+<small>
+Prueba completa
+</small>
+</button>
 
-
-    <button
-        type="button"
-        class="audit-btn"
-        data-audit="web"
-    >
-        <strong>🌐 WEB</strong>
-        <small>
-            Buscar errores y problemas
-        </small>
-    </button>
-
-
-    <button
-        type="button"
-        class="audit-btn"
-        data-audit="improve"
-    >
-        <strong>🔧 MEJORAR</strong>
-        <small>
-            Preparar mejoras técnicas
-        </small>
-    </button>
+<button
+    type="button"
+    class="audit-btn"
+    data-audit="estado"
+>
+<strong>☁️ ESTADO</strong>
+<small>
+Comprobar Workers
+</small>
+</button>
 
 </div>
 
+<div
+    id="auditResult"
+    class="audit-result"
+>
 
-<div id="auditResult" class="audit-result">
-
-    El laboratorio técnico está preparado para conectarse
-    al Worker de control de Infinito.
-
-</div>
-
-</section><section class="tasks"><div class="section-title">
-
-    <h2>
-        📋 TRABAJO AUTÓNOMO
-    </h2>
-
-    <span id="taskStatus">
-        Sin tareas activas
-    </span>
+Pulsa una prueba para comprobar exactamente
+qué está devolviendo cada Worker.
 
 </div>
 
+</section>
+
+<section class="tasks">
+
+<div class="section-title">
+
+<h2>
+📋 TRABAJO AUTÓNOMO
+</h2>
+
+<span id="taskStatus">
+Sin tareas activas
+</span>
+
+</div>
 
 <div id="tasksList">
 
-    <div class="task">
+<div class="task">
 
-        <div class="task-icon">
-            🧠
-        </div>
+<div class="task-icon">
+🧠
+</div>
 
-        <div class="task-text">
+<div class="task-text">
 
-            <strong>
-                Aprender y mejorar Proyecto Rafa
-            </strong>
+<strong>
+Aprender y mejorar Proyecto Rafa
+</strong>
 
-            <div class="task-status">
-                Preparado para iniciar
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="task">
-
-        <div class="task-icon">
-            🔍
-        </div>
-
-        <div class="task-text">
-
-            <strong>
-                Comprobar código antes de proponer cambios
-            </strong>
-
-            <div class="task-status">
-                Regla de Infinito
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="task">
-
-        <div class="task-icon">
-            🤝
-        </div>
-
-        <div class="task-text">
-
-            <strong>
-                Guardar acuerdos y conocimiento
-            </strong>
-
-            <div class="task-status">
-                Preparado
-            </div>
-
-        </div>
-
-    </div>
+<div class="task-status">
+Preparado para iniciar
+</div>
 
 </div>
 
-</section></div><script>
+</div>
+
+<div class="task">
+
+<div class="task-icon">
+🔍
+</div>
+
+<div class="task-text">
+
+<strong>
+Comprobar código antes de proponer cambios
+</strong>
+
+<div class="task-status">
+Regla de Infinito
+</div>
+
+</div>
+
+</div>
+
+<div class="task">
+
+<div class="task-icon">
+🤝
+</div>
+
+<div class="task-text">
+
+<strong>
+Guardar acuerdos y conocimiento
+</strong>
+
+<div class="task-status">
+Preparado
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
 
 /* =========================================================
    INFINITO · CONFIGURACIÓN
 ========================================================= */
-
-const INFINITO_WORKER_URL = "";
 
 const GEPETO_WORKER_URL =
     "https://gepetto-rafa.rafadun18.workers.dev";
 
 const LIA_WORKER_URL =
     "https://lia-rafa.rafadun18.workers.dev";
+
+/*
+   IMPORTANTE:
+
+   No se utiliza un Worker intermedio vacío para la conversación.
+
+   INFINITO habla directamente con:
+
+   GePeTo -> /preguntar
+   Lía    -> /preguntar
+
+   El diagnóstico permite saber si el problema está:
+   - en la URL
+   - en CORS
+   - en OPTIONS
+   - en el POST
+   - en el formato de respuesta
+   - o en el propio Worker.
+*/
 
 
 /* =========================================================
@@ -1498,6 +1931,10 @@ const state = {
     eleccionAutonoma:false,
 
     conectado:false,
+
+    gepetoOnline:false,
+
+    liaOnline:false,
 
     conversacionActiva:false,
 
@@ -1517,7 +1954,21 @@ const state = {
 
     historial:[],
 
-    ultimoMensaje:""
+    ultimoMensaje:"",
+
+    vozActivada:true,
+
+    vozVolumen:1,
+
+    mp3Tracks:[],
+
+    mp3Index:0,
+
+    mp3ObjectUrls:[],
+
+    voces:[],
+
+    vozSeleccionada:""
 
 };
 
@@ -1526,47 +1977,92 @@ const state = {
    ELEMENTOS
 ========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+    document.getElementById(id);
 
-const messages = $("messages");
+const messages =
+    $("messages");
 
-const topicInput = $("topicInput");
+const topicInput =
+    $("topicInput");
 
-const topicSource = $("topicSource");
+const topicSource =
+    $("topicSource");
 
-const gepetoState = $("gepetoState");
+const gepetoState =
+    $("gepetoState");
 
-const liaState = $("liaState");
+const liaState =
+    $("liaState");
 
-const liveDot = $("liveDot");
+const liveDot =
+    $("liveDot");
 
-const liveText = $("liveText");
+const liveText =
+    $("liveText");
 
-const dilemmaBox = $("dilemmaBox");
+const dilemmaBox =
+    $("dilemmaBox");
 
-const dilemmaState = $("dilemmaState");
+const dilemmaState =
+    $("dilemmaState");
 
-const agreementsBox = $("agreements");
+const agreementsBox =
+    $("agreements");
 
-const agreementCount = $("agreementCount");
+const agreementCount =
+    $("agreementCount");
 
-const auditResult = $("auditResult");
+const auditResult =
+    $("auditResult");
 
-const taskStatus = $("taskStatus");
+const taskStatus =
+    $("taskStatus");
 
-const tasksList = $("tasksList");
+const connectionDot =
+    $("connectionDot");
 
-const connectionDot = $("connectionDot");
+const connectionText =
+    $("connectionText");
 
-const connectionText = $("connectionText");
+const autoSwitch =
+    $("autoSwitch");
 
-const autoSwitch = $("autoSwitch");
+const autonomousSwitch =
+    $("autonomousSwitch");
 
-const autonomousSwitch = $("autonomousSwitch");
+const autoCard =
+    $("autoCard");
 
-const autoCard = $("autoCard");
+const autonomousCard =
+    $("autonomousCard");
 
-const autonomousCard = $("autonomousCard");
+const mp3Player =
+    $("mp3Player");
+
+const mp3Select =
+    $("mp3Select");
+
+const mp3Now =
+    $("mp3Now");
+
+const mp3Volume =
+    $("mp3Volume");
+
+const voiceToggle =
+    $("voiceToggle");
+
+const voiceStop =
+    $("voiceStop");
+
+const voiceSelect =
+    $("voiceSelect");
+
+const voiceVolume =
+    $("voiceVolume");
+
+const voiceStatus =
+    $("voiceStatus");
 
 
 /* =========================================================
@@ -1586,17 +2082,44 @@ function escapeHtml(text){
         .replace(/"/g,"&quot;")
 
         .replace(/'/g,"&#039;");
+
 }
 
 
-function setConnection(online,text){
+function setConnection(
+    online,
+    text,
+    warning=false
+){
 
-    state.conectado = online;
+    state.conectado =
+        online;
 
-    connectionDot.classList.toggle(
+    connectionDot.classList.remove(
         "online",
-        online
+        "warning",
+        "error"
     );
+
+    if(online){
+
+        connectionDot.classList.add(
+            "online"
+        );
+
+    }else if(warning){
+
+        connectionDot.classList.add(
+            "warning"
+        );
+
+    }else{
+
+        connectionDot.classList.add(
+            "error"
+        );
+
+    }
 
     connectionText.textContent =
         text ||
@@ -1605,10 +2128,14 @@ function setConnection(online,text){
             ? "Conectado"
             : "Sin conexión"
         );
+
 }
 
 
-function setLive(active,text){
+function setLive(
+    active,
+    text
+){
 
     liveDot.classList.toggle(
         "active",
@@ -1622,28 +2149,39 @@ function setLive(active,text){
             ? "Activo"
             : "Esperando"
         );
+
 }
 
 
-function setStates(g,l){
+function setStates(
+    g,
+    l
+){
 
     if(g){
-        gepetoState.textContent = g;
+        gepetoState.textContent =
+            g;
     }
 
     if(l){
-        liaState.textContent = l;
+        liaState.textContent =
+            l;
     }
+
 }
 
 
-function addMessage(who,text){
+function addMessage(
+    who,
+    text
+){
 
     if(!text){
         return;
     }
 
-    const limpio = String(text).trim();
+    const limpio =
+        String(text).trim();
 
     if(!limpio){
         return;
@@ -1667,7 +2205,8 @@ function addMessage(who,text){
 
     });
 
-    state.ultimoMensaje = limpio;
+    state.ultimoMensaje =
+        limpio;
 
     const div =
         document.createElement("div");
@@ -1679,15 +2218,18 @@ function addMessage(who,text){
         "SISTEMA";
 
     if(who === "gepeto"){
-        nombre = "🔵 GePeTo";
+        nombre =
+            "🔵 GePeTo";
     }
 
     if(who === "lia"){
-        nombre = "🩷 Lía";
+        nombre =
+            "🩷 Lía";
     }
 
     if(who === "rafa"){
-        nombre = "🟢 Rafa";
+        nombre =
+            "🟢 Rafa";
     }
 
     div.innerHTML =
@@ -1696,14 +2238,35 @@ function addMessage(who,text){
         "</span>" +
         escapeHtml(limpio);
 
-    messages.appendChild(div);
+    messages.appendChild(
+        div
+    );
 
     messages.scrollTop =
         messages.scrollHeight;
+
+    /*
+       La voz se activa solamente para GePeTo y Lía.
+    */
+
+    if(
+        who === "gepeto" ||
+        who === "lia"
+    ){
+
+        hablar(
+            limpio,
+            who
+        );
+
+    }
+
 }
 
 
-function systemMessage(text){
+function systemMessage(
+    text
+){
 
     const div =
         document.createElement("div");
@@ -1714,22 +2277,29 @@ function systemMessage(text){
     div.textContent =
         text;
 
-    messages.appendChild(div);
+    messages.appendChild(
+        div
+    );
 
     messages.scrollTop =
         messages.scrollHeight;
+
 }
 
 
 function limpiarConversacion(){
 
-    messages.innerHTML = "";
+    messages.innerHTML =
+        "";
 
-    state.mensajes = [];
+    state.mensajes =
+        [];
 
-    state.historial = [];
+    state.historial =
+        [];
 
-    state.ultimoMensaje = "";
+    state.ultimoMensaje =
+        "";
 
 }
 
@@ -1767,130 +2337,158 @@ function setAutonomousVisual(){
 function sleep(ms){
 
     return new Promise(
-        resolve => setTimeout(resolve,ms)
+        resolve =>
+            setTimeout(
+                resolve,
+                ms
+            )
     );
 
 }
 
 
 /* =========================================================
-   PETICIONES SEGURAS
+   PETICIÓN AL WORKER
 ========================================================= */
 
-async function fetchJson(url,options={}){
+async function fetchWorker(
+    url,
+    options={}
+){
+
+    const finalOptions = {
+
+        method:
+            options.method ||
+            "GET",
+
+        cache:"no-store",
+
+        mode:"cors",
+
+        ...options
+
+    };
+
+    /*
+       No añadimos Content-Type automáticamente.
+
+       Esto es importante porque un POST con
+       application/json puede generar OPTIONS/CORS.
+
+       Primero usamos text/plain con un cuerpo JSON.
+       request.json() del Worker puede leer igualmente
+       el contenido JSON del body.
+    */
+
+    if(
+        finalOptions.method === "POST" &&
+        finalOptions.body &&
+        !finalOptions.headers
+    ){
+
+        finalOptions.headers = {
+
+            "Accept":
+                "application/json,text/plain,*/*",
+
+            "Content-Type":
+                "text/plain;charset=UTF-8"
+
+        };
+
+    }
 
     const response =
         await fetch(
             url,
-            {
-                ...options,
-
-                headers:{
-                    "Accept":"application/json",
-                    "Content-Type":"application/json",
-                    ...(options.headers || {})
-                }
-            }
+            finalOptions
         );
 
-    const texto =
+    const raw =
         await response.text();
 
-    let data = null;
+    let data =
+        null;
 
     try{
 
         data =
-            texto
-            ? JSON.parse(texto)
+            raw
+            ? JSON.parse(raw)
             : {};
 
     }catch{
 
         data = {
-            texto:texto
+            texto:raw
         };
 
     }
 
     if(!response.ok){
 
-        const error =
+        const errorText =
             data?.error ||
             data?.message ||
-            ("HTTP " + response.status);
-
-        throw new Error(error);
-
-    }
-
-    return data;
-
-}
-
-
-/* =========================================================
-   COMPROBAR WORKER DE INFINITO
-========================================================= */
-
-async function comprobarConexion(){
-
-    if(!INFINITO_WORKER_URL){
-
-        setConnection(
-            false,
-            "Workers IA preparados · control técnico pendiente"
-        );
-
-        return false;
-
-    }
-
-    try{
-
-        const data =
-            await fetchJson(
-                INFINITO_WORKER_URL +
-                "/estado",
-                {
-                    method:"GET"
-                }
+            data?.texto ||
+            raw ||
+            (
+                "HTTP " +
+                response.status
             );
 
-        setConnection(
-            true,
-            data.nombre ||
-            "Infinito conectado"
-        );
+        const error =
+            new Error(
+                errorText
+            );
 
-        return true;
+        error.status =
+            response.status;
 
-    }catch(error){
+        error.raw =
+            raw;
 
-        setConnection(
-            false,
-            "Worker de Infinito no disponible"
-        );
-
-        return false;
+        throw error;
 
     }
+
+    return {
+
+        status:
+            response.status,
+
+        headers:
+            response.headers,
+
+        raw:raw,
+
+        data:data
+
+    };
 
 }
 
 
 /* =========================================================
-   RESPUESTA DEL WORKER
+   EXTRAER TEXTO DE CUALQUIER RESPUESTA
 ========================================================= */
 
-function extraerTexto(data){
+function extraerTexto(
+    data
+){
 
     if(data == null){
         return "";
     }
 
-    if(typeof data === "string"){
-        return data;
+    if(
+        typeof data ===
+        "string"
+    ){
+
+        return data.trim();
+
     }
 
     const posibles = [
@@ -1915,6 +2513,8 @@ function extraerTexto(data){
 
         data.result,
 
+        data.reply,
+
         data.data?.respuesta,
 
         data.data?.response,
@@ -1924,6 +2524,10 @@ function extraerTexto(data){
         data.data?.text,
 
         data.data?.content,
+
+        data.data?.answer,
+
+        data.data?.reply,
 
         data.choices?.[0]?.message?.content,
 
@@ -1936,7 +2540,8 @@ function extraerTexto(data){
     ){
 
         if(
-            typeof valor === "string" &&
+            typeof valor ===
+            "string" &&
             valor.trim()
         ){
 
@@ -1952,128 +2557,16 @@ function extraerTexto(data){
 
 
 /* =========================================================
-   LLAMAR A GEPETO
+   CONSTRUIR CONTEXTO
 ========================================================= */
 
-async function preguntarGePeTo(prompt){
-
-    const contexto =
-        construirContexto("GePeTo");
-
-    const cuerpo = {
-
-        mensaje:prompt,
-
-        prompt:prompt,
-
-        pregunta:prompt,
-
-        tema:state.tema,
-
-        contexto:contexto,
-
-        historial:state.mensajes.slice(-12),
-
-        origen:"INFINITO",
-
-        proyecto:"Proyecto Rafa",
-
-        participante:"GePeTo"
-
-    };
-
-    const data =
-        await fetchJson(
-            GEPETO_WORKER_URL +
-            "/preguntar",
-            {
-                method:"POST",
-                body:JSON.stringify(cuerpo)
-            }
-        );
-
-    const texto =
-        extraerTexto(data);
-
-    if(!texto){
-
-        throw new Error(
-            "GePeTo no devolvió texto"
-        );
-
-    }
-
-    return texto;
-
-}
-
-
-/* =========================================================
-   LLAMAR A LÍA
-========================================================= */
-
-async function preguntarLia(prompt){
-
-    const contexto =
-        construirContexto("Lía");
-
-    const cuerpo = {
-
-        mensaje:prompt,
-
-        prompt:prompt,
-
-        pregunta:prompt,
-
-        tema:state.tema,
-
-        contexto:contexto,
-
-        historial:state.mensajes.slice(-12),
-
-        origen:"INFINITO",
-
-        proyecto:"Proyecto Rafa",
-
-        participante:"Lía"
-
-    };
-
-    const data =
-        await fetchJson(
-            LIA_WORKER_URL +
-            "/preguntar",
-            {
-                method:"POST",
-                body:JSON.stringify(cuerpo)
-            }
-        );
-
-    const texto =
-        extraerTexto(data);
-
-    if(!texto){
-
-        throw new Error(
-            "Lía no devolvió texto"
-        );
-
-    }
-
-    return texto;
-
-}
-
-
-/* =========================================================
-   CONTEXTO
-========================================================= */
-
-function construirContexto(participante){
+function construirContexto(
+    participante
+){
 
     const historial =
         state.mensajes
-        .slice(-10)
+        .slice(-12)
         .map(
             m =>
                 m.who +
@@ -2092,17 +2585,22 @@ function construirContexto(participante){
         participante,
 
         "Tema: " +
-        (state.tema || "sin tema"),
+        (
+            state.tema ||
+            "sin tema"
+        ),
 
         "Conversación reciente:",
 
-        historial || "sin conversación previa",
+        historial ||
+        "sin conversación previa",
 
         "",
 
-        "GePeTo y Lía deben hablar entre ellos,",
-        "contrastar ideas y no limitarse a repetir",
-        "la intervención anterior."
+        "GePeTo y Lía pueden debatir.",
+        "Deben contrastar ideas.",
+        "No deben limitarse a repetir.",
+        "Rafa puede intervenir en cualquier momento."
 
     ].join("\n");
 
@@ -2110,7 +2608,1406 @@ function construirContexto(participante){
 
 
 /* =========================================================
-   ELEGIR TEMA AUTÓNOMO
+   PETICIÓN BASE
+========================================================= */
+
+function construirBody(
+    prompt,
+    participante
+){
+
+    return JSON.stringify({
+
+        mensaje:prompt,
+
+        prompt:prompt,
+
+        pregunta:prompt,
+
+        message:prompt,
+
+        tema:
+            state.tema,
+
+        contexto:
+            construirContexto(
+                participante
+            ),
+
+        historial:
+            state.mensajes
+            .slice(-12),
+
+        origen:
+            "INFINITO",
+
+        proyecto:
+            "Proyecto Rafa",
+
+        participante:
+            participante
+
+    });
+
+}
+
+
+/* =========================================================
+   GEPETO
+========================================================= */
+
+async function preguntarGePeTo(
+    prompt
+){
+
+    const body =
+        construirBody(
+            prompt,
+            "GePeTo"
+        );
+
+    const resultado =
+        await fetchWorker(
+
+            GEPETO_WORKER_URL +
+            "/preguntar",
+
+            {
+
+                method:"POST",
+
+                body:body
+
+            }
+
+        );
+
+    const texto =
+        extraerTexto(
+            resultado.data
+        );
+
+    if(!texto){
+
+        throw new Error(
+            "GePeTo respondió HTTP " +
+            resultado.status +
+            " pero no devolvió texto. Respuesta recibida: " +
+            (
+                resultado.raw ||
+                "(vacía)"
+            )
+        );
+
+    }
+
+    state.gepetoOnline =
+        true;
+
+    return texto;
+
+}
+
+
+/* =========================================================
+   LÍA
+========================================================= */
+
+async function preguntarLia(
+    prompt
+){
+
+    const body =
+        construirBody(
+            prompt,
+            "Lía"
+        );
+
+    const resultado =
+        await fetchWorker(
+
+            LIA_WORKER_URL +
+            "/preguntar",
+
+            {
+
+                method:"POST",
+
+                body:body
+
+            }
+
+        );
+
+    const texto =
+        extraerTexto(
+            resultado.data
+        );
+
+    if(!texto){
+
+        throw new Error(
+            "Lía respondió HTTP " +
+            resultado.status +
+            " pero no devolvió texto. Respuesta recibida: " +
+            (
+                resultado.raw ||
+                "(vacía)"
+            )
+        );
+
+    }
+
+    state.liaOnline =
+        true;
+
+    return texto;
+
+}
+
+
+/* =========================================================
+   VOZ
+========================================================= */
+
+function cargarVoces(){
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        voiceStatus.textContent =
+            "Voz no disponible";
+
+        voiceToggle.disabled =
+            true;
+
+        return;
+
+    }
+
+    const voces =
+        speechSynthesis
+        .getVoices();
+
+    state.voces =
+        voces;
+
+    voiceSelect.innerHTML =
+        "";
+
+    const automatico =
+        document.createElement(
+            "option"
+        );
+
+    automatico.value =
+        "";
+
+    automatico.textContent =
+        "Voz automática en español";
+
+    voiceSelect.appendChild(
+        automatico
+    );
+
+    voces
+    .filter(
+        voz =>
+            /^es/i.test(
+                voz.lang
+            )
+    )
+    .forEach(
+        voz => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                voz.name;
+
+            option.textContent =
+                voz.name +
+                " · " +
+                voz.lang;
+
+            voiceSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+if(
+    "speechSynthesis" in window
+){
+
+    speechSynthesis.onvoiceschanged =
+        cargarVoces;
+
+    cargarVoces();
+
+}
+
+
+function seleccionarVoz(
+    who
+){
+
+    const seleccion =
+        state.vozSeleccionada;
+
+    let voces =
+        state.voces
+        .filter(
+            voz =>
+                /^es/i.test(
+                    voz.lang
+                )
+        );
+
+    if(!voces.length){
+
+        voces =
+            state.voces;
+
+    }
+
+    if(!voces.length){
+        return null;
+    }
+
+    if(seleccion){
+
+        const encontrada =
+            voces.find(
+                voz =>
+                    voz.name ===
+                    seleccion
+            );
+
+        if(encontrada){
+            return encontrada;
+        }
+
+    }
+
+    /*
+       Intentamos una voz española
+       razonable antes de usar la primera.
+    */
+
+    const preferidas = [
+
+        "es-ES",
+
+        "es_MX",
+
+        "es-US"
+
+    ];
+
+    for(
+        const idioma of preferidas
+    ){
+
+        const encontrada =
+            voces.find(
+                voz =>
+                    voz.lang
+                    .toLowerCase()
+                    .startsWith(
+                        idioma
+                        .toLowerCase()
+                    )
+            );
+
+        if(encontrada){
+            return encontrada;
+        }
+
+    }
+
+    return voces[0];
+
+}
+
+
+function hablar(
+    texto,
+    who
+){
+
+    if(
+        !state.vozActivada
+    ){
+
+        return;
+
+    }
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        return;
+
+    }
+
+    const limpio =
+        String(texto || "")
+        .trim();
+
+    if(!limpio){
+        return;
+    }
+
+    /*
+       No ponemos en cola infinitas respuestas.
+       Cancelamos la anterior para que la conversación
+       no se convierta en una cola de voces atrasadas.
+    */
+
+    speechSynthesis.cancel();
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            limpio
+        );
+
+    const voz =
+        seleccionarVoz(
+            who
+        );
+
+    if(voz){
+
+        utterance.voice =
+            voz;
+
+        utterance.lang =
+            voz.lang;
+
+    }else{
+
+        utterance.lang =
+            "es-ES";
+
+    }
+
+    utterance.volume =
+        state.vozVolumen;
+
+    utterance.rate =
+        0.96;
+
+    utterance.pitch =
+        who === "lia"
+        ? 1.04
+        : 0.98;
+
+    utterance.onstart =
+        () => {
+
+            voiceStatus.textContent =
+                (
+                    who === "lia"
+                    ? "Lía hablando"
+                    : "GePeTo hablando"
+                );
+
+        };
+
+    utterance.onend =
+        () => {
+
+            voiceStatus.textContent =
+                "Voz preparada";
+
+        };
+
+    utterance.onerror =
+        () => {
+
+            voiceStatus.textContent =
+                "Voz bloqueada por el navegador";
+
+        };
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+voiceToggle.addEventListener(
+    "click",
+    () => {
+
+        state.vozActivada =
+            !state.vozActivada;
+
+        voiceToggle.classList.toggle(
+            "active",
+            state.vozActivada
+        );
+
+        voiceToggle.textContent =
+            state.vozActivada
+            ? "🔊 VOZ ACTIVADA"
+            : "🔇 VOZ DESACTIVADA";
+
+        if(
+            !state.vozActivada &&
+            "speechSynthesis" in window
+        ){
+
+            speechSynthesis.cancel();
+
+        }
+
+    }
+);
+
+
+voiceStop.addEventListener(
+    "click",
+    () => {
+
+        if(
+            "speechSynthesis" in window
+        ){
+
+            speechSynthesis.cancel();
+
+        }
+
+        voiceStatus.textContent =
+            "Voz detenida";
+
+    }
+);
+
+
+voiceVolume.addEventListener(
+    "input",
+    () => {
+
+        state.vozVolumen =
+            Number(
+                voiceVolume.value
+            );
+
+    }
+);
+
+
+voiceSelect.addEventListener(
+    "change",
+    () => {
+
+        state.vozSeleccionada =
+            voiceSelect.value;
+
+    }
+);
+
+
+/* =========================================================
+   MP3
+========================================================= */
+
+state.mp3Tracks = [
+
+    {
+        name:"Relax1.mp3",
+        src:"Relax1.mp3",
+        local:false
+    },
+
+    {
+        name:"Relax2.mp3",
+        src:"Relax2.mp3",
+        local:false
+    }
+
+];
+
+
+function reconstruirListaMP3(){
+
+    mp3Select.innerHTML =
+        "";
+
+    state.mp3Tracks.forEach(
+        (
+            track,
+            index
+        ) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                String(index);
+
+            option.textContent =
+                track.name;
+
+            mp3Select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+function cargarMP3(
+    index,
+    autoplay=false
+){
+
+    if(
+        !state.mp3Tracks.length
+    ){
+
+        mp3Now.textContent =
+            "No hay MP3 cargados.";
+
+        return;
+
+    }
+
+    if(
+        index < 0
+    ){
+
+        index =
+            state.mp3Tracks.length - 1;
+
+    }
+
+    if(
+        index >=
+        state.mp3Tracks.length
+    ){
+
+        index = 0;
+
+    }
+
+    state.mp3Index =
+        index;
+
+    const track =
+        state.mp3Tracks[index];
+
+    mp3Select.value =
+        String(index);
+
+    mp3Player.src =
+        track.src;
+
+    mp3Player.load();
+
+    mp3Now.textContent =
+        "Reproductor: " +
+        track.name;
+
+    if(autoplay){
+
+        mp3Player
+        .play()
+        .catch(
+            () => {
+
+                mp3Now.textContent =
+                    "Pulsa REPRODUCIR para iniciar " +
+                    track.name;
+
+            }
+        );
+
+    }
+
+}
+
+
+$("mp3Play").addEventListener(
+    "click",
+    () => {
+
+        mp3Player
+        .play()
+        .then(
+            () => {
+
+                mp3Now.textContent =
+                    "▶ Reproduciendo: " +
+                    (
+                        state.mp3Tracks[
+                            state.mp3Index
+                        ]?.name ||
+                        "MP3"
+                    );
+
+            }
+        )
+        .catch(
+            error => {
+
+                mp3Now.textContent =
+                    "No se pudo reproducir: " +
+                    error.message;
+
+            }
+        );
+
+    }
+);
+
+
+$("mp3Pause").addEventListener(
+    "click",
+    () => {
+
+        mp3Player.pause();
+
+        mp3Now.textContent =
+            "⏸ Música pausada.";
+
+    }
+);
+
+
+$("mp3Stop").addEventListener(
+    "click",
+    () => {
+
+        mp3Player.pause();
+
+        mp3Player.currentTime =
+            0;
+
+        mp3Now.textContent =
+            "⏹ Música detenida.";
+
+    }
+);
+
+
+$("mp3Prev").addEventListener(
+    "click",
+    () => {
+
+        cargarMP3(
+            state.mp3Index - 1,
+            true
+        );
+
+    }
+);
+
+
+$("mp3Next").addEventListener(
+    "click",
+    () => {
+
+        cargarMP3(
+            state.mp3Index + 1,
+            true
+        );
+
+    }
+);
+
+
+mp3Select.addEventListener(
+    "change",
+    () => {
+
+        cargarMP3(
+            Number(
+                mp3Select.value
+            ),
+            false
+        );
+
+    }
+);
+
+
+mp3Volume.addEventListener(
+    "input",
+    () => {
+
+        mp3Player.volume =
+            Number(
+                mp3Volume.value
+            );
+
+    }
+);
+
+
+mp3Player.volume =
+    Number(
+        mp3Volume.value
+    );
+
+
+mp3Player.addEventListener(
+    "ended",
+    () => {
+
+        /*
+           Relax1 -> Relax2 -> Relax1...
+        */
+
+        cargarMP3(
+            state.mp3Index + 1,
+            true
+        );
+
+    }
+);
+
+
+$("mp3Upload").addEventListener(
+    "change",
+    event => {
+
+        const archivo =
+            event.target.files?.[0];
+
+        if(!archivo){
+            return;
+        }
+
+        if(
+            !archivo.type.startsWith(
+                "audio/"
+            )
+        ){
+
+            mp3Now.textContent =
+                "El archivo seleccionado no parece ser un audio.";
+
+            return;
+
+        }
+
+        const url =
+            URL.createObjectURL(
+                archivo
+            );
+
+        state.mp3ObjectUrls.push(
+            url
+        );
+
+        state.mp3Tracks.push({
+
+            name:
+                archivo.name,
+
+            src:
+                url,
+
+            local:true
+
+        });
+
+        reconstruirListaMP3();
+
+        cargarMP3(
+            state.mp3Tracks.length - 1,
+            false
+        );
+
+        mp3Now.textContent =
+            "MP3 del dispositivo cargado: " +
+            archivo.name;
+
+    }
+);
+
+
+/* =========================================================
+   COMPROBACIÓN DE LÍA
+========================================================= */
+
+function prepararFotoLia(){
+
+    const img =
+        $("liaPhoto");
+
+    const candidatos = [
+
+        "LiA.png",
+
+        "LIA.png",
+
+        "Lia.png",
+
+        "lia.png",
+
+        "LiA.PNG",
+
+        "LIA.PNG"
+
+    ];
+
+    let indice =
+        0;
+
+    img.onerror =
+        function(){
+
+            indice++;
+
+            if(
+                indice <
+                candidatos.length
+            ){
+
+                this.src =
+                    candidatos[indice];
+
+                return;
+
+            }
+
+            /*
+               Si ninguna variante existe,
+               mostramos un avatar visual.
+            */
+
+            this.onerror =
+                null;
+
+            this.src =
+                "data:image/svg+xml;charset=UTF-8," +
+                encodeURIComponent(
+
+                    `<svg xmlns="http://www.w3.org/2000/svg"
+                    width="200"
+                    height="200"
+                    viewBox="0 0 200 200">
+
+                    <rect width="200"
+                    height="200"
+                    rx="100"
+                    fill="#07030b"/>
+
+                    <circle cx="100"
+                    cy="100"
+                    r="92"
+                    fill="none"
+                    stroke="#ff20d8"
+                    stroke-width="5"/>
+
+                    <text x="100"
+                    y="118"
+                    text-anchor="middle"
+                    font-family="Arial"
+                    font-size="55"
+                    font-weight="bold"
+                    fill="#ff20d8">LÍA</text>
+
+                    </svg>`
+
+                );
+
+        };
+
+    img.src =
+        candidatos[0];
+
+}
+
+prepararFotoLia();
+
+
+/* =========================================================
+   ESTADO DE LOS WORKERS
+========================================================= */
+
+async function comprobarEstadoWorker(
+    nombre,
+    url
+){
+
+    try{
+
+        const resultado =
+            await fetchWorker(
+                url +
+                "/estado",
+                {
+                    method:"GET"
+                }
+            );
+
+        return {
+
+            ok:true,
+
+            status:
+                resultado.status,
+
+            texto:
+                extraerTexto(
+                    resultado.data
+                ) ||
+                resultado.raw ||
+                "Worker respondió."
+
+        };
+
+    }catch(error){
+
+        return {
+
+            ok:false,
+
+            status:
+                error.status ||
+                0,
+
+            texto:
+                error.message ||
+                "Error desconocido"
+
+        };
+
+    }
+
+}
+
+
+async function comprobarConexion(){
+
+    setConnection(
+        false,
+        "Comprobando GePeTo y Lía...",
+        true
+    );
+
+    const [
+        gepeto,
+        lia
+    ] =
+        await Promise.all([
+
+            comprobarEstadoWorker(
+                "GePeTo",
+                GEPETO_WORKER_URL
+            ),
+
+            comprobarEstadoWorker(
+                "Lía",
+                LIA_WORKER_URL
+            )
+
+        ]);
+
+    state.gepetoOnline =
+        gepeto.ok;
+
+    state.liaOnline =
+        lia.ok;
+
+    if(
+        gepeto.ok &&
+        lia.ok
+    ){
+
+        setConnection(
+            true,
+            "Workers IA conectados · GePeTo y Lía"
+        );
+
+    }else if(
+        gepeto.ok ||
+        lia.ok
+    ){
+
+        setConnection(
+            false,
+            "Conexión parcial · revisar Worker",
+            true
+        );
+
+    }else{
+
+        setConnection(
+            false,
+            "Workers IA sin respuesta · ejecutar diagnóstico",
+            false
+        );
+
+    }
+
+    return (
+        gepeto.ok &&
+        lia.ok
+    );
+
+}
+
+
+/* =========================================================
+   DIAGNÓSTICO REAL DE /PREGUNTAR
+========================================================= */
+
+async function diagnosticarWorker(
+    nombre
+){
+
+    const esGepeto =
+        nombre ===
+        "GePeTo";
+
+    const url =
+        (
+            esGepeto
+            ? GEPETO_WORKER_URL
+            : LIA_WORKER_URL
+        );
+
+    const resultado = {
+
+        nombre:nombre,
+
+        estado:null,
+
+        preguntar:null,
+
+        error:null
+
+    };
+
+    auditResult.classList.add(
+        "loading"
+    );
+
+    auditResult.textContent =
+        "Comprobando " +
+        nombre +
+        "...";
+
+    try{
+
+        resultado.estado =
+            await comprobarEstadoWorker(
+                nombre,
+                url
+            );
+
+        /*
+           Prueba real de /preguntar.
+        */
+
+        const body =
+            construirBody(
+                "Responde únicamente: CONEXIÓN INFINITO OK",
+                nombre
+            );
+
+        try{
+
+            const respuesta =
+                await fetchWorker(
+
+                    url +
+                    "/preguntar",
+
+                    {
+
+                        method:"POST",
+
+                        body:body
+
+                    }
+
+                );
+
+            const texto =
+                extraerTexto(
+                    respuesta.data
+                );
+
+            resultado.preguntar = {
+
+                ok:true,
+
+                status:
+                    respuesta.status,
+
+                respuesta:
+                    texto ||
+                    respuesta.raw ||
+                    "(respuesta vacía)"
+
+            };
+
+        }catch(error){
+
+            resultado.preguntar = {
+
+                ok:false,
+
+                status:
+                    error.status ||
+                    0,
+
+                error:
+                    error.message ||
+                    "Sin respuesta"
+
+            };
+
+        }
+
+        mostrarDiagnostico(
+            resultado
+        );
+
+    }catch(error){
+
+        resultado.error =
+            error.message;
+
+        mostrarDiagnostico(
+            resultado
+        );
+
+    }finally{
+
+        auditResult.classList.remove(
+            "loading"
+        );
+
+    }
+
+}
+
+
+function mostrarDiagnostico(
+    resultado
+){
+
+    const estado =
+        resultado.estado;
+
+    const preguntar =
+        resultado.preguntar;
+
+    let html =
+        "";
+
+    html +=
+        "<strong>" +
+        escapeHtml(
+            resultado.nombre
+        ) +
+        "</strong><br><br>";
+
+    html +=
+        "• /estado: ";
+
+    if(
+        estado?.ok
+    ){
+
+        html +=
+            "🟢 HTTP " +
+            estado.status;
+
+        if(estado.texto){
+
+            html +=
+                " · " +
+                escapeHtml(
+                    estado.texto
+                );
+
+        }
+
+    }else{
+
+        html +=
+            "🔴 SIN RESPUESTA";
+
+        if(estado?.texto){
+
+            html +=
+                " · " +
+                escapeHtml(
+                    estado.texto
+                );
+
+        }
+
+    }
+
+    html +=
+        "<br><br>";
+
+    html +=
+        "• /preguntar: ";
+
+    if(
+        preguntar?.ok
+    ){
+
+        html +=
+            "🟢 HTTP " +
+            preguntar.status +
+            "<br>";
+
+        html +=
+            "Respuesta: " +
+            escapeHtml(
+                preguntar.respuesta
+            );
+
+    }else{
+
+        html +=
+            "🔴 ERROR";
+
+        if(
+            preguntar?.status
+        ){
+
+            html +=
+                " HTTP " +
+                preguntar.status;
+
+        }
+
+        html +=
+            "<br>";
+
+        html +=
+            escapeHtml(
+                preguntar?.error ||
+                "No se recibió respuesta."
+            );
+
+    }
+
+    html +=
+        "<br><br>";
+
+    html +=
+        "<small>";
+
+    if(
+        preguntar?.ok
+    ){
+
+        html +=
+            "El Worker recibe la petición y devuelve una respuesta correctamente.";
+
+    }else{
+
+        html +=
+            "Si el Worker aparece preparado pero /preguntar falla, el problema está en la ruta, CORS, OPTIONS, formato del body o en el propio Worker.";
+
+    }
+
+    html +=
+        "</small>";
+
+    auditResult.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   ERROR DE COMUNICACIÓN
+========================================================= */
+
+function manejarError(
+    quien,
+    error
+){
+
+    console.error(
+        quien,
+        error
+    );
+
+    setLive(
+        false,
+        "Error de comunicación"
+    );
+
+    if(
+        quien === "GePeTo"
+    ){
+
+        state.gepetoOnline =
+            false;
+
+    }
+
+    if(
+        quien === "Lía"
+    ){
+
+        state.liaOnline =
+            false;
+
+    }
+
+    setStates(
+        "Error de comunicación",
+        "Esperando conexión..."
+    );
+
+    systemMessage(
+
+        "⚠️ No se ha podido obtener respuesta de " +
+        quien +
+        ". " +
+        (
+            error?.message ||
+            "Comprueba el Worker."
+        )
+
+    );
+
+    taskStatus.textContent =
+        "Error · revisar Worker";
+
+    setConnection(
+        false,
+        "Error de comunicación con " +
+        quien,
+        false
+    );
+
+}
+
+
+/* =========================================================
+   TEMA AUTÓNOMO
 ========================================================= */
 
 const temasAutonomos = [
@@ -2146,19 +4043,26 @@ function elegirTemaAutonomo(){
             temasAutonomos.length
         );
 
-    return temasAutonomos[indice];
+    return
+        temasAutonomos[
+            indice
+        ];
 
 }
 
 
 /* =========================================================
-   ANALIZAR DILEMAS Y ACUERDOS
+   DILEMAS Y ACUERDOS
 ========================================================= */
 
-function analizarIntervencion(texto,quien){
+function analizarIntervencion(
+    texto,
+    quien
+){
 
     const t =
-        String(texto || "").toLowerCase();
+        String(texto || "")
+        .toLowerCase();
 
     const palabrasDilema = [
 
@@ -2187,10 +4091,14 @@ function analizarIntervencion(texto,quien){
     const contieneDilema =
         palabrasDilema.some(
             palabra =>
-                t.includes(palabra)
+                t.includes(
+                    palabra
+                )
         );
 
-    if(contieneDilema){
+    if(
+        contieneDilema
+    ){
 
         dilemmaState.textContent =
             "Discusión detectada";
@@ -2225,10 +4133,14 @@ function analizarIntervencion(texto,quien){
     const esAcuerdo =
         patronesAcuerdo.some(
             palabra =>
-                t.includes(palabra)
+                t.includes(
+                    palabra
+                )
         );
 
-    if(esAcuerdo){
+    if(
+        esAcuerdo
+    ){
 
         registrarAcuerdo(
             quien +
@@ -2241,7 +4153,9 @@ function analizarIntervencion(texto,quien){
 }
 
 
-function registrarAcuerdo(texto){
+function registrarAcuerdo(
+    texto
+){
 
     if(!texto){
         return;
@@ -2258,7 +4172,9 @@ function registrarAcuerdo(texto){
         return;
     }
 
-    state.acuerdos.push(texto);
+    state.acuerdos.push(
+        texto
+    );
 
     renderAcuerdos();
 
@@ -2275,7 +4191,9 @@ function renderAcuerdos(){
             : " acuerdos"
         );
 
-    if(!state.acuerdos.length){
+    if(
+        !state.acuerdos.length
+    ){
 
         agreementsBox.innerHTML = `
 
@@ -2303,7 +4221,10 @@ function renderAcuerdos(){
         .slice()
         .reverse()
         .map(
-            (acuerdo,index) => `
+            (
+                acuerdo,
+                index
+            ) => `
 
                 <div class="agreement">
 
@@ -2328,7 +4249,10 @@ function renderAcuerdos(){
    INICIAR TEMA
 ========================================================= */
 
-async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
+async function iniciarTema(
+    tema,
+    fuente="Tema elegido por Rafa"
+){
 
     if(!tema){
 
@@ -2339,8 +4263,6 @@ async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
         return;
 
     }
-
-    detenerAutomatico(false);
 
     state.tema =
         tema.trim();
@@ -2380,6 +4302,7 @@ async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
     try{
 
         const primeraPregunta =
+
             "Comienza la investigación sobre este tema: " +
             state.tema +
             ". Expón una primera línea de análisis para que Lía pueda contrastarla. No repitas instrucciones.";
@@ -2389,7 +4312,9 @@ async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
                 primeraPregunta
             );
 
-        if(state.detenido){
+        if(
+            state.detenido
+        ){
             return;
         }
 
@@ -2423,12 +4348,14 @@ async function iniciarTema(tema,fuente="Tema elegido por Rafa"){
 
 
 /* =========================================================
-   TURNO DE LÍA
+   TURNO LÍA
 ========================================================= */
 
 async function turnoLia(){
 
-    if(state.detenido){
+    if(
+        state.detenido
+    ){
         return;
     }
 
@@ -2453,7 +4380,9 @@ async function turnoLia(){
 
             );
 
-        if(state.detenido){
+        if(
+            state.detenido
+        ){
             return;
         }
 
@@ -2477,7 +4406,9 @@ async function turnoLia(){
             !state.detenido
         ){
 
-            await sleep(900);
+            await sleep(
+                1200
+            );
 
             await turnoGePeTo();
 
@@ -2503,12 +4434,14 @@ async function turnoLia(){
 
 
 /* =========================================================
-   TURNO DE GEPETO
+   TURNO GEPETO
 ========================================================= */
 
 async function turnoGePeTo(){
 
-    if(state.detenido){
+    if(
+        state.detenido
+    ){
         return;
     }
 
@@ -2533,7 +4466,9 @@ async function turnoGePeTo(){
 
             );
 
-        if(state.detenido){
+        if(
+            state.detenido
+        ){
             return;
         }
 
@@ -2557,7 +4492,9 @@ async function turnoGePeTo(){
             !state.detenido
         ){
 
-            await sleep(900);
+            await sleep(
+                1200
+            );
 
             await turnoLia();
 
@@ -2583,38 +4520,152 @@ async function turnoGePeTo(){
 
 
 /* =========================================================
-   MANEJO DE ERRORES
+   INTERVENCIÓN DE RAFA
 ========================================================= */
 
-function manejarError(quien,error){
+async function enviarRafa(
+    texto
+){
 
-    console.error(
-        quien,
-        error
+    const mensaje =
+        String(texto || "")
+        .trim();
+
+    if(!mensaje){
+        return;
+    }
+
+    state.detenido =
+        false;
+
+    state.conversacionActiva =
+        true;
+
+    addMessage(
+        "rafa",
+        mensaje
     );
 
     setLive(
-        false,
-        "Error"
+        true,
+        "Rafa intervino"
     );
 
     setStates(
-        "Error de comunicación",
-        "Esperando conexión..."
+        "Analizando a Rafa...",
+        "Esperando..."
     );
 
-    systemMessage(
-        "No se ha podido obtener respuesta de " +
-        quien +
-        ". " +
-        (
-            error?.message ||
-            "Comprueba el Worker."
-        )
-    );
+    try{
 
-    taskStatus.textContent =
-        "Error · revisar conexión";
+        const respuestaGePeTo =
+            await preguntarGePeTo(
+
+                "Rafa acaba de intervenir en la conversación. Responde directamente a Rafa teniendo en cuenta el tema actual '" +
+                (
+                    state.tema ||
+                    "sin tema definido"
+                ) +
+                "'. Sé claro y útil. Después Lía podrá contrastar tu respuesta.\n\nIntervención de Rafa:\n" +
+                mensaje
+
+            );
+
+        if(
+            state.detenido
+        ){
+            return;
+        }
+
+        addMessage(
+            "gepeto",
+            respuestaGePeTo
+        );
+
+        analizarIntervencion(
+            respuestaGePeTo,
+            "GePeTo"
+        );
+
+        setStates(
+            "Esperando a Lía...",
+            "Analizando a GePeTo..."
+        );
+
+        await sleep(
+            700
+        );
+
+        const respuestaLia =
+            await preguntarLia(
+
+                "Rafa ha intervenido y GePeTo ha respondido. Contrasta la respuesta de GePeTo y responde también a Rafa. Tema: '" +
+                (
+                    state.tema ||
+                    "sin tema definido"
+                ) +
+                "'. No repitas simplemente a GePeTo.\n\nIntervención de Rafa:\n" +
+                mensaje +
+                "\n\nRespuesta de GePeTo:\n" +
+                respuestaGePeTo
+
+            );
+
+        if(
+            state.detenido
+        ){
+            return;
+        }
+
+        addMessage(
+            "lia",
+            respuestaLia
+        );
+
+        analizarIntervencion(
+            respuestaLia,
+            "Lía"
+        );
+
+        setStates(
+            "Preparado para Rafa...",
+            "Preparada para Rafa..."
+        );
+
+        /*
+           Si el modo automático estaba activo,
+           la conversación continúa después de la
+           intervención de Rafa.
+        */
+
+        if(
+            state.automatico &&
+            !state.detenido
+        ){
+
+            await sleep(
+                1200
+            );
+
+            await turnoGePeTo();
+
+        }else{
+
+            setLive(
+                false,
+                "Conversación"
+            );
+
+        }
+
+    }catch(error){
+
+        manejarError(
+            "GePeTo/Lía",
+            error
+        );
+
+    }
 
 }
 
@@ -2623,7 +4674,12 @@ function manejarError(quien,error){
    PARAR
 ========================================================= */
 
-function detenerAutomatico(mensaje=true){
+function detenerAutomatico(
+    mensaje=true
+){
+
+    state.automatico =
+        false;
 
     state.detenido =
         true;
@@ -2634,7 +4690,9 @@ function detenerAutomatico(mensaje=true){
     state.trabajando =
         false;
 
-    if(state.intervalo){
+    if(
+        state.intervalo
+    ){
 
         clearInterval(
             state.intervalo
@@ -2644,6 +4702,8 @@ function detenerAutomatico(mensaje=true){
             null;
 
     }
+
+    setAutoVisual();
 
     setLive(
         false,
@@ -2658,7 +4718,9 @@ function detenerAutomatico(mensaje=true){
     taskStatus.textContent =
         "Sin tareas activas";
 
-    if(mensaje){
+    if(
+        mensaje
+    ){
 
         systemMessage(
             "INFINITO detenido. Puedes iniciar un nuevo tema cuando quieras."
@@ -2680,18 +4742,9 @@ async function activarAutomatico(){
 
     setAutoVisual();
 
-    if(!state.automatico){
-
-        if(state.intervalo){
-
-            clearInterval(
-                state.intervalo
-            );
-
-            state.intervalo =
-                null;
-
-        }
+    if(
+        !state.automatico
+    ){
 
         state.detenido =
             true;
@@ -2727,9 +4780,13 @@ async function activarAutomatico(){
         "Modo automático activado."
     );
 
-    if(!state.tema){
+    if(
+        !state.tema
+    ){
 
-        if(state.eleccionAutonoma){
+        if(
+            state.eleccionAutonoma
+        ){
 
             state.tema =
                 elegirTemaAutonomo();
@@ -2745,6 +4802,14 @@ async function activarAutomatico(){
             systemMessage(
                 "Elige un tema o activa «ELLOS ELIGEN EL TEMA»."
             );
+
+            state.automatico =
+                false;
+
+            state.detenido =
+                true;
+
+            setAutoVisual();
 
             return;
 
@@ -2781,7 +4846,9 @@ async function cambiarEleccionAutonoma(){
 
     setAutonomousVisual();
 
-    if(state.eleccionAutonoma){
+    if(
+        state.eleccionAutonoma
+    ){
 
         systemMessage(
             "La elección autónoma de temas está activada."
@@ -2814,411 +4881,13 @@ async function cambiarEleccionAutonoma(){
 
 
 /* =========================================================
-   ENVÍO DE RAFA
-========================================================= */
-
-async function enviarRafa(texto){
-
-    const mensaje =
-        String(texto || "").trim();
-
-    if(!mensaje){
-        return;
-    }
-
-    state.detenido =
-        false;
-
-    state.conversacionActiva =
-        true;
-
-    addMessage(
-        "rafa",
-        mensaje
-    );
-
-    setLive(
-        true,
-        "GePeTo y Lía"
-    );
-
-    setStates(
-        "Analizando a Rafa...",
-        "Esperando..."
-    );
-
-    try{
-
-        const respuestaGePeTo =
-            await preguntarGePeTo(
-
-                "Rafa acaba de intervenir en la conversación. Responde directamente a Rafa teniendo en cuenta el tema actual '" +
-                (
-                    state.tema ||
-                    "sin tema definido"
-                ) +
-                "'. Sé claro y útil. Después Lía podrá contrastar tu respuesta.\n\nIntervención de Rafa:\n" +
-                mensaje
-
-            );
-
-        if(state.detenido){
-            return;
-        }
-
-        addMessage(
-            "gepeto",
-            respuestaGePeTo
-        );
-
-        analizarIntervencion(
-            respuestaGePeTo,
-            "GePeTo"
-        );
-
-        setStates(
-            "Esperando a Lía...",
-            "Analizando a GePeTo..."
-        );
-
-        await sleep(500);
-
-        const respuestaLia =
-            await preguntarLia(
-
-                "Rafa ha intervenido y GePeTo ha respondido. Contrasta la respuesta de GePeTo y responde también a Rafa. Tema: '" +
-                (
-                    state.tema ||
-                    "sin tema definido"
-                ) +
-                "'. No repitas simplemente a GePeTo.\n\nIntervención de Rafa:\n" +
-                mensaje +
-                "\n\nRespuesta de GePeTo:\n" +
-                respuestaGePeTo
-
-            );
-
-        if(state.detenido){
-            return;
-        }
-
-        addMessage(
-            "lia",
-            respuestaLia
-        );
-
-        analizarIntervencion(
-            respuestaLia,
-            "Lía"
-        );
-
-        setStates(
-            "Preparado para Rafa...",
-            "Preparada para Rafa..."
-        );
-
-        setLive(
-            false,
-            "Conversación"
-        );
-
-    }catch(error){
-
-        manejarError(
-            "GePeTo/Lía",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   AUDITORÍA
-========================================================= */
-
-async function ejecutarAuditoria(tipo){
-
-    auditResult.classList.add(
-        "loading"
-    );
-
-    auditResult.textContent =
-        "Infinito está preparando la auditoría...";
-
-    taskStatus.textContent =
-        "Auditoría en curso";
-
-    let instruccion = "";
-
-    if(tipo === "github"){
-
-        instruccion =
-            "Analiza conceptualmente cómo revisar el repositorio de Proyecto Rafa, sus archivos HTML, enlaces, nombres de archivos y posibles errores de integración. No inventes acceso directo al repositorio si no existe.";
-
-    }
-
-    if(tipo === "cloudflare"){
-
-        instruccion =
-            "Prepara una auditoría técnica de la arquitectura Cloudflare Workers de Proyecto Rafa, incluyendo Workers, rutas, D1, memoria, errores de conexión y seguridad de credenciales.";
-
-    }
-
-    if(tipo === "web"){
-
-        instruccion =
-            "Enumera comprobaciones técnicas que deberían realizarse en las páginas web de Proyecto Rafa para detectar errores de JavaScript, rutas, archivos, móvil, audio, vídeo y compatibilidad.";
-
-    }
-
-    if(tipo === "improve"){
-
-        instruccion =
-            "Propón mejoras técnicas gratuitas para Proyecto Rafa, priorizando estabilidad, facilidad de uso, memoria, conversación entre GePeTo y Lía y compatibilidad con móvil.";
-
-    }
-
-    try{
-
-        let respuesta;
-
-        if(
-            tipo === "cloudflare" &&
-            INFINITO_WORKER_URL
-        ){
-
-            try{
-
-                const data =
-                    await fetchJson(
-                        INFINITO_WORKER_URL +
-                        "/auditar",
-                        {
-                            method:"POST",
-                            body:JSON.stringify({
-                                tipo:tipo,
-                                instruccion:instruccion
-                            })
-                        }
-                    );
-
-                respuesta =
-                    extraerTexto(data);
-
-            }catch{
-
-                respuesta = "";
-
-            }
-
-        }
-
-        if(!respuesta){
-
-            respuesta =
-                await preguntarGePeTo(
-                    instruccion
-                );
-
-        }
-
-        auditResult.textContent =
-            respuesta ||
-            "No se obtuvo resultado.";
-
-        taskStatus.textContent =
-            "Auditoría terminada";
-
-    }catch(error){
-
-        auditResult.textContent =
-            "No se pudo completar la auditoría: " +
-            (
-                error?.message ||
-                "error desconocido"
-            );
-
-        taskStatus.textContent =
-            "Auditoría con error";
-
-    }finally{
-
-        auditResult.classList.remove(
-            "loading"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   GUARDAR ESTADO DE TRABAJO
-========================================================= */
-
-function guardarEstadoSesion(){
-
-    try{
-
-        const datos = {
-
-            tema:state.tema,
-
-            acuerdos:state.acuerdos,
-
-            mensajes:state.mensajes.slice(-30),
-
-            fecha:new Date().toISOString()
-
-        };
-
-        /*
-           Esto es únicamente una copia temporal de la sesión
-           en el navegador. La memoria permanente de Proyecto
-           Rafa debe mantenerse en D1 mediante los Workers.
-        */
-
-        window.__INFINITO_SESION__ =
-            datos;
-
-    }catch(error){
-
-        console.warn(
-            "No se pudo guardar estado temporal",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CARGA INICIAL DE MEMORIA
-========================================================= */
-
-async function cargarMemoria(){
-
-    if(
-        !GEPETO_WORKER_URL
-    ){
-        return;
-    }
-
-    try{
-
-        const data =
-            await fetchJson(
-                GEPETO_WORKER_URL +
-                "/memoria",
-                {
-                    method:"GET"
-                }
-            );
-
-        const memoria =
-            data?.memoria ||
-            data?.data ||
-            data?.result ||
-            data;
-
-        if(
-            Array.isArray(memoria)
-        ){
-
-            taskStatus.textContent =
-                "Memoria conectada";
-
-        }
-
-    }catch(error){
-
-        console.log(
-            "Memoria de GePeTo no disponible en este momento."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   GUARDADO DE ACUERDOS EN WORKER
-========================================================= */
-
-async function guardarAcuerdoEnMemoria(acuerdo){
-
-    if(
-        !acuerdo ||
-        !LIA_WORKER_URL
-    ){
-        return;
-    }
-
-    try{
-
-        await fetchJson(
-            LIA_WORKER_URL +
-            "/actualizar",
-            {
-                method:"POST",
-
-                body:JSON.stringify({
-
-                    tipo:"acuerdo",
-
-                    tema:state.tema,
-
-                    contenido:acuerdo,
-
-                    origen:"INFINITO"
-
-                })
-
-            }
-        );
-
-    }catch(error){
-
-        console.log(
-            "El Worker no aceptó el guardado automático del acuerdo.",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SOBRESCRIBIR REGISTRO DE ACUERDO PARA MEMORIA
-========================================================= */
-
-const registrarAcuerdoOriginal =
-    registrarAcuerdo;
-
-registrarAcuerdo =
-    function(texto){
-
-        registrarAcuerdoOriginal(
-            texto
-        );
-
-        guardarAcuerdoEnMemoria(
-            texto
-        );
-
-    };
-
-
-/* =========================================================
-   BOTONES DE TEMAS
+   EVENTOS DE TEMAS
 ========================================================= */
 
 document
-.querySelectorAll("[data-topic]")
+.querySelectorAll(
+    "[data-topic]"
+)
 .forEach(
     boton => {
 
@@ -3242,7 +4911,7 @@ document
 
 
 /* =========================================================
-   EVENTOS
+   EVENTOS PRINCIPALES
 ========================================================= */
 
 autoSwitch.addEventListener(
@@ -3276,11 +4945,6 @@ $("stopBtn")
     "click",
     () => {
 
-        state.automatico =
-            false;
-
-        setAutoVisual();
-
         detenerAutomatico(
             true
         );
@@ -3310,7 +4974,8 @@ $("chatForm")
             return;
         }
 
-        input.value = "";
+        input.value =
+            "";
 
         if(!state.tema){
 
@@ -3324,6 +4989,12 @@ $("chatForm")
                 "Conversación iniciada por Rafa";
 
         }
+
+        /*
+           Intervenir no detiene el modo automático.
+           La respuesta de GePeTo y Lía vuelve después
+           al ciclo automático.
+        */
 
         await enviarRafa(
             texto
@@ -3359,21 +5030,99 @@ $("rafaInput")
 
 
 /* =========================================================
-   AUDITORÍAS
+   DIAGNÓSTICO
 ========================================================= */
 
 document
-.querySelectorAll("[data-audit]")
+.querySelectorAll(
+    "[data-audit]"
+)
 .forEach(
     boton => {
 
         boton.addEventListener(
             "click",
-            () => {
+            async () => {
 
-                ejecutarAuditoria(
-                    boton.dataset.audit
-                );
+                const tipo =
+                    boton.dataset.audit;
+
+                if(
+                    tipo === "gepeto"
+                ){
+
+                    await diagnosticarWorker(
+                        "GePeTo"
+                    );
+
+                }
+
+                if(
+                    tipo === "lia"
+                ){
+
+                    await diagnosticarWorker(
+                        "Lía"
+                    );
+
+                }
+
+                if(
+                    tipo === "estado"
+                ){
+
+                    auditResult.classList.add(
+                        "loading"
+                    );
+
+                    const ok =
+                        await comprobarConexion();
+
+                    auditResult.classList.remove(
+                        "loading"
+                    );
+
+                    auditResult.innerHTML =
+
+                        ok
+
+                        ? "🟢 <strong>Los dos Workers responden a /estado.</strong><br><br>Ahora puedes pulsar AMBOS para comprobar también /preguntar."
+
+                        : "🔴 <strong>Uno o los dos Workers no responden a /estado.</strong><br><br>Pulsa GEPETO o LÍA para obtener el diagnóstico concreto.";
+
+                }
+
+                if(
+                    tipo === "both"
+                ){
+
+                    auditResult.classList.add(
+                        "loading"
+                    );
+
+                    auditResult.textContent =
+                        "Probando GePeTo...";
+
+                    await diagnosticarWorker(
+                        "GePeTo"
+                    );
+
+                    await sleep(
+                        300
+                    );
+
+                    auditResult.textContent =
+                        "Probando Lía...";
+
+                    await diagnosticarWorker(
+                        "Lía"
+                    );
+
+                    auditResult.classList.remove(
+                        "loading"
+                    );
+
+                }
 
             }
         );
@@ -3383,14 +5132,53 @@ document
 
 
 /* =========================================================
-   CAMBIO DE VISIBILIDAD
+   ESTADO TEMPORAL
 ========================================================= */
+
+function guardarEstadoSesion(){
+
+    try{
+
+        const datos = {
+
+            tema:
+                state.tema,
+
+            acuerdos:
+                state.acuerdos,
+
+            mensajes:
+                state.mensajes
+                .slice(-30),
+
+            fecha:
+                new Date()
+                .toISOString()
+
+        };
+
+        window.__INFINITO_SESION__ =
+            datos;
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo guardar estado temporal",
+            error
+        );
+
+    }
+
+}
+
 
 document.addEventListener(
     "visibilitychange",
     () => {
 
-        if(document.hidden){
+        if(
+            document.hidden
+        ){
 
             guardarEstadoSesion();
 
@@ -3398,6 +5186,131 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   CARGA DE MEMORIA
+========================================================= */
+
+async function cargarMemoria(){
+
+    try{
+
+        const resultado =
+            await fetchWorker(
+                GEPETO_WORKER_URL +
+                "/memoria",
+                {
+                    method:"GET"
+                }
+            );
+
+        const memoria =
+            resultado.data?.memoria ||
+            resultado.data?.data ||
+            resultado.data?.result ||
+            resultado.data;
+
+        if(
+            memoria
+        ){
+
+            taskStatus.textContent =
+                "Memoria de GePeTo disponible";
+
+        }
+
+    }catch(error){
+
+        /*
+           No detenemos Infinito si /memoria
+           no está disponible.
+        */
+
+        console.log(
+            "Memoria no disponible:",
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GUARDAR ACUERDO
+========================================================= */
+
+async function guardarAcuerdoEnMemoria(
+    acuerdo
+){
+
+    if(
+        !acuerdo
+    ){
+        return;
+    }
+
+    try{
+
+        await fetchWorker(
+            LIA_WORKER_URL +
+            "/actualizar",
+            {
+
+                method:"POST",
+
+                body:JSON.stringify({
+
+                    tipo:"acuerdo",
+
+                    tema:
+                        state.tema,
+
+                    contenido:
+                        acuerdo,
+
+                    origen:
+                        "INFINITO"
+
+                })
+
+            }
+        );
+
+    }catch(error){
+
+        console.log(
+            "No se pudo guardar el acuerdo:",
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ENVOLTORIO DE ACUERDOS
+========================================================= */
+
+const registrarAcuerdoOriginal =
+    registrarAcuerdo;
+
+registrarAcuerdo =
+    function(
+        texto
+    ){
+
+        registrarAcuerdoOriginal(
+            texto
+        );
+
+        guardarAcuerdoEnMemoria(
+            texto
+        );
+
+    };
 
 
 /* =========================================================
@@ -3412,34 +5325,65 @@ async function iniciarInfinito(){
 
     setLive(
         false,
-        "Esperando"
+        "Comprobando"
     );
 
     setStates(
-        "Esperando el inicio de la sesión.",
-        "Esperando el inicio de la sesión."
+        "Comprobando Worker...",
+        "Comprobando Worker..."
     );
+
+    /*
+       Preparar reproductor.
+    */
+
+    reconstruirListaMP3();
+
+    cargarMP3(
+        0,
+        false
+    );
+
+    /*
+       Preparar voces.
+    */
+
+    cargarVoces();
+
+    /*
+       Comprobar Workers.
+    */
 
     await comprobarConexion();
 
+    /*
+       Intentar memoria sin bloquear la página.
+    */
+
     await cargarMemoria();
 
+    setStates(
+        "Preparado para conversar.",
+        "Preparada para conversar."
+    );
+
     systemMessage(
-        "INFINITO preparado. GePeTo y Lía pueden conversar contigo y trabajar sobre un tema."
+
+        "INFINITO preparado. Puedes hablar con GePeTo y Lía, activar el modo automático o intervenir en cualquier momento."
+
     );
 
 }
 
 
+window.addEventListener(
+    "load",
+    iniciarInfinito
+);
+
+
 /* =========================================================
-   ARRANQUE
-========================================================= */
-
-iniciarInfinito();
-
-
-/* =========================================================
-   PROTECCIÓN ANTE ERRORES NO CONTROLADOS
+   PROTECCIÓN CONTRA ERRORES
 ========================================================= */
 
 window.addEventListener(
@@ -3448,7 +5392,8 @@ window.addEventListener(
 
         console.error(
             "INFINITO:",
-            event.error || event.message
+            event.error ||
+            event.message
         );
 
     }
@@ -3467,5 +5412,8 @@ window.addEventListener(
     }
 );
 
-</script></body>
+</script>
+
+</body>
+
 </html>
