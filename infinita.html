@@ -2472,6 +2472,7 @@ async function fetchWorker(
 
 /* =========================================================
    EXTRAER TEXTO DE CUALQUIER RESPUESTA
+   VERSIÓN ROBUSTA PARA WORKERS AI
 ========================================================= */
 
 function extraerTexto(
@@ -2482,6 +2483,11 @@ function extraerTexto(
         return "";
     }
 
+    /*
+       Si el Worker devuelve directamente texto,
+       lo aceptamos.
+    */
+
     if(
         typeof data ===
         "string"
@@ -2490,6 +2496,10 @@ function extraerTexto(
         return data.trim();
 
     }
+
+    /*
+       Propiedades habituales de respuestas de IA.
+    */
 
     const posibles = [
 
@@ -2509,11 +2519,21 @@ function extraerTexto(
 
         data.output,
 
+        data.output_text,
+
         data.resultado,
 
         data.result,
 
         data.reply,
+
+        data.generacion,
+
+        data.generated_text,
+
+        /*
+           Respuestas dentro de data
+        */
 
         data.data?.respuesta,
 
@@ -2523,17 +2543,118 @@ function extraerTexto(
 
         data.data?.text,
 
+        data.data?.message,
+
         data.data?.content,
 
         data.data?.answer,
 
+        data.data?.output,
+
+        data.data?.output_text,
+
+        data.data?.resultado,
+
+        data.data?.result,
+
         data.data?.reply,
+
+        data.data?.generacion,
+
+        data.data?.generated_text,
+
+        /*
+           Respuestas dentro de result
+        */
+
+        data.result?.respuesta,
+
+        data.result?.response,
+
+        data.result?.texto,
+
+        data.result?.text,
+
+        data.result?.message,
+
+        data.result?.content,
+
+        data.result?.answer,
+
+        data.result?.output,
+
+        data.result?.output_text,
+
+        data.result?.resultado,
+
+        data.result?.reply,
+
+        data.result?.generacion,
+
+        data.result?.generated_text,
+
+        /*
+           Respuestas dentro de output
+        */
+
+        data.output?.respuesta,
+
+        data.output?.response,
+
+        data.output?.texto,
+
+        data.output?.text,
+
+        data.output?.message,
+
+        data.output?.content,
+
+        data.output?.answer,
+
+        data.output?.output_text,
+
+        data.output?.resultado,
+
+        data.output?.result,
+
+        data.output?.reply,
+
+        data.output?.generacion,
+
+        data.output?.generated_text,
+
+        /*
+           Formato tipo OpenAI
+        */
 
         data.choices?.[0]?.message?.content,
 
-        data.choices?.[0]?.text
+        data.choices?.[0]?.text,
+
+        data.result?.choices?.[0]?.message?.content,
+
+        data.result?.choices?.[0]?.text,
+
+        data.data?.choices?.[0]?.message?.content,
+
+        data.data?.choices?.[0]?.text,
+
+        /*
+           Formatos adicionales usados por algunos
+           envoltorios de Workers AI.
+        */
+
+        data.result?.response?.text,
+
+        data.data?.response?.text,
+
+        data.output?.response?.text
 
     ];
+
+    /*
+       Primero comprobamos todas las rutas conocidas.
+    */
 
     for(
         const valor of posibles
@@ -2551,7 +2672,207 @@ function extraerTexto(
 
     }
 
-    return "";
+    /*
+       =====================================================
+       BÚSQUEDA RECURSIVA
+       =====================================================
+
+       Si GePeTo devuelve la respuesta dentro de una
+       estructura diferente, recorremos el objeto.
+
+       Se limita la profundidad para evitar ciclos
+       o recorridos excesivos.
+    */
+
+    const clavesPrioritarias = [
+
+        "respuesta",
+
+        "response",
+
+        "texto",
+
+        "text",
+
+        "content",
+
+        "message",
+
+        "answer",
+
+        "output",
+
+        "output_text",
+
+        "reply",
+
+        "generated_text",
+
+        "generacion",
+
+        "resultado",
+
+        "result"
+
+    ];
+
+
+    function buscarTexto(
+        objeto,
+        profundidad=0
+    ){
+
+        if(
+            objeto == null
+        ){
+
+            return "";
+
+        }
+
+        if(
+            profundidad > 8
+        ){
+
+            return "";
+
+        }
+
+        if(
+            typeof objeto ===
+            "string"
+        ){
+
+            const texto =
+                objeto.trim();
+
+            return texto;
+
+        }
+
+        if(
+            typeof objeto !==
+            "object"
+        ){
+
+            return "";
+
+        }
+
+        /*
+           Primero buscamos las propiedades que
+           normalmente contienen la respuesta.
+        */
+
+        for(
+            const clave of clavesPrioritarias
+        ){
+
+            if(
+                Object.prototype.hasOwnProperty.call(
+                    objeto,
+                    clave
+                )
+            ){
+
+                const encontrado =
+                    buscarTexto(
+                        objeto[clave],
+                        profundidad + 1
+                    );
+
+                if(
+                    encontrado
+                ){
+
+                    return encontrado;
+
+                }
+
+            }
+
+        }
+
+        /*
+           Después revisamos arrays y cualquier
+           otra propiedad del objeto.
+        */
+
+        if(
+            Array.isArray(
+                objeto
+            )
+        ){
+
+            for(
+                const elemento of objeto
+            ){
+
+                const encontrado =
+                    buscarTexto(
+                        elemento,
+                        profundidad + 1
+                    );
+
+                if(
+                    encontrado
+                ){
+
+                    return encontrado;
+
+                }
+
+            }
+
+            return "";
+
+        }
+
+        for(
+            const clave of Object.keys(
+                objeto
+            )
+        ){
+
+            /*
+               Ya hemos revisado estas propiedades
+               prioritarias.
+            */
+
+            if(
+                clavesPrioritarias.includes(
+                    clave
+                )
+            ){
+
+                continue;
+
+            }
+
+            const encontrado =
+                buscarTexto(
+                    objeto[clave],
+                    profundidad + 1
+                );
+
+            if(
+                encontrado
+            ){
+
+                return encontrado;
+
+            }
+
+        }
+
+        return "";
+
+    }
+
+
+    return buscarTexto(
+        data
+    );
 
 }
 
