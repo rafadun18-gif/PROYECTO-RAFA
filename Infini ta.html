@@ -1191,7 +1191,7 @@ Esperando conexión con Worker.
 
 <img
     id="liaPhoto"
-    src="LiA.png"
+    src="LiA .png"
     class="person-photo"
     alt="Lía"
 >
@@ -1895,6 +1895,9 @@ const voiceSelect =
 
 const voiceVolume =
     $("voiceVolume");
+
+const voiceStatus =
+    $("voiceStatus");
 
 
 /* =========================================================
@@ -3500,7 +3503,7 @@ function prepararFotoLia(){
         };
 
     img.src =
-        "LiA.png";
+        "LiA .png";
 
 }
 
@@ -4061,6 +4064,9 @@ async function turnoGePeTo(
             "Lía preparando contraste..."
         );
 
+        state.esperandoRespuesta =
+            false;
+
         await sleep(900);
 
         if(
@@ -4169,6 +4175,9 @@ async function turnoLia(){
             "GePeTo preparando respuesta...",
             "Lía ha terminado su intervención."
         );
+
+        state.esperandoRespuesta =
+            false;
 
         await sleep(1100);
 
