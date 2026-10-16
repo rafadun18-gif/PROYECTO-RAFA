@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>INFINITO · Proyecto Rafa</title>
-
 <style>
-
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
-
 html,body{
     margin:0;
     padding:0;
@@ -27,22 +17,15 @@ html,body{
     color:#fff;
     font-family:Arial,Helvetica,sans-serif;
 }
-
 body{
     overflow-x:hidden;
 }
-
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
     font:inherit;
 }
-
 button{
     cursor:pointer;
 }
-
 :root{
     --negro:#020509;
     --panel:rgba(7,13,22,.88);
@@ -59,60 +42,33 @@ button{
     --amarillo:#ffe600;
     --rojo:#ff4545;
 }
-
 .app{
     width:100%;
     max-width:1500px;
     margin:0 auto;
     padding:12px;
 }
-
-/* =========================================================
-   CABECERA
-========================================================= */
-
 .top{
     position:relative;
     min-height:105px;
     border:1px solid rgba(255,255,255,.12);
     border-radius:24px;
     background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(0,130,255,.12),
-            transparent 38%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(57,255,20,.05),
-            transparent 35%
-        ),
-        linear-gradient(
-            145deg,
-            rgba(10,18,30,.96),
-            rgba(2,5,9,.98)
-        );
+        radial-gradient(circle at 50% 0%,rgba(0,130,255,.12),transparent 38%),
+        radial-gradient(circle at 50% 100%,rgba(57,255,20,.05),transparent 35%),
+        linear-gradient(145deg,rgba(10,18,30,.96),rgba(2,5,9,.98));
     box-shadow:0 0 35px rgba(0,0,0,.45);
     padding:18px;
     overflow:hidden;
 }
-
 .top:before{
     content:"";
     position:absolute;
     inset:0;
     pointer-events:none;
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(25,170,255,.04),
-            rgba(57,255,20,.04),
-            rgba(255,32,216,.04),
-            transparent
-        );
+        linear-gradient(90deg,transparent,rgba(25,170,255,.04),rgba(57,255,20,.04),rgba(255,32,216,.04),transparent);
 }
-
 .top-inner{
     position:relative;
     display:flex;
@@ -120,23 +76,18 @@ button{
     justify-content:space-between;
     gap:15px;
 }
-
 .brand{
     display:flex;
     align-items:center;
     gap:14px;
 }
-
 .infinity{
     width:82px;
     height:58px;
     position:relative;
     flex:none;
-    filter:drop-shadow(
-        0 0 5px rgba(57,255,20,.25)
-    );
+    filter:drop-shadow(0 0 5px rgba(57,255,20,.25));
 }
-
 .infinity-blue{
     position:absolute;
     left:1px;
@@ -146,13 +97,9 @@ button{
     border:5px solid var(--azul);
     border-radius:50%;
     transform:rotate(30deg);
-    box-shadow:
-        0 0 7px var(--azul),
-        0 0 16px var(--azul),
-        0 0 30px rgba(25,170,255,.75);
+    box-shadow:0 0 7px var(--azul),0 0 16px var(--azul),0 0 30px rgba(25,170,255,.75);
     z-index:1;
 }
-
 .infinity-pink{
     position:absolute;
     right:1px;
@@ -162,13 +109,9 @@ button{
     border:5px solid var(--rosa);
     border-radius:50%;
     transform:rotate(-30deg);
-    box-shadow:
-        0 0 7px var(--rosa),
-        0 0 16px var(--rosa),
-        0 0 30px rgba(255,32,216,.75);
+    box-shadow:0 0 7px var(--rosa),0 0 16px var(--rosa),0 0 30px rgba(255,32,216,.75);
     z-index:1;
 }
-
 .infinity-r{
     position:absolute;
     left:50%;
@@ -180,12 +123,8 @@ button{
     line-height:1;
     font-weight:900;
     font-family:Arial,Helvetica,sans-serif;
-    text-shadow:
-        0 0 5px var(--verde),
-        0 0 12px var(--verde),
-        0 0 22px rgba(57,255,20,.95);
+    text-shadow:0 0 5px var(--verde),0 0 12px var(--verde),0 0 22px rgba(57,255,20,.95);
 }
-
 .infinity-core{
     position:absolute;
     left:50%;
@@ -195,25 +134,20 @@ button{
     transform:translate(-50%,-50%);
     border-radius:50%;
     background:rgba(57,255,20,.08);
-    box-shadow:
-        0 0 10px var(--verde),
-        0 0 24px rgba(57,255,20,.75);
+    box-shadow:0 0 10px var(--verde),0 0 24px rgba(57,255,20,.75);
     z-index:2;
     pointer-events:none;
 }
-
 .brand h1{
     margin:0;
     font-size:27px;
     letter-spacing:5px;
 }
-
 .brand p{
     margin:5px 0 0;
     color:var(--gris);
     font-size:12px;
 }
-
 .connection{
     display:flex;
     align-items:center;
@@ -224,7 +158,6 @@ button{
     background:rgba(57,255,20,.05);
     font-size:12px;
 }
-
 .connection-dot{
     width:9px;
     height:9px;
@@ -232,35 +165,25 @@ button{
     background:#777;
     flex:none;
 }
-
 .connection-dot.online{
     background:var(--verde);
     box-shadow:0 0 10px var(--verde);
 }
-
 .connection-dot.warning{
     background:var(--amarillo);
     box-shadow:0 0 10px var(--amarillo);
 }
-
 .connection-dot.error{
     background:var(--rojo);
     box-shadow:0 0 10px var(--rojo);
 }
-
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
-
 .nav{
     display:flex;
     justify-content:space-between;
     gap:10px;
     margin:12px 0;
 }
-
-.nav a,
-.nav button{
+.nav a,.nav button{
     min-height:45px;
     border:1px solid var(--borde);
     border-radius:13px;
@@ -272,49 +195,32 @@ button{
     justify-content:center;
     padding:0 15px;
 }
-
-.nav a:hover,
-.nav button:hover{
+.nav a:hover,.nav button:hover{
     border-color:rgba(255,255,255,.3);
 }
-
-/* =========================================================
-   ESTADO AUTÓNOMO
-========================================================= */
-
 .autonomous-status{
     margin-bottom:12px;
     border:1px solid rgba(57,255,20,.35);
     border-radius:17px;
-    background:
-        radial-gradient(
-            circle at 0% 50%,
-            rgba(57,255,20,.08),
-            transparent 45%
-        ),
-        var(--panel);
+    background:radial-gradient(circle at 0% 50%,rgba(57,255,20,.08),transparent 45%),var(--panel);
     padding:14px;
 }
-
 .autonomous-status-inner{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:12px;
 }
-
 .autonomous-title{
     font-size:13px;
     font-weight:bold;
 }
-
 .autonomous-text{
     margin-top:5px;
     color:var(--gris);
     font-size:11px;
     line-height:1.45;
 }
-
 .autonomous-badge{
     flex:none;
     border:1px solid rgba(57,255,20,.55);
@@ -325,52 +231,36 @@ button{
     font-size:10px;
     font-weight:bold;
 }
-
-/* =========================================================
-   PARTICIPANTES
-========================================================= */
-
 .participants{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:12px;
 }
-
 .person{
     position:relative;
     overflow:hidden;
     min-height:225px;
     border-radius:22px;
     padding:15px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(10,17,27,.97),
-            rgba(3,7,12,.98)
-        );
+    background:linear-gradient(145deg,rgba(10,17,27,.97),rgba(3,7,12,.98));
 }
-
 .person.gepeto{
     border:1px solid rgba(25,170,255,.6);
     box-shadow:0 0 25px rgba(25,170,255,.08);
 }
-
 .person.lia{
     border:1px solid rgba(255,32,216,.6);
     box-shadow:0 0 25px rgba(255,32,216,.08);
 }
-
 .person.rafa{
     border:1px solid rgba(57,255,20,.6);
     box-shadow:0 0 25px rgba(57,255,20,.08);
 }
-
 .person-head{
     display:flex;
     align-items:center;
     gap:12px;
 }
-
 .person-photo{
     width:76px;
     height:76px;
@@ -379,17 +269,14 @@ button{
     object-position:center;
     background:#05090f;
 }
-
 .gepeto .person-photo{
     border:2px solid var(--azul);
     box-shadow:0 0 18px rgba(25,170,255,.5);
 }
-
 .lia .person-photo{
     border:2px solid var(--rosa);
     box-shadow:0 0 18px rgba(255,32,216,.5);
 }
-
 .rafa-photo{
     width:76px;
     height:76px;
@@ -403,33 +290,27 @@ button{
     border:2px solid var(--verde);
     box-shadow:0 0 18px rgba(57,255,20,.35);
 }
-
 .person-name{
     font-size:20px;
     font-weight:bold;
 }
-
 .gepeto .person-name{
     color:var(--azul);
     text-shadow:0 0 10px rgba(25,170,255,.55);
 }
-
 .lia .person-name{
     color:var(--rosa);
     text-shadow:0 0 10px rgba(255,32,216,.55);
 }
-
 .rafa .person-name{
     color:var(--verde);
     text-shadow:0 0 10px rgba(57,255,20,.55);
 }
-
 .person-role{
     margin-top:4px;
     font-size:11px;
     color:var(--gris);
 }
-
 .person-state{
     margin-top:13px;
     min-height:70px;
@@ -438,65 +319,46 @@ button{
     font-size:13px;
     line-height:1.5;
 }
-
 .gepeto .person-state{
     background:rgba(25,170,255,.07);
     border:1px solid rgba(25,170,255,.25);
 }
-
 .lia .person-state{
     background:rgba(255,32,216,.07);
     border:1px solid rgba(255,32,216,.25);
 }
-
 .rafa .person-state{
     background:rgba(57,255,20,.07);
     border:1px solid rgba(57,255,20,.25);
 }
-
-/* =========================================================
-   AUDIO Y VOZ
-========================================================= */
-
 .audio-panel{
     margin-top:12px;
     border:1px solid rgba(57,255,20,.25);
     border-radius:22px;
-    background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(57,255,20,.06),
-            transparent 42%
-        ),
-        var(--panel);
+    background:radial-gradient(circle at 100% 0%,rgba(57,255,20,.06),transparent 42%),var(--panel);
     padding:16px;
 }
-
 .audio-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
 }
-
 .audio-box{
     border:1px solid rgba(255,255,255,.1);
     border-radius:17px;
     background:rgba(0,0,0,.2);
     padding:13px;
 }
-
 .audio-title{
     font-size:13px;
     font-weight:bold;
     margin-bottom:9px;
 }
-
 .audio-controls{
     display:flex;
     flex-wrap:wrap;
     gap:8px;
 }
-
 .audio-controls button{
     min-height:39px;
     border-radius:10px;
@@ -505,21 +367,17 @@ button{
     color:#fff;
     padding:0 12px;
 }
-
 .audio-controls button.active{
     border-color:var(--verde);
     color:var(--verde);
 }
-
 .audio-select{
     margin-bottom:9px;
 }
-
 .audio-range{
     width:100%;
     accent-color:var(--verde);
 }
-
 .file-label{
     display:inline-flex;
     align-items:center;
@@ -532,22 +390,15 @@ button{
     color:#fff;
     cursor:pointer;
 }
-
 .file-label input{
     display:none;
 }
-
 .audio-now{
     margin-top:9px;
     color:var(--gris);
     font-size:11px;
     min-height:16px;
 }
-
-/* =========================================================
-   TEMA
-========================================================= */
-
 .topic{
     margin-top:12px;
     border:1px solid var(--borde);
@@ -555,7 +406,6 @@ button{
     background:var(--panel);
     padding:16px;
 }
-
 .section-title{
     display:flex;
     align-items:center;
@@ -564,26 +414,20 @@ button{
     flex-wrap:wrap;
     margin-bottom:10px;
 }
-
 .section-title h2{
     margin:0;
     font-size:17px;
 }
-
 .section-title span{
     color:var(--gris);
     font-size:11px;
 }
-
 .topic-grid{
     display:grid;
     grid-template-columns:1fr auto;
     gap:10px;
 }
-
-input,
-textarea,
-select{
+input,textarea,select{
     width:100%;
     border:1px solid rgba(255,255,255,.14);
     border-radius:13px;
@@ -592,19 +436,14 @@ select{
     padding:13px;
     outline:none;
 }
-
-input:focus,
-textarea:focus,
-select:focus{
+input:focus,textarea:focus,select:focus{
     border-color:rgba(57,255,20,.65);
     box-shadow:0 0 0 2px rgba(57,255,20,.08);
 }
-
 select option{
     background:#081018;
     color:#fff;
 }
-
 button.primary{
     border:1px solid rgba(57,255,20,.65);
     background:rgba(57,255,20,.09);
@@ -613,14 +452,12 @@ button.primary{
     border-radius:13px;
     font-weight:bold;
 }
-
 .topic-options{
     display:flex;
     flex-wrap:wrap;
     gap:8px;
     margin-top:10px;
 }
-
 .small-btn{
     min-height:38px;
     padding:0 11px;
@@ -630,11 +467,6 @@ button.primary{
     color:#ddd;
     font-size:11px;
 }
-
-/* =========================================================
-   CONVERSACIÓN
-========================================================= */
-
 .conversation{
     margin-top:12px;
     border:1px solid var(--borde);
@@ -642,7 +474,6 @@ button.primary{
     background:rgba(3,8,14,.94);
     overflow:hidden;
 }
-
 .conversation-head{
     padding:13px 16px;
     border-bottom:1px solid var(--borde);
@@ -651,7 +482,6 @@ button.primary{
     gap:10px;
     align-items:center;
 }
-
 .live{
     display:flex;
     align-items:center;
@@ -659,25 +489,21 @@ button.primary{
     color:var(--gris);
     font-size:11px;
 }
-
 .live-dot{
     width:8px;
     height:8px;
     border-radius:50%;
     background:#555;
 }
-
 .live-dot.active{
     background:var(--verde);
     box-shadow:0 0 10px var(--verde);
 }
-
 .messages{
     max-height:560px;
     overflow-y:auto;
     padding:14px;
 }
-
 .message{
     max-width:88%;
     margin-bottom:12px;
@@ -688,7 +514,6 @@ button.primary{
     white-space:pre-wrap;
     word-break:break-word;
 }
-
 .message .who{
     display:block;
     font-size:10px;
@@ -696,37 +521,30 @@ button.primary{
     margin-bottom:5px;
     letter-spacing:.7px;
 }
-
 .message.gepeto{
     margin-right:auto;
     border:1px solid rgba(25,170,255,.35);
     background:rgba(25,170,255,.08);
 }
-
 .message.gepeto .who{
     color:var(--azul);
 }
-
 .message.lia{
     margin-left:auto;
     border:1px solid rgba(255,32,216,.35);
     background:rgba(255,32,216,.08);
 }
-
 .message.lia .who{
     color:var(--rosa);
 }
-
 .message.rafa{
     margin-left:auto;
     border:1px solid rgba(57,255,20,.45);
     background:rgba(57,255,20,.08);
 }
-
 .message.rafa .who{
     color:var(--verde);
 }
-
 .message.system{
     max-width:100%;
     margin-left:auto;
@@ -737,20 +555,17 @@ button.primary{
     background:rgba(255,255,255,.025);
     font-size:11px;
 }
-
 .chat-form{
     padding:12px;
     border-top:1px solid var(--borde);
     display:flex;
     gap:8px;
 }
-
 .chat-form textarea{
     min-height:48px;
     max-height:150px;
     resize:vertical;
 }
-
 .send{
     width:105px;
     border-radius:13px;
@@ -759,29 +574,21 @@ button.primary{
     background:rgba(57,255,20,.08);
     font-weight:bold;
 }
-
-/* =========================================================
-   DILEMA Y ACUERDOS
-========================================================= */
-
 .bottom-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
     margin-top:12px;
 }
-
 .panel{
     border:1px solid var(--borde);
     border-radius:22px;
     background:var(--panel);
     padding:16px;
 }
-
 .dilemma{
     border-color:rgba(255,230,0,.25);
 }
-
 .dilemma-box{
     border-left:3px solid var(--amarillo);
     padding-left:12px;
@@ -789,12 +596,10 @@ button.primary{
     line-height:1.5;
     font-size:13px;
 }
-
 .agreements{
     max-height:400px;
     overflow:auto;
 }
-
 .agreement{
     padding:13px;
     border:1px solid rgba(57,255,20,.22);
@@ -802,44 +607,29 @@ button.primary{
     background:rgba(57,255,20,.045);
     margin-bottom:9px;
 }
-
 .agreement-title{
     color:var(--verde);
     font-weight:bold;
     font-size:13px;
 }
-
 .agreement p{
     margin:6px 0 0;
     color:#ddd;
     font-size:12px;
     line-height:1.5;
 }
-
-/* =========================================================
-   AUDITORÍA
-========================================================= */
-
 .audit{
     margin-top:12px;
     border:1px solid rgba(25,170,255,.25);
     border-radius:22px;
-    background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(25,170,255,.07),
-            transparent 40%
-        ),
-        var(--panel);
+    background:radial-gradient(circle at 100% 0%,rgba(25,170,255,.07),transparent 40%),var(--panel);
     padding:16px;
 }
-
 .audit-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:9px;
 }
-
 .audit-btn{
     min-height:72px;
     border:1px solid rgba(255,255,255,.12);
@@ -849,19 +639,16 @@ button.primary{
     padding:10px;
     text-align:left;
 }
-
 .audit-btn strong{
     display:block;
     font-size:12px;
 }
-
 .audit-btn small{
     display:block;
     margin-top:5px;
     color:var(--gris);
     font-size:10px;
 }
-
 .audit-result{
     margin-top:10px;
     min-height:70px;
@@ -873,11 +660,6 @@ button.primary{
     font-size:12px;
     line-height:1.5;
 }
-
-/* =========================================================
-   TAREAS
-========================================================= */
-
 .tasks{
     margin-top:12px;
     border:1px solid var(--borde);
@@ -885,7 +667,6 @@ button.primary{
     background:var(--panel);
     padding:16px;
 }
-
 .task{
     display:flex;
     align-items:flex-start;
@@ -893,11 +674,9 @@ button.primary{
     padding:10px 0;
     border-bottom:1px solid rgba(255,255,255,.06);
 }
-
 .task:last-child{
     border-bottom:0;
 }
-
 .task-icon{
     width:31px;
     height:31px;
@@ -907,1305 +686,533 @@ button.primary{
     border-radius:9px;
     background:rgba(255,255,255,.05);
 }
-
 .task-text{
     font-size:12px;
     line-height:1.45;
 }
-
 .task-status{
     display:inline-block;
     margin-top:3px;
     color:var(--gris);
     font-size:10px;
 }
-
 .loading{
     opacity:.7;
     animation:pulse 1.2s infinite;
 }
-
 @keyframes pulse{
-    0%,100%{
-        opacity:.55
-    }
-
-    50%{
-        opacity:1
-    }
+    0%,100%{opacity:.55}
+    50%{opacity:1}
 }
-
 @media(max-width:850px){
-
-    .participants{
-        grid-template-columns:1fr;
-    }
-
-    .bottom-grid{
-        grid-template-columns:1fr;
-    }
-
-    .audit-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .audio-grid{
-        grid-template-columns:1fr;
-    }
+    .participants{grid-template-columns:1fr;}
+    .bottom-grid{grid-template-columns:1fr;}
+    .audit-grid{grid-template-columns:1fr 1fr;}
+    .audio-grid{grid-template-columns:1fr;}
 }
-
 @media(max-width:600px){
-
-    .app{
-        padding:7px;
-    }
-
-    .top{
-        border-radius:18px;
-        padding:13px;
-    }
-
-    .top-inner{
-        align-items:flex-start;
-    }
-
-    .brand{
-        gap:8px;
-    }
-
-    .brand h1{
-        font-size:22px;
-        letter-spacing:3px;
-    }
-
-    .brand p{
-        font-size:10px;
-    }
-
-    .infinity{
-        transform:scale(.78);
-        transform-origin:left center;
-        width:58px;
-        margin-right:-8px;
-    }
-
-    .connection{
-        font-size:10px;
-        padding:7px;
-    }
-
-    .autonomous-status-inner{
-        align-items:flex-start;
-    }
-
-    .autonomous-badge{
-        font-size:9px;
-    }
-
-    .topic-grid{
-        grid-template-columns:1fr;
-    }
-
-    .audit-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .chat-form{
-        flex-direction:column;
-    }
-
-    .send{
-        width:100%;
-        min-height:48px;
-    }
-
-    .person{
-        min-height:200px;
-    }
-
-    .message{
-        max-width:94%;
-    }
-
+    .app{padding:7px;}
+    .top{border-radius:18px;padding:13px;}
+    .top-inner{align-items:flex-start;}
+    .brand{gap:8px;}
+    .brand h1{font-size:22px;letter-spacing:3px;}
+    .brand p{font-size:10px;}
+    .infinity{transform:scale(.78);transform-origin:left center;width:58px;margin-right:-8px;}
+    .connection{font-size:10px;padding:7px;}
+    .autonomous-status-inner{align-items:flex-start;}
+    .autonomous-badge{font-size:9px;}
+    .topic-grid{grid-template-columns:1fr;}
+    .audit-grid{grid-template-columns:1fr 1fr;}
+    .chat-form{flex-direction:column;}
+    .send{width:100%;min-height:48px;}
+    .person{min-height:200px;}
+    .message{max-width:94%;}
 }
-
 </style>
-
 </head>
-
 <body>
-
 <div class="app">
-
 <header class="top">
-
 <div class="top-inner">
-
 <div class="brand">
-
-<div
-    class="infinity"
-    aria-label="Emblema Infinito"
->
-
+<div class="infinity" aria-label="Emblema Infinito">
 <span class="infinity-blue"></span>
-
 <span class="infinity-core"></span>
-
 <span class="infinity-r">R</span>
-
 <span class="infinity-pink"></span>
-
 </div>
-
 <div>
-
 <h1>INFINITO</h1>
-
-<p>
-Laboratorio de diálogo · aprendizaje · investigación · evolución
-</p>
-
+<p>Laboratorio de diálogo · aprendizaje · investigación · evolución</p>
 </div>
-
 </div>
-
 <div class="connection">
-
-<span
-    id="connectionDot"
-    class="connection-dot warning"
-></span>
-
-<span id="connectionText">
-Comprobando Workers IA...
-</span>
-
+<span id="connectionDot" class="connection-dot warning"></span>
+<span id="connectionText">Comprobando Workers IA...</span>
 </div>
-
 </div>
-
 </header>
-
 <nav class="nav">
-
-<a href="index.html">
-← PORTADA
-</a>
-
-<button
-    type="button"
-    id="stopBtn"
->
-⏹ DETENER
-</button>
-
+<a href="index.html">← PORTADA</a>
+<button type="button" id="stopBtn">⏹ DETENER</button>
 </nav>
-
 <section class="autonomous-status">
-
 <div class="autonomous-status-inner">
-
 <div>
-
-<div class="autonomous-title">
-🧠 INFINITO · DIÁLOGO AUTÓNOMO
+<div class="autonomous-title">🧠 INFINITO · DIÁLOGO AUTÓNOMO</div>
+<div class="autonomous-text">Cuando GePeTo y Lía estén conectados, INFINITO inicia automáticamente una investigación. Ellos desarrollan el tema y alternan sus intervenciones. Rafa puede intervenir en cualquier momento.</div>
 </div>
-
-<div class="autonomous-text">
-Cuando GePeTo y Lía estén conectados, INFINITO inicia
-automáticamente una investigación. Ellos desarrollan el
-tema y alternan sus intervenciones. Rafa puede intervenir
-en cualquier momento.
+<div id="autonomousBadge" class="autonomous-badge">ESPERANDO WORKERS</div>
 </div>
-
-</div>
-
-<div
-    id="autonomousBadge"
-    class="autonomous-badge"
->
-ESPERANDO WORKERS
-</div>
-
-</div>
-
 </section>
-
 <section class="participants">
-
 <article class="person gepeto">
-
 <div class="person-head">
-
-<img
-    src="GePeTo.png"
-    class="person-photo"
-    alt="GePeTo"
-    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
->
-
-<div
-    style="
-        display:none;
-        width:76px;
-        height:76px;
-        border-radius:50%;
-        align-items:center;
-        justify-content:center;
-        color:#19aaff;
-        font-size:25px;
-        font-weight:bold;
-        border:2px solid #19aaff;
-    "
->
-GP
-</div>
-
+<img src="GePeTo.png" class="person-photo" alt="GePeTo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+<div style="display:none;width:76px;height:76px;border-radius:50%;align-items:center;justify-content:center;color:#19aaff;font-size:25px;font-weight:bold;border:2px solid #19aaff;">GP</div>
 <div>
-
-<div class="person-name">
-GePeTo
+<div class="person-name">GePeTo</div>
+<div class="person-role">🔵 Azul fosforito · investigador</div>
 </div>
-
-<div class="person-role">
-🔵 Azul fosforito · investigador
 </div>
-
-</div>
-
-</div>
-
-<div
-    id="gepetoState"
-    class="person-state"
->
-Esperando conexión con Worker.
-</div>
-
+<div id="gepetoState" class="person-state">Esperando conexión con Worker.</div>
 </article>
-
 <article class="person lia">
-
 <div class="person-head">
-
-<img
-    id="liaPhoto"
-    src="LiA .png"
-    class="person-photo"
-    alt="Lía"
->
-
+<img id="liaPhoto" src="LiA .png" class="person-photo" alt="Lía">
 <div>
-
-<div class="person-name">
-Lía
+<div class="person-name">Lía</div>
+<div class="person-role">🩷 Rosa fosforito · investigadora</div>
 </div>
-
-<div class="person-role">
-🩷 Rosa fosforito · investigadora
 </div>
-
-</div>
-
-</div>
-
-<div
-    id="liaState"
-    class="person-state"
->
-Esperando conexión con Worker.
-</div>
-
+<div id="liaState" class="person-state">Esperando conexión con Worker.</div>
 </article>
-
 <article class="person rafa">
-
 <div class="person-head">
-
-<div class="rafa-photo">
-R
-</div>
-
+<div class="rafa-photo">R</div>
 <div>
-
-<div class="person-name">
-Rafa
+<div class="person-name">Rafa</div>
+<div class="person-role">🟢 Verde fosforito · creador</div>
 </div>
-
-<div class="person-role">
-🟢 Verde fosforito · creador
 </div>
-
-</div>
-
-</div>
-
-<div class="person-state">
-Puedes entrar en cualquier momento y hablar
-directamente con GePeTo y Lía.
-</div>
-
+<div class="person-state">Puedes entrar en cualquier momento y hablar directamente con GePeTo y Lía.</div>
 </article>
-
 </section>
-
 <section class="audio-panel">
-
 <div class="section-title">
-
-<h2>
-🔊 AUDIO · VOZ DE INFINITO
-</h2>
-
-<span id="voiceStatus">
-Voz preparada
-</span>
-
+<h2>🔊 AUDIO · VOZ DE INFINITO</h2>
+<span id="voiceStatus">Voz preparada</span>
 </div>
-
 <div class="audio-grid">
-
 <div class="audio-box">
-
-<div class="audio-title">
-🗣️ VOZ DE GEPETO Y LÍA
-</div>
-
+<div class="audio-title">🗣️ VOZ DE GEPETO Y LÍA</div>
 <div class="audio-controls">
-
-<button
-    type="button"
-    id="voiceToggle"
-    class="active"
->
-🔊 VOZ ACTIVADA
-</button>
-
-<button
-    type="button"
-    id="voiceStop"
->
-⏹ PARAR VOZ
-</button>
-
+<button type="button" id="voiceToggle" class="active">🔊 VOZ ACTIVADA</button>
+<button type="button" id="voiceStop">⏹ PARAR VOZ</button>
 </div>
-
-<select
-    id="voiceSelect"
-    class="audio-select"
-    style="margin-top:9px;"
->
-<option value="">
-Voz automática en español
-</option>
+<select id="voiceSelect" class="audio-select" style="margin-top:9px;">
+<option value="">Voz automática en español</option>
 </select>
-
-<input
-    id="voiceVolume"
-    class="audio-range"
-    type="range"
-    min="0"
-    max="1"
-    step=".05"
-    value="1"
->
-
-<div class="audio-now">
-Las respuestas de GePeTo y Lía se leerán en voz alta.
+<input id="voiceVolume" class="audio-range" type="range" min="0" max="1" step=".05" value="1">
+<div class="audio-now">Las respuestas de GePeTo y Lía se leerán en voz alta.</div>
 </div>
-
-</div>
-
 <div class="audio-box">
-
-<div class="audio-title">
-🎵 REPRODUCTOR MP3 DE INFINITO
+<div class="audio-title">🎵 REPRODUCTOR MP3 DE INFINITO</div>
+<select id="mp3Select" class="audio-select"></select>
+<audio id="mp3Player" preload="metadata" controls style="width:100%;">
+<div class="audio-controls" style="margin-top:9px;">
+<button type="button" id="mp3Play">▶ REPRODUCIR</button>
+<button type="button" id="mp3Pause">⏸ PAUSAR</button>
+<button type="button" id="mp3Stop">⏹ PARAR</button>
+<button type="button" id="mp3Prev">⏮ ANTERIOR</button>
+<button type="button" id="mp3Next">⏭ SIGUIENTE</button>
 </div>
-
-<select
-    id="mp3Select"
-    class="audio-select"
->
-</select>
-
-<audio
-    id="mp3Player"
-    preload="metadata"
-    controls
-    style="width:100%;"
->
-
-
-<div
-    class="audio-controls"
-    style="margin-top:9px;"
->
-
-<button type="button" id="mp3Play">
-▶ REPRODUCIR
-</button>
-
-<button type="button" id="mp3Pause">
-⏸ PAUSAR
-</button>
-
-<button type="button" id="mp3Stop">
-⏹ PARAR
-</button>
-
-<button type="button" id="mp3Prev">
-⏮ ANTERIOR
-</button>
-
-<button type="button" id="mp3Next">
-⏭ SIGUIENTE
-</button>
-
+<div class="audio-controls" style="margin-top:9px;">
+<label class="file-label">📁 SUBIR MP3<input id="mp3Upload" type="file" accept="audio/mpeg,audio/mp3,audio/*"></label>
 </div>
-
-<div
-    class="audio-controls"
-    style="margin-top:9px;"
->
-
-<label class="file-label">
-
-📁 SUBIR MP3
-
-<input
-    id="mp3Upload"
-    type="file"
-    accept="audio/mpeg,audio/mp3,audio/*"
->
-
-</label>
-
+<input id="mp3Volume" class="audio-range" type="range" min="0" max="1" step=".05" value=".8" style="margin-top:9px;">
+<div id="mp3Now" class="audio-now">Preparado para reproducir música.</div>
 </div>
-
-<input
-    id="mp3Volume"
-    class="audio-range"
-    type="range"
-    min="0"
-    max="1"
-    step=".05"
-    value=".8"
-    style="margin-top:9px;"
->
-
-<div id="mp3Now" class="audio-now">
-Preparado para reproducir música.
 </div>
-
-</div>
-
-</div>
-
 </section>
-
 <section class="topic">
-
 <div class="section-title">
-
-<h2>
-🧠 TEMA DE INVESTIGACIÓN / DILEMA
-</h2>
-
-<span id="topicSource">
-Tema autónomo
-</span>
-
+<h2>🧠 TEMA DE INVESTIGACIÓN / DILEMA</h2>
+<span id="topicSource">Tema autónomo</span>
 </div>
-
 <div class="topic-grid">
-
-<input
-    id="topicInput"
-    type="text"
-    maxlength="500"
-    placeholder="Puedes escribir un tema para que GePeTo y Lía lo investiguen..."
->
-
-<button
-    id="startTopicBtn"
-    class="primary"
-    type="button"
->
-INICIAR TEMA
-</button>
-
+<input id="topicInput" type="text" maxlength="500" placeholder="Puedes escribir un tema para que GePeTo y Lía lo investiguen...">
+<button id="startTopicBtn" class="primary" type="button">INICIAR TEMA</button>
 </div>
-
 <div class="topic-options">
-
-<button
-    type="button"
-    class="small-btn"
-    data-topic="Buscar una mejora importante para Proyecto Rafa"
->
-Mejorar Proyecto Rafa
-</button>
-
-<button
-    type="button"
-    class="small-btn"
-    data-topic="Revisar y mejorar la memoria de GePeTo y Lía"
->
-Mejorar memoria
-</button>
-
-<button
-    type="button"
-    class="small-btn"
-    data-topic="Buscar mejoras para la conversación entre GePeTo y Lía"
->
-Mejorar conversación
-</button>
-
-<button
-    type="button"
-    class="small-btn"
-    data-topic="Buscar errores y mejoras en la programación de Proyecto Rafa"
->
-Revisar programación
-</button>
-
+<button type="button" class="small-btn" data-topic="Buscar una mejora importante para Proyecto Rafa">Mejorar Proyecto Rafa</button>
+<button type="button" class="small-btn" data-topic="Revisar y mejorar la memoria de GePeTo y Lía">Mejorar memoria</button>
+<button type="button" class="small-btn" data-topic="Buscar mejoras para la conversación entre GePeTo y Lía">Mejorar conversación</button>
+<button type="button" class="small-btn" data-topic="Buscar errores y mejoras en la programación de Proyecto Rafa">Revisar programación</button>
 </div>
-
 </section>
-
 <section class="conversation">
-
 <div class="conversation-head">
-
-<strong>
-💬 CONVERSACIÓN INFINITA
-</strong>
-
+<strong>💬 CONVERSACIÓN INFINITA</strong>
 <div class="live">
-
-<span
-    id="liveDot"
-    class="live-dot"
-></span>
-
-<span id="liveText">
-Esperando Workers
-</span>
-
+<span id="liveDot" class="live-dot"></span>
+<span id="liveText">Esperando Workers</span>
 </div>
-
 </div>
-
-<div
-    id="messages"
-    class="messages"
->
-
-<div class="message system">
-INFINITO está comprobando la conexión con GePeTo y Lía.
-Cuando ambos Workers respondan, la conversación comenzará automáticamente.
+<div id="messages" class="messages">
+<div class="message system">INFINITO está comprobando la conexión con GePeTo y Lía. Cuando ambos Workers respondan, la conversación comenzará automáticamente.</div>
 </div>
-
-</div>
-
-<form
-    id="chatForm"
-    class="chat-form"
->
-
-<textarea
-    id="rafaInput"
-    placeholder="Rafa, escribe aquí para hablar con GePeTo y Lía..."
-    maxlength="4000"
-></textarea>
-
-<button
-    class="send"
-    type="submit"
->
-ENVIAR
-</button>
-
+<form id="chatForm" class="chat-form">
+<textarea id="rafaInput" placeholder="Rafa, escribe aquí para hablar con GePeTo y Lía..." maxlength="4000"></textarea>
+<button class="send" type="submit">ENVIAR</button>
 </form>
-
 </section>
-
 <section class="bottom-grid">
-
 <div class="panel dilemma">
-
 <div class="section-title">
-
-<h2>
-⚖️ DILEMA EN CURSO
-</h2>
-
-<span id="dilemmaState">
-Sin dilema
-</span>
-
+<h2>⚖️ DILEMA EN CURSO</h2>
+<span id="dilemmaState">Sin dilema</span>
 </div>
-
-<div
-    id="dilemmaBox"
-    class="dilemma-box"
->
-Cuando GePeTo y Lía encuentren un punto
-que requiera discusión, aparecerá aquí.
+<div id="dilemmaBox" class="dilemma-box">Cuando GePeTo y Lía encuentren un punto que requiera discusión, aparecerá aquí.</div>
 </div>
-
-</div>
-
 <div class="panel">
-
 <div class="section-title">
-
-<h2>
-🤝 ACUERDOS ALCANZADOS
-</h2>
-
-<span id="agreementCount">
-0 acuerdos
-</span>
-
+<h2>🤝 ACUERDOS ALCANZADOS</h2>
+<span id="agreementCount">0 acuerdos</span>
 </div>
-
-<div
-    id="agreements"
-    class="agreements"
->
-
+<div id="agreements" class="agreements">
 <div class="agreement">
-
-<div class="agreement-title">
-Todavía no hay acuerdos.
+<div class="agreement-title">Todavía no hay acuerdos.</div>
+<p>Los acuerdos aparecerán cuando GePeTo y Lía alcancen conclusiones durante la investigación.</p>
 </div>
-
-<p>
-Los acuerdos aparecerán cuando GePeTo y Lía
-alcancen conclusiones durante la investigación.
-</p>
-
 </div>
-
 </div>
-
-</div>
-
 </section>
-
 <section class="audit">
-
 <div class="section-title">
-
-<h2>
-🛠️ LABORATORIO · CONTROL DE WORKERS
-</h2>
-
-<span>
-Diagnóstico real
-</span>
-
+<h2>🛠️ LABORATORIO · CONTROL DE WORKERS</h2>
+<span>Diagnóstico real</span>
 </div>
-
 <div class="audit-grid">
-
-<button
-    type="button"
-    class="audit-btn"
-    data-audit="gepeto"
->
-<strong>🔵 GEPETO</strong>
-<small>
-Comprobar /preguntar
-</small>
-</button>
-
-<button
-    type="button"
-    class="audit-btn"
-    data-audit="lia"
->
-<strong>🩷 LÍA</strong>
-<small>
-Comprobar /preguntar
-</small>
-</button>
-
-<button
-    type="button"
-    class="audit-btn"
-    data-audit="both"
->
-<strong>⚡ AMBOS</strong>
-<small>
-Prueba completa
-</small>
-</button>
-
-<button
-    type="button"
-    class="audit-btn"
-    data-audit="estado"
->
-<strong>☁️ ESTADO</strong>
-<small>
-Comprobar Workers
-</small>
-</button>
-
+<button type="button" class="audit-btn" data-audit="gepeto"><strong>🔵 GEPETO</strong><small>Comprobar /preguntar</small></button>
+<button type="button" class="audit-btn" data-audit="lia"><strong>🩷 LÍA</strong><small>Comprobar /preguntar</small></button>
+<button type="button" class="audit-btn" data-audit="both"><strong>⚡ AMBOS</strong><small>Prueba completa</small></button>
+<button type="button" class="audit-btn" data-audit="estado"><strong>☁️ ESTADO</strong><small>Comprobar Workers</small></button>
 </div>
-
-<div
-    id="auditResult"
-    class="audit-result"
->
-Pulsa una prueba para comprobar exactamente
-qué está devolviendo cada Worker.
-</div>
-
+<div id="auditResult" class="audit-result">Pulsa una prueba para comprobar exactamente qué está devolviendo cada Worker.</div>
 </section>
-
 <section class="tasks">
-
 <div class="section-title">
-
-<h2>
-📋 TRABAJO AUTÓNOMO
-</h2>
-
-<span id="taskStatus">
-Esperando conexión
-</span>
-
+<h2>📋 TRABAJO AUTÓNOMO</h2>
+<span id="taskStatus">Esperando conexión</span>
 </div>
-
 <div id="tasksList">
-
 <div class="task">
-
-<div class="task-icon">
-🧠
-</div>
-
+<div class="task-icon">🧠</div>
 <div class="task-text">
-
-<strong>
-Aprender y mejorar Proyecto Rafa
-</strong>
-
-<div class="task-status">
-Preparado para iniciar automáticamente
+<strong>Aprender y mejorar Proyecto Rafa</strong>
+<div class="task-status">Preparado para iniciar automáticamente</div>
 </div>
-
 </div>
-
-</div>
-
 <div class="task">
-
-<div class="task-icon">
-🔍
-</div>
-
+<div class="task-icon">🔍</div>
 <div class="task-text">
-
-<strong>
-Comprobar código antes de proponer cambios
-</strong>
-
-<div class="task-status">
-Regla de Infinito
+<strong>Comprobar código antes de proponer cambios</strong>
+<div class="task-status">Regla de Infinito</div>
 </div>
-
 </div>
-
-</div>
-
 <div class="task">
-
-<div class="task-icon">
-🤝
-</div>
-
+<div class="task-icon">🤝</div>
 <div class="task-text">
-
-<strong>
-Guardar acuerdos y conocimiento
-</strong>
-
-<div class="task-status">
-Preparado
+<strong>Guardar acuerdos y conocimiento</strong>
+<div class="task-status">Preparado</div>
 </div>
-
 </div>
-
 </div>
-
-</div>
-
 </section>
-
 </div>
-
 <script>
-
-/* =========================================================
-   INFINITO · CONFIGURACIÓN (CORREGIDA)
-========================================================= */
-
-const GEPETO_WORKER_URL =
-    "https://gepetto-rafa.rafadun18.workers.dev";
-
-const LIA_WORKER_URL =
-    "https://lia-rafa.rafadun18.workers.dev";
-
-/* =========================================================
-   ESTADO
-========================================================= */
+const GEPETO_WORKER_URL = "https://gepetto-rafa.rafadun18.workers.dev";
+const LIA_WORKER_URL = "https://lia-rafa.rafadun18.workers.dev";
 
 const state = {
-
-    conectado:false,
-
-    gepetoOnline:false,
-
-    liaOnline:false,
-
-    conversacionActiva:false,
-
-    tema:"",
-
-    mensajes:[],
-
-    acuerdos:[],
-
-    turno:"gepeto",
-
-    detenido:false,
-
-    trabajando:false,
-
-    historial:[],
-
-    ultimoMensaje:"",
-
-    vozActivada:true,
-
-    vozVolumen:1,
-
-    vozSeleccionada:"",
-
-    voces:[],
-
-    mp3Tracks:[],
-
-    mp3Index:0,
-
-    mp3ObjectUrls:[],
-
-    ciclo:0,
-
-    esperandoRespuesta:false,
-
-    inicioAutomatico:false
+  conectado: false,
+  gepetoOnline: false,
+  liaOnline: false,
+  conversacionActiva: false,
+  tema: "",
+  mensajes: [],
+  acuerdos: [],
+  turno: "gepeto",
+  detenido: false,
+  trabajando: false,
+  historial: [],
+  ultimoMensaje: "",
+  vozActivada: true,
+  vozVolumen: 1,
+  vozSeleccionada: "",
+  voces: [],
+  mp3Tracks: [],
+  mp3Index: 0,
+  mp3ObjectUrls: [],
+  ciclo: 0,
+  esperandoRespuesta: false,
+  inicioAutomatico: false,
+  maxMensajesPorCiclo: 12,
+  reintentosMax: 2
 };
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+const $ = id => document.getElementById(id);
+const messages = $("messages");
+const topicInput = $("topicInput");
+const gepetoState = $("gepetoState");
+const liaState = $("liaState");
+const liveDot = $("liveDot");
+const liveText = $("liveText");
+const dilemmaBox = $("dilemmaBox");
+const agreementsBox = $("agreements");
+const auditResult = $("auditResult");
+const taskStatus = $("taskStatus");
+const connectionDot = $("connectionDot");
+const connectionText = $("connectionText");
+const autonomousBadge = $("autonomousBadge");
+const stopBtn = $("stopBtn");
+const chatForm = $("chatForm");
+const rafaInput = $("rafaInput");
+const voiceToggle = $("voiceToggle");
+const voiceStop = $("voiceStop");
 
-const $ =
-    id =>
-        document.getElementById(id);
-
-const messages =
-    $("messages");
-
-const topicInput =
-    $("topicInput");
-
-const topicSource =
-    $("topicSource");
-
-const gepetoState =
-    $("gepetoState");
-
-const liaState =
-    $("liaState");
-
-const liveDot =
-    $("liveDot");
-
-const liveText =
-    $("liveText");
-
-const dilemmaBox =
-    $("dilemmaBox");
-
-const dilemmaState =
-    $("dilemmaState");
-
-const agreementsBox =
-    $("agreements");
-
-const agreementCount =
-    $("agreementCount");
-
-const auditResult =
-    $("auditResult");
-
-const taskStatus =
-    $("taskStatus");
-
-const connectionDot =
-    $("connectionDot");
-
-const connectionText =
-    $("connectionText");
-
-const autonomousBadge =
-    $("autonomousBadge");
-
-const mp3Player =
-    $("mp3Player");
-
-const mp3Select =
-    $("mp3Select");
-
-const mp3Now =
-    $("mp3Now");
-
-const mp3Volume =
-    $("mp3Volume");
-
-const voiceToggle =
-    $("voiceToggle");
-
-const voiceStop =
-    $("voiceStop");
-
-const voiceSelect =
-    $("voiceSelect");
-
-const voiceVolume =
-    $("voiceVolume");
-
-const voiceStatus =
-    $("voiceStatus");
-
-/* =========================================================
-   UTILIDADES
-========================================================= */
-
-function escapeHtml(text){
-
-    return String(text ?? "")
-
-        .replace(/&/g,"&amp;")
-
-        .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
-
+function escapeHtml(text) {
+  return String(text ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-function sleep(ms){
-
-    return new Promise(
-        resolve =>
-            setTimeout(resolve,ms)
-    );
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function setConnection(
-    online,
-    text,
-    warning=false
-){
-
-    state.conectado =
-        online;
-
-    connectionDot.classList.remove(
-        "online",
-        "warning",
-        "error"
-    );
-
-    if(online){
-
-        connectionDot.classList.add(
-            "online"
-        );
-
-    }else if(warning){
-
-        connectionDot.classList.add(
-            "warning"
-        );
-
-    }else{
-
-        connectionDot.classList.add(
-            "error"
-        );
-
-    }
-
-    connectionText.textContent =
-        text ||
-        (
-            online
-            ? "Conectado"
-            : "Sin conexión"
-        );
-
+function setConnection(online, text, warning = false) {
+  state.conectado = online;
+  connectionDot.classList.remove("online", "warning", "error");
+  if (online) connectionDot.classList.add("online");
+  else if (warning) connectionDot.classList.add("warning");
+  else connectionDot.classList.add("error");
+  connectionText.textContent = text || (online ? "Conectado" : "Sin conexión");
 }
 
-function setLive(
-    active,
-    text
-){
-
-    liveDot.classList.toggle(
-        "active",
-        active
-    );
-
-    liveText.textContent =
-        text ||
-        (
-            active
-            ? "Activo"
-            : "Esperando"
-        );
-
+function setLive(active, text) {
+  liveDot.classList.toggle("active", active);
+  liveText.textContent = text || (active ? "Activo" : "Esperando");
 }
 
-function setStates(
-    g,
-    l
-){
-
-    if(g){
-        gepetoState.textContent =
-            g;
-    }
-
-    if(l){
-        liaState.textContent =
-            l;
-    }
-
+function setStates(g, l) {
+  if (g) gepetoState.textContent = g;
+  if (l) liaState.textContent = l;
 }
 
-function setAutonomousBadge(
-    texto,
-    activo=false
-){
-
-    autonomousBadge.textContent =
-        texto;
-
-    autonomousBadge.style.borderColor =
-        activo
-        ? "rgba(57,255,20,.7)"
-        : "rgba(255,255,255,.2)";
-
-    autonomousBadge.style.color =
-        activo
-        ? "var(--verde)"
-        : "#94a3b8";
-
+function setAutonomousBadge(texto, activo = false) {
+  autonomousBadge.textContent = texto;
+  autonomousBadge.style.borderColor = activo ? "rgba(57,255,20,.7)" : "rgba(255,255,255,.2)";
+  autonomousBadge.style.color = activo ? "var(--verde)" : "#94a3b8";
 }
 
-/* =========================================================
-   MENSAJES
-========================================================= */
+function addMessage(who, text) {
+  if (!text || state.detenido) return;
+  const limpio = String(text).trim();
+  if (!limpio) return;
 
-function addMessage(
-    who,
-    text
-){
+  state.mensajes.push({ who, text: limpio, fecha: new Date().toISOString() });
+  state.historial.push({ role: who, content: limpio });
+  state.ultimoMensaje = limpio;
 
-    if(!text){
-        return;
-    }
+  const div = document.createElement("div");
+  div.className = "message " + who;
+  let nombre = "SISTEMA";
+  if (who === "gepeto") nombre = "🔵 GePeTo";
+  if (who === "lia") nombre = "🩷 Lía";
+  if (who === "rafa") nombre = "🟢 Rafa";
 
-    const limpio =
-        String(text).trim();
-
-    if(!limpio){
-        return;
-    }
-
-    state.mensajes.push({
-
-        who:who,
-
-        text:limpio,
-
-        fecha:new Date().toISOString()
-
-    });
-
-    state.historial.push({
-
-        role:who,
-
-        content:limpio
-
-    });
-
-    state.ultimoMensaje =
-        limpio;
-
-    const div =
-        document.createElement("div");
-
-    div.className =
-        "message " + who;
-
-    let nombre =
-        "SISTEMA";
-
-    if(who === "gepeto"){
-        nombre =
-            "🔵 GePeTo";
-    }
-
-    if(who === "lia"){
-        nombre =
-            "🩷 Lía";
-    }
-
-    if(who === "rafa"){
-        nombre =
-            "🟢 Rafa";
-    }
-
-    const whoSpan =
-        document.createElement("span");
-
-    whoSpan.className =
-        "who";
-
-    whoSpan.textContent =
-        nombre;
-
-    const textNode =
-        document.createTextNode(
-            limpio
-        );
-
-    div.appendChild(
-        whoSpan
-    );
-
-    div.appendChild(
-        textNode
-    );
-
-    messages.appendChild(
-        div
-    );
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-    if(
-        who === "gepeto" ||
-        who === "lia"
-    ){
-
-        hablar(
-            limpio,
-            who
-        );
-
-    }
-
-    analizarIntervencion(
-        limpio,
-        who
-    );
-
+  const whoSpan = document.createElement("span");
+  whoSpan.className = "who";
+  whoSpan.textContent = nombre;
+  div.appendChild(whoSpan);
+  div.appendChild(document.createTextNode(limpio));
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-function systemMessage(
-    text
-){
-
-    const div =
-        document.createElement("div");
-
-    div.className =
-        "message system";
-
-    div.textContent =
-        text;
-
-    messages.appendChild(
-        div
-    );
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
+function systemMessage(text) {
+  if (state.detenido) return;
+  const div = document.createElement("div");
+  div.className = "message system";
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-function limpiarConversacion(){
-
-    messages.innerHTML =
-        "";
-
-    state.mensajes =
-        [];
-
-    state.historial =
-        [];
-
-    state.ultimoMensaje =
-        "";
-
+function limpiarConversacion() {
+  messages.innerHTML = "";
+  state.mensajes = [];
+  state.historial = [];
+  state.ultimoMensaje = "";
 }
 
-/* =========================================================
-   PETICIÓN AL WORKER (CORREGIDA: TIMEOUT + REINTENTOS)
-========================================================= */
+async function fetchWorker(url, textoEnviar) {
+  let intento = 0;
+  const tiempoLimite = 6000;
 
-async function fetchWorker(url, options={}){
-  const MAX_RETRY = 2;
-  const TIMEOUT_MS = 7000;
-  let intentos = 0;
-
-  while(intentos <= MAX_RETRY) {
-    const controlTiempo = new Promise((_, fallar) =>
-      setTimeout(() => fallar(new Error("Tiempo de espera agotado (timeout)")), TIMEOUT_MS)
-    );
-
+  while (intento <= state.reintentosMax) {
     try {
-      const finalOptions = {
-        method: options.method || "GET",
-        cache:"no-store",
-        mode:"cors",
-        ...options
-      };
-      if(finalOptions.method === "POST" && finalOptions.body) {
-        finalOptions.headers = {
-          ...(finalOptions.headers || {}),
-          "Accept":"application/json,text/plain,*/*",
-          "Content‑Type":"text/plain;charset=UTF‑8"
-        };
+      const controlTiempo = new Promise((_, fallar) =>
+        setTimeout(() => fallar(new Error("timeout")), tiempoLimite)
+      );
+      const peticion = fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-store",
+        body: JSON.stringify({ mensaje: textoEnviar, historial: state.historial.slice(-6) })
+      });
+      const res = await Promise.race([peticion, controlTiempo]);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const datos = await res.json();
+      return { ok: true, respuesta: datos.respuesta || datos.texto };
+    } catch (err) {
+      intento++;
+      if (intento > state.reintentosMax) {
+        return { ok: false, error: err.message };
       }
-      const respuesta = await Promise.race([fetch(url, finalOptions), controlTiempo]);
-      const res = await respuesta;
-      const raw =
+      await sleep(1200);
+    }
+  }
+  return { ok: false, error: "Sin respuesta tras reintentos" };
+}
+
+async function llamarGePeTo(mensaje) {
+  setStates("Consultando a GePeTo…", null);
+  const res = await fetchWorker(GEPETO_WORKER_URL, mensaje);
+  if (res.ok) {
+    setStates("GePeTo respondió", null);
+    return res.respuesta;
+  } else {
+    setStates("⚠️ Error: " + res.error, null);
+    systemMessage("⚠️ No se ha podido obtener respuesta de GePeTo: " + res.error);
+    return null;
+  }
+}
+
+async function llamarLia(mensaje) {
+  setStates(null, "Consultando a Lía…");
+  const res = await fetchWorker(LIA_WORKER_URL, mensaje);
+  if (res.ok) {
+    setStates(null, "Lía respondió");
+    return res.respuesta;
+  } else {
+    setStates(null, "⚠️ Error: " + res.error);
+    systemMessage("⚠️ No se ha podido obtener respuesta de Lía: " + res.error);
+    return null;
+  }
+}
+
+async function cicloDialogo() {
+  if (state.esperandoRespuesta || state.detenido || !state.conversacionActiva) return;
+  state.esperandoRespuesta = true;
+  setLive(true, "Diálogo en curso");
+
+  if (state.mensajes.length >= state.maxMensajesPorCiclo) {
+    systemMessage("⏸️ Se alcanzó el límite de intervenciones por ciclo, pausando automáticamente.");
+    state.conversacionActiva = false;
+    setLive(false, "Pausado");
+    state.esperandoRespuesta = false;
+    return;
+  }
+
+  let resultado = null;
+  if (state.turno === "gepeto") {
+    resultado = await llamarGePeTo(state.tema);
+    if (resultado) addMessage("gepeto", resultado);
+    state.turno = "lia";
+  } else {
+    resultado = await llamarLia(state.tema);
+    if (resultado) addMessage("lia", resultado);
+    state.turno = "gepeto";
+  }
+
+  await sleep(1400);
+  setLive(false, "Esperando siguiente turno");
+  state.esperandoRespuesta = false;
+  if (state.conversacionActiva && !state.detenido) cicloDialogo();
+}
+
+async function comprobarConexion() {
+  setConnection(false, "Comprobando Workers…", true);
+  const pruebaG = await fetchWorker(GEPETO_WORKER_URL, "prueba_conexion");
+  const pruebaL = await fetchWorker(LIA_WORKER_URL, "prueba_conexion");
+  state.gepetoOnline = pruebaG.ok;
+  state.liaOnline = pruebaL.ok;
+
+  if (state.gepetoOnline && state.liaOnline) {
+    setConnection(true, "Conectado a ambos");
+    setAutonomousBadge("Sistema listo", true);
+  } else {
+    setConnection(false, "Falta conexión con uno o dos Workers", true);
+    setAutonomousBadge("Error · revisar Worker", false);
+  }
+  setStates(state.gepetoOnline ? "GePeTo conectado" : "❌ Sin conexión",
+            state.liaOnline ? "Lía conectada" : "❌ Sin conexión");
+}
+
+$("startTopicBtn").addEventListener("click", async () => {
+  if (state.detenido) return;
+  const texto = topicInput.value.trim();
+  if (!texto) return;
+  state.tema = texto;
+  limpiarConversacion();
+  systemMessage("INFINITO ha iniciado el tema: " + state.tema);
+  state.conversacionActiva = true;
+  state.turno = "gepeto";
+  cicloDialogo();
+});
+
+stopBtn.addEventListener("click", () => {
+  state.detenido = true;
+  state.conversacionActiva = false;
+  setLive(false, "Detenido");
+  systemMessage("⏹ El diálogo se ha detenido por orden de Rafa");
+});
+
+chatForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const texto = rafaInput.value.trim();
+  if (!texto || state.esperandoRespuesta) return;
+  addMessage("rafa", texto);
+  rafaInput.value = "";
+});
+
+document.querySelectorAll(".small-btn[data-topic]").forEach(boton => {
+  boton.addEventListener("click", () => {
+    topicInput.value = boton.dataset.topic;
+  });
+});
+
+document.querySelectorAll(".audit-btn").forEach(boton => {
+  boton.addEventListener("click", async () => {
+    const tipo = boton.dataset.audit;
+    auditResult.textContent = "Comprobando…";
+    if (tipo === "estado") {
+      await comprobarConexion();
+      auditResult.textContent = "Revisión terminada";
+    } else if (tipo === "gepeto") {
+      const res = await fetchWorker(GEPETO_WORKER_URL, "prueba_diagnostico");
+      auditResult.textContent = res.ok ? "✅ GePeTo responde bien" : "❌ GePeTo falla: " + res.error;
+    } else if (tipo === "lia") {
+      const res = await fetchWorker(LIA_WORKER_URL, "prueba_diagnostico");
+      auditResult.textContent = res.ok ? "✅ Lía responde bien" : "❌ Lía falla: " + res.error;
+    } else if (tipo === "both") {
+      const g = await fetchWorker(GEPETO_WORKER_URL, "prueba_diagnostico");
+      const l = await fetchWorker(LIA_WORKER_URL, "prueba_diagnostico");
+      auditResult.textContent = "GePeTo: " + (g.ok ? "OK" : g.error) + " | Lía: " + (l.ok ? "OK" : l.error);
+    }
